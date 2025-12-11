@@ -28,6 +28,8 @@
   overflow-y: auto;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  background: white;
+  z-index: 100;
 }
 
 .dynasty-nav {
@@ -72,6 +74,7 @@
   position: relative;
   margin-bottom: 60px;
   padding-left: 120px;
+  min-height: 100px;
 }
 
 .timeline-year-section:last-child {
@@ -107,10 +110,27 @@
   transform: translateX(-50%);
   width: 2px;
   height: calc(100% + 60px);
-  background: linear-gradient(to bottom, #1890ff, transparent);
+  background: linear-gradient(to bottom, #1890ff 0%, rgba(24, 144, 255, 0.3) 50%, transparent 100%);
+  z-index: 1;
 }
 
 .timeline-year-section:last-child .year-marker::after {
+  display: none;
+}
+
+/* 时间轴连接线 */
+.timeline-year-section::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 16px;
+  bottom: -60px;
+  width: 2px;
+  background: linear-gradient(to bottom, #1890ff, rgba(24, 144, 255, 0.2));
+  z-index: 0;
+}
+
+.timeline-year-section:last-child::before {
   display: none;
 }
 
