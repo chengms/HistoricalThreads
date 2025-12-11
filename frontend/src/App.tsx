@@ -9,7 +9,7 @@ import HomePage from './pages/Home'
 
 function App() {
   // 在生产环境中使用 base path
-  const basename = import.meta.env.MODE === 'production' ? '/HistoricalThreads' : ''
+  const basename = import.meta.env.PROD ? '/HistoricalThreads' : ''
   
   return (
     <ErrorBoundary>
