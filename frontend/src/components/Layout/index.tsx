@@ -87,13 +87,13 @@ export default function Layout({ children }: LayoutProps) {
   const menuItems = [
     {
       key: '/',
-      icon: <HomeOutlined />,
-      label: '首页',
-    },
-    {
-      key: '/timeline',
       icon: <ClockCircleOutlined />,
       label: '时间线',
+    },
+    {
+      key: '/home',
+      icon: <HomeOutlined />,
+      label: '首页',
     },
     {
       key: '/network',

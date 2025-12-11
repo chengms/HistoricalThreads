@@ -1,27 +1,28 @@
 [
   {
     "id": 1,
-    "title": "《史记·秦始皇本纪》",
+    "title": "《史记》",
     "author": "司马迁",
     "sourceType": "official_history",
     "publisher": "中华书局",
+    "publishDate": "公元前91年",
     "credibilityLevel": 5,
     "verified": true,
     "url": "https://www.guoxue.com/shibu/shiji/"
   },
   {
     "id": 2,
-    "title": "《史记·汉武本纪》",
-    "author": "司马迁",
+    "title": "《左传》",
+    "author": "左丘明",
     "sourceType": "official_history",
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/shiji/"
+    "url": "https://www.guoxue.com/shibu/zuozhuan/"
   },
   {
     "id": 3,
-    "title": "《汉书·武帝纪》",
+    "title": "《汉书》",
     "author": "班固",
     "sourceType": "official_history",
     "publisher": "中华书局",
@@ -31,7 +32,27 @@
   },
   {
     "id": 4,
-    "title": "《旧唐书·太宗本纪》",
+    "title": "《三国志》",
+    "author": "陈寿",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/sanguozhi/"
+  },
+  {
+    "id": 5,
+    "title": "《隋书》",
+    "author": "魏徵",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/suishu/"
+  },
+  {
+    "id": 6,
+    "title": "《旧唐书》",
     "author": "刘昫",
     "sourceType": "official_history",
     "publisher": "中华书局",
@@ -40,14 +61,59 @@
     "url": "https://www.guoxue.com/shibu/jiutangshu/"
   },
   {
-    "id": 5,
-    "title": "《宋史·太祖本纪》",
+    "id": 7,
+    "title": "《宋史》",
     "author": "脱脱",
     "sourceType": "official_history",
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
     "url": "https://www.guoxue.com/shibu/songshi/"
+  },
+  {
+    "id": 8,
+    "title": "《元史》",
+    "author": "宋濂",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/yuanshi/"
+  },
+  {
+    "id": 9,
+    "title": "《明史》",
+    "author": "张廷玉",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/mingshi/"
+  },
+  {
+    "id": 10,
+    "title": "《清史稿》",
+    "author": "赵尔巽",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/qingshigao/"
+  },
+  {
+    "id": 11,
+    "title": "中国历史研究院",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.cahk.org.cn/"
+  },
+  {
+    "id": 12,
+    "title": "国家图书馆古籍资源",
+    "sourceType": "archive",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.nlc.cn/"
   }
 ]
-

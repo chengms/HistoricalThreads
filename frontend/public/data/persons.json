@@ -1,69 +1,318 @@
 [
   {
     "id": 1,
+    "name": "大禹",
+    "nameVariants": ["禹", "夏禹"],
+    "birthYear": -2123,
+    "deathYear": -2025,
+    "biography": "大禹，夏朝开国君主，以治水功绩著称，三过家门而不入，被后世尊为治水英雄。",
+    "personType": ["politician"],
+    "dynastyId": 1,
+    "birthplace": "有崇",
+    "sources": [1]
+  },
+  {
+    "id": 2,
+    "name": "商汤",
+    "nameVariants": ["汤", "成汤"],
+    "birthYear": -1670,
+    "deathYear": -1588,
+    "biography": "商汤，商朝开国君主，起兵推翻夏朝，建立商朝。",
+    "personType": ["politician", "military"],
+    "dynastyId": 2,
+    "sources": [1]
+  },
+  {
+    "id": 3,
+    "name": "周武王",
+    "nameVariants": ["姬发", "武王"],
+    "birthYear": -1087,
+    "deathYear": -1043,
+    "biography": "周武王，周朝开国君主，在牧野之战中击败商纣王，建立周朝。",
+    "personType": ["politician", "military"],
+    "dynastyId": 3,
+    "sources": [1]
+  },
+  {
+    "id": 4,
+    "name": "齐桓公",
+    "nameVariants": ["小白"],
+    "birthYear": -716,
+    "deathYear": -643,
+    "biography": "齐桓公，春秋五霸之首，任用管仲为相，成为春秋时期第一个霸主。",
+    "personType": ["politician"],
+    "dynastyId": 4,
+    "sources": [1, 2]
+  },
+  {
+    "id": 5,
+    "name": "晋文公",
+    "nameVariants": ["重耳"],
+    "birthYear": -697,
+    "deathYear": -628,
+    "biography": "晋文公，春秋五霸之一，流亡十九年后回国，使晋国成为霸主。",
+    "personType": ["politician"],
+    "dynastyId": 4,
+    "sources": [1, 2]
+  },
+  {
+    "id": 6,
+    "name": "楚庄王",
+    "nameVariants": ["熊旅"],
+    "birthYear": -591,
+    "deathYear": -591,
+    "biography": "楚庄王，春秋五霸之一，问鼎中原，使楚国成为南方霸主。",
+    "personType": ["politician", "military"],
+    "dynastyId": 4,
+    "sources": [1, 2]
+  },
+  {
+    "id": 7,
+    "name": "商鞅",
+    "nameVariants": ["卫鞅", "公孙鞅"],
+    "birthYear": -395,
+    "deathYear": -338,
+    "biography": "商鞅，战国时期法家代表人物，在秦国推行变法，使秦国迅速强大。",
+    "personType": ["politician", "philosopher"],
+    "dynastyId": 5,
+    "sources": [1, 2]
+  },
+  {
+    "id": 8,
     "name": "秦始皇",
     "nameVariants": ["嬴政", "赵政"],
     "birthYear": -259,
     "deathYear": -210,
     "biography": "秦始皇，中国历史上第一个皇帝，统一六国，建立了中央集权制度，统一文字、货币、度量衡，修筑万里长城。",
     "personType": ["politician", "military"],
-    "dynastyId": 1,
+    "dynastyId": 6,
     "birthplace": "邯郸",
     "sources": [1, 2]
   },
   {
-    "id": 2,
+    "id": 9,
+    "name": "陈胜",
+    "nameVariants": ["陈涉"],
+    "birthYear": -240,
+    "deathYear": -208,
+    "biography": "陈胜，秦末农民起义领袖，与吴广一起发动大泽乡起义，虽然失败，但动摇了秦朝统治。",
+    "personType": ["military"],
+    "dynastyId": 6,
+    "sources": [1]
+  },
+  {
+    "id": 10,
+    "name": "吴广",
+    "birthYear": -240,
+    "deathYear": -208,
+    "biography": "吴广，秦末农民起义领袖，与陈胜一起发动大泽乡起义。",
+    "personType": ["military"],
+    "dynastyId": 6,
+    "sources": [1]
+  },
+  {
+    "id": 11,
+    "name": "刘邦",
+    "nameVariants": ["汉高祖", "刘季"],
+    "birthYear": -256,
+    "deathYear": -195,
+    "biography": "刘邦，汉朝开国皇帝，在楚汉之争中击败项羽，建立汉朝。",
+    "personType": ["politician", "military"],
+    "dynastyId": 7,
+    "sources": [1, 2]
+  },
+  {
+    "id": 12,
+    "name": "项羽",
+    "nameVariants": ["西楚霸王"],
+    "birthYear": -232,
+    "deathYear": -202,
+    "biography": "项羽，西楚霸王，楚汉之争中与刘邦争夺天下，最终失败自刎于乌江。",
+    "personType": ["military"],
+    "dynastyId": 7,
+    "sources": [1, 2]
+  },
+  {
+    "id": 13,
     "name": "汉武帝",
     "nameVariants": ["刘彻"],
     "birthYear": -156,
     "deathYear": -87,
     "biography": "汉武帝刘彻，西汉第七位皇帝，在位期间开疆拓土，使汉朝达到极盛，同时独尊儒术，奠定了儒家思想在中国的主导地位。",
     "personType": ["politician", "military"],
-    "dynastyId": 2,
+    "dynastyId": 7,
     "birthplace": "长安",
-    "sources": [2, 3]
+    "sources": [1, 2, 3]
   },
   {
-    "id": 3,
+    "id": 14,
     "name": "卫青",
     "birthYear": -140,
     "deathYear": -106,
     "biography": "卫青，西汉名将，汉武帝时期的大将军，多次率军北击匈奴，为汉朝开疆拓土立下赫赫战功。",
     "personType": ["military"],
-    "dynastyId": 2,
-    "sources": [2]
+    "dynastyId": 7,
+    "sources": [1, 2]
   },
   {
-    "id": 4,
+    "id": 15,
     "name": "霍去病",
     "birthYear": -140,
     "deathYear": -117,
     "biography": "霍去病，西汉名将，卫青的外甥，以勇猛善战著称，曾率军深入漠北，大败匈奴，封狼居胥。",
     "personType": ["military"],
-    "dynastyId": 2,
-    "sources": [2]
+    "dynastyId": 7,
+    "sources": [1, 2]
   },
   {
-    "id": 5,
+    "id": 16,
+    "name": "张骞",
+    "birthYear": -164,
+    "deathYear": -114,
+    "biography": "张骞，西汉外交家、探险家，两次出使西域，开辟了丝绸之路，促进了东西方文化交流。",
+    "personType": ["politician"],
+    "dynastyId": 7,
+    "sources": [1, 2]
+  },
+  {
+    "id": 17,
+    "name": "曹操",
+    "nameVariants": ["魏武帝", "孟德"],
+    "birthYear": 155,
+    "deathYear": 220,
+    "biography": "曹操，三国时期魏国奠基者，政治家、军事家、文学家，统一北方，为曹魏的建立奠定了基础。",
+    "personType": ["politician", "military", "writer"],
+    "dynastyId": 8,
+    "sources": [1, 4]
+  },
+  {
+    "id": 18,
+    "name": "刘备",
+    "nameVariants": ["汉昭烈帝", "玄德"],
+    "birthYear": 161,
+    "deathYear": 223,
+    "biography": "刘备，三国时期蜀汉开国皇帝，以仁德著称，与关羽、张飞结为兄弟。",
+    "personType": ["politician", "military"],
+    "dynastyId": 8,
+    "sources": [1, 4]
+  },
+  {
+    "id": 19,
+    "name": "孙权",
+    "nameVariants": ["吴大帝", "仲谋"],
+    "birthYear": 182,
+    "deathYear": 252,
+    "biography": "孙权，三国时期吴国开国皇帝，在赤壁之战中与刘备联合击败曹操。",
+    "personType": ["politician", "military"],
+    "dynastyId": 8,
+    "sources": [1, 4]
+  },
+  {
+    "id": 20,
+    "name": "诸葛亮",
+    "nameVariants": ["孔明", "卧龙"],
+    "birthYear": 181,
+    "deathYear": 234,
+    "biography": "诸葛亮，三国时期蜀汉丞相，杰出的政治家、军事家、发明家，以智慧著称。",
+    "personType": ["politician", "military", "scientist"],
+    "dynastyId": 8,
+    "sources": [1, 4]
+  },
+  {
+    "id": 21,
+    "name": "隋炀帝",
+    "nameVariants": ["杨广"],
+    "birthYear": 569,
+    "deathYear": 618,
+    "biography": "隋炀帝杨广，隋朝第二位皇帝，开凿大运河，但统治残暴，导致隋朝灭亡。",
+    "personType": ["politician"],
+    "dynastyId": 11,
+    "sources": [1, 5]
+  },
+  {
+    "id": 22,
     "name": "唐太宗",
     "nameVariants": ["李世民"],
     "birthYear": 598,
     "deathYear": 649,
     "biography": "唐太宗李世民，唐朝第二位皇帝，开创了贞观之治，使唐朝成为当时世界上最强大的国家之一。",
     "personType": ["politician"],
-    "dynastyId": 3,
-    "sources": [3, 4]
+    "dynastyId": 12,
+    "sources": [1, 5, 6]
   },
   {
-    "id": 6,
+    "id": 23,
+    "name": "安禄山",
+    "birthYear": 703,
+    "deathYear": 757,
+    "biography": "安禄山，唐朝叛将，发动安史之乱，使唐朝由盛转衰。",
+    "personType": ["military"],
+    "dynastyId": 12,
+    "sources": [1, 5]
+  },
+  {
+    "id": 24,
+    "name": "史思明",
+    "birthYear": 703,
+    "deathYear": 761,
+    "biography": "史思明，唐朝叛将，安史之乱的主要参与者之一。",
+    "personType": ["military"],
+    "dynastyId": 12,
+    "sources": [1, 5]
+  },
+  {
+    "id": 25,
     "name": "宋太祖",
     "nameVariants": ["赵匡胤"],
     "birthYear": 927,
     "deathYear": 976,
     "biography": "宋太祖赵匡胤，宋朝开国皇帝，通过陈桥兵变建立宋朝，结束了五代十国的分裂局面。",
     "personType": ["politician", "military"],
-    "dynastyId": 4,
-    "sources": [4, 5]
+    "dynastyId": 13,
+    "sources": [1, 7]
+  },
+  {
+    "id": 26,
+    "name": "王安石",
+    "nameVariants": ["介甫", "半山"],
+    "birthYear": 1021,
+    "deathYear": 1086,
+    "biography": "王安石，北宋政治家、文学家，推行新法，试图富国强兵，但因保守派反对而失败。",
+    "personType": ["politician", "writer"],
+    "dynastyId": 13,
+    "sources": [1, 7]
+  },
+  {
+    "id": 27,
+    "name": "成吉思汗",
+    "nameVariants": ["铁木真"],
+    "birthYear": 1162,
+    "deathYear": 1227,
+    "biography": "成吉思汗，蒙古帝国建立者，统一蒙古各部，建立大蒙古国，为元朝的建立奠定了基础。",
+    "personType": ["military"],
+    "dynastyId": 14,
+    "sources": [1, 8]
+  },
+  {
+    "id": 28,
+    "name": "郑和",
+    "nameVariants": ["三宝太监"],
+    "birthYear": 1371,
+    "deathYear": 1433,
+    "biography": "郑和，明朝航海家、外交家，七次下西洋，最远到达非洲东海岸，促进了中外文化交流。",
+    "personType": ["politician"],
+    "dynastyId": 15,
+    "sources": [1, 9]
+  },
+  {
+    "id": 29,
+    "name": "林则徐",
+    "nameVariants": ["少穆"],
+    "birthYear": 1785,
+    "deathYear": 1850,
+    "biography": "林则徐，清朝政治家，在广东禁烟，是鸦片战争的重要人物。",
+    "personType": ["politician"],
+    "dynastyId": 16,
+    "sources": [1, 10]
   }
 ]
-

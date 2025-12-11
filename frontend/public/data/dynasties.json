@@ -1,31 +1,114 @@
 [
   {
     "id": 1,
+    "name": "夏朝",
+    "startYear": -2070,
+    "endYear": -1600,
+    "description": "中国历史上第一个有文字记载的王朝，标志着中国从原始社会进入奴隶社会"
+  },
+  {
+    "id": 2,
+    "name": "商朝",
+    "startYear": -1600,
+    "endYear": -1046,
+    "description": "中国历史上第二个王朝，以青铜器文明和甲骨文著称"
+  },
+  {
+    "id": 3,
+    "name": "周朝",
+    "startYear": -1046,
+    "endYear": -256,
+    "description": "中国历史上最长的王朝，分为西周和东周，东周又分为春秋和战国"
+  },
+  {
+    "id": 4,
+    "name": "春秋",
+    "startYear": -770,
+    "endYear": -476,
+    "description": "东周前半期，诸侯争霸，百家争鸣"
+  },
+  {
+    "id": 5,
+    "name": "战国",
+    "startYear": -475,
+    "endYear": -221,
+    "description": "东周后半期，七雄并立，最终被秦统一"
+  },
+  {
+    "id": 6,
     "name": "秦朝",
     "startYear": -221,
     "endYear": -207,
     "description": "中国历史上第一个统一的中央集权制国家"
   },
   {
-    "id": 2,
+    "id": 7,
     "name": "汉朝",
     "startYear": -202,
     "endYear": 220,
     "description": "中国历史上强盛的王朝之一，分为西汉和东汉"
   },
   {
-    "id": 3,
+    "id": 8,
+    "name": "三国",
+    "startYear": 220,
+    "endYear": 280,
+    "description": "魏、蜀、吴三国鼎立时期"
+  },
+  {
+    "id": 9,
+    "name": "晋朝",
+    "startYear": 265,
+    "endYear": 420,
+    "description": "分为西晋和东晋，短暂统一后又分裂"
+  },
+  {
+    "id": 10,
+    "name": "南北朝",
+    "startYear": 420,
+    "endYear": 589,
+    "description": "南方和北方各自建立多个政权，长期对峙"
+  },
+  {
+    "id": 11,
+    "name": "隋朝",
+    "startYear": 581,
+    "endYear": 618,
+    "description": "统一南北，开凿大运河，但统治短暂"
+  },
+  {
+    "id": 12,
     "name": "唐朝",
     "startYear": 618,
     "endYear": 907,
     "description": "中国历史上最繁荣的朝代之一，被誉为盛唐"
   },
   {
-    "id": 4,
+    "id": 13,
     "name": "宋朝",
     "startYear": 960,
     "endYear": 1279,
     "description": "分为北宋和南宋，文化繁荣，经济发达"
+  },
+  {
+    "id": 14,
+    "name": "元朝",
+    "startYear": 1271,
+    "endYear": 1368,
+    "description": "蒙古族建立的统一王朝，疆域空前辽阔"
+  },
+  {
+    "id": 15,
+    "name": "明朝",
+    "startYear": 1368,
+    "endYear": 1644,
+    "description": "汉族建立的最后一个封建王朝，郑和下西洋"
+  },
+  {
+    "id": 16,
+    "name": "清朝",
+    "startYear": 1644,
+    "endYear": 1912,
+    "description": "中国最后一个封建王朝，由满族建立"
   }
 ]
-

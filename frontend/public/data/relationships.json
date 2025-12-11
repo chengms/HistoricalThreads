@@ -1,30 +1,138 @@
 [
   {
     "id": 1,
-    "fromPersonId": 2,
-    "toPersonId": 3,
+    "fromPersonId": 4,
+    "toPersonId": 5,
+    "relationshipType": "colleague",
+    "description": "齐桓公和晋文公都是春秋五霸，先后称霸中原。",
+    "startYear": -643,
+    "strength": 3
+  },
+  {
+    "id": 2,
+    "fromPersonId": 11,
+    "toPersonId": 12,
+    "relationshipType": "enemy",
+    "description": "刘邦和项羽在楚汉之争中是对手，最终刘邦获胜。",
+    "startYear": -206,
+    "endYear": -202,
+    "strength": 5
+  },
+  {
+    "id": 3,
+    "fromPersonId": 13,
+    "toPersonId": 14,
     "relationshipType": "colleague",
     "description": "汉武帝与卫青为君臣关系，汉武帝重用卫青，派其率军北击匈奴。",
     "startYear": -130,
     "strength": 5
   },
   {
-    "id": 2,
-    "fromPersonId": 3,
-    "toPersonId": 4,
+    "id": 4,
+    "fromPersonId": 14,
+    "toPersonId": 15,
     "relationshipType": "family",
     "description": "卫青是霍去病的舅舅，两人都是西汉名将。",
     "startYear": -140,
     "strength": 5
   },
   {
-    "id": 3,
-    "fromPersonId": 2,
-    "toPersonId": 4,
+    "id": 5,
+    "fromPersonId": 13,
+    "toPersonId": 15,
     "relationshipType": "colleague",
     "description": "汉武帝与霍去病为君臣关系，霍去病深受汉武帝器重。",
     "startYear": -123,
     "strength": 5
+  },
+  {
+    "id": 6,
+    "fromPersonId": 13,
+    "toPersonId": 16,
+    "relationshipType": "colleague",
+    "description": "汉武帝派张骞出使西域，开辟丝绸之路。",
+    "startYear": -138,
+    "strength": 4
+  },
+  {
+    "id": 7,
+    "fromPersonId": 17,
+    "toPersonId": 18,
+    "relationshipType": "cooperation",
+    "description": "曹操和刘备在赤壁之战前是对手，但刘备曾投靠曹操。",
+    "startYear": 200,
+    "strength": 3
+  },
+  {
+    "id": 8,
+    "fromPersonId": 17,
+    "toPersonId": 19,
+    "relationshipType": "enemy",
+    "description": "曹操和孙权在赤壁之战中是对手。",
+    "startYear": 208,
+    "strength": 5
+  },
+  {
+    "id": 9,
+    "fromPersonId": 18,
+    "toPersonId": 19,
+    "relationshipType": "cooperation",
+    "description": "刘备和孙权在赤壁之战中联合对抗曹操。",
+    "startYear": 208,
+    "strength": 4
+  },
+  {
+    "id": 10,
+    "fromPersonId": 18,
+    "toPersonId": 20,
+    "relationshipType": "colleague",
+    "description": "刘备和诸葛亮为君臣关系，三顾茅庐请诸葛亮出山。",
+    "startYear": 207,
+    "strength": 5
+  },
+  {
+    "id": 11,
+    "fromPersonId": 20,
+    "toPersonId": 17,
+    "relationshipType": "enemy",
+    "description": "诸葛亮和曹操在三国时期是对手，多次交战。",
+    "startYear": 208,
+    "strength": 5
+  },
+  {
+    "id": 12,
+    "fromPersonId": 22,
+    "toPersonId": 23,
+    "relationshipType": "enemy",
+    "description": "唐太宗时期，安禄山发动叛乱，使唐朝由盛转衰。",
+    "startYear": 755,
+    "strength": 5
+  },
+  {
+    "id": 13,
+    "fromPersonId": 23,
+    "toPersonId": 24,
+    "relationshipType": "cooperation",
+    "description": "安禄山和史思明都是安史之乱的主要参与者。",
+    "startYear": 755,
+    "strength": 4
+  },
+  {
+    "id": 14,
+    "fromPersonId": 25,
+    "toPersonId": 26,
+    "relationshipType": "colleague",
+    "description": "宋太祖建立宋朝，王安石在宋朝推行变法。",
+    "startYear": 1069,
+    "strength": 3
+  },
+  {
+    "id": 15,
+    "fromPersonId": 27,
+    "toPersonId": 28,
+    "relationshipType": "influence",
+    "description": "成吉思汗统一蒙古，为元朝建立奠定基础，郑和是明朝的航海家。",
+    "startYear": 1405,
+    "strength": 2
   }
 ]
-
