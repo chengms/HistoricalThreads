@@ -1,0 +1,35 @@
+/* 关系图谱样式 */
+#network-container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.vis-network {
+  outline: none;
+}
+
+/* 节点样式 */
+.vis-network .vis-node {
+  cursor: pointer;
+}
+
+.vis-network .vis-node.vis-selected {
+  box-shadow: 0 0 15px rgba(26, 35, 126, 0.5);
+}
+
+/* 边样式 */
+.vis-network .vis-edge {
+  cursor: pointer;
+}
+
+.vis-network .vis-edge.vis-selected {
+  stroke-width: 3px;
+}
+
+/* 标签样式 */
+.vis-network .vis-label {
+  font-family: 'Microsoft YaHei', sans-serif;
+}
+

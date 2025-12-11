@@ -1,0 +1,57 @@
+/* 时间线样式 */
+.vis-timeline {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.vis-item.event-political {
+  background-color: #1a237e;
+  border-color: #1a237e;
+}
+
+.vis-item.event-economic {
+  background-color: #2e7d32;
+  border-color: #2e7d32;
+}
+
+.vis-item.event-cultural {
+  background-color: #ffa000;
+  border-color: #ffa000;
+}
+
+.vis-item.event-military {
+  background-color: #c62828;
+  border-color: #c62828;
+}
+
+.vis-item.event-reform {
+  background-color: #7b1fa2;
+  border-color: #7b1fa2;
+}
+
+.vis-item.event-other {
+  background-color: #616161;
+  border-color: #616161;
+}
+
+.vis-item.vis-selected {
+  border-width: 3px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.vis-item-content {
+  padding: 5px 10px;
+  font-weight: 500;
+  color: white;
+}
+
+.vis-time-axis .vis-text {
+  color: #666;
+  font-size: 12px;
+}
+
+.vis-current-time {
+  background-color: #ffa000;
+  width: 2px;
+}
+

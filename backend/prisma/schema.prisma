@@ -1,0 +1,185 @@
+// Prisma schema文件
+// 这是数据库模型的声明文件
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Dynasty {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  startYear   Int?
+  endYear     Int?
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  events      Event[]
+  persons     Person[]
+
+  @@index([startYear])
+  @@index([endYear])
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(200)
+  description String?  @db.Text
+  eventDate   DateTime? @db.Date
+  eventYear   Int
+  eventMonth  Int?
+  eventDay    Int?
+  eventType   String?  @db.VarChar(50)
+  dynastyId   Int?
+  location    String?  @db.VarChar(200)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  dynasty     Dynasty?         @relation(fields: [dynastyId], references: [id])
+  persons     EventPerson[]
+  sources     EventSource[]
+
+  @@index([eventYear])
+  @@index([eventDate])
+  @@index([eventType])
+  @@index([dynastyId])
+}
+
+model Person {
+  id           Int      @id @default(autoincrement())
+  name         String   @db.VarChar(100)
+  nameVariants String[] @default([])
+  birthYear    Int?
+  deathYear    Int?
+  birthDate    DateTime? @db.Date
+  deathDate    DateTime? @db.Date
+  biography    String?  @db.Text
+  personType   String[] @default([])
+  dynastyId    Int?
+  avatarUrl    String?  @db.VarChar(500)
+  birthplace   String?  @db.VarChar(200)
+  deathplace   String?  @db.VarChar(200)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  dynasty      Dynasty?         @relation(fields: [dynastyId], references: [id])
+  events       EventPerson[]
+  relationshipsFrom Relationship[] @relation("FromPerson")
+  relationshipsTo   Relationship[] @relation("ToPerson")
+  sources      PersonSource[]
+
+  @@index([birthYear])
+  @@index([deathYear])
+  @@index([dynastyId])
+}
+
+model Relationship {
+  id               Int      @id @default(autoincrement())
+  fromPersonId     Int
+  toPersonId       Int
+  relationshipType String   @db.VarChar(50)
+  description      String?  @db.Text
+  startYear        Int?
+  endYear          Int?
+  strength         Int      @default(1)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  fromPerson       Person   @relation("FromPerson", fields: [fromPersonId], references: [id])
+  toPerson         Person   @relation("ToPerson", fields: [toPersonId], references: [id])
+
+  @@index([fromPersonId])
+  @@index([toPersonId])
+  @@index([relationshipType])
+}
+
+model EventPerson {
+  id          Int      @id @default(autoincrement())
+  eventId     Int
+  personId    Int
+  role        String?  @db.VarChar(50)
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  person      Person   @relation(fields: [personId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([personId])
+}
+
+model Source {
+  id              Int      @id @default(autoincrement())
+  title           String   @db.VarChar(200)
+  author          String?  @db.VarChar(200)
+  url             String?  @db.VarChar(500)
+  sourceType      String   @db.VarChar(50)
+  publisher       String?  @db.VarChar(200)
+  publishDate     DateTime? @db.Date
+  credibilityLevel Int     @default(3)
+  verified        Boolean  @default(false)
+  verifiedBy      Int?
+  verifiedAt      DateTime?
+  createdAt       DateTime @default(now())
+
+  events          EventSource[]
+  persons         PersonSource[]
+
+  @@index([sourceType])
+  @@index([verified])
+}
+
+model EventSource {
+  id          Int      @id @default(autoincrement())
+  eventId     Int
+  sourceId    Int
+  pageNumber  String?  @db.VarChar(50)
+  quote       String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  event       Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  source      Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([eventId])
+  @@index([sourceId])
+}
+
+model PersonSource {
+  id          Int      @id @default(autoincrement())
+  personId    Int
+  sourceId    Int
+  pageNumber  String?  @db.VarChar(50)
+  quote       String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  person      Person   @relation(fields: [personId], references: [id], onDelete: Cascade)
+  source      Source   @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+
+  @@index([personId])
+  @@index([sourceId])
+}
+
+model Suggestion {
+  id             Int      @id @default(autoincrement())
+  suggestionType String   @db.VarChar(50)
+  targetType     String?  @db.VarChar(50)
+  targetId       Int?
+  content        Json
+  submitterName  String   @db.VarChar(100)
+  submitterEmail String   @db.VarChar(200)
+  submitterPhone String?  @db.VarChar(50)
+  status         String   @default("pending") @db.VarChar(50)
+  adminComment   String?  @db.Text
+  reviewedBy     Int?
+  reviewedAt     DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+

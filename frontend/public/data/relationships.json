@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "fromPersonId": 2,
+    "toPersonId": 3,
+    "relationshipType": "colleague",
+    "description": "汉武帝与卫青为君臣关系，汉武帝重用卫青，派其率军北击匈奴。",
+    "startYear": -130,
+    "strength": 5
+  },
+  {
+    "id": 2,
+    "fromPersonId": 3,
+    "toPersonId": 4,
+    "relationshipType": "family",
+    "description": "卫青是霍去病的舅舅，两人都是西汉名将。",
+    "startYear": -140,
+    "strength": 5
+  },
+  {
+    "id": 3,
+    "fromPersonId": 2,
+    "toPersonId": 4,
+    "relationshipType": "colleague",
+    "description": "汉武帝与霍去病为君臣关系，霍去病深受汉武帝器重。",
+    "startYear": -123,
+    "strength": 5
+  }
+]
+

@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "name": "秦朝",
+    "startYear": -221,
+    "endYear": -207,
+    "description": "中国历史上第一个统一的中央集权制国家"
+  },
+  {
+    "id": 2,
+    "name": "汉朝",
+    "startYear": -202,
+    "endYear": 220,
+    "description": "中国历史上强盛的王朝之一，分为西汉和东汉"
+  },
+  {
+    "id": 3,
+    "name": "唐朝",
+    "startYear": 618,
+    "endYear": 907,
+    "description": "中国历史上最繁荣的朝代之一，被誉为盛唐"
+  },
+  {
+    "id": 4,
+    "name": "宋朝",
+    "startYear": 960,
+    "endYear": 1279,
+    "description": "分为北宋和南宋，文化繁荣，经济发达"
+  }
+]
+

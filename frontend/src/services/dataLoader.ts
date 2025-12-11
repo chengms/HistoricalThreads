@@ -1,0 +1,116 @@
+// 静态数据加载服务
+import type { 
+  Event, 
+  Person, 
+  Relationship, 
+  Dynasty, 
+  Source 
+} from '@/types'
+
+// 数据缓存
+let dynastiesCache: Dynasty[] | null = null
+let eventsCache: Event[] | null = null
+let personsCache: Person[] | null = null
+let relationshipsCache: Relationship[] | null = null
+let sourcesCache: Source[] | null = null
+
+// 加载JSON数据
+async function loadJson<T>(path: string): Promise<T> {
+  const response = await fetch(path)
+  if (!response.ok) {
+    throw new Error(`Failed to load ${path}`)
+  }
+  return response.json()
+}
+
+// 加载并关联数据
+export async function loadDynasties(): Promise<Dynasty[]> {
+  if (dynastiesCache) return dynastiesCache
+  dynastiesCache = await loadJson<Dynasty[]>('/data/dynasties.json')
+  return dynastiesCache
+}
+
+export async function loadEvents(): Promise<Event[]> {
+  if (eventsCache) return eventsCache
+  const events = await loadJson<Event[]>('/data/events.json')
+  const dynasties = await loadDynasties()
+  const persons = await loadPersons()
+  const sources = await loadSources()
+  
+  // 关联数据
+  eventsCache = events.map(event => ({
+    ...event,
+    dynasty: dynasties.find(d => d.id === event.dynastyId),
+    persons: event.persons?.map(id => persons.find(p => p.id === id)).filter(Boolean) as Person[],
+    sources: event.sources?.map(id => sources.find(s => s.id === id)).filter(Boolean) as Source[],
+  }))
+  
+  return eventsCache
+}
+
+export async function loadPersons(): Promise<Person[]> {
+  if (personsCache) return personsCache
+  const persons = await loadJson<Person[]>('/data/persons.json')
+  const dynasties = await loadDynasties()
+  const sources = await loadSources()
+  
+  // 关联数据
+  personsCache = persons.map(person => ({
+    ...person,
+    dynasty: dynasties.find(d => d.id === person.dynastyId),
+    sources: person.sources?.map(id => sources.find(s => s.id === id)).filter(Boolean) as Source[],
+  }))
+  
+  return personsCache
+}
+
+export async function loadRelationships(): Promise<Relationship[]> {
+  if (relationshipsCache) return relationshipsCache
+  const relationships = await loadJson<Relationship[]>('/data/relationships.json')
+  const persons = await loadPersons()
+  
+  // 关联数据
+  relationshipsCache = relationships.map(rel => ({
+    ...rel,
+    fromPerson: persons.find(p => p.id === rel.fromPersonId),
+    toPerson: persons.find(p => p.id === rel.toPersonId),
+  }))
+  
+  return relationshipsCache
+}
+
+export async function loadSources(): Promise<Source[]> {
+  if (sourcesCache) return sourcesCache
+  sourcesCache = await loadJson<Source[]>('/data/sources.json')
+  return sourcesCache
+}
+
+// 清除缓存（用于开发时重新加载数据）
+export function clearCache() {
+  dynastiesCache = null
+  eventsCache = null
+  personsCache = null
+  relationshipsCache = null
+  sourcesCache = null
+}
+
+// 搜索功能
+export async function searchEvents(query: string): Promise<Event[]> {
+  const events = await loadEvents()
+  const lowerQuery = query.toLowerCase()
+  return events.filter(event => 
+    event.title.toLowerCase().includes(lowerQuery) ||
+    event.description?.toLowerCase().includes(lowerQuery)
+  )
+}
+
+export async function searchPersons(query: string): Promise<Person[]> {
+  const persons = await loadPersons()
+  const lowerQuery = query.toLowerCase()
+  return persons.filter(person => 
+    person.name.toLowerCase().includes(lowerQuery) ||
+    person.biography?.toLowerCase().includes(lowerQuery) ||
+    person.nameVariants?.some(v => v.toLowerCase().includes(lowerQuery))
+  )
+}
+
