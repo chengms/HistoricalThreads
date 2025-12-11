@@ -2,7 +2,7 @@
 
 一个交互式的中国历史时间线网站，通过时间线和关系图谱可视化展示中国历史事件、人物及其相互关系。
 
-🌐 **在线访问**: [https://chengms.github.io/HistoricalThreads/](https://chengms.github.io/HistoricalThreads/)
+🌐 **在线访问**: [https://chengms.cc/HistoricalThreads/](https://chengms.cc/HistoricalThreads/)
 
 ## ✨ 核心功能
 
@@ -82,7 +82,7 @@ npm run build
 
 项目已配置 GitHub Actions 工作流，每次推送到 `main` 分支会自动部署到 GitHub Pages。
 
-**访问地址**: [https://chengms.github.io/HistoricalThreads/](https://chengms.github.io/HistoricalThreads/)
+**访问地址**: [https://chengms.cc/HistoricalThreads/](https://chengms.cc/HistoricalThreads/)
 
 **部署流程**：
 1. 推送代码到 `main` 分支
