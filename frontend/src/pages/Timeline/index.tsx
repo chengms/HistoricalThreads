@@ -1,38 +1,57 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Input, Space, Typography, Spin } from 'antd'
-import { SearchOutlined } from '@ant-design/icons'
+import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Affix } from 'antd'
+import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { Timeline } from 'vis-timeline/standalone'
-import { DataSet } from 'vis-data/standalone'
-import 'vis-timeline/styles/vis-timeline-graph2d.min.css'
+import { loadEvents, loadDynasties, loadPersons, searchEvents } from '@/services/dataLoader'
+import type { Event, Dynasty, Person } from '@/types'
 import '@/styles/timeline.css'
-import { loadEvents, loadDynasties, searchEvents } from '@/services/dataLoader'
-import type { Event } from '@/types'
 
 const { Title } = Typography
 
+// 事件类型标签颜色
+const eventTypeColors: Record<string, string> = {
+  political: 'blue',
+  economic: 'green',
+  cultural: 'orange',
+  military: 'red',
+  reform: 'purple',
+  other: 'default',
+}
+
+const eventTypeLabels: Record<string, string> = {
+  political: '政治',
+  economic: '经济',
+  cultural: '文化',
+  military: '军事',
+  reform: '改革',
+  other: '其他',
+}
+
 export default function TimelinePage() {
   const navigate = useNavigate()
-  const timelineRef = useRef<HTMLDivElement>(null)
-  const timelineInstanceRef = useRef<Timeline | null>(null)
+  const timelineContainerRef = useRef<HTMLDivElement>(null)
   const [dynasty, setDynasty] = useState<string>('all')
   const [eventType, setEventType] = useState<string>('all')
   const [searchText, setSearchText] = useState<string>('')
   const [events, setEvents] = useState<Event[]>([])
-  const [dynasties, setDynasties] = useState<any[]>([])
+  const [dynasties, setDynasties] = useState<Dynasty[]>([])
+  const [persons, setPersons] = useState<Person[]>([])
   const [loading, setLoading] = useState(true)
+  const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
   // 加载数据
   useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true)
-        const [eventsData, dynastiesData] = await Promise.all([
+        const [eventsData, dynastiesData, personsData] = await Promise.all([
           loadEvents(),
           loadDynasties(),
+          loadPersons(),
         ])
         setEvents(eventsData)
         setDynasties(dynastiesData)
+        setPersons(personsData)
       } catch (error) {
         console.error('加载数据失败:', error)
       } finally {
@@ -56,57 +75,70 @@ export default function TimelinePage() {
       }
       
       if (searchText) {
-        filtered = await searchEvents(searchText)
-        if (dynasty !== 'all') {
-          filtered = filtered.filter(e => e.dynastyId === Number(dynasty))
-        }
-        if (eventType !== 'all') {
-          filtered = filtered.filter(e => e.eventType === eventType)
-        }
+        const searched = await searchEvents(searchText)
+        filtered = searched.filter(e => 
+          (dynasty === 'all' || e.dynastyId === Number(dynasty)) &&
+          (eventType === 'all' || e.eventType === eventType)
+        )
       }
       
+      // 按年份排序
+      filtered.sort((a, b) => a.eventYear - b.eventYear)
       setEvents(filtered)
     }
     filterEvents()
   }, [dynasty, eventType, searchText])
 
-  // 更新时间线
-  useEffect(() => {
-    if (!timelineRef.current || loading || !events.length) return
-
-    const items = new DataSet(
-      events.map(event => ({
-        id: event.id,
-        content: event.title,
-        start: event.eventYear.toString(),
-        type: 'point',
-        className: `event-${event.eventType}`,
-        title: `${event.title}\n${event.description?.substring(0, 100)}...`,
-      }))
-    )
-
-    if (timelineInstanceRef.current) {
-      timelineInstanceRef.current.setItems(items)
-    } else {
-      const timeline = new Timeline(timelineRef.current, items, {
-        start: '-300',
-        end: '2000',
-        zoomMin: 1000 * 60 * 60 * 24 * 365, // 1年
-        zoomMax: 1000 * 60 * 60 * 24 * 365 * 1000, // 1000年
-        locale: 'zh',
-      })
-      
-      // 添加点击事件，跳转到详情页
-      timeline.on('select', (properties: any) => {
-        if (properties.items && properties.items.length > 0) {
-          const eventId = properties.items[0]
-          navigate(`/detail/event/${eventId}`)
-        }
-      })
-      
-      timelineInstanceRef.current = timeline
+  // 获取所有年份范围
+  const getYearRange = () => {
+    if (events.length === 0) return { min: -2000, max: 2000 }
+    const years = events.map(e => e.eventYear)
+    return {
+      min: Math.min(...years),
+      max: Math.max(...years),
     }
-  }, [events, loading])
+  }
+
+  // 按年份分组事件
+  const groupEventsByYear = () => {
+    const grouped: Record<number, Event[]> = {}
+    events.forEach(event => {
+      const year = event.eventYear
+      if (!grouped[year]) {
+        grouped[year] = []
+      }
+      grouped[year].push(event)
+    })
+    return grouped
+  }
+
+  // 获取事件相关人物
+  const getEventPersons = (event: Event): Person[] => {
+    if (!event.persons || event.persons.length === 0) return []
+    return event.persons
+  }
+
+  // 滚动到指定年份
+  const scrollToYear = (year: number) => {
+    const element = document.getElementById(`year-${year}`)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      setSelectedYear(year)
+      setTimeout(() => setSelectedYear(null), 2000)
+    }
+  }
+
+  // 格式化年份显示
+  const formatYear = (year: number): string => {
+    if (year < 0) {
+      return `公元前${Math.abs(year)}年`
+    }
+    return `公元${year}年`
+  }
+
+  const { min, max } = getYearRange()
+  const groupedEvents = groupEventsByYear()
+  const allYears = Array.from(new Set(events.map(e => e.eventYear))).sort((a, b) => a - b)
 
   if (loading) {
     return (
@@ -117,10 +149,9 @@ export default function TimelinePage() {
   }
 
   return (
-    <div className="container mx-auto px-6 py-6">
-      <Title level={2} className="mb-6">历史时间线</Title>
-
-      <Card className="mb-6">
+    <div className="timeline-page-container">
+      {/* 顶部筛选栏 */}
+      <Card className="timeline-filter-card">
         <Space size="large" wrap>
           <Select
             style={{ width: 150 }}
@@ -140,7 +171,8 @@ export default function TimelinePage() {
               { label: '政治', value: 'political' },
               { label: '经济', value: 'economic' },
               { label: '文化', value: 'cultural' },
-              { label: '战争', value: 'military' },
+              { label: '军事', value: 'military' },
+              { label: '改革', value: 'reform' },
             ]}
           />
           <Input
@@ -153,10 +185,112 @@ export default function TimelinePage() {
         </Space>
       </Card>
 
-      <Card>
-        <div ref={timelineRef} style={{ height: '600px' }} />
-      </Card>
+      <div className="timeline-layout">
+        {/* 左侧侧边栏 - 朝代导航 */}
+        <Affix offsetTop={100}>
+          <Card className="timeline-sidebar" title="朝代导航">
+            <div className="dynasty-nav">
+              {dynasties
+                .sort((a, b) => a.startYear - b.startYear)
+                .map(dynasty => {
+                  const dynastyEvents = events.filter(e => e.dynastyId === dynasty.id)
+                  if (dynastyEvents.length === 0) return null
+                  
+                  const firstEventYear = Math.min(...dynastyEvents.map(e => e.eventYear))
+                  
+                  return (
+                    <Button
+                      key={dynasty.id}
+                      type="text"
+                      block
+                      className="dynasty-nav-item"
+                      onClick={() => scrollToYear(firstEventYear)}
+                    >
+                      <div className="dynasty-nav-name">{dynasty.name}</div>
+                      <div className="dynasty-nav-years">
+                        {formatYear(dynasty.startYear)} - {formatYear(dynasty.endYear)}
+                      </div>
+                    </Button>
+                  )
+                })}
+            </div>
+          </Card>
+        </Affix>
+
+        {/* 中间时间轴区域 */}
+        <div className="timeline-main" ref={timelineContainerRef}>
+          {allYears.map(year => {
+            const yearEvents = groupedEvents[year] || []
+            if (yearEvents.length === 0) return null
+
+            return (
+              <div key={year} id={`year-${year}`} className="timeline-year-section">
+                {/* 年份标签 */}
+                <div className="timeline-year-label">
+                  <div className="year-marker" />
+                  <span className="year-text">{formatYear(year)}</span>
+                </div>
+
+                {/* 时间轴内容 */}
+                <div className="timeline-content-row">
+                  {/* 左侧：事件列表 */}
+                  <div className="timeline-events">
+                    {yearEvents.map(event => (
+                      <Card
+                        key={event.id}
+                        className={`timeline-event-card event-${event.eventType} ${selectedYear === year ? 'highlighted' : ''}`}
+                        hoverable
+                        onClick={() => navigate(`/detail/event/${event.id}`)}
+                      >
+                        <div className="event-header">
+                          <Title level={5} className="event-title">{event.title}</Title>
+                          <Tag color={eventTypeColors[event.eventType]}>
+                            {eventTypeLabels[event.eventType]}
+                          </Tag>
+                        </div>
+                        <div className="event-description">
+                          {event.description}
+                        </div>
+                        {event.location && (
+                          <div className="event-location">
+                            <CalendarOutlined /> {event.location}
+                          </div>
+                        )}
+                      </Card>
+                    ))}
+                  </div>
+
+                  {/* 右侧：相关人物 */}
+                  <div className="timeline-persons">
+                    {yearEvents.map(event => {
+                      const eventPersons = getEventPersons(event)
+                      if (eventPersons.length === 0) return null
+
+                      return (
+                        <div key={event.id} className="event-persons-group">
+                          {eventPersons.map(person => (
+                            <Button
+                              key={person.id}
+                              type="link"
+                              className="person-link"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                navigate(`/detail/person/${person.id}`)
+                              }}
+                            >
+                              {person.name}
+                            </Button>
+                          ))}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }
-

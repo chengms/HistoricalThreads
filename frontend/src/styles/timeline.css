@@ -1,57 +1,314 @@
-/* 时间线样式 */
-.vis-timeline {
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+/* 时间线页面容器 */
+.timeline-page-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f5f7fa 0%, #ffffff 100%);
 }
 
-.vis-item.event-political {
-  background-color: #1a237e;
-  border-color: #1a237e;
+/* 筛选卡片 */
+.timeline-filter-card {
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.vis-item.event-economic {
-  background-color: #2e7d32;
-  border-color: #2e7d32;
+/* 时间线布局 */
+.timeline-layout {
+  display: flex;
+  gap: 24px;
+  position: relative;
 }
 
-.vis-item.event-cultural {
-  background-color: #ffa000;
-  border-color: #ffa000;
+/* 左侧侧边栏 */
+.timeline-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
-.vis-item.event-military {
-  background-color: #c62828;
-  border-color: #c62828;
+.dynasty-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.vis-item.event-reform {
-  background-color: #7b1fa2;
-  border-color: #7b1fa2;
+.dynasty-nav-item {
+  text-align: left;
+  padding: 12px;
+  border-radius: 6px;
+  transition: all 0.3s;
 }
 
-.vis-item.event-other {
-  background-color: #616161;
-  border-color: #616161;
+.dynasty-nav-item:hover {
+  background-color: #f0f0f0;
+  transform: translateX(4px);
 }
 
-.vis-item.vis-selected {
-  border-width: 3px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+.dynasty-nav-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1890ff;
+  margin-bottom: 4px;
 }
 
-.vis-item-content {
-  padding: 5px 10px;
-  font-weight: 500;
-  color: white;
-}
-
-.vis-time-axis .vis-text {
-  color: #666;
+.dynasty-nav-years {
   font-size: 12px;
+  color: #666;
 }
 
-.vis-current-time {
-  background-color: #ffa000;
+/* 中间时间轴主区域 */
+.timeline-main {
+  flex: 1;
+  position: relative;
+  padding: 40px 0;
+}
+
+/* 年份区块 */
+.timeline-year-section {
+  position: relative;
+  margin-bottom: 60px;
+  padding-left: 120px;
+}
+
+.timeline-year-section:last-child {
+  margin-bottom: 0;
+}
+
+/* 年份标签 */
+.timeline-year-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.year-marker {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
+  position: relative;
+}
+
+.year-marker::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
   width: 2px;
+  height: calc(100% + 60px);
+  background: linear-gradient(to bottom, #1890ff, transparent);
 }
 
+.timeline-year-section:last-child .year-marker::after {
+  display: none;
+}
+
+.year-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1890ff;
+  white-space: nowrap;
+  background: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 时间轴内容行 */
+.timeline-content-row {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 24px;
+  position: relative;
+  padding-top: 8px;
+}
+
+/* 左侧事件区域 */
+.timeline-events {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.timeline-event-card {
+  border-radius: 8px;
+  transition: all 0.3s;
+  border-left: 4px solid;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.timeline-event-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-event-card.highlighted {
+  animation: highlight 2s ease-in-out;
+}
+
+@keyframes highlight {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  50% {
+    box-shadow: 0 4px 16px rgba(24, 144, 255, 0.4);
+    transform: scale(1.02);
+  }
+}
+
+/* 事件类型颜色 */
+.timeline-event-card.event-political {
+  border-left-color: #1890ff;
+}
+
+.timeline-event-card.event-economic {
+  border-left-color: #52c41a;
+}
+
+.timeline-event-card.event-cultural {
+  border-left-color: #fa8c16;
+}
+
+.timeline-event-card.event-military {
+  border-left-color: #f5222d;
+}
+
+.timeline-event-card.event-reform {
+  border-left-color: #722ed1;
+}
+
+.timeline-event-card.event-other {
+  border-left-color: #8c8c8c;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.event-title {
+  margin: 0 !important;
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  flex: 1;
+}
+
+.event-description {
+  color: #595959;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.event-location {
+  color: #8c8c8c;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 右侧人物区域 */
+.timeline-persons {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.event-persons-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.person-link {
+  padding: 4px 8px;
+  height: auto;
+  font-size: 13px;
+  color: #1890ff;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.person-link:hover {
+  background-color: #e6f7ff;
+  color: #096dd9;
+  transform: translateX(4px);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .timeline-content-row {
+    grid-template-columns: 1fr 150px;
+  }
+  
+  .timeline-sidebar {
+    width: 160px;
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-layout {
+    flex-direction: column;
+  }
+  
+  .timeline-sidebar {
+    width: 100%;
+    position: static;
+    max-height: 300px;
+  }
+  
+  .timeline-year-section {
+    padding-left: 80px;
+  }
+  
+  .timeline-content-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .timeline-persons {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .year-text {
+    font-size: 14px;
+  }
+}
+
+/* 滚动条样式 */
+.timeline-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeline-sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.timeline-sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.timeline-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
