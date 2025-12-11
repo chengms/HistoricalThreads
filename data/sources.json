@@ -1,0 +1,53 @@
+[
+  {
+    "id": 1,
+    "title": "《史记·秦始皇本纪》",
+    "author": "司马迁",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/shiji/"
+  },
+  {
+    "id": 2,
+    "title": "《史记·汉武本纪》",
+    "author": "司马迁",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/shiji/"
+  },
+  {
+    "id": 3,
+    "title": "《汉书·武帝纪》",
+    "author": "班固",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/hanshu/"
+  },
+  {
+    "id": 4,
+    "title": "《旧唐书·太宗本纪》",
+    "author": "刘昫",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/jiutangshu/"
+  },
+  {
+    "id": 5,
+    "title": "《宋史·太祖本纪》",
+    "author": "脱脱",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/songshi/"
+  }
+]
+

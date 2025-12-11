@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "秦始皇统一六国",
+    "description": "公元前221年，秦始皇完成了对六国的统一，建立了中国历史上第一个统一的中央集权国家，结束了春秋战国以来长期分裂割据的局面。",
+    "eventYear": -221,
+    "eventType": "political",
+    "dynastyId": 1,
+    "location": "咸阳",
+    "persons": [1],
+    "sources": [1, 2]
+  },
+  {
+    "id": 2,
+    "title": "汉武帝开疆拓土",
+    "description": "汉武帝在位期间，大力开疆拓土，派卫青、霍去病等将领北击匈奴，西通西域，南平百越，使汉朝疆域达到极盛。",
+    "eventYear": -140,
+    "eventType": "military",
+    "dynastyId": 2,
+    "location": "长安",
+    "persons": [2, 3, 4],
+    "sources": [2, 3]
+  },
+  {
+    "id": 3,
+    "title": "唐太宗贞观之治",
+    "description": "唐太宗李世民在位期间，政治清明，经济繁荣，文化昌盛，史称贞观之治，为唐朝的强盛奠定了基础。",
+    "eventYear": 627,
+    "eventType": "political",
+    "dynastyId": 3,
+    "location": "长安",
+    "persons": [5],
+    "sources": [3, 4]
+  },
+  {
+    "id": 4,
+    "title": "宋太祖建立宋朝",
+    "description": "公元960年，赵匡胤发动陈桥兵变，建立宋朝，定都开封，结束了五代十国的分裂局面。",
+    "eventYear": 960,
+    "eventType": "political",
+    "dynastyId": 4,
+    "location": "开封",
+    "persons": [6],
+    "sources": [4, 5]
+  }
+]
+
