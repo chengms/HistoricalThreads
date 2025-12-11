@@ -3,7 +3,7 @@ import { Card, Select, Input, Space, Typography, Spin } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { Network } from 'vis-network/standalone'
-import type { DataSet } from 'vis-data/standalone'
+import { DataSet } from 'vis-data/standalone'
 import 'vis-network/styles/vis-network.min.css'
 import '@/styles/network.css'
 import { loadPersons, loadRelationships, loadDynasties, searchPersons } from '@/services/dataLoader'
@@ -96,14 +96,15 @@ export default function NetworkPage() {
       }))
     )
 
-    const edges = new DataSet(
-      Array.from(relationshipMap.values()).map(rel => ({
-        from: rel.fromPersonId,
-        to: rel.toPersonId,
-        label: getRelationshipLabel(rel.relationshipType),
-        color: { color: getRelationshipColor(rel.relationshipType) },
-      }))
-    )
+    const edgesData = Array.from(relationshipMap.values()).map(rel => ({
+      id: `${rel.fromPersonId}-${rel.toPersonId}`,
+      from: rel.fromPersonId,
+      to: rel.toPersonId,
+      label: getRelationshipLabel(rel.relationshipType),
+      color: { color: getRelationshipColor(rel.relationshipType) },
+    }))
+    
+    const edges = new DataSet(edgesData)
 
     if (networkInstanceRef.current) {
       networkInstanceRef.current.setData({ nodes, edges })

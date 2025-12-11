@@ -38,7 +38,7 @@ export async function loadDynasties(): Promise<Dynasty[]> {
 
 export async function loadEvents(): Promise<Event[]> {
   if (eventsCache) return eventsCache
-  const events = await loadJson<Event[]>('/data/events.json')
+  const events = await loadJson<any[]>('/data/events.json')
   const dynasties = await loadDynasties()
   const persons = await loadPersons()
   const sources = await loadSources()
@@ -47,8 +47,8 @@ export async function loadEvents(): Promise<Event[]> {
   eventsCache = events.map(event => ({
     ...event,
     dynasty: dynasties.find(d => d.id === event.dynastyId),
-    persons: event.persons?.map(id => persons.find(p => p.id === id)).filter(Boolean) as Person[],
-    sources: event.sources?.map(id => sources.find(s => s.id === id)).filter(Boolean) as Source[],
+    persons: (event.persons as number[] | undefined)?.map(id => persons.find(p => p.id === id)).filter((p): p is Person => p !== undefined) || [],
+    sources: (event.sources as number[] | undefined)?.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined) || [],
   }))
   
   return eventsCache
@@ -56,7 +56,7 @@ export async function loadEvents(): Promise<Event[]> {
 
 export async function loadPersons(): Promise<Person[]> {
   if (personsCache) return personsCache
-  const persons = await loadJson<Person[]>('/data/persons.json')
+  const persons = await loadJson<any[]>('/data/persons.json')
   const dynasties = await loadDynasties()
   const sources = await loadSources()
   
@@ -64,7 +64,7 @@ export async function loadPersons(): Promise<Person[]> {
   personsCache = persons.map(person => ({
     ...person,
     dynasty: dynasties.find(d => d.id === person.dynastyId),
-    sources: person.sources?.map(id => sources.find(s => s.id === id)).filter(Boolean) as Source[],
+    sources: (person.sources as number[] | undefined)?.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined) || [],
   }))
   
   return personsCache

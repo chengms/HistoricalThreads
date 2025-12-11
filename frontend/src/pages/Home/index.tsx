@@ -1,9 +1,8 @@
-import { Card, Row, Col, Button, Typography, Input, AutoComplete, Space } from 'antd'
+import { Card, Row, Col, Button, Typography, Input, AutoComplete } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { ClockCircleOutlined, ShareAltOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
-import { useState, useEffect } from 'react'
-import { loadEvents, loadPersons, searchEvents, searchPersons } from '@/services/dataLoader'
-import type { Event, Person } from '@/types'
+import { useState } from 'react'
+import { searchEvents, searchPersons } from '@/services/dataLoader'
 
 const { Title, Paragraph } = Typography
 
