@@ -16,11 +16,17 @@ let sourcesCache: Source[] | null = null
 
 // 加载JSON数据
 async function loadJson<T>(path: string): Promise<T> {
-  const response = await fetch(path)
-  if (!response.ok) {
-    throw new Error(`Failed to load ${path}`)
+  try {
+    const response = await fetch(path)
+    if (!response.ok) {
+      throw new Error(`Failed to load ${path}: ${response.status} ${response.statusText}`)
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(`Error loading ${path}:`, error)
+    throw error
   }
-  return response.json()
 }
 
 // 加载并关联数据
@@ -96,21 +102,37 @@ export function clearCache() {
 
 // 搜索功能
 export async function searchEvents(query: string): Promise<Event[]> {
-  const events = await loadEvents()
-  const lowerQuery = query.toLowerCase()
-  return events.filter(event => 
-    event.title.toLowerCase().includes(lowerQuery) ||
-    event.description?.toLowerCase().includes(lowerQuery)
-  )
+  try {
+    const events = await loadEvents()
+    const lowerQuery = query.toLowerCase().trim()
+    if (!lowerQuery) return []
+    
+    return events.filter(event => 
+      event.title.toLowerCase().includes(lowerQuery) ||
+      event.description?.toLowerCase().includes(lowerQuery) ||
+      event.dynasty?.name.toLowerCase().includes(lowerQuery)
+    )
+  } catch (error) {
+    console.error('搜索事件失败:', error)
+    return []
+  }
 }
 
 export async function searchPersons(query: string): Promise<Person[]> {
-  const persons = await loadPersons()
-  const lowerQuery = query.toLowerCase()
-  return persons.filter(person => 
-    person.name.toLowerCase().includes(lowerQuery) ||
-    person.biography?.toLowerCase().includes(lowerQuery) ||
-    person.nameVariants?.some(v => v.toLowerCase().includes(lowerQuery))
-  )
+  try {
+    const persons = await loadPersons()
+    const lowerQuery = query.toLowerCase().trim()
+    if (!lowerQuery) return []
+    
+    return persons.filter(person => 
+      person.name.toLowerCase().includes(lowerQuery) ||
+      person.biography?.toLowerCase().includes(lowerQuery) ||
+      person.nameVariants?.some(v => v.toLowerCase().includes(lowerQuery)) ||
+      person.dynasty?.name.toLowerCase().includes(lowerQuery)
+    )
+  } catch (error) {
+    console.error('搜索人物失败:', error)
+    return []
+  }
 }
 

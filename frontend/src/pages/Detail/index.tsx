@@ -27,9 +27,18 @@ export default function DetailPage() {
           const person = persons.find(p => p.id === Number(id))
           if (person) {
             const relationships = await loadRelationships()
-            const personRelationships = relationships.filter(
-              r => r.fromPersonId === person.id || r.toPersonId === person.id
-            )
+            const personRelationships = relationships
+              .filter(r => r.fromPersonId === person.id || r.toPersonId === person.id)
+              .map(rel => {
+                // 确保关系包含完整的人物信息
+                const fromPerson = persons.find(p => p.id === rel.fromPersonId)
+                const toPerson = persons.find(p => p.id === rel.toPersonId)
+                return {
+                  ...rel,
+                  fromPerson,
+                  toPerson,
+                }
+              })
             setData({ ...person, relationships: personRelationships } as any)
           }
         }
@@ -136,9 +145,28 @@ export default function DetailPage() {
               <List
                 dataSource={(data as any).relationships}
                 renderItem={(rel: any) => {
-                  const otherPerson = rel.fromPersonId === (data as Person).id 
+                  const currentPersonId = (data as Person).id
+                  const otherPerson = rel.fromPersonId === currentPersonId 
                     ? rel.toPerson 
                     : rel.fromPerson
+                  
+                  if (!otherPerson) return null
+                  
+                  const getRelationshipLabel = (type: string): string => {
+                    const labels: Record<string, string> = {
+                      teacher_student: '师生',
+                      colleague: '同僚',
+                      enemy: '敌对',
+                      family: '家族',
+                      friend: '朋友',
+                      mentor: '导师',
+                      influence: '影响',
+                      cooperation: '合作',
+                      other: '其他',
+                    }
+                    return labels[type] || type
+                  }
+                  
                   return (
                     <List.Item>
                       <Button 
@@ -148,7 +176,10 @@ export default function DetailPage() {
                       >
                         {otherPerson.name}
                       </Button>
-                      <Tag>{rel.relationshipType}</Tag>
+                      <Tag color="blue">{getRelationshipLabel(rel.relationshipType)}</Tag>
+                      {rel.description && (
+                        <span className="text-gray-500 ml-4">{rel.description}</span>
+                      )}
                     </List.Item>
                   )
                 }}

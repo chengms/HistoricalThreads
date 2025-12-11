@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Card, Select, Input, Space, Typography, Spin } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 import { Network } from 'vis-network/standalone'
 import type { DataSet } from 'vis-data/standalone'
 import 'vis-network/styles/vis-network.min.css'
@@ -11,6 +12,7 @@ import type { Person, Relationship } from '@/types'
 const { Title } = Typography
 
 export default function NetworkPage() {
+  const navigate = useNavigate()
   const networkRef = useRef<HTMLDivElement>(null)
   const networkInstanceRef = useRef<Network | null>(null)
   const [dynasty, setDynasty] = useState<string>('all')
@@ -143,6 +145,15 @@ export default function NetworkPage() {
           },
         }
       )
+      
+      // 添加点击事件，跳转到详情页
+      network.on('click', (params: any) => {
+        if (params.nodes && params.nodes.length > 0) {
+          const personId = params.nodes[0]
+          navigate(`/detail/person/${personId}`)
+        }
+      })
+      
       networkInstanceRef.current = network
     }
   }, [persons, relationships, loading])

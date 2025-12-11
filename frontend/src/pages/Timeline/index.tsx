@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Card, Select, Input, Space, Typography, Spin } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 import { Timeline } from 'vis-timeline/standalone'
 import type { DataSet } from 'vis-data/standalone'
 import 'vis-timeline/styles/vis-timeline-graph2d.min.css'
@@ -11,6 +12,7 @@ import type { Event } from '@/types'
 const { Title } = Typography
 
 export default function TimelinePage() {
+  const navigate = useNavigate()
   const timelineRef = useRef<HTMLDivElement>(null)
   const timelineInstanceRef = useRef<Timeline | null>(null)
   const [dynasty, setDynasty] = useState<string>('all')
@@ -93,6 +95,15 @@ export default function TimelinePage() {
         zoomMax: 1000 * 60 * 60 * 24 * 365 * 1000, // 1000年
         locale: 'zh',
       })
+      
+      // 添加点击事件，跳转到详情页
+      timeline.on('select', (properties: any) => {
+        if (properties.items && properties.items.length > 0) {
+          const eventId = properties.items[0]
+          navigate(`/detail/event/${eventId}`)
+        }
+      })
+      
       timelineInstanceRef.current = timeline
     }
   }, [events, loading])
