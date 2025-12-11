@@ -14,12 +14,24 @@ let personsCache: Person[] | null = null
 let relationshipsCache: Relationship[] | null = null
 let sourcesCache: Source[] | null = null
 
+// 获取 base path（用于 GitHub Pages）
+const getBasePath = () => {
+  // 在生产环境中，base path 是 /HistoricalThreads/
+  // 在开发环境中，base path 是 /
+  if (import.meta.env.PROD) {
+    return '/HistoricalThreads'
+  }
+  return ''
+}
+
 // 加载JSON数据
 async function loadJson<T>(path: string): Promise<T> {
   try {
-    const response = await fetch(path)
+    const basePath = getBasePath()
+    const fullPath = `${basePath}${path}`
+    const response = await fetch(fullPath)
     if (!response.ok) {
-      throw new Error(`Failed to load ${path}: ${response.status} ${response.statusText}`)
+      throw new Error(`Failed to load ${fullPath}: ${response.status} ${response.statusText}`)
     }
     const data = await response.json()
     return data
