@@ -18,7 +18,7 @@ let sourcesCache: Source[] | null = null
 const getBasePath = () => {
   // 在生产环境中，base path 是 /HistoricalThreads/
   // 在开发环境中，base path 是 /
-  if (import.meta.env.PROD) {
+  if (import.meta.env.MODE === 'production') {
     return '/HistoricalThreads'
   }
   return ''
