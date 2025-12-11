@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Affix } from 'antd'
 import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { loadEvents, loadDynasties, loadPersons, searchEvents } from '@/services/dataLoader'
+import { loadEvents, loadDynasties, searchEvents } from '@/services/dataLoader'
 import type { Event, Dynasty, Person } from '@/types'
 import '@/styles/timeline.css'
 
@@ -35,7 +35,6 @@ export default function TimelinePage() {
   const [searchText, setSearchText] = useState<string>('')
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
-  const [persons, setPersons] = useState<Person[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
@@ -44,14 +43,12 @@ export default function TimelinePage() {
     async function fetchData() {
       try {
         setLoading(true)
-        const [eventsData, dynastiesData, personsData] = await Promise.all([
+        const [eventsData, dynastiesData] = await Promise.all([
           loadEvents(),
           loadDynasties(),
-          loadPersons(),
         ])
         setEvents(eventsData)
         setDynasties(dynastiesData)
-        setPersons(personsData)
       } catch (error) {
         console.error('加载数据失败:', error)
       } finally {
@@ -88,16 +85,6 @@ export default function TimelinePage() {
     }
     filterEvents()
   }, [dynasty, eventType, searchText])
-
-  // 获取所有年份范围
-  const getYearRange = () => {
-    if (events.length === 0) return { min: -2000, max: 2000 }
-    const years = events.map(e => e.eventYear)
-    return {
-      min: Math.min(...years),
-      max: Math.max(...years),
-    }
-  }
 
   // 按年份分组事件
   const groupEventsByYear = () => {
@@ -136,7 +123,6 @@ export default function TimelinePage() {
     return `公元${year}年`
   }
 
-  const { min, max } = getYearRange()
   const groupedEvents = groupEventsByYear()
   const allYears = Array.from(new Set(events.map(e => e.eventYear))).sort((a, b) => a - b)
 
