@@ -24,10 +24,14 @@ export default function DetailPage() {
           const event = events.find(e => e.id === Number(id))
           setData(event || null)
         } else if (type === 'person') {
-          const persons = await loadPersons()
+          const [persons, events, relationships] = await Promise.all([
+            loadPersons(),
+            loadEvents(),
+            loadRelationships()
+          ])
           const person = persons.find(p => p.id === Number(id))
           if (person) {
-            const relationships = await loadRelationships()
+            // 获取人物关系
             const personRelationships = relationships
               .filter(r => r.fromPersonId === person.id || r.toPersonId === person.id)
               .map(rel => {
@@ -41,7 +45,13 @@ export default function DetailPage() {
                 }
               })
               .filter(rel => rel.fromPerson && rel.toPerson) // 过滤掉不完整的关系
-            setData({ ...person, relationships: personRelationships } as any)
+            
+            // 获取相关事件
+            const personEvents = events.filter(e => 
+              e.persons && e.persons.some(p => p.id === person.id)
+            )
+            
+            setData({ ...person, relationships: personRelationships, events: personEvents } as any)
           }
         }
       } catch (error) {
@@ -140,27 +150,109 @@ export default function DetailPage() {
                 className="person-detail-avatar"
                 onError={() => true}
               />
-              <div>
+              <div style={{ flex: 1 }}>
                 <Title level={2} style={{ marginBottom: 16 }}>{(data as Person).name}</Title>
+                
+                {/* 别名 */}
+                {(data as Person).nameVariants && (data as Person).nameVariants!.length > 0 && (
+                  <div className="mb-3">
+                    <span className="text-gray-500 mr-2">别名：</span>
+                    <Space wrap>
+                      {(data as Person).nameVariants!.map(variant => (
+                        <Tag key={variant} color="default">{variant}</Tag>
+                      ))}
+                    </Space>
+                  </div>
+                )}
+                
                 <Space className="mb-4" wrap>
-            {(data as Person).birthYear && (data as Person).deathYear && (
-              <Tag color="blue">
-                {(data as Person).birthYear} - {(data as Person).deathYear}
-              </Tag>
-            )}
-            {(data as Person).dynasty?.name && (
-              <Tag color="green">{(data as Person).dynasty?.name}</Tag>
-            )}
-            {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => (
-              <Tag key={type} color="purple">{type}</Tag>
-            ))}
+                  {(data as Person).birthYear && (data as Person).deathYear && (
+                    <Tag color="blue">
+                      {(data as Person).birthYear}年 - {(data as Person).deathYear}年
+                    </Tag>
+                  )}
+                  {(data as Person).dynasty?.name && (
+                    <Tag color="green">{(data as Person).dynasty?.name}</Tag>
+                  )}
+                  {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => {
+                    const typeLabels: Record<string, string> = {
+                      politician: '政治家',
+                      economist: '经济学家',
+                      writer: '文学家',
+                      artist: '艺术家',
+                      philosopher: '哲学家',
+                      scientist: '科学家',
+                      military: '军事家',
+                      other: '其他'
+                    }
+                    return (
+                      <Tag key={type} color="purple">{typeLabels[type] || type}</Tag>
+                    )
+                  })}
                 </Space>
+                
+                {/* 出生地和逝世地 */}
+                <div className="mb-4">
+                  <Space wrap>
+                    {(data as Person).birthplace && (
+                      <span className="text-gray-600">
+                        <span className="text-gray-500">出生地：</span>
+                        {(data as Person).birthplace}
+                      </span>
+                    )}
+                    {(data as Person).deathplace && (
+                      <span className="text-gray-600">
+                        <span className="text-gray-500">逝世地：</span>
+                        {(data as Person).deathplace}
+                      </span>
+                    )}
+                  </Space>
+                </div>
               </div>
             </Space>
+            
+            {/* 传记 */}
             {(data as Person).biography && (
-              <Paragraph className="text-lg mb-6">{(data as Person).biography}</Paragraph>
+              <div>
+                <Title level={4} style={{ marginBottom: 12 }}>人物简介</Title>
+                <Paragraph className="text-base leading-7 mb-6" style={{ fontSize: '15px', lineHeight: '1.8' }}>
+                  {(data as Person).biography}
+                </Paragraph>
+              </div>
             )}
           </Space>
+
+          {/* 相关事件 */}
+          {(data as any).events && (data as any).events.length > 0 && (
+            <>
+              <Title level={4}>相关事件</Title>
+              <List
+                dataSource={(data as any).events}
+                renderItem={(event: Event) => (
+                  <List.Item>
+                    <div style={{ width: '100%' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                        <Button 
+                          type="link" 
+                          onClick={() => navigate(`/detail/event/${event.id}`)}
+                          style={{ padding: 0, height: 'auto', fontSize: '16px', fontWeight: 500 }}
+                        >
+                          {event.title}
+                        </Button>
+                        <Tag color="blue">{event.eventYear}年</Tag>
+                      </div>
+                      {event.description && (
+                        <div className="text-gray-600" style={{ fontSize: '14px', lineHeight: '1.6' }}>
+                          {event.description}
+                        </div>
+                      )}
+                    </div>
+                  </List.Item>
+                )}
+                className="mb-6"
+              />
+            </>
+          )}
 
           {(data as any).relationships && (data as any).relationships.length > 0 && (
             <>
