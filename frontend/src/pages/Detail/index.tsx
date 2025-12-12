@@ -136,6 +136,7 @@ export default function DetailPage() {
                 src={(data as Person).avatarUrl}
                 icon={<UserOutlined />}
                 size={120}
+                shape="square"
                 className="person-detail-avatar"
                 onError={() => true}
               />

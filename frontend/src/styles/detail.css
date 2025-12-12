@@ -3,6 +3,7 @@
   border: 4px solid rgba(102, 126, 234, 0.2);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  border-radius: 12px !important; /* 矩形圆角，覆盖 Ant Design 默认样式 */
 }
 
 .person-detail-avatar:hover {
