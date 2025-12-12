@@ -144,13 +144,13 @@ export default function SuggestionPage() {
       
       <Card className="mb-4" style={{ backgroundColor: '#f0f9ff', borderColor: '#bae6fd' }}>
         <div style={{ color: '#0369a1' }}>
-          <strong>提示：</strong>
+          <strong>填写提示：</strong>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li>提交建议后，系统会跳转到 GitHub Discussions 页面</li>
-            <li>请在 GitHub 上确认内容后点击 "Start discussion" 提交</li>
-            <li>如果内容未自动填充，请使用下方的"复制内容"按钮</li>
-            <li>这种方式无需配置 Token，安全且方便</li>
-            <li>如果遇到问题，请参考 <a href="https://github.com/chengms/HistoricalThreads/discussions" target="_blank" rel="noopener noreferrer">GitHub Discussions 页面</a></li>
+            <li><strong>建议类型</strong>：请根据您的建议内容选择相应的类型，如新增事件、新增人物、修正信息等</li>
+            <li><strong>时间</strong>：请填写具体的时间，格式如"公元前1046年"或"2024年"</li>
+            <li><strong>详细描述</strong>：请尽可能详细地描述您的建议内容，包括相关背景信息</li>
+            <li><strong>信息来源</strong>：请提供可靠的信息来源，可以是权威网站或学术书籍，以增加建议的可信度</li>
+            <li><strong>联系方式</strong>：姓名和邮箱为选填项，填写后我们可以在需要时与您联系</li>
           </ul>
         </div>
       </Card>
