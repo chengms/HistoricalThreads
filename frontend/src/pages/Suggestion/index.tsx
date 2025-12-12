@@ -243,6 +243,28 @@ export default function SuggestionPage() {
       })
     }
     
+    // 获取正确的 URL 路径
+    // 考虑 basename 和当前域名
+    const getCorrectUrl = () => {
+      // 如果使用自定义域名，basename 是 ''
+      // 如果使用 GitHub Pages，basename 是 '/HistoricalThreads'
+      const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
+                             (typeof window !== 'undefined' && 
+                              !window.location.hostname.includes('github.io') && 
+                              window.location.hostname !== 'localhost' &&
+                              window.location.hostname !== '127.0.0.1')
+      
+      const basename = isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : '')
+      
+      // 使用完整的 URL，包含协议和域名，这样管理后台可以正确跳转
+      if (typeof window !== 'undefined') {
+        return `${window.location.origin}${basename}/suggestion`
+      }
+      
+      // 如果 window 不可用（SSR），使用相对路径
+      return `${basename}/suggestion`
+    }
+    
     // Twikoo 评论数据结构
     return {
       nick: suggestion.name || '匿名用户',
@@ -250,7 +272,7 @@ export default function SuggestionPage() {
       link: '', // 用户网站链接，建议表单中没有，留空
       comment: commentContent,
       ua: navigator.userAgent,
-      url: '/suggestion', // 建议页面的路径
+      url: getCorrectUrl(), // 使用完整的 URL 路径，确保管理后台可以正确跳转
       pid: '', // 父评论 ID，新建议没有父评论
       rid: '', // 回复的评论 ID，新建议没有回复
       created: Date.now(),
