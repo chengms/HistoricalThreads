@@ -19,31 +19,72 @@ export default function SuggestionPage() {
         createdAt: new Date().toISOString(),
       }
       
-      // 尝试提交到后端 API
-      let submitted = false
+      // 尝试提交到 GitHub Issues
+      let submittedToGitHub = false
       try {
-        const response = await fetch('/api/suggestions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(suggestion),
-        })
+        const githubToken = import.meta.env.VITE_GITHUB_TOKEN
+        const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
         
-        if (response.ok) {
-          submitted = true
-          message.success('建议已提交到服务器！我们会尽快审核。')
+        if (githubToken) {
+          // 格式化建议为 GitHub Issue
+          const issueTitle = `[建议] ${values.title}`
+          const issueBody = formatSuggestionAsIssueBody(suggestion)
+          
+          const response = await fetch(`https://api.github.com/repos/${githubRepo}/issues`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `token ${githubToken}`,
+              'Accept': 'application/vnd.github.v3+json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              title: issueTitle,
+              body: issueBody,
+              labels: ['suggestion', getSuggestionTypeLabel(values.suggestionType)],
+            }),
+          })
+          
+          if (response.ok) {
+            const issue = await response.json()
+            submittedToGitHub = true
+            message.success(`建议已提交到 GitHub Issue #${issue.number}！我们会尽快审核。`)
+          } else {
+            const error = await response.json()
+            console.error('GitHub API 错误:', error)
+            throw new Error(error.message || '提交到 GitHub 失败')
+          }
         }
-      } catch (apiError) {
-        console.log('后端 API 不可用，保存到本地存储', apiError)
+      } catch (githubError) {
+        console.log('GitHub API 不可用，尝试其他方式', githubError)
       }
       
-      // 如果后端不可用，保存到 localStorage
-      if (!submitted) {
-        const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
-        existing.push(suggestion)
-        localStorage.setItem('suggestions', JSON.stringify(existing))
-        message.success('建议已保存到本地！由于后端服务未启用，数据仅保存在浏览器本地存储中。')
+      // 如果 GitHub 提交失败，尝试后端 API
+      if (!submittedToGitHub) {
+        let submittedToBackend = false
+        try {
+          const response = await fetch('/api/suggestions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(suggestion),
+          })
+          
+          if (response.ok) {
+            submittedToBackend = true
+            message.success('建议已提交到服务器！我们会尽快审核。')
+          }
+        } catch (apiError) {
+          console.log('后端 API 不可用，保存到本地存储', apiError)
+        }
+        
+        // 如果后端也不可用，保存到 localStorage
+        if (!submittedToBackend) {
+          const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
+          existing.push(suggestion)
+          localStorage.setItem('suggestions', JSON.stringify(existing))
+          message.success('建议已保存到本地！由于服务未启用，数据仅保存在浏览器本地存储中。')
+        }
       }
       
       form.resetFields()
@@ -55,6 +96,67 @@ export default function SuggestionPage() {
     }
   }
 
+  // 格式化建议为 GitHub Issue 内容
+  const formatSuggestionAsIssueBody = (suggestion: any): string => {
+    const typeLabels: Record<string, string> = {
+      add_event: '新增事件',
+      add_person: '新增人物',
+      add_relationship: '新增关系',
+      correct_event: '修正事件',
+      correct_person: '修正人物',
+      add_source: '补充来源',
+    }
+    
+    let body = `## 建议信息\n\n`
+    body += `**类型：** ${typeLabels[suggestion.suggestionType] || suggestion.suggestionType}\n\n`
+    body += `**时间：** ${suggestion.time || '未填写'}\n\n`
+    body += `**详细描述：**\n${suggestion.description}\n\n`
+    
+    if (suggestion.sources && suggestion.sources.length > 0) {
+      body += `## 信息来源\n\n`
+      suggestion.sources.forEach((source: any, index: number) => {
+        body += `### 来源 ${index + 1}\n\n`
+        body += `- **类型：** ${source.sourceType === 'authoritative_website' ? '网站' : '书籍'}\n`
+        body += `- **标题：** ${source.title}\n`
+        if (source.url) {
+          body += `- **链接：** ${source.url}\n`
+        }
+        if (source.author) {
+          body += `- **作者：** ${source.author}\n`
+        }
+        if (source.publisher) {
+          body += `- **出版社：** ${source.publisher}\n`
+        }
+        if (source.publishDate) {
+          body += `- **出版日期：** ${source.publishDate}\n`
+        }
+        body += `\n`
+      })
+    }
+    
+    body += `## 联系方式\n\n`
+    body += `- **姓名：** ${suggestion.name}\n`
+    body += `- **邮箱：** ${suggestion.email}\n\n`
+    
+    body += `---\n`
+    body += `*提交时间：${new Date(suggestion.createdAt).toLocaleString('zh-CN')}*\n`
+    
+    return body
+  }
+
+  // 获取建议类型对应的 GitHub Label
+  const getSuggestionTypeLabel = (type: string): string => {
+    const labelMap: Record<string, string> = {
+      add_event: 'enhancement',
+      add_person: 'enhancement',
+      add_relationship: 'enhancement',
+      correct_event: 'bug',
+      correct_person: 'bug',
+      add_source: 'documentation',
+    }
+    return labelMap[type] || 'suggestion'
+  }
+
   return (
     <div className="container mx-auto px-6 py-6 max-w-4xl">
       <Title level={2} className="mb-6">提交建议</Title>
@@ -63,9 +165,10 @@ export default function SuggestionPage() {
         <div style={{ color: '#0369a1' }}>
           <strong>提示：</strong>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li>如果后端服务已启用，建议将提交到服务器数据库</li>
-            <li>如果后端服务未启用，建议将保存在浏览器本地存储（localStorage）中</li>
-            <li>您可以在浏览器开发者工具中查看保存的建议数据</li>
+            <li>如果配置了 GitHub Token，建议将自动提交到 GitHub Issues，便于追踪和统计</li>
+            <li>如果未配置 GitHub Token，将尝试提交到后端 API</li>
+            <li>如果后端服务也未启用，建议将保存在浏览器本地存储（localStorage）中</li>
+            <li>配置 GitHub Token：在项目根目录创建 <code>.env</code> 文件，添加 <code>VITE_GITHUB_TOKEN=your_token</code></li>
           </ul>
         </div>
       </Card>
