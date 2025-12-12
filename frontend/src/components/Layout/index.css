@@ -1,0 +1,21 @@
+/* 搜索下拉框样式 */
+.search-autocomplete-dropdown .ant-select-dropdown {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.search-autocomplete-dropdown .ant-select-item {
+  color: #1a1a1a;
+  padding: 12px 16px;
+}
+
+.search-autocomplete-dropdown .ant-select-item:hover {
+  background: #f5f5f5;
+}
+
+.search-autocomplete-dropdown .ant-select-item-option-selected {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+

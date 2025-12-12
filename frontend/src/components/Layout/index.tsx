@@ -9,6 +9,7 @@ import {
 } from '@ant-design/icons'
 import { ReactNode, useState } from 'react'
 import { searchEvents, searchPersons } from '@/services/dataLoader'
+import './index.css'
 
 const { Header, Content, Footer } = AntLayout
 
@@ -48,8 +49,8 @@ export default function Layout({ children }: LayoutProps) {
           value: `event-${event.id}`,
           label: (
             <div>
-              <div className="font-semibold text-white">{event.title}</div>
-              <div className="text-xs text-gray-300">事件 · {event.eventYear}年</div>
+              <div className="font-semibold text-gray-800">{event.title}</div>
+              <div className="text-xs text-gray-500">事件 · {event.eventYear}年</div>
             </div>
           ),
         })
@@ -61,8 +62,8 @@ export default function Layout({ children }: LayoutProps) {
           value: `person-${person.id}`,
           label: (
             <div>
-              <div className="font-semibold text-white">{person.name}</div>
-              <div className="text-xs text-gray-300">人物 · {person.dynasty?.name || '未知朝代'}</div>
+              <div className="font-semibold text-gray-800">{person.name}</div>
+              <div className="text-xs text-gray-500">人物 · {person.dynasty?.name || '未知朝代'}</div>
             </div>
           ),
         })
@@ -135,9 +136,10 @@ export default function Layout({ children }: LayoutProps) {
               size="small"
               style={{ width: '100%' }}
               notFoundContent={searchLoading ? '搜索中...' : searchValue ? '未找到' : null}
+              popupClassName="search-autocomplete-dropdown"
             >
               <Input
-                prefix={<SearchOutlined />}
+                prefix={<SearchOutlined style={{ color: 'white' }} />}
                 allowClear
                 onChange={(e) => {
                   setSearchValue(e.target.value)
