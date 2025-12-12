@@ -60,9 +60,8 @@ export default function TimelinePage() {
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
-  // 设置背景的函数
+  // 设置背景的函数 - 使用CSS变量实现平滑渐变过渡
   const setBackgroundGradient = (gradient: typeof defaultGradient) => {
-    const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
     const body = document.body
     const html = document.documentElement
     const layout = document.querySelector('.ant-layout')
@@ -71,22 +70,28 @@ export default function TimelinePage() {
     const root = document.getElementById('root')
     
     if (body && html) {
-      // 使用 setProperty 强制设置背景，覆盖所有样式
-      body.style.setProperty('background', gradientStyle, 'important')
+      // 使用CSS变量来存储渐变的起始和结束颜色，实现平滑过渡
+      body.style.setProperty('--gradient-start', gradient.start)
+      body.style.setProperty('--gradient-end', gradient.end)
+      body.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
       body.style.setProperty('background-attachment', 'fixed', 'important')
-      body.style.setProperty('transition', 'background 1.5s ease-in-out', 'important')
+      body.style.setProperty('transition', '--gradient-start 2s ease-in-out, --gradient-end 2s ease-in-out', 'important')
       body.style.setProperty('min-height', '100vh', 'important')
       body.classList.add('timeline-page-active')
       
-      html.style.setProperty('background', gradientStyle, 'important')
+      html.style.setProperty('--gradient-start', gradient.start)
+      html.style.setProperty('--gradient-end', gradient.end)
+      html.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
       html.style.setProperty('background-attachment', 'fixed', 'important')
-      html.style.setProperty('transition', 'background 1.5s ease-in-out', 'important')
+      html.style.setProperty('transition', '--gradient-start 2s ease-in-out, --gradient-end 2s ease-in-out', 'important')
       html.style.setProperty('min-height', '100vh', 'important')
       html.classList.add('timeline-page-active')
       
       // 确保根元素也设置背景
       if (root) {
-        root.style.setProperty('background', gradientStyle, 'important')
+        root.style.setProperty('--gradient-start', gradient.start)
+        root.style.setProperty('--gradient-end', gradient.end)
+        root.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
         root.style.setProperty('min-height', '100vh', 'important')
       }
       
@@ -103,7 +108,7 @@ export default function TimelinePage() {
         ;(contentWrapper as HTMLElement).style.setProperty('background', 'transparent', 'important')
       }
       
-      console.log('背景已设置为:', gradient.name, gradientStyle)
+      console.log('背景已设置为:', gradient.name, `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`)
     }
   }
 
@@ -250,6 +255,8 @@ export default function TimelinePage() {
   useEffect(() => {
     if (events.length === 0 || allYears.length === 0 || dynasties.length === 0) return
 
+    let lastGradient: typeof defaultGradient | null = null
+
     const handleScroll = () => {
       // 获取视口中心位置（相对于文档顶部）
       const viewportCenter = window.scrollY + window.innerHeight / 2
@@ -275,7 +282,14 @@ export default function TimelinePage() {
 
       if (closestYear !== null) {
         const gradient = getGradientByYear(closestYear)
-        setBackgroundGradient(gradient)
+        // 只有当渐变改变时才更新，避免频繁切换
+        if (!lastGradient || lastGradient.start !== gradient.start || lastGradient.end !== gradient.end) {
+          lastGradient = gradient
+          // 使用 requestAnimationFrame 确保平滑过渡
+          requestAnimationFrame(() => {
+            setBackgroundGradient(gradient)
+          })
+        }
       }
     }
 

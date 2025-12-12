@@ -5,6 +5,8 @@ body.timeline-page-active,
 html.timeline-page-active {
   background-attachment: fixed !important;
   min-height: 100vh !important;
+  /* 确保渐变背景的平滑过渡 */
+  transition: background 2s ease-in-out !important;
 }
 
 /* 确保 Ant Design Layout 在时间线页面背景透明 */
