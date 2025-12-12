@@ -5,6 +5,7 @@ import {
   ClockCircleOutlined, 
   ShareAltOutlined,
   EditOutlined,
+  EyeOutlined,
   SearchOutlined
 } from '@ant-design/icons'
 import { ReactNode, useState } from 'react'
@@ -105,6 +106,11 @@ export default function Layout({ children }: LayoutProps) {
       key: '/suggestion',
       icon: <EditOutlined />,
       label: '提交建议',
+    },
+    {
+      key: '/suggestions',
+      icon: <EyeOutlined />,
+      label: '查看建议',
     },
   ]
 

@@ -1,0 +1,30 @@
+/* 建议列表页面样式 */
+
+.suggestions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .suggestions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 建议卡片样式 */
+.ant-list-item {
+  transition: all 0.3s ease;
+}
+
+.ant-list-item:hover {
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+/* 详情视图样式 */
+.suggestion-detail-card {
+  max-width: 900px;
+  margin: 0 auto;
+}
+

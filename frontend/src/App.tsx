@@ -5,6 +5,7 @@ import TimelinePage from './pages/Timeline'
 import NetworkPage from './pages/Network'
 import DetailPage from './pages/Detail'
 import SuggestionPage from './pages/Suggestion'
+import SuggestionsListPage from './pages/SuggestionsList'
 import HomePage from './pages/Home'
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/network" element={<NetworkPage />} />
             <Route path="/detail/:type/:id" element={<DetailPage />} />
             <Route path="/suggestion" element={<SuggestionPage />} />
+            <Route path="/suggestions" element={<SuggestionsListPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
