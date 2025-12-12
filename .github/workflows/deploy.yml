@@ -36,6 +36,10 @@ jobs:
 
       - name: Build
         run: cd frontend && npm run build
+        env:
+          # 如果使用自定义域名，设置此环境变量为 true
+          # 否则会自动检测（如果域名不包含 github.io 则使用根路径）
+          VITE_USE_CUSTOM_DOMAIN: ${{ vars.VITE_USE_CUSTOM_DOMAIN || 'auto' }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

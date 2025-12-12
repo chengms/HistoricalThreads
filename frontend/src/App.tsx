@@ -8,8 +8,12 @@ import SuggestionPage from './pages/Suggestion'
 import HomePage from './pages/Home'
 
 function App() {
-  // 在生产环境中使用 base path
-  const basename = import.meta.env.PROD ? '/HistoricalThreads' : ''
+  // 检测是否使用自定义域名
+  // 如果设置了 VITE_USE_CUSTOM_DOMAIN=true，或者当前域名不是 github.io，则使用根路径
+  const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
+                         (typeof window !== 'undefined' && !window.location.hostname.includes('github.io'))
+  
+  const basename = isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : '')
   
   return (
     <ErrorBoundary>

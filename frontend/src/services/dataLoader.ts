@@ -16,12 +16,17 @@ let sourcesCache: Source[] | null = null
 
 // 获取 base path（用于 GitHub Pages）
 const getBasePath = () => {
-  // 在生产环境中，base path 是 /HistoricalThreads/
+  // 检测是否使用自定义域名
+  const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
+                         (typeof window !== 'undefined' && !window.location.hostname.includes('github.io'))
+  
+  // 如果使用自定义域名，base path 是 /
+  // 如果使用 GitHub Pages 子路径，base path 是 /HistoricalThreads
   // 在开发环境中，base path 是 /
-  if (import.meta.env.PROD) {
-    return '/HistoricalThreads'
+  if (isCustomDomain || !import.meta.env.PROD) {
+    return ''
   }
-  return ''
+  return '/HistoricalThreads'
 }
 
 // 加载JSON数据
