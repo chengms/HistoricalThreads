@@ -140,7 +140,7 @@ export default function Layout({ children }: LayoutProps) {
             onClick={({ key }) => navigate(key)}
             className="flex-1 border-0"
           />
-          <div className="w-64">
+          <div className="w-64 flex items-center">
             <AutoComplete
               value={searchValue}
               options={searchOptions}
@@ -161,8 +161,10 @@ export default function Layout({ children }: LayoutProps) {
                     setSearchOptions([])
                   }
                 }}
-                className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
-                style={{ color: 'white' }}
+                className="header-search-input"
+                style={{ 
+                  color: 'white',
+                }}
               />
             </AutoComplete>
           </div>

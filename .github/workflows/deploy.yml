@@ -45,6 +45,10 @@ jobs:
           # Twikoo 评论系统配置
           # 在 GitHub 仓库设置中添加变量: VITE_TWIKOO_ENV_ID = 您的 Twikoo 后端地址
           VITE_TWIKOO_ENV_ID: ${{ vars.VITE_TWIKOO_ENV_ID || '' }}
+          # 图床上传 API 配置
+          # 在 GitHub 仓库设置中添加变量: VITE_IMAGE_UPLOAD_API = 您的图床上传 API 地址
+          # 例如: https://cms-images.netlify.app/.netlify/functions/upload-image
+          VITE_IMAGE_UPLOAD_API: ${{ vars.VITE_IMAGE_UPLOAD_API || '' }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

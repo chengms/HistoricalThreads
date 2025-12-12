@@ -1,0 +1,94 @@
+/* Twikoo 评论系统自定义样式 */
+
+/* 隐藏 Twikoo 默认的上传图片按钮 - 更全面的选择器 */
+#twikoo .tk-submit-action-icon,
+#twikoo .tk-submit-action-icon svg,
+#twikoo .tk-row-action .tk-submit-action-icon,
+#twikoo .tk-submit .tk-row-action .tk-submit-action-icon,
+#twikoo .tk-submit .tk-row-action .tk-submit-action-icon svg,
+#twikoo .tk-submit .tk-row-action .tk-submit-action-icon path {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 隐藏上传图片相关的按钮和图标 */
+#twikoo .tk-submit-action-icon[title*="图片"],
+#twikoo .tk-submit-action-icon[title*="上传"],
+#twikoo .tk-submit-action-icon[title*="image"],
+#twikoo .tk-submit-action-icon[title*="upload"],
+#twikoo .tk-row-action .tk-submit-action-icon[title*="图片"],
+#twikoo .tk-row-action .tk-submit-action-icon[title*="上传"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 隐藏包含特定 SVG 路径的上传按钮 */
+#twikoo .tk-submit-action-icon svg path[d*="464 64H48"],
+#twikoo .tk-row-action .tk-submit-action-icon svg path[d*="464 64H48"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* 确保评论输入框区域正常显示 */
+#twikoo .tk-submit {
+  position: relative;
+}
+
+/* 自定义图片上传区域样式 */
+.twikoo-custom-upload {
+  margin-top: 12px;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  border: 1px dashed #d9d9d9;
+}
+
+.twikoo-custom-upload:hover {
+  border-color: #40a9ff;
+  background: #f0f9ff;
+}
+
+/* 评论中的图片显示样式 - 更全面的选择器 */
+#twikoo .tk-comment-content img,
+#twikoo .tk-content img,
+#twikoo .tk-comment img,
+#twikoo img[src*="cdn.jsdelivr.net"],
+#twikoo img[src*="https://"],
+#twikoo img[src*="http://"] {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 8px 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: block;
+}
+
+#twikoo .tk-comment-content img:hover,
+#twikoo .tk-content img:hover,
+#twikoo .tk-comment img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 确保 Markdown 图片正确显示 */
+#twikoo .tk-comment-content p img,
+#twikoo .tk-content p img {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 100%;
+}
+
+/* 图片预览样式 */
+.twikoo-image-preview {
+  display: inline-block;
+  margin: 4px;
+  position: relative;
+}
+
+.twikoo-image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
+}
+

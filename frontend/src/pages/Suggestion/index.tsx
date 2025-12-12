@@ -36,8 +36,14 @@ export default function SuggestionPage() {
       const fileExtension = file.name.split('.').pop() || 'jpg'
       const filename = `suggestions/${timestamp}-${index}.${fileExtension}`
       
+      // 获取图床 API 地址
+      const imageUploadApi = import.meta.env.VITE_IMAGE_UPLOAD_API || ''
+      if (!imageUploadApi) {
+        throw new Error('图床 API 地址未配置，请在环境变量中设置 VITE_IMAGE_UPLOAD_API')
+      }
+      
       // 调用上传 API
-      const uploadUrl = 'https://cms-images.netlify.app/.netlify/functions/upload-image'
+      const uploadUrl = imageUploadApi
       const response = await fetch(uploadUrl, {
         method: 'POST',
         headers: {
