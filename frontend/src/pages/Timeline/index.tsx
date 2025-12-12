@@ -458,16 +458,20 @@ export default function TimelinePage() {
                                 navigate(`/detail/person/${person.id}`)
                               }}
                             >
-                              <Space size={8}>
-                                <Avatar
-                                  src={person.avatarUrl}
-                                  icon={<UserOutlined />}
-                                  size="small"
-                                  className="person-avatar"
-                                  onError={() => true}
-                                />
-                                <span>{person.name}</span>
-                              </Space>
+                              {person.avatarUrl ? (
+                                <Space size={8}>
+                                  <Avatar
+                                    src={person.avatarUrl}
+                                    icon={<UserOutlined />}
+                                    size="small"
+                                    className="person-avatar"
+                                    onError={() => true}
+                                  />
+                                  <span className="person-name">{person.name}</span>
+                                </Space>
+                              ) : (
+                                <span className="person-name">{person.name}</span>
+                              )}
                             </Button>
                           ))}
                         </div>
