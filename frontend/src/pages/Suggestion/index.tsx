@@ -111,6 +111,13 @@ export default function SuggestionPage() {
           <Form.Item
             name="time"
             label="时间"
+            rules={[
+              { required: true, message: '请输入时间' },
+              {
+                pattern: /^(公元前)?\d+年$/,
+                message: '请输入正确的时间格式，例如：公元前221年 或 1234年',
+              },
+            ]}
           >
             <Input placeholder="例如：公元前221年 或 1234年" />
           </Form.Item>
