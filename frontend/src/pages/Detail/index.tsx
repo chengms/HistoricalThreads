@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { Card, Typography, Tag, Button, List, Space, Spin, Avatar } from 'antd'
-import { ArrowLeftOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, LinkOutlined, UserOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
 import type { Event, Person } from '@/types'
@@ -92,51 +92,151 @@ export default function DetailPage() {
 
       {type === 'event' ? (
         <Card>
-          <Title level={2}>{(data as Event).title}</Title>
-          <Space className="mb-4">
-            <Tag color="blue">{(data as Event).eventYear}年</Tag>
-            <Tag color="green">{(data as Event).dynasty?.name}</Tag>
-            <Tag color="orange">{(data as Event).eventType}</Tag>
+          <Space direction="vertical" size="large" className="w-full">
+            {/* 事件标题和基本信息 */}
+            <div>
+              <Title level={2} style={{ marginBottom: 16 }}>{(data as Event).title}</Title>
+              
+              {/* 事件信息 */}
+              <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                {/* 事件年份 */}
+                {(data as Event).eventYear && (
+                  <div>
+                    <span className="text-gray-500 mr-2">发生年份：</span>
+                    <Tag color="blue" style={{ margin: 0 }}>{(data as Event).eventYear}年</Tag>
+                  </div>
+                )}
+                
+                {/* 事件日期 */}
+                {(data as Event).eventDate && (
+                  <div>
+                    <span className="text-gray-500 mr-2">具体日期：</span>
+                    <span className="text-gray-700">{(data as Event).eventDate}</span>
+                  </div>
+                )}
+                
+                {/* 所属朝代 */}
+                {(data as Event).dynasty?.name && (
+                  <div>
+                    <span className="text-gray-500 mr-2">所属朝代：</span>
+                    <Tag color="green" style={{ margin: 0 }}>{(data as Event).dynasty?.name}</Tag>
+                  </div>
+                )}
+                
+                {/* 事件类型 */}
+                {(data as Event).eventType && (
+                  <div>
+                    <span className="text-gray-500 mr-2">事件类型：</span>
+                    {(() => {
+                      const typeLabels: Record<string, string> = {
+                        political: '政治',
+                        economic: '经济',
+                        cultural: '文化',
+                        military: '军事',
+                        reform: '改革',
+                        other: '其他'
+                      }
+                      const typeColors: Record<string, string> = {
+                        political: 'blue',
+                        economic: 'green',
+                        cultural: 'orange',
+                        military: 'red',
+                        reform: 'purple',
+                        other: 'default'
+                      }
+                      return (
+                        <Tag color={typeColors[(data as Event).eventType] || 'default'} style={{ margin: 0 }}>
+                          {typeLabels[(data as Event).eventType] || (data as Event).eventType}
+                        </Tag>
+                      )
+                    })()}
+                  </div>
+                )}
+                
+                {/* 事件地点 */}
+                {(data as Event).location && (
+                  <div>
+                    <span className="text-gray-500 mr-2">发生地点：</span>
+                    <span className="text-gray-700">
+                      <CalendarOutlined className="mr-1" />
+                      {(data as Event).location}
+                    </span>
+                  </div>
+                )}
+              </Space>
+            </div>
+            
+            {/* 事件描述 */}
+            {(data as Event).description && (
+              <div>
+                <Title level={4} style={{ marginBottom: 12 }}>事件详情</Title>
+                <Paragraph className="text-base leading-7 mb-6" style={{ fontSize: '15px', lineHeight: '1.8' }}>
+                  {(data as Event).description}
+                </Paragraph>
+              </div>
+            )}
+
+            {/* 相关人物 */}
+            {(data as Event).persons && (data as Event).persons!.length > 0 && (
+              <>
+                <Title level={4}>相关人物</Title>
+                <List
+                  dataSource={(data as Event).persons}
+                  renderItem={(person) => (
+                    <List.Item>
+                      <Space>
+                        {person.avatarUrl && (
+                          <Avatar
+                            src={person.avatarUrl}
+                            icon={<UserOutlined />}
+                            size="small"
+                            shape="square"
+                            onError={() => true}
+                          />
+                        )}
+                        <Button 
+                          type="link" 
+                          onClick={() => navigate(`/detail/person/${person.id}`)}
+                          style={{ padding: 0, height: 'auto' }}
+                        >
+                          {person.name}
+                        </Button>
+                        {person.dynasty?.name && (
+                          <Tag color="default" style={{ margin: 0 }}>{person.dynasty.name}</Tag>
+                        )}
+                      </Space>
+                    </List.Item>
+                  )}
+                  className="mb-6"
+                />
+              </>
+            )}
+
+            {/* 信息来源 */}
+            {(data as Event).sources && (data as Event).sources!.length > 0 && (
+              <>
+                <Title level={4}>信息来源</Title>
+                <List
+                  dataSource={(data as Event).sources}
+                  renderItem={(source) => (
+                    <List.Item>
+                      <LinkOutlined className="mr-2" />
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">
+                          {source.title}
+                        </a>
+                      ) : (
+                        <span>{source.title}</span>
+                      )}
+                      {source.author && (
+                        <span className="text-gray-500 ml-2">（{source.author}）</span>
+                      )}
+                    </List.Item>
+                  )}
+                />
+              </>
+            )}
           </Space>
-          <Paragraph className="text-lg mb-6">{(data as Event).description}</Paragraph>
-
-          {(data as Event).persons && (data as Event).persons!.length > 0 && (
-            <>
-              <Title level={4}>相关人物</Title>
-              <List
-                dataSource={(data as Event).persons}
-                renderItem={(person) => (
-                  <List.Item>
-                    <Button type="link" onClick={() => navigate(`/detail/person/${person.id}`)}>
-                      {person.name}
-                    </Button>
-                  </List.Item>
-                )}
-                className="mb-6"
-              />
-            </>
-          )}
-
-          {(data as Event).sources && (data as Event).sources!.length > 0 && (
-            <>
-              <Title level={4}>信息来源</Title>
-              <List
-                dataSource={(data as Event).sources}
-                renderItem={(source) => (
-                  <List.Item>
-                    <LinkOutlined className="mr-2" />
-                    {source.url ? (
-                      <a href={source.url} target="_blank" rel="noopener noreferrer">
-                        {source.title}
-                      </a>
-                    ) : (
-                      <span>{source.title}</span>
-                    )}
-                  </List.Item>
-                )}
-              />
-            </>
-          )}
         </Card>
       ) : (
         <Card>
