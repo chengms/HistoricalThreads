@@ -435,8 +435,10 @@ export default function DetailPage() {
         </Card>
       )}
 
-      {/* Twikoo 评论组件 */}
-      <TwikooComment path={`/detail/${type}/${id}`} />
+      {/* Twikoo 评论组件 - 只在数据加载完成后显示 */}
+      {!loading && data && (
+        <TwikooComment path={`/detail/${type}/${id}`} />
+      )}
     </div>
   )
 }
