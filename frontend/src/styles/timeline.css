@@ -10,6 +10,9 @@
 /* 筛选卡片 */
 .timeline-filter-card {
   margin-bottom: 32px;
+  margin-left: 260px; /* 为固定定位的侧边栏留出空间 */
+  margin-right: 24px;
+  max-width: calc(100% - 284px); /* 减去左边距和右边距 */
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.95);
@@ -382,6 +385,11 @@
     left: 16px;
   }
   
+  .timeline-filter-card {
+    margin-left: 240px; /* 调整筛选框左边距 */
+    max-width: calc(100% - 264px);
+  }
+  
   .timeline-main {
     margin-left: 240px; /* 调整左边距 */
   }
@@ -407,6 +415,12 @@
   .timeline-layout {
     flex-direction: column;
     gap: 20px;
+  }
+  
+  .timeline-filter-card {
+    margin-left: 0; /* 移动端不需要左边距 */
+    margin-right: 0;
+    max-width: 100%;
   }
   
   .timeline-sidebar {
