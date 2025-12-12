@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Avatar } from 'antd'
-import { SearchOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons'
+import { Card, Select, Space, Typography, Spin, Tag, Button, Avatar } from 'antd'
+import { CalendarOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { loadEvents, loadDynasties, searchEvents } from '@/services/dataLoader'
+import { loadEvents, loadDynasties } from '@/services/dataLoader'
 import type { Event, Dynasty, Person } from '@/types'
 import '@/styles/timeline.css'
 
@@ -55,7 +55,6 @@ export default function TimelinePage() {
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const [dynasty, setDynasty] = useState<string>('all')
   const [eventType, setEventType] = useState<string>('all')
-  const [searchText, setSearchText] = useState<string>('')
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
@@ -186,20 +185,12 @@ export default function TimelinePage() {
         filtered = filtered.filter(e => e.eventType === eventType)
       }
       
-      if (searchText) {
-        const searched = await searchEvents(searchText)
-        filtered = searched.filter(e => 
-          (dynasty === 'all' || e.dynastyId === Number(dynasty)) &&
-          (eventType === 'all' || e.eventType === eventType)
-        )
-      }
-      
       // 按年份排序
       filtered.sort((a, b) => a.eventYear - b.eventYear)
       setEvents(filtered)
     }
     filterEvents()
-  }, [dynasty, eventType, searchText])
+  }, [dynasty, eventType])
 
   // 按年份分组事件
   const groupEventsByYear = () => {
@@ -356,13 +347,6 @@ export default function TimelinePage() {
               { label: '军事', value: 'military' },
               { label: '改革', value: 'reform' },
             ]}
-          />
-          <Input
-            placeholder="搜索事件..."
-            prefix={<SearchOutlined />}
-            style={{ width: 300 }}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
           />
         </Space>
       </Card>
