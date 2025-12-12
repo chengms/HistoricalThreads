@@ -233,6 +233,12 @@ export default function SuggestionPage() {
         if (source.publishDate) {
           commentContent += `- **出版日期：** ${source.publishDate}\n`
         }
+        if (source.page) {
+          commentContent += `- **页码：** ${source.page}\n`
+        }
+        if (source.line) {
+          commentContent += `- **行数：** ${source.line}\n`
+        }
         commentContent += `\n`
       })
     }
@@ -263,7 +269,7 @@ export default function SuggestionPage() {
             <li><strong>建议类型</strong>：请根据您的建议内容选择相应的类型，如新增事件、新增人物、修正信息等</li>
             <li><strong>时间</strong>：请填写具体的时间，格式如"公元前1046年"或"2024年"</li>
             <li><strong>详细描述</strong>：请尽可能详细地描述您的建议内容，包括相关背景信息</li>
-            <li><strong>信息来源</strong>：请提供可靠的信息来源，可以是权威网站或学术书籍，以增加建议的可信度</li>
+            <li><strong>信息来源</strong>：请提供可靠的信息来源，可以是权威网站或学术书籍，以增加建议的可信度。如果是书籍，可以填写页码和行数以便查找</li>
             <li><strong>联系方式</strong>：姓名和邮箱为选填项，填写后我们可以在需要时与您联系</li>
           </ul>
         </div>
@@ -299,6 +305,8 @@ export default function SuggestionPage() {
                         {source.author && <div><strong>作者：</strong>{source.author}</div>}
                         {source.publisher && <div><strong>出版社：</strong>{source.publisher}</div>}
                         {source.publishDate && <div><strong>出版日期：</strong>{source.publishDate}</div>}
+                        {source.page && <div><strong>页码：</strong>{source.page}</div>}
+                        {source.line && <div><strong>行数：</strong>{source.line}</div>}
                       </Card>
                     ))}
                   </Space>
@@ -477,6 +485,24 @@ export default function SuggestionPage() {
                                       style={{ flex: 1 }}
                                     >
                                       <Input placeholder="例如：2020年" />
+                                    </Form.Item>
+                                  </Space>
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'page']}
+                                      label="页码（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：第123页" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'line']}
+                                      label="行数（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：第5-10行" />
                                     </Form.Item>
                                   </Space>
                                   <Form.Item
