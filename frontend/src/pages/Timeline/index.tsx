@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Affix } from 'antd'
-import { SearchOutlined, CalendarOutlined } from '@ant-design/icons'
+import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Affix, Avatar } from 'antd'
+import { SearchOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties, searchEvents } from '@/services/dataLoader'
 import type { Event, Dynasty, Person } from '@/types'
@@ -404,7 +404,16 @@ export default function TimelinePage() {
                                 navigate(`/detail/person/${person.id}`)
                               }}
                             >
-                              {person.name}
+                              <Space size={8}>
+                                <Avatar
+                                  src={person.avatarUrl}
+                                  icon={<UserOutlined />}
+                                  size="small"
+                                  className="person-avatar"
+                                  onError={() => true}
+                                />
+                                <span>{person.name}</span>
+                              </Space>
                             </Button>
                           ))}
                         </div>

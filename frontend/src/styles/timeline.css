@@ -353,6 +353,8 @@
   border: 1px solid rgba(102, 126, 234, 0.2);
   font-weight: 500;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 }
 
 .person-link:hover {
@@ -361,6 +363,19 @@
   transform: translateX(6px) scale(1.05);
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
   border-color: rgba(102, 126, 234, 0.4);
+}
+
+.person-avatar {
+  flex-shrink: 0;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.person-link:hover .person-avatar {
+  border-color: rgba(102, 126, 234, 0.6);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+  transform: scale(1.1);
+  transition: all 0.3s ease;
 }
 
 /* 响应式设计 */

@@ -1,0 +1,13 @@
+/* 人物详情页头像样式 */
+.person-detail-avatar {
+  border: 4px solid rgba(102, 126, 234, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.person-detail-avatar:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+  transform: scale(1.05);
+}
+

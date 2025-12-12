@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { Card, Typography, Tag, Button, List, Space, Spin } from 'antd'
-import { ArrowLeftOutlined, LinkOutlined } from '@ant-design/icons'
+import { Card, Typography, Tag, Button, List, Space, Spin, Avatar } from 'antd'
+import { ArrowLeftOutlined, LinkOutlined, UserOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
 import type { Event, Person } from '@/types'
+import '@/styles/detail.css'
 
 const { Title, Paragraph } = Typography
 
@@ -129,8 +130,18 @@ export default function DetailPage() {
         </Card>
       ) : (
         <Card>
-          <Title level={2}>{(data as Person).name}</Title>
-          <Space className="mb-4">
+          <Space direction="vertical" size="large" className="w-full">
+            <Space size="large" align="start">
+              <Avatar
+                src={(data as Person).avatarUrl}
+                icon={<UserOutlined />}
+                size={120}
+                className="person-detail-avatar"
+                onError={() => true}
+              />
+              <div>
+                <Title level={2} style={{ marginBottom: 16 }}>{(data as Person).name}</Title>
+                <Space className="mb-4" wrap>
             {(data as Person).birthYear && (data as Person).deathYear && (
               <Tag color="blue">
                 {(data as Person).birthYear} - {(data as Person).deathYear}
@@ -142,10 +153,13 @@ export default function DetailPage() {
             {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => (
               <Tag key={type} color="purple">{type}</Tag>
             ))}
+                </Space>
+              </div>
+            </Space>
+            {(data as Person).biography && (
+              <Paragraph className="text-lg mb-6">{(data as Person).biography}</Paragraph>
+            )}
           </Space>
-          {(data as Person).biography && (
-            <Paragraph className="text-lg mb-6">{(data as Person).biography}</Paragraph>
-          )}
 
           {(data as any).relationships && (data as any).relationships.length > 0 && (
             <>
@@ -181,7 +195,14 @@ export default function DetailPage() {
                         type="link" 
                         onClick={() => navigate(`/detail/person/${otherPerson.id}`)}
                         className="mr-4"
+                        style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                       >
+                        <Avatar
+                          src={otherPerson.avatarUrl}
+                          icon={<UserOutlined />}
+                          size="small"
+                          onError={() => true}
+                        />
                         {otherPerson.name}
                       </Button>
                       <Tag color="blue">{getRelationshipLabel(rel.relationshipType)}</Tag>
