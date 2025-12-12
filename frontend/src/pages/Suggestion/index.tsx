@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Card, Form, Input, Select, Button, Typography, message, Space, Alert, Descriptions, Tag } from 'antd'
-import { PlusOutlined, MinusCircleOutlined, CopyOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import { Card, Form, Input, Select, Button, Typography, message, Space, Descriptions, Tag } from 'antd'
+import { PlusOutlined, MinusCircleOutlined, CheckCircleOutlined } from '@ant-design/icons'
 
 const { Title, Paragraph } = Typography
 const { TextArea } = Input
@@ -8,8 +8,6 @@ const { TextArea } = Input
 export default function SuggestionPage() {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
-  const [discussionContent, setDiscussionContent] = useState<string>('')
-  const [showCopyButton, setShowCopyButton] = useState(false)
   const [submittedSuggestion, setSubmittedSuggestion] = useState<any>(null)
 
   const onFinish = async (values: any) => {
@@ -37,16 +35,12 @@ export default function SuggestionPage() {
           message.success('建议已成功提交到 Twikoo！感谢您的反馈。')
           form.resetFields()
         } else {
-          // 如果 Twikoo 提交失败，显示提示但不跳转
-          message.warning('Twikoo 提交失败，建议已保存到本地。您可以使用下方的复制按钮手动提交到 GitHub。')
-          setDiscussionContent(formatSuggestionAsDiscussionBody(suggestion))
-          setShowCopyButton(true)
+          // 如果 Twikoo 提交失败，只显示提示
+          // 错误信息已在 submitToTwikoo 中显示
         }
       } else {
-        // 方案 2: 如果 Twikoo 未配置，显示内容供用户复制
-        message.info('建议已保存。您可以使用下方的复制按钮提交到 GitHub Discussions。')
-        setDiscussionContent(formatSuggestionAsDiscussionBody(suggestion))
-        setShowCopyButton(true)
+        // 如果 Twikoo 未配置
+        message.warning('Twikoo 未配置，建议已保存到本地。请联系管理员配置 Twikoo 后端服务。')
       }
       
       // 同时保存到本地作为备份
@@ -117,6 +111,9 @@ export default function SuggestionPage() {
         apiUrl = envId.replace(/\/$/, '') + '/api'
       }
       
+      console.log('Twikoo API URL:', apiUrl)
+      console.log('Twikoo Comment Data:', comment)
+      
       // Twikoo API 请求格式
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -129,22 +126,50 @@ export default function SuggestionPage() {
         }),
       })
       
+      console.log('Twikoo Response Status:', response.status, response.statusText)
+      
       if (response.ok) {
         const result = await response.json()
+        console.log('Twikoo Response Data:', result)
+        
         // Twikoo 成功响应通常是 errno: 0 或 code: 0
         if (result.errno === 0 || result.code === 0) {
           return true
         }
-        // 有些版本可能直接返回 200 状态码
-        if (response.status === 200 && !result.errno && !result.code) {
+        
+        // 处理特定的错误码
+        if (result.code === 1001) {
+          console.error('Twikoo 云函数版本过旧，需要更新:', result.message)
+          message.error('Twikoo 后端服务需要更新，请联系管理员更新 Twikoo 云函数版本。')
+        } else if (result.message) {
+          console.error('Twikoo API 错误:', result.message)
+          message.error(`Twikoo 提交失败: ${result.message}`)
+        } else {
+          console.warn('Twikoo API 响应格式异常:', result)
+        }
+        
+        // 有些版本可能直接返回 200 状态码但没有 code/errno
+        if (response.status === 200 && !result.errno && !result.code && !result.message) {
           return true
         }
+        
+        return false
+      } else {
+        // 响应失败，获取错误信息
+        const errorText = await response.text()
+        console.error('Twikoo API 错误响应:', {
+          status: response.status,
+          statusText: response.statusText,
+          body: errorText
+        })
+        return false
       }
-      
-      console.warn('Twikoo API 响应:', await response.text())
-      return false
-    } catch (error) {
-      console.error('Twikoo 提交失败:', error)
+    } catch (error: any) {
+      console.error('Twikoo 提交失败 - 详细错误:', {
+        error: error.message,
+        stack: error.stack,
+        name: error.name
+      })
       return false
     }
   }
@@ -200,78 +225,6 @@ export default function SuggestionPage() {
       rid: '', // 回复的评论 ID，新建议没有回复
       created: Date.now(),
     }
-  }
-  
-  // 复制讨论内容到剪贴板
-  const copyDiscussionContent = async () => {
-    try {
-      await navigator.clipboard.writeText(discussionContent)
-      message.success('内容已复制到剪贴板！请在 GitHub Discussions 页面粘贴。')
-    } catch (error) {
-      // 降级方案：使用传统方法
-      const textArea = document.createElement('textarea')
-      textArea.value = discussionContent
-      textArea.style.position = 'fixed'
-      textArea.style.opacity = '0'
-      document.body.appendChild(textArea)
-      textArea.select()
-      try {
-        document.execCommand('copy')
-        message.success('内容已复制到剪贴板！请在 GitHub Discussions 页面粘贴。')
-      } catch (err) {
-        message.error('复制失败，请手动复制下方内容。')
-      }
-      document.body.removeChild(textArea)
-    }
-  }
-  
-  // 格式化建议为 GitHub Discussion 内容
-  const formatSuggestionAsDiscussionBody = (suggestion: any): string => {
-    const typeLabels: Record<string, string> = {
-      add_event: '新增事件',
-      add_person: '新增人物',
-      add_relationship: '新增关系',
-      correct_event: '修正事件',
-      correct_person: '修正人物',
-      add_source: '补充来源',
-      other: '其他建议',
-    }
-    
-    let body = `## 建议信息\n\n`
-    body += `**类型：** ${typeLabels[suggestion.suggestionType] || suggestion.suggestionType}\n\n`
-    body += `**时间：** ${suggestion.time || '未填写'}\n\n`
-    body += `**详细描述：**\n${suggestion.description}\n\n`
-    
-    if (suggestion.sources && suggestion.sources.length > 0) {
-      body += `## 信息来源\n\n`
-      suggestion.sources.forEach((source: any, index: number) => {
-        body += `### 来源 ${index + 1}\n\n`
-        body += `- **类型：** ${source.sourceType === 'authoritative_website' ? '网站' : '书籍'}\n`
-        body += `- **标题：** ${source.title}\n`
-        if (source.url) {
-          body += `- **链接：** ${source.url}\n`
-        }
-        if (source.author) {
-          body += `- **作者：** ${source.author}\n`
-        }
-        if (source.publisher) {
-          body += `- **出版社：** ${source.publisher}\n`
-        }
-        if (source.publishDate) {
-          body += `- **出版日期：** ${source.publishDate}\n`
-        }
-        body += `\n`
-      })
-    }
-    
-    body += `## 联系方式\n\n`
-    body += `- **姓名：** ${suggestion.name || '未提供'}\n`
-    body += `- **邮箱：** ${suggestion.email || '未提供'}\n\n`
-    
-    body += `---\n`
-    body += `*提交时间：${new Date(suggestion.createdAt).toLocaleString('zh-CN')}*\n`
-    
-    return body
   }
 
 
@@ -340,44 +293,10 @@ export default function SuggestionPage() {
               </Descriptions.Item>
             </Descriptions>
             
-            {showCopyButton && discussionContent && (
-              <Alert
-                message="手动提交到 GitHub（可选）"
-                description={
-                  <div>
-                    <p style={{ marginBottom: 8 }}>如果 Twikoo 提交失败，您可以复制以下内容并手动提交到 GitHub Discussions：</p>
-                    <Button
-                      type="primary"
-                      icon={<CopyOutlined />}
-                      onClick={copyDiscussionContent}
-                      block
-                    >
-                      复制内容到剪贴板
-                    </Button>
-                    <Button
-                      type="link"
-                      onClick={() => {
-                        const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
-                        window.open(`https://github.com/${githubRepo}/discussions/new`, '_blank')
-                      }}
-                      style={{ marginTop: 8, padding: 0 }}
-                    >
-                      打开 GitHub Discussions 页面
-                    </Button>
-                  </div>
-                }
-                type="info"
-                closable
-                onClose={() => setShowCopyButton(false)}
-              />
-            )}
-            
             <Button
               type="default"
               onClick={() => {
                 setSubmittedSuggestion(null)
-                setShowCopyButton(false)
-                setDiscussionContent('')
               }}
             >
               提交新建议
