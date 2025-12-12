@@ -230,17 +230,29 @@ export default function TimelinePage() {
         const body = document.body
         const html = document.documentElement
         const contentWrapper = document.querySelector('.ant-layout-content > div')
+        const layoutContent = document.querySelector('.ant-layout-content')
+        
         if (body && html) {
           const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
+          
+          // 设置 body 和 html 的背景
           body.style.background = gradientStyle
           body.style.backgroundAttachment = 'fixed'
           body.style.transition = 'background 1.5s ease-in-out'
+          body.style.minHeight = '100vh'
+          
           html.style.background = gradientStyle
           html.style.backgroundAttachment = 'fixed'
           html.style.transition = 'background 1.5s ease-in-out'
-        }
-        if (contentWrapper) {
-          ;(contentWrapper as HTMLElement).style.background = 'transparent'
+          html.style.minHeight = '100vh'
+          
+          // 确保内容区域透明
+          if (contentWrapper) {
+            ;(contentWrapper as HTMLElement).style.background = 'transparent'
+          }
+          if (layoutContent) {
+            ;(layoutContent as HTMLElement).style.background = 'transparent'
+          }
         }
       }
     }

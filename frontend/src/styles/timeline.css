@@ -22,8 +22,9 @@
   display: flex;
   gap: 32px;
   position: relative;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
+  padding-left: 0; /* 侧边栏是固定定位，不需要在布局中留空间 */
 }
 
 /* 左侧侧边栏 */
@@ -104,6 +105,7 @@
   flex: 1;
   position: relative;
   padding: 60px 0;
+  margin-left: 260px; /* 为固定定位的侧边栏留出空间 */
 }
 
 /* 时间轴中心线 */
@@ -374,6 +376,10 @@
     left: 16px;
   }
   
+  .timeline-main {
+    margin-left: 240px; /* 调整左边距 */
+  }
+  
   .timeline-year-section {
     padding-left: 140px;
   }
@@ -402,6 +408,10 @@
     position: static;
     max-height: 400px;
     left: 0;
+  }
+  
+  .timeline-main {
+    margin-left: 0; /* 移动端不需要左边距 */
   }
   
   .timeline-year-section {
