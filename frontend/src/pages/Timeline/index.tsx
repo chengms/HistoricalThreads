@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Space, Typography, Spin, Tag, Button, Avatar } from 'antd'
-import { CalendarOutlined, UserOutlined } from '@ant-design/icons'
+import { Card, Select, Space, Typography, Spin, Tag, Button, Avatar, FloatButton } from 'antd'
+import { CalendarOutlined, UserOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties } from '@/services/dataLoader'
 import type { Event, Dynasty, Person } from '@/types'
@@ -482,6 +482,22 @@ export default function TimelinePage() {
           })}
         </div>
       </div>
+      
+      {/* 返回顶部按钮 */}
+      <FloatButton
+        icon={<VerticalAlignTopOutlined />}
+        type="primary"
+        style={{
+          right: 24,
+          bottom: 24,
+        }}
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          })
+        }}
+      />
     </div>
   )
 }
