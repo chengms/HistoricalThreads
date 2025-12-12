@@ -127,29 +127,113 @@ export default function SuggestionPage() {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => (
-                    <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                      <Form.Item
-                        {...restField}
-                        name={[name, 'title']}
-                        rules={[{ required: true, message: '请输入来源标题' }]}
-                      >
-                        <Input placeholder="来源标题" style={{ width: 200 }} />
-                      </Form.Item>
-                      <Form.Item
-                        {...restField}
-                        name={[name, 'url']}
-                        rules={[
-                          { required: true, message: '请输入来源链接' },
-                          { type: 'url', message: '请输入有效的URL' },
-                        ]}
-                      >
-                        <Input placeholder="来源链接" style={{ width: 300 }} />
-                      </Form.Item>
-                      <MinusCircleOutlined onClick={() => remove(name)} />
-                    </Space>
+                    <Card key={key} style={{ marginBottom: 16, backgroundColor: '#fafafa' }}>
+                      <Space direction="vertical" style={{ width: '100%' }} size="middle">
+                        <Space style={{ width: '100%' }} align="baseline">
+                          <Form.Item
+                            {...restField}
+                            name={[name, 'sourceType']}
+                            label="来源类型"
+                            rules={[{ required: true, message: '请选择来源类型' }]}
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Select placeholder="选择类型" style={{ width: 120 }}>
+                              <Select.Option value="authoritative_website">网站</Select.Option>
+                              <Select.Option value="academic_book">书籍</Select.Option>
+                            </Select>
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, 'title']}
+                            label="标题"
+                            rules={[{ required: true, message: '请输入来源标题' }]}
+                            style={{ marginBottom: 0, flex: 1 }}
+                          >
+                            <Input placeholder="来源标题" />
+                          </Form.Item>
+                          <MinusCircleOutlined 
+                            onClick={() => remove(name)} 
+                            style={{ color: '#ff4d4f', fontSize: 18, cursor: 'pointer' }}
+                          />
+                        </Space>
+                        
+                        {/* 根据来源类型显示不同的字段 */}
+                        <Form.Item
+                          noStyle
+                          shouldUpdate={(prevValues, currentValues) =>
+                            prevValues.sources?.[name]?.sourceType !== currentValues.sources?.[name]?.sourceType
+                          }
+                        >
+                          {({ getFieldValue }) => {
+                            const sourceType = getFieldValue(['sources', name, 'sourceType'])
+                            
+                            if (sourceType === 'authoritative_website') {
+                              // 网站类型：需要 URL
+                              return (
+                                <Form.Item
+                                  {...restField}
+                                  name={[name, 'url']}
+                                  label="网站链接"
+                                  rules={[
+                                    { required: true, message: '请输入网站链接' },
+                                    { type: 'url', message: '请输入有效的URL' },
+                                  ]}
+                                >
+                                  <Input placeholder="https://example.com" />
+                                </Form.Item>
+                              )
+                            } else if (sourceType === 'academic_book') {
+                              // 书籍类型：需要作者、出版社等信息
+                              return (
+                                <>
+                                  <Form.Item
+                                    {...restField}
+                                    name={[name, 'author']}
+                                    label="作者"
+                                    rules={[{ required: true, message: '请输入作者' }]}
+                                  >
+                                    <Input placeholder="作者姓名" />
+                                  </Form.Item>
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'publisher']}
+                                      label="出版社"
+                                      rules={[{ required: true, message: '请输入出版社' }]}
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="出版社名称" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'publishDate']}
+                                      label="出版日期"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：2020年" />
+                                    </Form.Item>
+                                  </Space>
+                                  <Form.Item
+                                    {...restField}
+                                    name={[name, 'url']}
+                                    label="相关链接（可选）"
+                                    rules={[
+                                      { type: 'url', message: '请输入有效的URL' },
+                                    ]}
+                                  >
+                                    <Input placeholder="如有在线版本或购买链接，可填写" />
+                                  </Form.Item>
+                                </>
+                              )
+                            }
+                            return null
+                          }}
+                        </Form.Item>
+                      </Space>
+                    </Card>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                    <Button type="dashed" onClick={() => add({ sourceType: 'authoritative_website' })} block icon={<PlusOutlined />}>
                       添加来源
                     </Button>
                   </Form.Item>
