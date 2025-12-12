@@ -117,7 +117,7 @@ export default function Layout({ children }: LayoutProps) {
       className="min-h-screen"
       style={isTimelinePage ? { background: 'transparent' } : {}}
     >
-      <Header className="bg-primary text-white px-6">
+      <Header className="text-white px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #2563eb 100%)' }}>
         <div className="flex items-center h-full gap-4">
           <div 
             className="text-xl font-bold cursor-pointer"
