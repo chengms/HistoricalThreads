@@ -27,6 +27,29 @@ const eventTypeLabels: Record<string, string> = {
   other: '其他',
 }
 
+// 朝代背景渐变色配置（体现各朝代特征）
+const dynastyGradients: Record<string, { start: string; end: string; name: string }> = {
+  '夏朝': { start: '#8B6F47', end: '#A0826D', name: '古朴土黄' }, // 古朴的土黄色，体现原始古老
+  '商朝': { start: '#4A5D23', end: '#6B7F3A', name: '青铜深绿' }, // 青铜色，体现青铜器文明
+  '周朝': { start: '#D4AF37', end: '#F4D03F', name: '礼制金黄' }, // 金色，体现礼制正统
+  '春秋': { start: '#E67E22', end: '#D35400', name: '争霸橙红' }, // 橙红色，体现争霸激烈
+  '战国': { start: '#8B0000', end: '#A52A2A', name: '战火深红' }, // 深红色，体现战争混乱
+  '秦朝': { start: '#2C2C2C', end: '#4A4A4A', name: '统一玄黑' }, // 黑色，体现统一威严
+  '汉朝': { start: '#C0392B', end: '#E74C3C', name: '强盛朱红' }, // 朱红色，体现强盛繁荣
+  '三国': { start: '#6C3483', end: '#8E44AD', name: '英雄深紫' }, // 深紫色，体现英雄传奇
+  '晋朝': { start: '#7D3C98', end: '#9B59B6', name: '短暂淡紫' }, // 淡紫色，体现短暂分裂
+  '南北朝': { start: '#5D6D7E', end: '#7F8C8D', name: '对峙灰蓝' }, // 灰蓝色，体现分裂对峙
+  '隋朝': { start: '#1B4F72', end: '#2874A6', name: '统一深蓝' }, // 深蓝色，体现统一短暂
+  '唐朝': { start: '#F39C12', end: '#F7DC6F', name: '盛世金黄' }, // 金黄色，体现盛世辉煌
+  '宋朝': { start: '#1ABC9C', end: '#48C9B0', name: '文化青绿' }, // 青绿色，体现文化雅致
+  '元朝': { start: '#27AE60', end: '#52BE80', name: '辽阔草原' }, // 草原绿，体现辽阔游牧
+  '明朝': { start: '#C0392B', end: '#E74C3C', name: '汉族朱红' }, // 朱红色，体现汉族强盛
+  '清朝': { start: '#1B4F72', end: '#34495E', name: '传统深蓝' }, // 深蓝色，体现传统满族
+}
+
+// 默认背景色
+const defaultGradient = { start: '#667eea', end: '#764ba2', name: '默认紫蓝' }
+
 export default function TimelinePage() {
   const navigate = useNavigate()
   const timelineContainerRef = useRef<HTMLDivElement>(null)
@@ -37,6 +60,7 @@ export default function TimelinePage() {
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  const [currentGradient, setCurrentGradient] = useState(defaultGradient)
 
   // 加载数据
   useEffect(() => {
@@ -123,8 +147,65 @@ export default function TimelinePage() {
     return `公元${year}年`
   }
 
+  // 根据年份获取对应的朝代和背景渐变
+  const getDynastyByYear = (year: number): Dynasty | null => {
+    return dynasties.find(d => year >= d.startYear && year <= d.endYear) || null
+  }
+
+  // 获取背景渐变色
+  const getGradientByYear = (year: number) => {
+    const dynasty = getDynastyByYear(year)
+    if (dynasty && dynastyGradients[dynasty.name]) {
+      return dynastyGradients[dynasty.name]
+    }
+    return defaultGradient
+  }
+
   const groupedEvents = groupEventsByYear()
   const allYears = Array.from(new Set(events.map(e => e.eventYear))).sort((a, b) => a - b)
+
+  // 监听滚动，更新背景渐变
+  useEffect(() => {
+    if (events.length === 0 || allYears.length === 0) return
+
+    const handleScroll = () => {
+      if (!timelineContainerRef.current) return
+
+      const container = timelineContainerRef.current
+      const containerRect = container.getBoundingClientRect()
+      const viewportCenter = containerRect.top + containerRect.height / 2
+
+      // 找到视口中心位置对应的年份
+      let closestYear: number | null = null
+      let minDistance = Infinity
+
+      allYears.forEach(year => {
+        const element = document.getElementById(`year-${year}`)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          const elementCenter = rect.top + rect.height / 2
+          const distance = Math.abs(elementCenter - viewportCenter)
+          
+          if (distance < minDistance) {
+            minDistance = distance
+            closestYear = year
+          }
+        }
+      })
+
+      if (closestYear !== null) {
+        const gradient = getGradientByYear(closestYear)
+        setCurrentGradient(gradient)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // 初始调用
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [events, dynasties, allYears])
 
   if (loading) {
     return (
@@ -135,7 +216,13 @@ export default function TimelinePage() {
   }
 
   return (
-    <div className="timeline-page-container">
+    <div 
+      className="timeline-page-container"
+      style={{
+        background: `linear-gradient(135deg, ${currentGradient.start} 0%, ${currentGradient.end} 100%)`,
+        transition: 'background 1.5s ease-in-out',
+      }}
+    >
       {/* 顶部筛选栏 */}
       <Card className="timeline-filter-card">
         <Space size="large" wrap>
