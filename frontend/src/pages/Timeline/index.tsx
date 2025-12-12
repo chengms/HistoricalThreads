@@ -60,7 +60,6 @@ export default function TimelinePage() {
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
-  const [currentGradient, setCurrentGradient] = useState(defaultGradient)
 
   // 加载数据
   useEffect(() => {
@@ -73,6 +72,26 @@ export default function TimelinePage() {
         ])
         setEvents(eventsData)
         setDynasties(dynastiesData)
+        
+        // 设置初始背景
+        if (eventsData.length > 0 && dynastiesData.length > 0) {
+          const firstYear = Math.min(...eventsData.map(e => e.eventYear))
+          const dynasty = dynastiesData.find(d => firstYear >= d.startYear && firstYear <= d.endYear)
+          const gradient = dynasty && dynastyGradients[dynasty.name] 
+            ? dynastyGradients[dynasty.name] 
+            : defaultGradient
+          const body = document.body
+          const html = document.documentElement
+          if (body && html) {
+            const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
+            body.style.background = gradientStyle
+            body.style.backgroundAttachment = 'fixed'
+            body.style.transition = 'background 1.5s ease-in-out'
+            html.style.background = gradientStyle
+            html.style.backgroundAttachment = 'fixed'
+            html.style.transition = 'background 1.5s ease-in-out'
+          }
+        }
       } catch (error) {
         console.error('加载数据失败:', error)
       } finally {
@@ -80,6 +99,20 @@ export default function TimelinePage() {
       }
     }
     fetchData()
+    
+    // 组件卸载时清理背景
+    return () => {
+      const body = document.body
+      const html = document.documentElement
+      if (body && html) {
+        body.style.background = ''
+        body.style.backgroundAttachment = ''
+        body.style.transition = ''
+        html.style.background = ''
+        html.style.backgroundAttachment = ''
+        html.style.transition = ''
+      }
+    }
   }, [])
 
   // 筛选和搜索
@@ -195,7 +228,22 @@ export default function TimelinePage() {
 
       if (closestYear !== null) {
         const gradient = getGradientByYear(closestYear)
-        setCurrentGradient(gradient)
+        // 设置整个页面的背景色
+        const body = document.body
+        const html = document.documentElement
+        const contentWrapper = document.querySelector('.ant-layout-content > div')
+        if (body && html) {
+          const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
+          body.style.background = gradientStyle
+          body.style.backgroundAttachment = 'fixed'
+          body.style.transition = 'background 1.5s ease-in-out'
+          html.style.background = gradientStyle
+          html.style.backgroundAttachment = 'fixed'
+          html.style.transition = 'background 1.5s ease-in-out'
+        }
+        if (contentWrapper) {
+          ;(contentWrapper as HTMLElement).style.background = 'transparent'
+        }
       }
     }
 
@@ -204,6 +252,17 @@ export default function TimelinePage() {
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      // 清理时恢复默认背景
+      const body = document.body
+      const html = document.documentElement
+      if (body && html) {
+        body.style.background = ''
+        body.style.backgroundAttachment = ''
+        body.style.transition = ''
+        html.style.background = ''
+        html.style.backgroundAttachment = ''
+        html.style.transition = ''
+      }
     }
   }, [events, dynasties, allYears])
 
@@ -216,13 +275,7 @@ export default function TimelinePage() {
   }
 
   return (
-    <div 
-      className="timeline-page-container"
-      style={{
-        background: `linear-gradient(135deg, ${currentGradient.start} 0%, ${currentGradient.end} 100%)`,
-        transition: 'background 1.5s ease-in-out',
-      }}
-    >
+    <div className="timeline-page-container">
       {/* 顶部筛选栏 */}
       <Card className="timeline-filter-card">
         <Space size="large" wrap>

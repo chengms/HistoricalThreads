@@ -155,7 +155,11 @@ export default function Layout({ children }: LayoutProps) {
       <Content className="flex-1">
         <div 
           className="min-h-[calc(100vh-64px-70px)]"
-          style={{ background: colorBgContainer }}
+          style={{ 
+            background: location.pathname === '/timeline' || location.pathname === '/HistoricalThreads/timeline' || location.pathname === '/' 
+              ? 'transparent' 
+              : colorBgContainer 
+          }}
         >
           {children}
         </div>
