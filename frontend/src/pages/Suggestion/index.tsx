@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Card, Form, Input, Select, Button, Typography, message, Space } from 'antd'
-import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons'
+import { Card, Form, Input, Select, Button, Typography, message, Space, Alert } from 'antd'
+import { PlusOutlined, MinusCircleOutlined, CopyOutlined } from '@ant-design/icons'
 
 const { Title } = Typography
 const { TextArea } = Input
@@ -8,6 +8,8 @@ const { TextArea } = Input
 export default function SuggestionPage() {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
+  const [discussionContent, setDiscussionContent] = useState<string>('')
+  const [showCopyButton, setShowCopyButton] = useState(false)
 
   const onFinish = async (values: any) => {
     setLoading(true)
@@ -19,75 +21,36 @@ export default function SuggestionPage() {
         createdAt: new Date().toISOString(),
       }
       
-      // 尝试提交到 GitHub Issues
-      let submittedToGitHub = false
-      try {
-        const githubToken = import.meta.env.VITE_GITHUB_TOKEN
-        const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
-        
-        if (githubToken) {
-          // 格式化建议为 GitHub Issue
-          const issueTitle = `[建议] ${values.title}`
-          const issueBody = formatSuggestionAsIssueBody(suggestion)
-          
-          const response = await fetch(`https://api.github.com/repos/${githubRepo}/issues`, {
-            method: 'POST',
-            headers: {
-              'Authorization': `token ${githubToken}`,
-              'Accept': 'application/vnd.github.v3+json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              title: issueTitle,
-              body: issueBody,
-              labels: ['suggestion', getSuggestionTypeLabel(values.suggestionType)],
-            }),
-          })
-          
-          if (response.ok) {
-            const issue = await response.json()
-            submittedToGitHub = true
-            message.success(`建议已提交到 GitHub Issue #${issue.number}！我们会尽快审核。`)
-          } else {
-            const error = await response.json()
-            console.error('GitHub API 错误:', error)
-            throw new Error(error.message || '提交到 GitHub 失败')
-          }
-        }
-      } catch (githubError) {
-        console.log('GitHub API 不可用，尝试其他方式', githubError)
-      }
+      // 方案 1: 使用 GitHub Discussions（推荐，无需 Token）
+      const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
+      const discussionTitle = `[建议] ${values.title}`
+      const discussionBody = formatSuggestionAsDiscussionBody(suggestion)
       
-      // 如果 GitHub 提交失败，尝试后端 API
-      if (!submittedToGitHub) {
-        let submittedToBackend = false
-        try {
-          const response = await fetch('/api/suggestions', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(suggestion),
-          })
-          
-          if (response.ok) {
-            submittedToBackend = true
-            message.success('建议已提交到服务器！我们会尽快审核。')
-          }
-        } catch (apiError) {
-          console.log('后端 API 不可用，保存到本地存储', apiError)
-        }
-        
-        // 如果后端也不可用，保存到 localStorage
-        if (!submittedToBackend) {
-          const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
-          existing.push(suggestion)
-          localStorage.setItem('suggestions', JSON.stringify(existing))
-          message.success('建议已保存到本地！由于服务未启用，数据仅保存在浏览器本地存储中。')
-        }
-      }
+      // 生成 GitHub Discussions 创建链接
+      const discussionUrl = generateDiscussionUrl(githubRepo)
       
+      // 保存讨论内容，供用户复制
+      setDiscussionContent(`标题：${discussionTitle}\n\n${discussionBody}`)
+      setShowCopyButton(true)
+      
+      // 打开新标签页，让用户在 GitHub 上提交
+      window.open(discussionUrl, '_blank')
+      
+      message.success({
+        content: '已跳转到 GitHub Discussions 页面。如果内容未自动填充，请使用下方的"复制内容"按钮。',
+        duration: 6,
+      })
       form.resetFields()
+      
+      // 可选：同时保存到本地作为备份
+      try {
+        const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
+        existing.push(suggestion)
+        localStorage.setItem('suggestions', JSON.stringify(existing))
+      } catch (localError) {
+        console.log('保存到本地存储失败', localError)
+      }
+      
     } catch (error) {
       console.error('提交失败:', error)
       message.error('提交失败，请稍后重试。')
@@ -95,9 +58,38 @@ export default function SuggestionPage() {
       setLoading(false)
     }
   }
-
-  // 格式化建议为 GitHub Issue 内容
-  const formatSuggestionAsIssueBody = (suggestion: any): string => {
+  
+  // 生成 GitHub Discussions 创建链接
+  const generateDiscussionUrl = (repo: string): string => {
+    // GitHub Discussions 创建页面
+    return `https://github.com/${repo}/discussions/new`
+  }
+  
+  // 复制讨论内容到剪贴板
+  const copyDiscussionContent = async () => {
+    try {
+      await navigator.clipboard.writeText(discussionContent)
+      message.success('内容已复制到剪贴板！请在 GitHub Discussions 页面粘贴。')
+    } catch (error) {
+      // 降级方案：使用传统方法
+      const textArea = document.createElement('textarea')
+      textArea.value = discussionContent
+      textArea.style.position = 'fixed'
+      textArea.style.opacity = '0'
+      document.body.appendChild(textArea)
+      textArea.select()
+      try {
+        document.execCommand('copy')
+        message.success('内容已复制到剪贴板！请在 GitHub Discussions 页面粘贴。')
+      } catch (err) {
+        message.error('复制失败，请手动复制下方内容。')
+      }
+      document.body.removeChild(textArea)
+    }
+  }
+  
+  // 格式化建议为 GitHub Discussion 内容
+  const formatSuggestionAsDiscussionBody = (suggestion: any): string => {
     const typeLabels: Record<string, string> = {
       add_event: '新增事件',
       add_person: '新增人物',
@@ -105,6 +97,7 @@ export default function SuggestionPage() {
       correct_event: '修正事件',
       correct_person: '修正人物',
       add_source: '补充来源',
+      other: '其他建议',
     }
     
     let body = `## 建议信息\n\n`
@@ -135,8 +128,8 @@ export default function SuggestionPage() {
     }
     
     body += `## 联系方式\n\n`
-    body += `- **姓名：** ${suggestion.name}\n`
-    body += `- **邮箱：** ${suggestion.email}\n\n`
+    body += `- **姓名：** ${suggestion.name || '未提供'}\n`
+    body += `- **邮箱：** ${suggestion.email || '未提供'}\n\n`
     
     body += `---\n`
     body += `*提交时间：${new Date(suggestion.createdAt).toLocaleString('zh-CN')}*\n`
@@ -144,18 +137,6 @@ export default function SuggestionPage() {
     return body
   }
 
-  // 获取建议类型对应的 GitHub Label
-  const getSuggestionTypeLabel = (type: string): string => {
-    const labelMap: Record<string, string> = {
-      add_event: 'enhancement',
-      add_person: 'enhancement',
-      add_relationship: 'enhancement',
-      correct_event: 'bug',
-      correct_person: 'bug',
-      add_source: 'documentation',
-    }
-    return labelMap[type] || 'suggestion'
-  }
 
   return (
     <div className="container mx-auto px-6 py-6 max-w-4xl">
@@ -165,13 +146,37 @@ export default function SuggestionPage() {
         <div style={{ color: '#0369a1' }}>
           <strong>提示：</strong>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
-            <li>如果配置了 GitHub Token，建议将自动提交到 GitHub Issues，便于追踪和统计</li>
-            <li>如果未配置 GitHub Token，将尝试提交到后端 API</li>
-            <li>如果后端服务也未启用，建议将保存在浏览器本地存储（localStorage）中</li>
-            <li>配置 GitHub Token：在项目根目录创建 <code>.env</code> 文件，添加 <code>VITE_GITHUB_TOKEN=your_token</code></li>
+            <li>提交建议后，系统会跳转到 GitHub Discussions 页面</li>
+            <li>请在 GitHub 上确认内容后点击 "Start discussion" 提交</li>
+            <li>如果内容未自动填充，请使用下方的"复制内容"按钮</li>
+            <li>这种方式无需配置 Token，安全且方便</li>
+            <li>如果遇到问题，请参考 <a href="https://github.com/chengms/HistoricalThreads/discussions" target="_blank" rel="noopener noreferrer">GitHub Discussions 页面</a></li>
           </ul>
         </div>
       </Card>
+      
+      {showCopyButton && discussionContent && (
+        <Alert
+          message="内容已准备好"
+          description={
+            <div>
+              <p>如果 GitHub 页面中的内容未自动填充，请点击下方按钮复制内容，然后粘贴到 GitHub Discussions 页面。</p>
+              <Button
+                type="primary"
+                icon={<CopyOutlined />}
+                onClick={copyDiscussionContent}
+                style={{ marginTop: 8 }}
+              >
+                复制内容到剪贴板
+              </Button>
+            </div>
+          }
+          type="info"
+          closable
+          onClose={() => setShowCopyButton(false)}
+          style={{ marginBottom: 16 }}
+        />
+      )}
 
       <Card>
         <Form
