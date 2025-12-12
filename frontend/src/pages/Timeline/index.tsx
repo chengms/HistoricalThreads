@@ -69,33 +69,42 @@ export default function TimelinePage() {
     const layout = document.querySelector('.ant-layout')
     const content = document.querySelector('.ant-layout-content')
     const contentWrapper = document.querySelector('.ant-layout-content > div')
+    const root = document.getElementById('root')
     
     if (body && html) {
-      // 设置 body 和 html 背景
-      body.style.background = gradientStyle
-      body.style.backgroundAttachment = 'fixed'
-      body.style.transition = 'background 1.5s ease-in-out'
-      body.style.minHeight = '100vh'
+      // 使用 setProperty 强制设置背景，覆盖所有样式
+      body.style.setProperty('background', gradientStyle, 'important')
+      body.style.setProperty('background-attachment', 'fixed', 'important')
+      body.style.setProperty('transition', 'background 1.5s ease-in-out', 'important')
+      body.style.setProperty('min-height', '100vh', 'important')
       body.classList.add('timeline-page-active')
       
-      html.style.background = gradientStyle
-      html.style.backgroundAttachment = 'fixed'
-      html.style.transition = 'background 1.5s ease-in-out'
-      html.style.minHeight = '100vh'
+      html.style.setProperty('background', gradientStyle, 'important')
+      html.style.setProperty('background-attachment', 'fixed', 'important')
+      html.style.setProperty('transition', 'background 1.5s ease-in-out', 'important')
+      html.style.setProperty('min-height', '100vh', 'important')
       html.classList.add('timeline-page-active')
+      
+      // 确保根元素也设置背景
+      if (root) {
+        root.style.setProperty('background', gradientStyle, 'important')
+        root.style.setProperty('min-height', '100vh', 'important')
+      }
       
       // 确保 Layout 组件背景透明
       if (layout) {
-        ;(layout as HTMLElement).style.background = 'transparent'
+        ;(layout as HTMLElement).style.setProperty('background', 'transparent', 'important')
         layout.classList.add('timeline-page')
       }
       if (content) {
-        ;(content as HTMLElement).style.background = 'transparent'
+        ;(content as HTMLElement).style.setProperty('background', 'transparent', 'important')
         content.classList.add('timeline-page')
       }
       if (contentWrapper) {
-        ;(contentWrapper as HTMLElement).style.background = 'transparent'
+        ;(contentWrapper as HTMLElement).style.setProperty('background', 'transparent', 'important')
       }
+      
+      console.log('背景已设置为:', gradient.name, gradientStyle)
     }
   }
 
@@ -122,7 +131,7 @@ export default function TimelinePage() {
           // 使用 setTimeout 确保 DOM 已渲染
           setTimeout(() => {
             setBackgroundGradient(gradient)
-          }, 100)
+          }, 300)
         }
       } catch (error) {
         console.error('加载数据失败:', error)
@@ -292,7 +301,10 @@ export default function TimelinePage() {
     }
 
     window.addEventListener('scroll', throttledHandleScroll, { passive: true })
-    handleScroll() // 初始调用
+    // 延迟初始调用，确保DOM已渲染
+    setTimeout(() => {
+      handleScroll()
+    }, 300)
     
     return () => {
       window.removeEventListener('scroll', throttledHandleScroll)

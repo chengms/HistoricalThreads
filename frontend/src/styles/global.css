@@ -3,7 +3,6 @@
 /* 时间线页面时，确保 body 和 html 背景可见 */
 body.timeline-page-active,
 html.timeline-page-active {
-  background: var(--timeline-bg-gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%)) !important;
   background-attachment: fixed !important;
   min-height: 100vh !important;
 }
@@ -15,5 +14,11 @@ html.timeline-page-active {
 
 .ant-layout-content.timeline-page {
   background: transparent !important;
+}
+
+/* 确保根元素背景透明 */
+#root.timeline-page-active {
+  background: transparent !important;
+  min-height: 100vh !important;
 }
 
