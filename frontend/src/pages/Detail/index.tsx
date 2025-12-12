@@ -4,6 +4,7 @@ import { ArrowLeftOutlined, LinkOutlined, UserOutlined, CalendarOutlined } from 
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
 import type { Event, Person } from '@/types'
+import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
 
 const { Title, Paragraph } = Typography
@@ -433,6 +434,9 @@ export default function DetailPage() {
           )}
         </Card>
       )}
+
+      {/* Twikoo 评论组件 */}
+      <TwikooComment path={`/detail/${type}/${id}`} />
     </div>
   )
 }
