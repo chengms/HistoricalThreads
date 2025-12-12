@@ -137,7 +137,7 @@ export default function DetailPage() {
               </Tag>
             )}
             {(data as Person).dynasty?.name && (
-              <Tag color="green">{(data as Person).dynasty.name}</Tag>
+              <Tag color="green">{(data as Person).dynasty?.name}</Tag>
             )}
             {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => (
               <Tag key={type} color="purple">{type}</Tag>
