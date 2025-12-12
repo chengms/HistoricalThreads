@@ -174,7 +174,7 @@ export default function Layout({ children }: LayoutProps) {
         </div>
       </Content>
       <Footer className="text-center bg-gray-100">
-        中国历史时间线 ©2024 | 
+        中国历史时间线 ©2025 | 
         <a href="#" className="ml-2">数据来源</a> | 
         <a href="#" className="ml-2">关于我们</a>
       </Footer>
