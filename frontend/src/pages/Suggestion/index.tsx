@@ -21,28 +21,27 @@ export default function SuggestionPage() {
         createdAt: new Date().toISOString(),
       }
       
-      // 方案 1: 使用 GitHub Discussions（推荐，无需 Token）
-      const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
-      const discussionTitle = `[建议] ${values.title}`
-      const discussionBody = formatSuggestionAsDiscussionBody(suggestion)
+      // 使用 Twikoo 提交建议
+      const twikooEnvId = import.meta.env.VITE_TWIKOO_ENV_ID || ''
       
-      // 生成 GitHub Discussions 创建链接
-      const discussionUrl = generateDiscussionUrl(githubRepo)
+      if (twikooEnvId) {
+        // 方案 1: 使用 Twikoo 提交（推荐）
+        const twikooComment = formatSuggestionAsTwikooComment(suggestion)
+        const success = await submitToTwikoo(twikooEnvId, twikooComment)
+        
+        if (success) {
+          message.success('建议已成功提交！感谢您的反馈。')
+          form.resetFields()
+        } else {
+          // 如果 Twikoo 提交失败，降级到 GitHub Discussions
+          fallbackToGitHubDiscussions(suggestion)
+        }
+      } else {
+        // 方案 2: 降级到 GitHub Discussions（如果 Twikoo 未配置）
+        fallbackToGitHubDiscussions(suggestion)
+      }
       
-      // 保存讨论内容，供用户复制
-      setDiscussionContent(`标题：${discussionTitle}\n\n${discussionBody}`)
-      setShowCopyButton(true)
-      
-      // 打开新标签页，让用户在 GitHub 上提交
-      window.open(discussionUrl, '_blank')
-      
-      message.success({
-        content: '已跳转到 GitHub Discussions 页面。如果内容未自动填充，请使用下方的"复制内容"按钮。',
-        duration: 6,
-      })
-      form.resetFields()
-      
-      // 可选：同时保存到本地作为备份
+      // 同时保存到本地作为备份
       try {
         const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
         existing.push(suggestion)
@@ -56,6 +55,136 @@ export default function SuggestionPage() {
       message.error('提交失败，请稍后重试。')
     } finally {
       setLoading(false)
+    }
+  }
+  
+  // 降级到 GitHub Discussions
+  const fallbackToGitHubDiscussions = (suggestion: any) => {
+    const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
+    const discussionTitle = `[建议] ${suggestion.title}`
+    const discussionBody = formatSuggestionAsDiscussionBody(suggestion)
+    const discussionUrl = generateDiscussionUrl(githubRepo)
+    
+    setDiscussionContent(`标题：${discussionTitle}\n\n${discussionBody}`)
+    setShowCopyButton(true)
+    window.open(discussionUrl, '_blank')
+    
+    message.info({
+      content: '已跳转到 GitHub Discussions 页面。如果内容未自动填充，请使用下方的"复制内容"按钮。',
+      duration: 6,
+    })
+  }
+  
+  // 提交到 Twikoo
+  const submitToTwikoo = async (envId: string, comment: any): Promise<boolean> => {
+    try {
+      // Twikoo API 端点处理
+      // 根据不同的部署方式，API 端点可能不同
+      let apiUrl = envId
+      
+      // 如果是 Netlify 部署，API 端点通常是 /.netlify/functions/twikoo
+      if (envId.includes('netlify.app')) {
+        // 如果 envId 已经包含完整路径，直接使用
+        if (envId.includes('/.netlify/functions/')) {
+          apiUrl = envId
+        } else {
+          // 否则添加 /.netlify/functions/twikoo 路径
+          apiUrl = envId.replace(/\/$/, '') + '/.netlify/functions/twikoo'
+        }
+      } else if (envId.includes('vercel.app')) {
+        // Vercel 部署，API 端点通常是 /api
+        if (envId.endsWith('/api')) {
+          apiUrl = envId
+        } else {
+          apiUrl = envId.replace(/\/$/, '') + '/api'
+        }
+      } else {
+        // 其他部署方式（如腾讯云、私有服务器），尝试添加 /api
+        apiUrl = envId.replace(/\/$/, '') + '/api'
+      }
+      
+      // Twikoo API 请求格式
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event: 'COMMENT',
+          ...comment,
+        }),
+      })
+      
+      if (response.ok) {
+        const result = await response.json()
+        // Twikoo 成功响应通常是 errno: 0 或 code: 0
+        if (result.errno === 0 || result.code === 0) {
+          return true
+        }
+        // 有些版本可能直接返回 200 状态码
+        if (response.status === 200 && !result.errno && !result.code) {
+          return true
+        }
+      }
+      
+      console.warn('Twikoo API 响应:', await response.text())
+      return false
+    } catch (error) {
+      console.error('Twikoo 提交失败:', error)
+      return false
+    }
+  }
+  
+  // 格式化建议为 Twikoo 评论格式
+  const formatSuggestionAsTwikooComment = (suggestion: any): any => {
+    const typeLabels: Record<string, string> = {
+      add_event: '新增事件',
+      add_person: '新增人物',
+      add_relationship: '新增关系',
+      correct_event: '修正事件',
+      correct_person: '修正人物',
+      add_source: '补充来源',
+      other: '其他建议',
+    }
+    
+    // 构建评论内容（Markdown 格式）
+    let commentContent = `## ${typeLabels[suggestion.suggestionType] || suggestion.suggestionType}\n\n`
+    commentContent += `**时间：** ${suggestion.time || '未填写'}\n\n`
+    commentContent += `**详细描述：**\n${suggestion.description}\n\n`
+    
+    if (suggestion.sources && suggestion.sources.length > 0) {
+      commentContent += `## 信息来源\n\n`
+      suggestion.sources.forEach((source: any, index: number) => {
+        commentContent += `### 来源 ${index + 1}\n\n`
+        commentContent += `- **类型：** ${source.sourceType === 'authoritative_website' ? '网站' : '书籍'}\n`
+        commentContent += `- **标题：** ${source.title}\n`
+        if (source.url) {
+          commentContent += `- **链接：** ${source.url}\n`
+        }
+        if (source.author) {
+          commentContent += `- **作者：** ${source.author}\n`
+        }
+        if (source.publisher) {
+          commentContent += `- **出版社：** ${source.publisher}\n`
+        }
+        if (source.publishDate) {
+          commentContent += `- **出版日期：** ${source.publishDate}\n`
+        }
+        commentContent += `\n`
+      })
+    }
+    
+    // Twikoo 评论数据结构
+    return {
+      nick: suggestion.name || '匿名用户',
+      mail: suggestion.email || '',
+      link: '', // 用户网站链接，建议表单中没有，留空
+      comment: commentContent,
+      ua: navigator.userAgent,
+      url: '/suggestion', // 建议页面的路径
+      pid: '', // 父评论 ID，新建议没有父评论
+      rid: '', // 回复的评论 ID，新建议没有回复
+      created: Date.now(),
     }
   }
   
