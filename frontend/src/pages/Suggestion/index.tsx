@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Card, Form, Input, Select, Button, Typography, message, Space, Alert } from 'antd'
-import { PlusOutlined, MinusCircleOutlined, CopyOutlined } from '@ant-design/icons'
+import { Card, Form, Input, Select, Button, Typography, message, Space, Alert, Descriptions, Tag } from 'antd'
+import { PlusOutlined, MinusCircleOutlined, CopyOutlined, CheckCircleOutlined } from '@ant-design/icons'
 
-const { Title } = Typography
+const { Title, Paragraph } = Typography
 const { TextArea } = Input
 
 export default function SuggestionPage() {
@@ -10,6 +10,7 @@ export default function SuggestionPage() {
   const [loading, setLoading] = useState(false)
   const [discussionContent, setDiscussionContent] = useState<string>('')
   const [showCopyButton, setShowCopyButton] = useState(false)
+  const [submittedSuggestion, setSubmittedSuggestion] = useState<any>(null)
 
   const onFinish = async (values: any) => {
     setLoading(true)
@@ -24,21 +25,28 @@ export default function SuggestionPage() {
       // 使用 Twikoo 提交建议
       const twikooEnvId = import.meta.env.VITE_TWIKOO_ENV_ID || ''
       
+      // 显示提交的建议信息
+      setSubmittedSuggestion(suggestion)
+      
       if (twikooEnvId) {
         // 方案 1: 使用 Twikoo 提交（推荐）
         const twikooComment = formatSuggestionAsTwikooComment(suggestion)
         const success = await submitToTwikoo(twikooEnvId, twikooComment)
         
         if (success) {
-          message.success('建议已成功提交！感谢您的反馈。')
+          message.success('建议已成功提交到 Twikoo！感谢您的反馈。')
           form.resetFields()
         } else {
-          // 如果 Twikoo 提交失败，降级到 GitHub Discussions
-          fallbackToGitHubDiscussions(suggestion)
+          // 如果 Twikoo 提交失败，显示提示但不跳转
+          message.warning('Twikoo 提交失败，建议已保存到本地。您可以使用下方的复制按钮手动提交到 GitHub。')
+          setDiscussionContent(formatSuggestionAsDiscussionBody(suggestion))
+          setShowCopyButton(true)
         }
       } else {
-        // 方案 2: 降级到 GitHub Discussions（如果 Twikoo 未配置）
-        fallbackToGitHubDiscussions(suggestion)
+        // 方案 2: 如果 Twikoo 未配置，显示内容供用户复制
+        message.info('建议已保存。您可以使用下方的复制按钮提交到 GitHub Discussions。')
+        setDiscussionContent(formatSuggestionAsDiscussionBody(suggestion))
+        setShowCopyButton(true)
       }
       
       // 同时保存到本地作为备份
@@ -58,21 +66,27 @@ export default function SuggestionPage() {
     }
   }
   
-  // 降级到 GitHub Discussions
-  const fallbackToGitHubDiscussions = (suggestion: any) => {
-    const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
-    const discussionTitle = `[建议] ${suggestion.title}`
-    const discussionBody = formatSuggestionAsDiscussionBody(suggestion)
-    const discussionUrl = generateDiscussionUrl(githubRepo)
+  // 格式化建议显示内容
+  const formatSuggestionForDisplay = (suggestion: any) => {
+    const typeLabels: Record<string, string> = {
+      add_event: '新增事件',
+      add_person: '新增人物',
+      add_relationship: '新增关系',
+      correct_event: '修正事件',
+      correct_person: '修正人物',
+      add_source: '补充来源',
+      other: '其他建议',
+    }
     
-    setDiscussionContent(`标题：${discussionTitle}\n\n${discussionBody}`)
-    setShowCopyButton(true)
-    window.open(discussionUrl, '_blank')
-    
-    message.info({
-      content: '已跳转到 GitHub Discussions 页面。如果内容未自动填充，请使用下方的"复制内容"按钮。',
-      duration: 6,
-    })
+    return {
+      type: typeLabels[suggestion.suggestionType] || suggestion.suggestionType,
+      time: suggestion.time || '未填写',
+      description: suggestion.description,
+      sources: suggestion.sources || [],
+      name: suggestion.name || '未提供',
+      email: suggestion.email || '未提供',
+      createdAt: new Date(suggestion.createdAt).toLocaleString('zh-CN'),
+    }
   }
   
   // 提交到 Twikoo
@@ -188,12 +202,6 @@ export default function SuggestionPage() {
     }
   }
   
-  // 生成 GitHub Discussions 创建链接
-  const generateDiscussionUrl = (repo: string): string => {
-    // GitHub Discussions 创建页面
-    return `https://github.com/${repo}/discussions/new`
-  }
-  
   // 复制讨论内容到剪贴板
   const copyDiscussionContent = async () => {
     try {
@@ -284,27 +292,98 @@ export default function SuggestionPage() {
         </div>
       </Card>
       
-      {showCopyButton && discussionContent && (
-        <Alert
-          message="内容已准备好"
-          description={
-            <div>
-              <p>如果 GitHub 页面中的内容未自动填充，请点击下方按钮复制内容，然后粘贴到 GitHub Discussions 页面。</p>
-              <Button
-                type="primary"
-                icon={<CopyOutlined />}
-                onClick={copyDiscussionContent}
-                style={{ marginTop: 8 }}
-              >
-                复制内容到剪贴板
-              </Button>
+      {/* 显示已提交的建议 */}
+      {submittedSuggestion && (
+        <Card className="mb-4" style={{ backgroundColor: '#f6ffed', borderColor: '#b7eb8f' }}>
+          <Space direction="vertical" style={{ width: '100%' }} size="middle">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <CheckCircleOutlined style={{ color: '#52c41a', fontSize: 20 }} />
+              <Title level={4} style={{ margin: 0, color: '#52c41a' }}>建议已提交</Title>
             </div>
-          }
-          type="info"
-          closable
-          onClose={() => setShowCopyButton(false)}
-          style={{ marginBottom: 16 }}
-        />
+            
+            <Descriptions bordered column={1} size="small">
+              <Descriptions.Item label="建议类型">
+                <Tag color="blue">{formatSuggestionForDisplay(submittedSuggestion).type}</Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="时间">{formatSuggestionForDisplay(submittedSuggestion).time}</Descriptions.Item>
+              <Descriptions.Item label="详细描述">
+                <Paragraph style={{ margin: 0, whiteSpace: 'pre-wrap' }}>
+                  {formatSuggestionForDisplay(submittedSuggestion).description}
+                </Paragraph>
+              </Descriptions.Item>
+              {formatSuggestionForDisplay(submittedSuggestion).sources.length > 0 && (
+                <Descriptions.Item label="信息来源">
+                  <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                    {formatSuggestionForDisplay(submittedSuggestion).sources.map((source: any, index: number) => (
+                      <Card key={index} size="small" style={{ backgroundColor: '#fafafa' }}>
+                        <div><strong>类型：</strong>{source.sourceType === 'authoritative_website' ? '网站' : '书籍'}</div>
+                        <div><strong>标题：</strong>{source.title}</div>
+                        {source.url && <div><strong>链接：</strong><a href={source.url} target="_blank" rel="noopener noreferrer">{source.url}</a></div>}
+                        {source.author && <div><strong>作者：</strong>{source.author}</div>}
+                        {source.publisher && <div><strong>出版社：</strong>{source.publisher}</div>}
+                        {source.publishDate && <div><strong>出版日期：</strong>{source.publishDate}</div>}
+                      </Card>
+                    ))}
+                  </Space>
+                </Descriptions.Item>
+              )}
+              <Descriptions.Item label="提交人">
+                {formatSuggestionForDisplay(submittedSuggestion).name}
+                {formatSuggestionForDisplay(submittedSuggestion).email && (
+                  <span style={{ marginLeft: 8, color: '#666' }}>
+                    ({formatSuggestionForDisplay(submittedSuggestion).email})
+                  </span>
+                )}
+              </Descriptions.Item>
+              <Descriptions.Item label="提交时间">
+                {formatSuggestionForDisplay(submittedSuggestion).createdAt}
+              </Descriptions.Item>
+            </Descriptions>
+            
+            {showCopyButton && discussionContent && (
+              <Alert
+                message="手动提交到 GitHub（可选）"
+                description={
+                  <div>
+                    <p style={{ marginBottom: 8 }}>如果 Twikoo 提交失败，您可以复制以下内容并手动提交到 GitHub Discussions：</p>
+                    <Button
+                      type="primary"
+                      icon={<CopyOutlined />}
+                      onClick={copyDiscussionContent}
+                      block
+                    >
+                      复制内容到剪贴板
+                    </Button>
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        const githubRepo = import.meta.env.VITE_GITHUB_REPO || 'chengms/HistoricalThreads'
+                        window.open(`https://github.com/${githubRepo}/discussions/new`, '_blank')
+                      }}
+                      style={{ marginTop: 8, padding: 0 }}
+                    >
+                      打开 GitHub Discussions 页面
+                    </Button>
+                  </div>
+                }
+                type="info"
+                closable
+                onClose={() => setShowCopyButton(false)}
+              />
+            )}
+            
+            <Button
+              type="default"
+              onClick={() => {
+                setSubmittedSuggestion(null)
+                setShowCopyButton(false)
+                setDiscussionContent('')
+              }}
+            >
+              提交新建议
+            </Button>
+          </Space>
+        </Card>
       )}
 
       <Card>
