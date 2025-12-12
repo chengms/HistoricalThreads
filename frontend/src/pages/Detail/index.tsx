@@ -39,11 +39,13 @@ export default function DetailPage() {
                   toPerson,
                 }
               })
+              .filter(rel => rel.fromPerson && rel.toPerson) // 过滤掉不完整的关系
             setData({ ...person, relationships: personRelationships } as any)
           }
         }
       } catch (error) {
         console.error('加载数据失败:', error)
+        setData(null)
       } finally {
         setLoading(false)
       }
@@ -129,15 +131,21 @@ export default function DetailPage() {
         <Card>
           <Title level={2}>{(data as Person).name}</Title>
           <Space className="mb-4">
-            <Tag color="blue">
-              {(data as Person).birthYear} - {(data as Person).deathYear}
-            </Tag>
-            <Tag color="green">{(data as Person).dynasty?.name}</Tag>
-            {(data as Person).personType.map(type => (
+            {(data as Person).birthYear && (data as Person).deathYear && (
+              <Tag color="blue">
+                {(data as Person).birthYear} - {(data as Person).deathYear}
+              </Tag>
+            )}
+            {(data as Person).dynasty?.name && (
+              <Tag color="green">{(data as Person).dynasty.name}</Tag>
+            )}
+            {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => (
               <Tag key={type} color="purple">{type}</Tag>
             ))}
           </Space>
-          <Paragraph className="text-lg mb-6">{(data as Person).biography}</Paragraph>
+          {(data as Person).biography && (
+            <Paragraph className="text-lg mb-6">{(data as Person).biography}</Paragraph>
+          )}
 
           {(data as any).relationships && (data as any).relationships.length > 0 && (
             <>
