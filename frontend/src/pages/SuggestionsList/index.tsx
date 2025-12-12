@@ -179,6 +179,36 @@ export default function SuggestionsListPage() {
       result.description = descMatch[1].trim()
     }
 
+    // 解析附加图片
+    const imagesMatch = comment.match(/##\s*附加图片\n\n(.+?)(?=\n##|$)/s)
+    if (imagesMatch) {
+      const imagesText = imagesMatch[1]
+      console.log('图片文本内容:', imagesText)
+      // 匹配 Markdown 图片格式: ![alt](url) 或 ![alt](url)\n
+      const imageRegex = /!\[[^\]]*\]\((https?:\/\/[^\s\)]+)\)/g
+      let match
+      while ((match = imageRegex.exec(imagesText)) !== null) {
+        const imageUrl = match[1].trim()
+        if (imageUrl) {
+          result.images.push(imageUrl)
+        }
+      }
+      console.log('解析到的图片URL:', result.images)
+    } else {
+      // 如果没有匹配到"附加图片"章节，尝试在整个评论中查找图片
+      const allImagesRegex = /!\[[^\]]*\]\((https?:\/\/[^\s\)]+)\)/g
+      let match
+      while ((match = allImagesRegex.exec(comment)) !== null) {
+        const imageUrl = match[1].trim()
+        if (imageUrl && !result.images.includes(imageUrl)) {
+          result.images.push(imageUrl)
+        }
+      }
+      if (result.images.length > 0) {
+        console.log('从整个评论中解析到的图片URL:', result.images)
+      }
+    }
+
     // 解析信息来源
     const sourcesMatch = comment.match(/##\s*信息来源\n\n(.+?)(?=\n##|$)/s)
     if (sourcesMatch) {

@@ -50,12 +50,22 @@ export default function SuggestionPage() {
       })
       
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || '上传失败')
+        let errorMessage = '上传失败'
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorMessage
+        } catch {
+          errorMessage = `服务器错误 (${response.status})`
+        }
+        throw new Error(errorMessage)
       }
       
       const result = await response.json()
       const imageUrl = result.url
+      
+      if (!imageUrl) {
+        throw new Error('服务器未返回图片 URL')
+      }
       
       // 更新文件列表
       const newList = [...imageList]
