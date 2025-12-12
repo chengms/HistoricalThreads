@@ -108,8 +108,15 @@ export default function Layout({ children }: LayoutProps) {
     },
   ]
 
+  const isTimelinePage = location.pathname === '/timeline' || 
+                         location.pathname === '/HistoricalThreads/timeline' || 
+                         location.pathname === '/'
+  
   return (
-    <AntLayout className="min-h-screen">
+    <AntLayout 
+      className="min-h-screen"
+      style={isTimelinePage ? { background: 'transparent' } : {}}
+    >
       <Header className="bg-primary text-white px-6">
         <div className="flex items-center h-full gap-4">
           <div 

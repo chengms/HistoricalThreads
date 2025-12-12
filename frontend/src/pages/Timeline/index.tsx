@@ -61,6 +61,44 @@ export default function TimelinePage() {
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
 
+  // 设置背景的函数
+  const setBackgroundGradient = (gradient: typeof defaultGradient) => {
+    const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
+    const body = document.body
+    const html = document.documentElement
+    const layout = document.querySelector('.ant-layout')
+    const content = document.querySelector('.ant-layout-content')
+    const contentWrapper = document.querySelector('.ant-layout-content > div')
+    
+    if (body && html) {
+      // 设置 body 和 html 背景
+      body.style.background = gradientStyle
+      body.style.backgroundAttachment = 'fixed'
+      body.style.transition = 'background 1.5s ease-in-out'
+      body.style.minHeight = '100vh'
+      body.classList.add('timeline-page-active')
+      
+      html.style.background = gradientStyle
+      html.style.backgroundAttachment = 'fixed'
+      html.style.transition = 'background 1.5s ease-in-out'
+      html.style.minHeight = '100vh'
+      html.classList.add('timeline-page-active')
+      
+      // 确保 Layout 组件背景透明
+      if (layout) {
+        ;(layout as HTMLElement).style.background = 'transparent'
+        layout.classList.add('timeline-page')
+      }
+      if (content) {
+        ;(content as HTMLElement).style.background = 'transparent'
+        content.classList.add('timeline-page')
+      }
+      if (contentWrapper) {
+        ;(contentWrapper as HTMLElement).style.background = 'transparent'
+      }
+    }
+  }
+
   // 加载数据
   useEffect(() => {
     async function fetchData() {
@@ -80,17 +118,11 @@ export default function TimelinePage() {
           const gradient = dynasty && dynastyGradients[dynasty.name] 
             ? dynastyGradients[dynasty.name] 
             : defaultGradient
-          const body = document.body
-          const html = document.documentElement
-          if (body && html) {
-            const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
-            body.style.background = gradientStyle
-            body.style.backgroundAttachment = 'fixed'
-            body.style.transition = 'background 1.5s ease-in-out'
-            html.style.background = gradientStyle
-            html.style.backgroundAttachment = 'fixed'
-            html.style.transition = 'background 1.5s ease-in-out'
-          }
+          
+          // 使用 setTimeout 确保 DOM 已渲染
+          setTimeout(() => {
+            setBackgroundGradient(gradient)
+          }, 100)
         }
       } catch (error) {
         console.error('加载数据失败:', error)
@@ -104,13 +136,30 @@ export default function TimelinePage() {
     return () => {
       const body = document.body
       const html = document.documentElement
+      const layout = document.querySelector('.ant-layout')
+      const content = document.querySelector('.ant-layout-content')
+      
       if (body && html) {
         body.style.background = ''
         body.style.backgroundAttachment = ''
         body.style.transition = ''
+        body.style.minHeight = ''
+        body.classList.remove('timeline-page-active')
+        
         html.style.background = ''
         html.style.backgroundAttachment = ''
         html.style.transition = ''
+        html.style.minHeight = ''
+        html.classList.remove('timeline-page-active')
+      }
+      
+      if (layout) {
+        ;(layout as HTMLElement).style.background = ''
+        layout.classList.remove('timeline-page')
+      }
+      if (content) {
+        ;(content as HTMLElement).style.background = ''
+        content.classList.remove('timeline-page')
       }
     }
   }, [])
@@ -226,34 +275,7 @@ export default function TimelinePage() {
 
       if (closestYear !== null) {
         const gradient = getGradientByYear(closestYear)
-        // 设置整个页面的背景色
-        const body = document.body
-        const html = document.documentElement
-        const contentWrapper = document.querySelector('.ant-layout-content > div')
-        const layoutContent = document.querySelector('.ant-layout-content')
-        
-        if (body && html) {
-          const gradientStyle = `linear-gradient(135deg, ${gradient.start} 0%, ${gradient.end} 100%)`
-          
-          // 设置 body 和 html 的背景
-          body.style.background = gradientStyle
-          body.style.backgroundAttachment = 'fixed'
-          body.style.transition = 'background 1.5s ease-in-out'
-          body.style.minHeight = '100vh'
-          
-          html.style.background = gradientStyle
-          html.style.backgroundAttachment = 'fixed'
-          html.style.transition = 'background 1.5s ease-in-out'
-          html.style.minHeight = '100vh'
-          
-          // 确保内容区域透明
-          if (contentWrapper) {
-            ;(contentWrapper as HTMLElement).style.background = 'transparent'
-          }
-          if (layoutContent) {
-            ;(layoutContent as HTMLElement).style.background = 'transparent'
-          }
-        }
+        setBackgroundGradient(gradient)
       }
     }
 
