@@ -158,6 +158,7 @@ export default function SuggestionsListPage() {
       time: '',
       description: '',
       sources: [],
+      images: [],
     }
 
     // 解析类型
@@ -367,6 +368,26 @@ export default function SuggestionsListPage() {
                 {suggestion.description || selectedComment.comment}
               </Paragraph>
             </Descriptions.Item>
+            {suggestion.images && suggestion.images.length > 0 && (
+              <Descriptions.Item label="附加图片">
+                <Space wrap>
+                  {suggestion.images.map((imageUrl: string, index: number) => (
+                    <img
+                      key={index}
+                      src={imageUrl}
+                      alt={`附加图片 ${index + 1}`}
+                      style={{
+                        maxWidth: '200px',
+                        maxHeight: '200px',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                      }}
+                      onClick={() => window.open(imageUrl, '_blank')}
+                    />
+                  ))}
+                </Space>
+              </Descriptions.Item>
+            )}
             {suggestion.sources && suggestion.sources.length > 0 && (
               <Descriptions.Item label="信息来源">
                 <Space direction="vertical" size="small" style={{ width: '100%' }}>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Card, Form, Input, Select, Button, Typography, message, Space, Descriptions, Tag } from 'antd'
+import { Card, Form, Input, Select, Button, Typography, message, Space, Descriptions, Tag, Upload } from 'antd'
 import { PlusOutlined, MinusCircleOutlined, CheckCircleOutlined } from '@ant-design/icons'
+import type { UploadFile } from 'antd'
 
 const { Title, Paragraph } = Typography
 const { TextArea } = Input
@@ -9,12 +10,90 @@ export default function SuggestionPage() {
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [submittedSuggestion, setSubmittedSuggestion] = useState<any>(null)
+  const [imageList, setImageList] = useState<UploadFile[]>([])
+
+  // 上传图片到 Netlify 函数
+  const handleImageUpload = async (file: File, index: number) => {
+    try {
+      
+      // 读取文件并转换为 base64
+      const reader = new FileReader()
+      const base64Promise = new Promise<string>((resolve, reject) => {
+        reader.onload = () => {
+          const result = reader.result as string
+          // 移除 data:image/xxx;base64, 前缀
+          const base64 = result.split(',')[1]
+          resolve(base64)
+        }
+        reader.onerror = reject
+      })
+      
+      reader.readAsDataURL(file)
+      const base64Content = await base64Promise
+      
+      // 生成文件名
+      const timestamp = Date.now()
+      const fileExtension = file.name.split('.').pop() || 'jpg'
+      const filename = `suggestions/${timestamp}-${index}.${fileExtension}`
+      
+      // 调用上传 API
+      const uploadUrl = 'https://cms-images.netlify.app/.netlify/functions/upload-image'
+      const response = await fetch(uploadUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: filename,
+          content: base64Content,
+        }),
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || '上传失败')
+      }
+      
+      const result = await response.json()
+      const imageUrl = result.url
+      
+      // 更新文件列表
+      const newList = [...imageList]
+      newList[index] = {
+        ...newList[index],
+        status: 'done',
+        url: imageUrl,
+        response: { url: imageUrl },
+      }
+      setImageList(newList)
+      
+      // 更新表单值
+      const currentImages = form.getFieldValue('images') || []
+      currentImages[index] = imageUrl
+      form.setFieldsValue({ images: currentImages })
+      
+      message.success('图片上传成功')
+    } catch (error: any) {
+      console.error('图片上传失败:', error)
+      message.error(`图片上传失败: ${error.message || '未知错误'}`)
+      
+      // 移除失败的文件
+      const newList = imageList.filter((_, i) => i !== index)
+      setImageList(newList)
+    }
+  }
 
   const onFinish = async (values: any) => {
     setLoading(true)
     try {
+      // 从图片列表中提取 URL
+      const imageUrls = imageList
+        .map(item => item.url || item.response?.url)
+        .filter(Boolean)
+      
       const suggestion = {
         ...values,
+        images: imageUrls,
         id: Date.now(),
         status: 'pending',
         createdAt: new Date().toISOString(),
@@ -34,6 +113,7 @@ export default function SuggestionPage() {
         if (success) {
           message.success('建议已成功提交到 Twikoo！感谢您的反馈。')
           form.resetFields()
+          setImageList([]) // 清空图片列表
         } else {
           // 如果 Twikoo 提交失败，只显示提示
           // 错误信息已在 submitToTwikoo 中显示
@@ -215,6 +295,14 @@ export default function SuggestionPage() {
     commentContent += `**时间：** ${suggestion.time || '未填写'}\n\n`
     commentContent += `**详细描述：**\n${suggestion.description}\n\n`
     
+    // 添加图片
+    if (suggestion.images && suggestion.images.length > 0) {
+      commentContent += `## 附加图片\n\n`
+      suggestion.images.forEach((imageUrl: string) => {
+        commentContent += `![附加图片](${imageUrl})\n\n`
+      })
+    }
+    
     if (suggestion.sources && suggestion.sources.length > 0) {
       commentContent += `## 信息来源\n\n`
       suggestion.sources.forEach((source: any, index: number) => {
@@ -316,6 +404,26 @@ export default function SuggestionPage() {
                   {formatSuggestionForDisplay(submittedSuggestion).description}
                 </Paragraph>
               </Descriptions.Item>
+              {submittedSuggestion.images && submittedSuggestion.images.length > 0 && (
+                <Descriptions.Item label="附加图片">
+                  <Space wrap>
+                    {submittedSuggestion.images.map((imageUrl: string, index: number) => (
+                      <img
+                        key={index}
+                        src={imageUrl}
+                        alt={`附加图片 ${index + 1}`}
+                        style={{
+                          maxWidth: '200px',
+                          maxHeight: '200px',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => window.open(imageUrl, '_blank')}
+                      />
+                    ))}
+                  </Space>
+                </Descriptions.Item>
+              )}
               {formatSuggestionForDisplay(submittedSuggestion).sources.length > 0 && (
                 <Descriptions.Item label="信息来源">
                   <Space direction="vertical" size="small" style={{ width: '100%' }}>
@@ -409,6 +517,57 @@ export default function SuggestionPage() {
             ]}
           >
             <Input placeholder="例如：公元前221年 或 1234年" />
+          </Form.Item>
+
+          <Form.Item
+            name="images"
+            label="附加图片（可选）"
+            extra="支持 JPG、PNG 格式，单张图片不超过 5MB，最多上传 5 张"
+          >
+            <Upload
+              listType="picture-card"
+              fileList={imageList}
+              beforeUpload={(file) => {
+                // 检查文件大小
+                const isLt5M = file.size / 1024 / 1024 < 5
+                if (!isLt5M) {
+                  message.error('图片大小不能超过 5MB')
+                  return Upload.LIST_IGNORE
+                }
+                // 阻止自动上传
+                return false
+              }}
+              onChange={async (info) => {
+                setImageList(info.fileList)
+                
+                // 如果有新文件，自动上传
+                const newFile = info.fileList[info.fileList.length - 1]
+                if (newFile && newFile.originFileObj && newFile.status !== 'uploading' && newFile.status !== 'done') {
+                  const index = info.fileList.length - 1
+                  // 设置上传中状态
+                  const newList = [...info.fileList]
+                  newList[index] = { ...newList[index], status: 'uploading' }
+                  setImageList(newList)
+                  
+                  await handleImageUpload(newFile.originFileObj, index)
+                }
+              }}
+              onRemove={(file) => {
+                const newList = imageList.filter(item => item.uid !== file.uid)
+                setImageList(newList)
+                const imageUrls = newList.map(item => item.url || item.response?.url).filter(Boolean)
+                form.setFieldsValue({ images: imageUrls })
+              }}
+              accept="image/jpeg,image/png,image/jpg"
+              maxCount={5}
+            >
+              {imageList.length < 5 && (
+                <div>
+                  <PlusOutlined />
+                  <div style={{ marginTop: 8 }}>上传图片</div>
+                </div>
+              )}
+            </Upload>
           </Form.Item>
 
           <Form.Item
