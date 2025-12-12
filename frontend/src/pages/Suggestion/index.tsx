@@ -12,8 +12,6 @@ export default function SuggestionPage() {
   const onFinish = async (values: any) => {
     setLoading(true)
     try {
-      // 静态站点：将建议保存到 localStorage，或通过邮件/表单服务提交
-      // 实际部署时可以使用 Formspree、EmailJS 等服务
       const suggestion = {
         ...values,
         id: Date.now(),
@@ -21,21 +19,36 @@ export default function SuggestionPage() {
         createdAt: new Date().toISOString(),
       }
       
-      // 保存到 localStorage（开发用）
-      const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
-      existing.push(suggestion)
-      localStorage.setItem('suggestions', JSON.stringify(existing))
+      // 尝试提交到后端 API
+      let submitted = false
+      try {
+        const response = await fetch('/api/suggestions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(suggestion),
+        })
+        
+        if (response.ok) {
+          submitted = true
+          message.success('建议已提交到服务器！我们会尽快审核。')
+        }
+      } catch (apiError) {
+        console.log('后端 API 不可用，保存到本地存储', apiError)
+      }
       
-      // 这里可以集成第三方服务，如 Formspree
-      // await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(values),
-      // })
+      // 如果后端不可用，保存到 localStorage
+      if (!submitted) {
+        const existing = JSON.parse(localStorage.getItem('suggestions') || '[]')
+        existing.push(suggestion)
+        localStorage.setItem('suggestions', JSON.stringify(existing))
+        message.success('建议已保存到本地！由于后端服务未启用，数据仅保存在浏览器本地存储中。')
+      }
       
-      message.success('建议提交成功！我们会尽快审核。')
       form.resetFields()
     } catch (error) {
+      console.error('提交失败:', error)
       message.error('提交失败，请稍后重试。')
     } finally {
       setLoading(false)
@@ -45,6 +58,17 @@ export default function SuggestionPage() {
   return (
     <div className="container mx-auto px-6 py-6 max-w-4xl">
       <Title level={2} className="mb-6">提交建议</Title>
+      
+      <Card className="mb-4" style={{ backgroundColor: '#f0f9ff', borderColor: '#bae6fd' }}>
+        <div style={{ color: '#0369a1' }}>
+          <strong>提示：</strong>
+          <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
+            <li>如果后端服务已启用，建议将提交到服务器数据库</li>
+            <li>如果后端服务未启用，建议将保存在浏览器本地存储（localStorage）中</li>
+            <li>您可以在浏览器开发者工具中查看保存的建议数据</li>
+          </ul>
+        </div>
+      </Card>
 
       <Card>
         <Form
