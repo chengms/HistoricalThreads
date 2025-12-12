@@ -1,80 +1,139 @@
 /* 时间线页面容器 */
 .timeline-page-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f5f7fa 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-attachment: fixed;
+  padding: 24px;
 }
 
 /* 筛选卡片 */
 .timeline-filter-card {
-  margin-bottom: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* 时间线布局 */
 .timeline-layout {
   display: flex;
-  gap: 24px;
+  gap: 32px;
   position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* 左侧侧边栏 */
 .timeline-sidebar {
-  width: 200px;
+  width: 240px;
   flex-shrink: 0;
   position: sticky;
-  top: 100px;
-  max-height: calc(100vh - 120px);
+  top: 120px;
+  max-height: calc(100vh - 140px);
   overflow-y: auto;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  background: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 100;
+  padding: 16px;
+}
+
+.timeline-sidebar .ant-card-head {
+  border-bottom: 2px solid #f0f0f0;
+  padding: 16px;
+}
+
+.timeline-sidebar .ant-card-head-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #262626;
 }
 
 .dynasty-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .dynasty-nav-item {
   text-align: left;
-  padding: 12px;
-  border-radius: 6px;
-  transition: all 0.3s;
+  padding: 16px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .dynasty-nav-item:hover {
-  background-color: #f0f0f0;
-  transform: translateX(4px);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+  transform: translateX(8px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.3);
 }
 
 .dynasty-nav-name {
-  font-weight: 600;
-  font-size: 14px;
-  color: #1890ff;
-  margin-bottom: 4px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #667eea;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
 }
 
 .dynasty-nav-years {
   font-size: 12px;
-  color: #666;
+  color: #8c8c8c;
+  font-weight: 500;
 }
 
 /* 中间时间轴主区域 */
 .timeline-main {
   flex: 1;
   position: relative;
-  padding: 40px 0;
+  padding: 60px 0;
+}
+
+/* 时间轴中心线 */
+.timeline-main::before {
+  content: '';
+  position: absolute;
+  left: 100px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    rgba(102, 126, 234, 0.3) 0%,
+    rgba(102, 126, 234, 0.8) 20%,
+    rgba(102, 126, 234, 0.8) 80%,
+    rgba(102, 126, 234, 0.3) 100%
+  );
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  z-index: 1;
 }
 
 /* 年份区块 */
 .timeline-year-section {
   position: relative;
-  margin-bottom: 60px;
-  padding-left: 120px;
-  min-height: 100px;
+  margin-bottom: 80px;
+  padding-left: 160px;
+  min-height: 120px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .timeline-year-section:last-child {
@@ -88,90 +147,94 @@
   top: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   z-index: 10;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  border: 2px solid rgba(102, 126, 234, 0.2);
 }
 
 .year-marker {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
-  border: 3px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 4px solid #ffffff;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 4px 16px rgba(102, 126, 234, 0.4);
   position: relative;
+  z-index: 2;
+  animation: pulse 2s ease-in-out infinite;
 }
 
-.year-marker::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 100%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: calc(100% + 60px);
-  background: linear-gradient(to bottom, #1890ff 0%, rgba(24, 144, 255, 0.3) 50%, transparent 100%);
-  z-index: 1;
-}
-
-.timeline-year-section:last-child .year-marker::after {
-  display: none;
-}
-
-/* 时间轴连接线 */
-.timeline-year-section::before {
-  content: '';
-  position: absolute;
-  left: 7px;
-  top: 16px;
-  bottom: -60px;
-  width: 2px;
-  background: linear-gradient(to bottom, #1890ff, rgba(24, 144, 255, 0.2));
-  z-index: 0;
-}
-
-.timeline-year-section:last-child::before {
-  display: none;
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), 0 4px 16px rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(102, 126, 234, 0.1), 0 4px 20px rgba(102, 126, 234, 0.6);
+  }
 }
 
 .year-text {
-  font-size: 18px;
-  font-weight: 700;
-  color: #1890ff;
+  font-size: 20px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   white-space: nowrap;
-  background: white;
-  padding: 4px 12px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
 }
 
 /* 时间轴内容行 */
 .timeline-content-row {
   display: grid;
-  grid-template-columns: 1fr 200px;
-  gap: 24px;
+  grid-template-columns: 1fr 220px;
+  gap: 32px;
   position: relative;
-  padding-top: 8px;
+  padding-top: 16px;
 }
 
 /* 左侧事件区域 */
 .timeline-events {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .timeline-event-card {
-  border-radius: 8px;
-  transition: all 0.3s;
-  border-left: 4px solid;
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+  position: relative;
+}
+
+.timeline-event-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(135deg, var(--event-color-start), var(--event-color-end));
+  transition: width 0.3s ease;
 }
 
 .timeline-event-card:hover {
-  transform: translateX(8px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateX(12px) translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.timeline-event-card:hover::before {
+  width: 8px;
 }
 
 .timeline-event-card.highlighted {
@@ -180,155 +243,241 @@
 
 @keyframes highlight {
   0%, 100% {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   }
   50% {
-    box-shadow: 0 4px 16px rgba(24, 144, 255, 0.4);
-    transform: scale(1.02);
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.5);
+    transform: scale(1.03);
   }
 }
 
 /* 事件类型颜色 */
 .timeline-event-card.event-political {
-  border-left-color: #1890ff;
+  --event-color-start: #1890ff;
+  --event-color-end: #096dd9;
 }
 
 .timeline-event-card.event-economic {
-  border-left-color: #52c41a;
+  --event-color-start: #52c41a;
+  --event-color-end: #389e0d;
 }
 
 .timeline-event-card.event-cultural {
-  border-left-color: #fa8c16;
+  --event-color-start: #fa8c16;
+  --event-color-end: #d46b08;
 }
 
 .timeline-event-card.event-military {
-  border-left-color: #f5222d;
+  --event-color-start: #f5222d;
+  --event-color-end: #cf1322;
 }
 
 .timeline-event-card.event-reform {
-  border-left-color: #722ed1;
+  --event-color-start: #722ed1;
+  --event-color-end: #531dab;
 }
 
 .timeline-event-card.event-other {
-  border-left-color: #8c8c8c;
+  --event-color-start: #8c8c8c;
+  --event-color-end: #595959;
+}
+
+.timeline-event-card .ant-card-body {
+  padding: 20px 24px;
 }
 
 .event-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  gap: 12px;
 }
 
 .event-title {
   margin: 0 !important;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 700;
   color: #262626;
   flex: 1;
+  line-height: 1.4;
+  letter-spacing: 0.2px;
 }
 
 .event-description {
   color: #595959;
   font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 8px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .event-location {
   color: #8c8c8c;
-  font-size: 12px;
+  font-size: 13px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  font-weight: 500;
 }
 
 /* 右侧人物区域 */
 .timeline-persons {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   align-items: flex-start;
+  padding-top: 8px;
 }
 
 .event-persons-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   align-items: flex-start;
+  width: 100%;
 }
 
 .person-link {
-  padding: 4px 8px;
+  padding: 8px 16px;
   height: auto;
-  font-size: 13px;
-  color: #1890ff;
-  border-radius: 4px;
-  transition: all 0.2s;
+  font-size: 14px;
+  color: #667eea;
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .person-link:hover {
-  background-color: #e6f7ff;
-  color: #096dd9;
-  transform: translateX(4px);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  color: #764ba2;
+  transform: translateX(6px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  border-color: rgba(102, 126, 234, 0.4);
 }
 
 /* 响应式设计 */
 @media (max-width: 1200px) {
   .timeline-content-row {
-    grid-template-columns: 1fr 150px;
+    grid-template-columns: 1fr 180px;
+    gap: 24px;
   }
   
   .timeline-sidebar {
-    width: 160px;
+    width: 200px;
+  }
+  
+  .timeline-year-section {
+    padding-left: 140px;
+  }
+  
+  .timeline-main::before {
+    left: 80px;
+  }
+  
+  .year-marker {
+    left: 60px;
   }
 }
 
 @media (max-width: 768px) {
+  .timeline-page-container {
+    padding: 16px;
+  }
+  
   .timeline-layout {
     flex-direction: column;
+    gap: 20px;
   }
   
   .timeline-sidebar {
     width: 100%;
     position: static;
-    max-height: 300px;
+    max-height: 400px;
   }
   
   .timeline-year-section {
-    padding-left: 80px;
+    padding-left: 100px;
+    margin-bottom: 60px;
+  }
+  
+  .timeline-main::before {
+    left: 50px;
+  }
+  
+  .timeline-year-label {
+    padding: 6px 12px;
+  }
+  
+  .year-marker {
+    width: 20px;
+    height: 20px;
+    left: 15px;
+  }
+  
+  .year-text {
+    font-size: 16px;
   }
   
   .timeline-content-row {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
   }
   
   .timeline-persons {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 12px;
   }
   
-  .year-text {
-    font-size: 14px;
+  .event-persons-group {
+    flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
 /* 滚动条样式 */
 .timeline-sidebar::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .timeline-sidebar::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
+  background: rgba(240, 240, 240, 0.5);
+  border-radius: 4px;
 }
 
 .timeline-sidebar::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
 }
 
 .timeline-sidebar::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* 加载动画 */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.timeline-event-card.loading {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    #e0e0e0 40px,
+    #f0f0f0 80px
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
 }
