@@ -165,49 +165,50 @@ export default function DetailPage() {
                   </div>
                 )}
                 
-                <Space className="mb-4" wrap>
-                  {(data as Person).birthYear && (data as Person).deathYear && (
-                    <Tag color="blue">
-                      {(data as Person).birthYear}年 - {(data as Person).deathYear}年
-                    </Tag>
-                  )}
-                  {(data as Person).dynasty?.name && (
-                    <Tag color="green">{(data as Person).dynasty?.name}</Tag>
-                  )}
-                  {(data as Person).personType && (data as Person).personType.length > 0 && (data as Person).personType.map(type => {
-                    const typeLabels: Record<string, string> = {
-                      politician: '政治家',
-                      economist: '经济学家',
-                      writer: '文学家',
-                      artist: '艺术家',
-                      philosopher: '哲学家',
-                      scientist: '科学家',
-                      military: '军事家',
-                      other: '其他'
-                    }
-                    return (
-                      <Tag key={type} color="purple">{typeLabels[type] || type}</Tag>
-                    )
-                  })}
-                </Space>
-                
-                {/* 出生地和逝世地 */}
+                {/* 年份和朝代信息 */}
                 <div className="mb-4">
-                  <Space wrap>
-                    {(data as Person).birthplace && (
-                      <span className="text-gray-600">
-                        <span className="text-gray-500">出生地：</span>
-                        {(data as Person).birthplace}
-                      </span>
+                  <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                    {/* 生卒年份 */}
+                    {((data as Person).birthYear || (data as Person).deathYear) && (
+                      <div>
+                        <span className="text-gray-500 mr-2">生卒年份：</span>
+                        <span className="text-gray-700">
+                          {(data as Person).birthYear ? `${(data as Person).birthYear}年` : '未知'} 
+                          {((data as Person).birthYear || (data as Person).deathYear) && ' - '}
+                          {(data as Person).deathYear ? `${(data as Person).deathYear}年` : '未知'}
+                        </span>
+                      </div>
                     )}
-                    {(data as Person).deathplace && (
-                      <span className="text-gray-600">
-                        <span className="text-gray-500">逝世地：</span>
-                        {(data as Person).deathplace}
-                      </span>
+                    
+                    {/* 朝代 */}
+                    {(data as Person).dynasty?.name && (
+                      <div>
+                        <span className="text-gray-500 mr-2">所属朝代：</span>
+                        <Tag color="green" style={{ margin: 0 }}>{(data as Person).dynasty?.name}</Tag>
+                      </div>
                     )}
                   </Space>
                 </div>
+                
+                {/* 出生地和逝世地 */}
+                {((data as Person).birthplace || (data as Person).deathplace) && (
+                  <div className="mb-4">
+                    <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                      {(data as Person).birthplace && (
+                        <div>
+                          <span className="text-gray-500 mr-2">出生地：</span>
+                          <span className="text-gray-700">{(data as Person).birthplace}</span>
+                        </div>
+                      )}
+                      {(data as Person).deathplace && (
+                        <div>
+                          <span className="text-gray-500 mr-2">逝世地：</span>
+                          <span className="text-gray-700">{(data as Person).deathplace}</span>
+                        </div>
+                      )}
+                    </Space>
+                  </div>
+                )}
               </div>
             </Space>
             
