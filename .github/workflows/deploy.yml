@@ -37,9 +37,11 @@ jobs:
       - name: Build
         run: cd frontend && npm run build
         env:
-          # 如果使用自定义域名，设置此环境变量为 true
-          # 否则会自动检测（如果域名不包含 github.io 则使用根路径）
-          VITE_USE_CUSTOM_DOMAIN: ${{ vars.VITE_USE_CUSTOM_DOMAIN || 'auto' }}
+          # 如果使用自定义域名，在 GitHub 仓库设置中添加 Repository variable:
+          # Settings > Secrets and variables > Actions > Variables
+          # 添加变量: VITE_USE_CUSTOM_DOMAIN = true
+          # 如果未设置，默认使用 /HistoricalThreads/ 子路径
+          VITE_USE_CUSTOM_DOMAIN: ${{ vars.VITE_USE_CUSTOM_DOMAIN || 'false' }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

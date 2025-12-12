@@ -11,9 +11,23 @@ function App() {
   // 检测是否使用自定义域名
   // 如果设置了 VITE_USE_CUSTOM_DOMAIN=true，或者当前域名不是 github.io，则使用根路径
   const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
-                         (typeof window !== 'undefined' && !window.location.hostname.includes('github.io'))
+                         (typeof window !== 'undefined' && 
+                          !window.location.hostname.includes('github.io') && 
+                          window.location.hostname !== 'localhost' &&
+                          window.location.hostname !== '127.0.0.1')
   
   const basename = isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : '')
+  
+  // 调试信息（仅在开发环境或自定义域名时显示）
+  if (typeof window !== 'undefined' && (import.meta.env.DEV || isCustomDomain)) {
+    console.log('[App] 域名检测:', {
+      hostname: window.location.hostname,
+      isCustomDomain,
+      basename,
+      envVar: import.meta.env.VITE_USE_CUSTOM_DOMAIN,
+      prod: import.meta.env.PROD
+    })
+  }
   
   return (
     <ErrorBoundary>
