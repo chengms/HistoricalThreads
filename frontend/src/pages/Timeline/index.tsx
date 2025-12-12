@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Affix, Avatar } from 'antd'
+import { Card, Select, Input, Space, Typography, Spin, Tag, Button, Avatar } from 'antd'
 import { SearchOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties, searchEvents } from '@/services/dataLoader'
@@ -323,35 +323,34 @@ export default function TimelinePage() {
 
       <div className="timeline-layout">
         {/* 左侧侧边栏 - 朝代导航 */}
-        <Affix offsetTop={100}>
-          <Card className="timeline-sidebar" title="朝代导航">
-            <div className="dynasty-nav">
-              {dynasties
-                .sort((a, b) => a.startYear - b.startYear)
-                .map(dynasty => {
-                  const dynastyEvents = events.filter(e => e.dynastyId === dynasty.id)
-                  if (dynastyEvents.length === 0) return null
-                  
-                  const firstEventYear = Math.min(...dynastyEvents.map(e => e.eventYear))
-                  
-                  return (
-                    <Button
-                      key={dynasty.id}
-                      type="text"
-                      block
-                      className="dynasty-nav-item"
-                      onClick={() => scrollToYear(firstEventYear)}
-                    >
-                      <div className="dynasty-nav-name">{dynasty.name}</div>
-                      <div className="dynasty-nav-years">
-                        {formatYear(dynasty.startYear)} - {formatYear(dynasty.endYear)}
-                      </div>
-                    </Button>
-                  )
-                })}
-            </div>
-          </Card>
-        </Affix>
+        <div className="timeline-sidebar">
+          <div className="dynasty-nav-header">朝代导航</div>
+          <div className="dynasty-nav">
+            {dynasties
+              .sort((a, b) => a.startYear - b.startYear)
+              .map(dynasty => {
+                const dynastyEvents = events.filter(e => e.dynastyId === dynasty.id)
+                if (dynastyEvents.length === 0) return null
+                
+                const firstEventYear = Math.min(...dynastyEvents.map(e => e.eventYear))
+                
+                return (
+                  <Button
+                    key={dynasty.id}
+                    type="text"
+                    block
+                    className="dynasty-nav-item"
+                    onClick={() => scrollToYear(firstEventYear)}
+                  >
+                    <div className="dynasty-nav-name">{dynasty.name}</div>
+                    <div className="dynasty-nav-years">
+                      {formatYear(dynasty.startYear)} - {formatYear(dynasty.endYear)}
+                    </div>
+                  </Button>
+                )
+              })}
+          </div>
+        </div>
 
         {/* 中间时间轴区域 */}
         <div className="timeline-main" ref={timelineContainerRef}>
