@@ -199,14 +199,11 @@ export default function TimelinePage() {
 
   // 监听滚动，更新背景渐变
   useEffect(() => {
-    if (events.length === 0 || allYears.length === 0) return
+    if (events.length === 0 || allYears.length === 0 || dynasties.length === 0) return
 
     const handleScroll = () => {
-      if (!timelineContainerRef.current) return
-
-      const container = timelineContainerRef.current
-      const containerRect = container.getBoundingClientRect()
-      const viewportCenter = containerRect.top + containerRect.height / 2
+      // 获取视口中心位置（相对于文档顶部）
+      const viewportCenter = window.scrollY + window.innerHeight / 2
 
       // 找到视口中心位置对应的年份
       let closestYear: number | null = null
@@ -216,7 +213,8 @@ export default function TimelinePage() {
         const element = document.getElementById(`year-${year}`)
         if (element) {
           const rect = element.getBoundingClientRect()
-          const elementCenter = rect.top + rect.height / 2
+          const elementTop = window.scrollY + rect.top
+          const elementCenter = elementTop + rect.height / 2
           const distance = Math.abs(elementCenter - viewportCenter)
           
           if (distance < minDistance) {
@@ -247,11 +245,23 @@ export default function TimelinePage() {
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    // 使用节流优化性能
+    let ticking = false
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+
+    window.addEventListener('scroll', throttledHandleScroll, { passive: true })
     handleScroll() // 初始调用
     
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', throttledHandleScroll)
       // 清理时恢复默认背景
       const body = document.body
       const html = document.documentElement
@@ -353,7 +363,6 @@ export default function TimelinePage() {
               <div key={year} id={`year-${year}`} className="timeline-year-section">
                 {/* 年份标签 */}
                 <div className="timeline-year-label">
-                  <div className="year-marker" />
                   <span className="year-text">{formatYear(year)}</span>
                 </div>
 
