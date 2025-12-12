@@ -115,14 +115,25 @@ export default function SuggestionPage() {
       console.log('Twikoo Comment Data:', comment)
       
       // Twikoo API 请求格式
+      // 正确格式：event: COMMENT_SUBMIT, comment 为字符串，其他参数在顶层
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          event: 'COMMENT',
-          ...comment,
+          event: 'COMMENT_SUBMIT',
+          comment: comment.comment, // comment 字段是字符串
+          nick: comment.nick,
+          mail: comment.mail,
+          link: comment.link || '',
+          url: comment.url,
+          ua: comment.ua,
+          ip: '', // IP 地址由服务器获取
+          master: false,
+          // pid 和 rid 用于回复，新评论不需要
+          ...(comment.pid && { pid: comment.pid }),
+          ...(comment.rid && { rid: comment.rid }),
         }),
       })
       
@@ -132,25 +143,38 @@ export default function SuggestionPage() {
         const result = await response.json()
         console.log('Twikoo Response Data:', result)
         
-        // Twikoo 成功响应通常是 errno: 0 或 code: 0
-        if (result.errno === 0 || result.code === 0) {
+        // Twikoo 成功响应：
+        // 1. errno: 0 或 code: 0
+        // 2. 返回 id 和 accessToken（表示提交成功）
+        if (result.errno === 0 || result.code === 0 || (result.id && result.accessToken)) {
           return true
         }
         
         // 处理特定的错误码
         if (result.code === 1001) {
           console.error('Twikoo 云函数版本过旧，需要更新:', result.message)
-          message.error('Twikoo 后端服务需要更新，请联系管理员更新 Twikoo 云函数版本。')
+          message.error({
+            content: 'Twikoo 后端服务需要更新。请更新 Twikoo 云函数至最新版本。建议已保存到本地。',
+            duration: 8,
+          })
+        } else if (result.code === 1000) {
+          console.error('Twikoo API 参数错误:', result.message)
+          message.error({
+            content: `Twikoo 提交失败: ${result.message}。建议已保存到本地。`,
+            duration: 6,
+          })
         } else if (result.message) {
           console.error('Twikoo API 错误:', result.message)
-          message.error(`Twikoo 提交失败: ${result.message}`)
+          message.error({
+            content: `Twikoo 提交失败: ${result.message}。建议已保存到本地。`,
+            duration: 6,
+          })
         } else {
           console.warn('Twikoo API 响应格式异常:', result)
-        }
-        
-        // 有些版本可能直接返回 200 状态码但没有 code/errno
-        if (response.status === 200 && !result.errno && !result.code && !result.message) {
-          return true
+          message.warning({
+            content: 'Twikoo 提交失败，建议已保存到本地。请检查 Twikoo 后端服务配置。',
+            duration: 6,
+          })
         }
         
         return false
