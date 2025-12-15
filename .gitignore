@@ -5,6 +5,9 @@ node_modules/
 
 # Testing
 coverage/
+# 保留测试文件，但忽略测试输出
+*.test.js.snap
+*.test.ts.snap
 
 # Production
 dist/
