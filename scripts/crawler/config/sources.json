@@ -1,0 +1,35 @@
+{
+  "personSources": [
+    {
+      "name": "百度百科",
+      "baseUrl": "https://baike.baidu.com/item",
+      "enabled": true,
+      "rateLimit": 2000
+    },
+    {
+      "name": "维基百科",
+      "baseUrl": "https://zh.wikipedia.org/wiki",
+      "enabled": true,
+      "rateLimit": 2000
+    }
+  ],
+  "eventSources": [
+    {
+      "name": "百度百科",
+      "baseUrl": "https://baike.baidu.com/item",
+      "enabled": true,
+      "rateLimit": 2000
+    }
+  ],
+  "imageSources": [
+    {
+      "name": "百度百科图片",
+      "enabled": true
+    },
+    {
+      "name": "维基百科图片",
+      "enabled": true
+    }
+  ]
+}
+
