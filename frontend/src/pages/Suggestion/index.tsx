@@ -207,8 +207,11 @@ export default function SuggestionPage() {
         apiUrl = envId.replace(/\/$/, '') + '/api'
       }
       
-      console.log('Twikoo API URL:', apiUrl)
-      console.log('Twikoo Comment Data:', comment)
+      // 开发环境调试日志
+      if (import.meta.env.DEV) {
+        console.log('Twikoo API URL:', apiUrl)
+        console.log('Twikoo Comment Data:', comment)
+      }
       
       // Twikoo API 请求格式
       // 正确格式：event: COMMENT_SUBMIT, comment 为字符串，其他参数在顶层
@@ -233,11 +236,16 @@ export default function SuggestionPage() {
         }),
       })
       
-      console.log('Twikoo Response Status:', response.status, response.statusText)
+      // 开发环境调试日志
+      if (import.meta.env.DEV) {
+        console.log('Twikoo Response Status:', response.status, response.statusText)
+      }
       
       if (response.ok) {
         const result = await response.json()
-        console.log('Twikoo Response Data:', result)
+        if (import.meta.env.DEV) {
+          console.log('Twikoo Response Data:', result)
+        }
         
         // Twikoo 成功响应：
         // 1. errno: 0 或 code: 0

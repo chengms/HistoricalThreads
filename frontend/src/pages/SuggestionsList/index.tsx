@@ -84,7 +84,10 @@ export default function SuggestionsListPage() {
 
       if (response.ok) {
         const result: TwikooResponse = await response.json()
-        console.log('Twikoo 评论列表响应:', result)
+        // 开发环境调试日志
+        if (import.meta.env.DEV) {
+          console.log('Twikoo 评论列表响应:', result)
+        }
 
         // GET_RECENT_COMMENTS 成功时直接返回 data 数组，没有 code/errno
         if (result.data && Array.isArray(result.data)) {
@@ -183,7 +186,9 @@ export default function SuggestionsListPage() {
     const imagesMatch = comment.match(/##\s*附加图片\n\n(.+?)(?=\n##|$)/s)
     if (imagesMatch) {
       const imagesText = imagesMatch[1]
-      console.log('图片文本内容:', imagesText)
+        if (import.meta.env.DEV) {
+          console.log('图片文本内容:', imagesText)
+        }
       // 匹配 Markdown 图片格式: ![alt](url) 或 ![alt](url)\n
       const imageRegex = /!\[[^\]]*\]\((https?:\/\/[^\s\)]+)\)/g
       let match
@@ -193,7 +198,9 @@ export default function SuggestionsListPage() {
           result.images.push(imageUrl)
         }
       }
-      console.log('解析到的图片URL:', result.images)
+        if (import.meta.env.DEV) {
+          console.log('解析到的图片URL:', result.images)
+        }
     } else {
       // 如果没有匹配到"附加图片"章节，尝试在整个评论中查找图片
       const allImagesRegex = /!\[[^\]]*\]\((https?:\/\/[^\s\)]+)\)/g
@@ -205,7 +212,9 @@ export default function SuggestionsListPage() {
         }
       }
       if (result.images.length > 0) {
-        console.log('从整个评论中解析到的图片URL:', result.images)
+        if (import.meta.env.DEV) {
+          console.log('从整个评论中解析到的图片URL:', result.images)
+        }
       }
     }
 

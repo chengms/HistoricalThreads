@@ -27,6 +27,13 @@ export default defineConfig({
   },
   build: {
     sourcemap: false, // 生产环境禁用 source map，避免调试器问题
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // 生产环境移除所有 console 语句
+        drop_debugger: true, // 移除 debugger 语句
+      },
+    },
   },
 })
 
