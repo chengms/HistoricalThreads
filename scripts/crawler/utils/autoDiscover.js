@@ -1,22 +1,15 @@
 /**
  * 自动发现历史人物和事件
  * 使用 AI 和关键词搜索来自动发现需要爬取的内容
+ * 支持 OpenAI 和 Kimi (Moonshot AI)
  */
 
-import OpenAI from 'openai'
-import dotenv from 'dotenv'
+import { hasAIConfigured, callAI, getProviderName } from './aiProvider.js'
 import { CrawlerBase } from './crawlerBase.js'
 import { sleep } from './helpers.js'
+import dotenv from 'dotenv'
 
 dotenv.config()
-
-// 只有在有 API Key 时才初始化 OpenAI
-let openai = null
-if (process.env.OPENAI_API_KEY) {
-  openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-}
 
 export class AutoDiscover extends CrawlerBase {
   constructor() {
@@ -27,8 +20,8 @@ export class AutoDiscover extends CrawlerBase {
    * 使用 AI 生成历史人物列表
    */
   async discoverPersonsByDynasty(dynastyName, count = 10) {
-    if (!openai || !process.env.OPENAI_API_KEY) {
-      console.warn('⚠️  OpenAI API Key 未配置，使用默认人物列表')
+    if (!hasAIConfigured()) {
+      console.warn(`⚠️  AI API Key 未配置，使用默认人物列表`)
       return this.getDefaultPersons(dynastyName)
     }
 
@@ -39,30 +32,25 @@ export class AutoDiscover extends CrawlerBase {
 3. 文化人物（文学家、思想家等）
 4. 其他重要人物
 
-请以 JSON 数组格式返回，每个对象包含：
+请以 JSON 对象格式返回，包含一个 "persons" 数组，每个对象包含：
 {
   "name": "人物姓名",
   "type": "politician/military/cultural/other",
   "importance": "high/medium/low"
 }
 
-只返回 JSON 数组，不要其他文字。`
+只返回 JSON 对象，不要其他文字。`
 
-      const response = await openai.chat.completions.create({
-        model: 'gpt-4',
-        messages: [
-          {
-            role: 'system',
-            content: '你是一位专业的历史学家，擅长整理历史人物信息。',
-          },
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.3,
-        response_format: { type: 'json_object' },
-      })
+      const response = await callAI([
+        {
+          role: 'system',
+          content: '你是一位专业的历史学家，擅长整理历史人物信息。',
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ])
 
       const content = response.choices[0].message.content
       const result = typeof content === 'string' ? JSON.parse(content) : content
@@ -87,8 +75,8 @@ export class AutoDiscover extends CrawlerBase {
    * 使用 AI 生成历史事件列表
    */
   async discoverEventsByDynasty(dynastyName, count = 10) {
-    if (!openai || !process.env.OPENAI_API_KEY) {
-      console.warn('⚠️  OpenAI API Key 未配置，使用默认事件列表')
+    if (!hasAIConfigured()) {
+      console.warn(`⚠️  AI API Key 未配置，使用默认事件列表`)
       return this.getDefaultEvents(dynastyName)
     }
 
@@ -99,7 +87,7 @@ export class AutoDiscover extends CrawlerBase {
 3. 文化事件（文化交流、重要著作等）
 4. 经济事件（贸易、建设等）
 
-请以 JSON 数组格式返回，每个对象包含：
+请以 JSON 对象格式返回，包含一个 "events" 数组，每个对象包含：
 {
   "title": "事件标题",
   "type": "political/military/cultural/economic",
@@ -107,23 +95,18 @@ export class AutoDiscover extends CrawlerBase {
   "estimatedYear": 年份（数字）
 }
 
-只返回 JSON 数组，不要其他文字。`
+只返回 JSON 对象，不要其他文字。`
 
-      const response = await openai.chat.completions.create({
-        model: 'gpt-4',
-        messages: [
-          {
-            role: 'system',
-            content: '你是一位专业的历史学家，擅长整理历史事件信息。',
-          },
-          {
-            role: 'user',
-            content: prompt,
-          },
-        ],
-        temperature: 0.3,
-        response_format: { type: 'json_object' },
-      })
+      const response = await callAI([
+        {
+          role: 'system',
+          content: '你是一位专业的历史学家，擅长整理历史事件信息。',
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ])
 
       const content = response.choices[0].message.content
       const result = typeof content === 'string' ? JSON.parse(content) : content

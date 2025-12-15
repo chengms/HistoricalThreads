@@ -1,27 +1,19 @@
 /**
  * AI 内容审核工具
- * 使用 OpenAI API 验证历史数据的准确性
+ * 支持 OpenAI 和 Kimi (Moonshot AI) API
  */
 
-import OpenAI from 'openai'
+import { getAIClient, hasAIConfigured, getProviderName } from './aiProvider.js'
 import dotenv from 'dotenv'
 
 dotenv.config()
-
-// 只有在有 API Key 时才初始化 OpenAI
-let openai = null
-if (process.env.OPENAI_API_KEY) {
-  openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  })
-}
 
 /**
  * 验证人物信息
  */
 export async function verifyPerson(personData) {
-  if (!openai || !process.env.OPENAI_API_KEY) {
-    console.warn('⚠️  OpenAI API Key 未配置，跳过 AI 审核')
+  if (!hasAIConfigured()) {
+    console.warn(`⚠️  AI API Key 未配置，跳过 AI 审核`)
     return { verified: true, confidence: 0.5, notes: '未进行 AI 审核' }
   }
 
@@ -48,21 +40,17 @@ export async function verifyPerson(personData) {
   "notes": "审核备注"
 }`
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: '你是一位专业的历史学家，擅长验证历史人物信息的准确性。',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      response_format: { type: 'json_object' },
-    })
+    const { callAI } = await import('./aiProvider.js')
+    const response = await callAI([
+      {
+        role: 'system',
+        content: '你是一位专业的历史学家，擅长验证历史人物信息的准确性。',
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
 
     const result = JSON.parse(response.choices[0].message.content)
     return result
@@ -76,8 +64,8 @@ export async function verifyPerson(personData) {
  * 验证事件信息
  */
 export async function verifyEvent(eventData) {
-  if (!openai || !process.env.OPENAI_API_KEY) {
-    console.warn('⚠️  OpenAI API Key 未配置，跳过 AI 审核')
+  if (!hasAIConfigured()) {
+    console.warn(`⚠️  AI API Key 未配置，跳过 AI 审核`)
     return { verified: true, confidence: 0.5, notes: '未进行 AI 审核' }
   }
 
@@ -106,21 +94,17 @@ export async function verifyEvent(eventData) {
   "notes": "审核备注"
 }`
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: '你是一位专业的历史学家，擅长验证历史事件信息的准确性。',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      response_format: { type: 'json_object' },
-    })
+    const { callAI } = await import('./aiProvider.js')
+    const response = await callAI([
+      {
+        role: 'system',
+        content: '你是一位专业的历史学家，擅长验证历史事件信息的准确性。',
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
 
     const result = JSON.parse(response.choices[0].message.content)
     return result
@@ -134,7 +118,7 @@ export async function verifyEvent(eventData) {
  * 验证人物与事件的关联
  */
 export async function verifyPersonEventRelation(personName, eventTitle, eventYear) {
-  if (!openai || !process.env.OPENAI_API_KEY) {
+  if (!hasAIConfigured()) {
     return { verified: true, confidence: 0.5 }
   }
 
@@ -149,21 +133,17 @@ export async function verifyPersonEventRelation(personName, eventTitle, eventYea
   "notes": "关联说明"
 }`
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: '你是一位专业的历史学家，擅长分析历史人物与事件的关联。',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      response_format: { type: 'json_object' },
-    })
+    const { callAI } = await import('./aiProvider.js')
+    const response = await callAI([
+      {
+        role: 'system',
+        content: '你是一位专业的历史学家，擅长分析历史人物与事件的关联。',
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
 
     const result = JSON.parse(response.choices[0].message.content)
     return result
@@ -177,13 +157,13 @@ export async function verifyPersonEventRelation(personName, eventTitle, eventYea
  * 验证图片是否与人物匹配
  */
 export async function verifyPersonImage(personName, imageUrl) {
-  if (!openai || !process.env.OPENAI_API_KEY) {
+  if (!hasAIConfigured()) {
     return { verified: true, confidence: 0.5, notes: '未进行 AI 审核' }
   }
 
   try {
     // 注意：这里需要图片的 base64 或 URL
-    // 由于 OpenAI Vision API 需要图片，这里简化处理
+    // 由于 Vision API 需要图片，这里简化处理
     const prompt = `请验证图片是否与历史人物 "${personName}" 匹配。
 
 请考虑：
@@ -198,21 +178,17 @@ export async function verifyPersonImage(personName, imageUrl) {
   "notes": "审核备注"
 }`
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4',
-      messages: [
-        {
-          role: 'system',
-          content: '你是一位专业的历史学家，擅长验证历史人物图片的准确性。',
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      response_format: { type: 'json_object' },
-    })
+    const { callAI } = await import('./aiProvider.js')
+    const response = await callAI([
+      {
+        role: 'system',
+        content: '你是一位专业的历史学家，擅长验证历史人物图片的准确性。',
+      },
+      {
+        role: 'user',
+        content: prompt,
+      },
+    ])
 
     const result = JSON.parse(response.choices[0].message.content)
     return result

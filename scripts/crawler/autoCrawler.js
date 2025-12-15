@@ -8,6 +8,7 @@ import EventCrawler from './crawlers/eventCrawler.js'
 import { AutoDiscover } from './utils/autoDiscover.js'
 import { ImageDownloader } from './utils/imageDownloader.js'
 import { readJSON, saveJSON } from './utils/helpers.js'
+import { getProviderName, hasAIConfigured } from './utils/aiProvider.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
@@ -204,6 +205,13 @@ class AutoCrawler {
     console.log('🚀 自动历史数据爬虫启动')
     console.log('='.repeat(60))
     console.log(`📋 计划处理朝代: ${dynasties.join(', ')}`)
+    
+    // 显示 AI 提供商信息
+    if (hasAIConfigured()) {
+      console.log(`🤖 AI 提供商: ${getProviderName()}`)
+    } else {
+      console.log(`⚠️  AI API Key 未配置，将使用默认列表`)
+    }
     console.log('='.repeat(60))
 
     const allPersonResults = []

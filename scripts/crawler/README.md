@@ -14,8 +14,9 @@
 ## 📋 前置要求
 
 1. **Node.js** >= 18.0.0
-2. **OpenAI API Key**（可选，用于 AI 功能）
-   - 获取地址：https://platform.openai.com/api-keys
+2. **AI API Key**（可选，用于 AI 功能）
+   - **Kimi (Moonshot AI)** - 推荐：https://platform.moonshot.cn/
+   - **OpenAI**：https://platform.openai.com/api-keys
    - 如果没有 API Key，系统会使用默认列表
 
 ## 🚀 快速开始
@@ -35,13 +36,23 @@ npm install
 cp .env.example .env
 ```
 
-编辑 `.env` 文件，填入你的 OpenAI API Key：
+编辑 `.env` 文件，填入你的 AI API Key（二选一）：
 
+**选项 1: 使用 Kimi (Moonshot AI) - 推荐**
 ```env
-OPENAI_API_KEY=your-openai-api-key-here
+KIMI_API_KEY=your-kimi-api-key-here
+KIMI_MODEL=moonshot-v1-8k
 ```
 
-**注意**：如果没有 OpenAI API Key，系统仍可运行，但会使用默认的人物和事件列表。
+**选项 2: 使用 OpenAI**
+```env
+OPENAI_API_KEY=your-openai-api-key-here
+OPENAI_MODEL=gpt-4
+```
+
+**注意**：
+- 如果没有 AI API Key，系统仍可运行，但会使用默认的人物和事件列表
+- Kimi API 通常比 OpenAI 更便宜，推荐使用
 
 ### 3. 运行自动爬虫
 
