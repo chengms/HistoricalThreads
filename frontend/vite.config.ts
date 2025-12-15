@@ -25,5 +25,8 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    sourcemap: false, // 生产环境禁用 source map，避免调试器问题
+  },
 })
 
