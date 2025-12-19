@@ -10,7 +10,8 @@ import {
   MenuOutlined,
   CloseOutlined
 } from '@ant-design/icons'
-import { ReactNode, useState, useEffect } from 'react'
+import type { InputRef } from 'antd'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { searchEvents, searchPersons } from '@/services/dataLoader'
 import './index.css'
 
@@ -26,13 +27,17 @@ export default function Layout({ children }: LayoutProps) {
   const [searchValue, setSearchValue] = useState('')
   const [searchOptions, setSearchOptions] = useState<Array<{ value: string; label: JSX.Element }>>([])
   const [searchLoading, setSearchLoading] = useState(false)
+  const [searchOverlayOpen, setSearchOverlayOpen] = useState(false)
   const [menuCollapsed, setMenuCollapsed] = useState(false)
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
+  const searchOverlayRef = useRef<HTMLDivElement>(null)
+  const searchInputRef = useRef<InputRef>(null)
   const {
     token: { colorBgContainer },
   } = theme.useToken()
 
   const isCompactHeader = viewportWidth <= 1024
+  const isNarrowSearch = viewportWidth <= 860
 
   // 监听窗口大小变化
   useEffect(() => {
@@ -115,7 +120,52 @@ export default function Layout({ children }: LayoutProps) {
     navigate(`/detail/${type}/${id}`)
     setSearchValue('')
     setSearchOptions([])
+    setSearchOverlayOpen(false)
   }
+
+  const openSearchOverlay = () => {
+    setSearchOverlayOpen(true)
+    // next tick focus
+    setTimeout(() => {
+      searchInputRef.current?.focus?.()
+    }, 0)
+  }
+
+  const closeSearchOverlay = () => {
+    setSearchOverlayOpen(false)
+  }
+
+  // narrow -> show icon. If viewport becomes wide, close overlay.
+  useEffect(() => {
+    if (!isNarrowSearch && searchOverlayOpen) {
+      setSearchOverlayOpen(false)
+    }
+  }, [isNarrowSearch, searchOverlayOpen])
+
+  // close overlay on outside click / Esc
+  useEffect(() => {
+    if (!searchOverlayOpen) return
+
+    const onMouseDown = (e: MouseEvent) => {
+      const el = searchOverlayRef.current
+      if (el && !el.contains(e.target as Node)) {
+        closeSearchOverlay()
+      }
+    }
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeSearchOverlay()
+      }
+    }
+
+    document.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [searchOverlayOpen])
 
   const menuItems = [
     {
@@ -205,42 +255,92 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           
           {/* 搜索框 */}
-          <div 
-            className="flex items-center"
-            style={{ 
-              flexShrink: 0,
-              width: (isCompactHeader && !menuCollapsed) ? '0' : '160px',
-              overflow: 'hidden',
-              transition: 'width 0.3s ease'
-            }}
-          >
-            <AutoComplete
-              value={searchValue}
-              options={searchOptions}
-              onSearch={handleSearch}
-              onSelect={handleSelect}
-              style={{ width: '100%' }}
-              notFoundContent={searchLoading ? '搜索中...' : searchValue ? '未找到' : null}
-              classNames={{ popup: { root: 'search-autocomplete-dropdown' } }}
+          {!isNarrowSearch ? (
+            <div 
+              className="flex items-center"
+              style={{ 
+                flexShrink: 0,
+                width: (isCompactHeader && !menuCollapsed) ? '0' : '160px',
+                overflow: 'hidden',
+                transition: 'width 0.3s ease'
+              }}
             >
-              <Input
-                prefix={<SearchOutlined style={{ color: 'white' }} />}
-                placeholder="搜索..."
-                size="small"
-                allowClear
-                onChange={(e) => {
-                  setSearchValue(e.target.value)
-                  if (!e.target.value) {
-                    setSearchOptions([])
+              <AutoComplete
+                value={searchValue}
+                options={searchOptions}
+                onSearch={handleSearch}
+                onSelect={handleSelect}
+                style={{ width: '100%' }}
+                notFoundContent={searchLoading ? '搜索中...' : searchValue ? '未找到' : null}
+                classNames={{ popup: { root: 'search-autocomplete-dropdown' } }}
+              >
+                <Input
+                  prefix={<SearchOutlined style={{ color: 'white' }} />}
+                  placeholder="搜索..."
+                  size="small"
+                  allowClear
+                  onChange={(e) => {
+                    setSearchValue(e.target.value)
+                    if (!e.target.value) {
+                      setSearchOptions([])
+                    }
+                  }}
+                  className="header-search-input"
+                  style={{ color: 'white' }}
+                />
+              </AutoComplete>
+            </div>
+          ) : (
+            <div
+              ref={searchOverlayRef}
+              className="header-search-icon-wrap"
+              style={{ flexShrink: 0 }}
+            >
+              <div
+                className="header-search-icon"
+                role="button"
+                tabIndex={0}
+                onClick={() => (searchOverlayOpen ? closeSearchOverlay() : openSearchOverlay())}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    searchOverlayOpen ? closeSearchOverlay() : openSearchOverlay()
                   }
                 }}
-                className="header-search-input"
-                style={{ 
-                  color: 'white',
-                }}
-              />
-            </AutoComplete>
-          </div>
+              >
+                <SearchOutlined />
+              </div>
+
+              {searchOverlayOpen && (
+                <div className="header-search-overlay">
+                  <AutoComplete
+                    value={searchValue}
+                    options={searchOptions}
+                    onSearch={handleSearch}
+                    onSelect={handleSelect}
+                    style={{ width: Math.min(320, Math.max(220, viewportWidth - 240)) }}
+                    notFoundContent={searchLoading ? '搜索中...' : searchValue ? '未找到' : null}
+                    classNames={{ popup: { root: 'search-autocomplete-dropdown' } }}
+                  >
+                    <Input
+                      ref={searchInputRef}
+                      prefix={<SearchOutlined style={{ color: 'white' }} />}
+                      placeholder="搜索..."
+                      allowClear
+                      onChange={(e) => {
+                        setSearchValue(e.target.value)
+                        if (!e.target.value) {
+                          setSearchOptions([])
+                        }
+                      }}
+                      className="header-search-input header-search-input-overlay"
+                      style={{ color: 'white' }}
+                    />
+                  </AutoComplete>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Header>
       <Content className="flex-1">

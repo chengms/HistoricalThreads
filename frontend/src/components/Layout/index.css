@@ -114,3 +114,40 @@
   display: flex;
   align-items: center;
 }
+
+/* ===== 窄屏：搜索图标 + 弹出搜索框 ===== */
+.header-search-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-search-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.header-search-icon:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.header-search-overlay {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  z-index: 1000;
+}
+
+.header-search-input-overlay {
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
