@@ -219,14 +219,14 @@ export default function Layout({ children }: LayoutProps) {
               options={searchOptions}
               onSearch={handleSearch}
               onSelect={handleSelect}
-              placeholder="搜索..."
-              size="small"
               style={{ width: '100%' }}
               notFoundContent={searchLoading ? '搜索中...' : searchValue ? '未找到' : null}
-              popupClassName="search-autocomplete-dropdown"
+              classNames={{ popup: { root: 'search-autocomplete-dropdown' } }}
             >
               <Input
                 prefix={<SearchOutlined style={{ color: 'white' }} />}
+                placeholder="搜索..."
+                size="small"
                 allowClear
                 onChange={(e) => {
                   setSearchValue(e.target.value)
