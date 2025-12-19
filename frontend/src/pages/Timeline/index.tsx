@@ -63,6 +63,7 @@ export default function TimelinePage() {
   const [floatingNavVisible, setFloatingNavVisible] = useState<boolean>(false)
   const [floatingNavOpen, setFloatingNavOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
   const floatingNavRef = useRef<HTMLDivElement>(null)
   const autoHideTimerRef = useRef<number | null>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
@@ -76,25 +77,19 @@ export default function TimelinePage() {
   // 初始化响应式状态（仅在客户端）
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth <= 768
+      const w = window.innerWidth
+      setViewportWidth(w)
+      const mobile = w <= 768
       setIsMobile(mobile)
       setFloatingNavVisible(mobile)
     }
     checkMobile()
   }, [])
   
-  // 监听事件数量变化，决定是否自动折叠导航
-  useEffect(() => {
-    if (events.length < EVENTS_THRESHOLD) {
-      // 当事件数量过少时，折叠导航内容，但保持侧边栏可见
-      setShouldCollapseNav(false) // 保持侧边栏可见
-      setIsNavCollapsed(true) // 折叠导航内容
-    } else {
-      // 当事件数量足够时，保持导航展开
-      setShouldCollapseNav(false)
-      setIsNavCollapsed(false)
-    }
-  }, [events.length])
+  // 页面变窄时自动折叠（但允许点击图标临时展开为浮动面板）
+  const autoCollapseSidebar = !isMobile && viewportWidth <= 1100
+  const navCollapsed = autoCollapseSidebar ? !isSidebarFloating : isNavCollapsed
+  const isNavCollapsedEffective = navCollapsed || false
   
   // 手动切换导航折叠状态
   const toggleNavCollapse = () => {
@@ -134,13 +129,20 @@ export default function TimelinePage() {
   // 监听窗口大小变化，在窄屏设备上默认显示悬浮导航
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth <= 768
+      const w = window.innerWidth
+      setViewportWidth(w)
+      const mobile = w <= 768
       setIsMobile(mobile)
       if (mobile) {
         setFloatingNavVisible(true)
       } else {
         // 在宽屏设备上，保持默认隐藏状态
         setFloatingNavVisible(false)
+      }
+
+      // 当进入自动折叠区间时，强制退出浮动（避免遮挡）
+      if (w <= 1100 && w > 768) {
+        setIsSidebarFloating(false)
       }
     }
     
@@ -534,8 +536,10 @@ export default function TimelinePage() {
     )
   }
 
+  const containerCollapsedClass = (!shouldCollapseNav && (navCollapsed && !isMobile)) ? 'nav-collapsed' : ''
+
   return (
-    <div className={`timeline-page-container ${isNavCollapsed ? 'nav-collapsed' : ''}`}>
+    <div className={`timeline-page-container ${containerCollapsedClass}`}>
       {/* 顶部筛选栏 */}
       <Card className={`timeline-filter-card ${shouldCollapseNav ? 'full-width' : ''}`}>
         <Space size="large" wrap>
@@ -566,14 +570,13 @@ export default function TimelinePage() {
 
       <div className="timeline-layout">
         {/* 左侧侧边栏 - 朝代导航 (含自动折叠逻辑) */}
-        {!shouldCollapseNav && (
-          isNavCollapsed ? (
+        {!shouldCollapseNav && !isMobile && (
+          navCollapsed ? (
             <Button
               type="text"
               className="timeline-sidebar-toggle"
               onClick={(e) => {
                 e.stopPropagation()
-                setIsNavCollapsed(false)
                 setIsSidebarFloating(true)
               }}
             >
@@ -597,6 +600,12 @@ export default function TimelinePage() {
                   size="small"
                   onClick={(e) => {
                     e.stopPropagation()
+                    // 自动折叠区间：关闭浮动面板即可回到“只显示图标”
+                    if (autoCollapseSidebar) {
+                      setIsSidebarFloating(false)
+                      return
+                    }
+                    // 非自动区间：真正折叠
                     setIsSidebarFloating(false)
                     setIsNavCollapsed(true)
                   }}
@@ -695,9 +704,16 @@ export default function TimelinePage() {
                       >
                         <div className="event-header">
                           <Title level={5} className="event-title">{event.title}</Title>
-                          <Tag color={eventTypeColors[event.eventType]}>
-                            {eventTypeLabels[event.eventType]}
-                          </Tag>
+                          <Space size={6} wrap={false} className="event-tags">
+                            <Tag color={eventTypeColors[event.eventType]}>
+                              {eventTypeLabels[event.eventType]}
+                            </Tag>
+                            {event.dynasty?.name && (
+                              <Tag color="gold">
+                                {event.dynasty.name}
+                              </Tag>
+                            )}
+                          </Space>
                         </div>
                         <div className="event-description">
                           {event.description}

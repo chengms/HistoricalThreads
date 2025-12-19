@@ -27,46 +27,37 @@ export default function Layout({ children }: LayoutProps) {
   const [searchOptions, setSearchOptions] = useState<Array<{ value: string; label: JSX.Element }>>([])
   const [searchLoading, setSearchLoading] = useState(false)
   const [menuCollapsed, setMenuCollapsed] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
   const {
     token: { colorBgContainer },
   } = theme.useToken()
 
-  // 初始化响应式状态（仅在客户端）
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768
-      setIsMobile(mobile)
-      if (window.innerWidth <= 1024) {
-        setMenuCollapsed(true)
-      }
-    }
-    checkMobile()
-  }, [])
+  const isMobile = viewportWidth < 768
+  const isCompactHeader = viewportWidth <= 1024
 
   // 监听窗口大小变化
   useEffect(() => {
     const handleResize = () => {
-      const newIsMobile = window.innerWidth < 768
-      setIsMobile(newIsMobile)
+      const w = window.innerWidth
+      setViewportWidth(w)
       
       // 在大屏幕上自动展开菜单
-      if (window.innerWidth > 1024) {
+      if (w > 1024) {
         setMenuCollapsed(false)
-      } 
-      // 在中等屏幕上如果之前是展开状态，保持展开
-      else if (window.innerWidth > 768 && !menuCollapsed) {
-        // 保持当前状态
-      }
-      // 在小屏幕上自动折叠菜单
-      else if (window.innerWidth <= 768) {
+      } else if (w <= 1024 && w > 768) {
+        // 中等屏幕：默认折叠（但用户可通过按钮展开）
+        setMenuCollapsed(true)
+      } else if (w <= 768) {
+        // 小屏幕：折叠
         setMenuCollapsed(true)
       }
     }
 
+    // 初始化一次
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [menuCollapsed])
+  }, [])
 
   // 搜索功能
   const handleSearch = async (value: string) => {
@@ -176,7 +167,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           
           {/* 折叠按钮 - 在小屏幕和中等屏幕上显示 */}
-          {isMobile && (
+          {isCompactHeader && (
             <div 
               className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all"
               onClick={() => setMenuCollapsed(!menuCollapsed)}
@@ -202,13 +193,13 @@ export default function Layout({ children }: LayoutProps) {
               onClick={({ key }) => {
                 navigate(key)
                 // 在小屏幕和中等屏幕上点击菜单项后自动折叠菜单
-                if (isMobile) {
+                if (isCompactHeader) {
                   setMenuCollapsed(true)
                 }
               }}
               className="border-0"
               style={{
-                display: (isMobile && menuCollapsed) ? 'none' : 'flex',
+                display: (isCompactHeader && menuCollapsed) ? 'none' : 'flex',
                 flexWrap: 'wrap'
               }}
             />
@@ -219,7 +210,7 @@ export default function Layout({ children }: LayoutProps) {
             className="flex items-center"
             style={{ 
               flexShrink: 0,
-              width: (isMobile && !menuCollapsed) ? '0' : '160px',
+              width: (isCompactHeader && !menuCollapsed) ? '0' : '160px',
               overflow: 'hidden',
               transition: 'width 0.3s ease'
             }}
