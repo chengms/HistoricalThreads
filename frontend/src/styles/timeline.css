@@ -872,6 +872,13 @@ button.dynasty-nav-item {
   width: 100%;
 }
 
+/* 展开后：横排更好利用空间，自动换行 */
+.event-persons-group.expanded {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
 /* “更多/收起”按钮：更弱的视觉权重，避免抢主体人物 */
 .person-link.person-link-more {
   opacity: 0.85;

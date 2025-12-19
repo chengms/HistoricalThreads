@@ -750,7 +750,7 @@ export default function TimelinePage() {
                           : Math.max(0, eventPersons.length - visiblePersons.length)
 
                       return (
-                        <div key={event.id} className="event-persons-group">
+                        <div key={event.id} className={`event-persons-group ${isExpanded ? 'expanded' : ''}`}>
                           {visiblePersons.map(person => (
                             <Button
                               key={person.id}
