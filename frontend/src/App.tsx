@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
 import ErrorBoundary from './components/ErrorBoundary'
 import TimelinePage from './pages/Timeline'
@@ -40,9 +40,19 @@ function App() {
             <Route path="/timeline" element={<TimelinePage />} />
             {/* allow extra sub-paths (e.g. /network/xxx) to still render the graph */}
             <Route path="/network/*" element={<NetworkPage />} />
+
+            {/* Friendly Chinese aliases */}
+            <Route path="/中国历史时间线" element={<TimelinePage />} />
+            <Route path="/中国历史时间线/*" element={<TimelinePage />} />
+            <Route path="/关系图谱" element={<NetworkPage />} />
+            <Route path="/关系图谱/*" element={<NetworkPage />} />
+
             <Route path="/detail/:type/:id" element={<DetailPage />} />
             <Route path="/suggestion" element={<SuggestionPage />} />
             <Route path="/suggestions" element={<SuggestionsListPage />} />
+
+            {/* Fallback: redirect unknown paths to timeline */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Layout>
       </BrowserRouter>
