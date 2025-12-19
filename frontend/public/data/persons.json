@@ -35,9 +35,10 @@
     ],
     "dynastyId": 2,
     "sources": [
-      1
+      1,
+      25
     ],
-    "avatarUrl": "/images/full/2e3386cbea115e71f1c984b933056865fbea45a7.jpg"
+    "avatarUrl": "/images/full/2369661758ec7f464cfb02e5ed07f3a0dd6445d8.jpg"
   },
   {
     "id": 3,
@@ -74,9 +75,10 @@
     "dynastyId": 4,
     "sources": [
       1,
-      2
+      2,
+      26
     ],
-    "avatarUrl": "/images/full/ff209a7ef878404c597f5ac124a797bf70f0f25a.jpg"
+    "avatarUrl": "/images/full/269c0cce93fc6f883f0bae1f38e0fea0a67cf17d.jpg"
   },
   {
     "id": 5,
@@ -93,9 +95,10 @@
     "dynastyId": 4,
     "sources": [
       1,
-      2
+      2,
+      27
     ],
-    "avatarUrl": "/images/full/a5abdad2b8503ba882fefa1bddaaa06f789e9785.jpg"
+    "avatarUrl": "/images/full/4533fd135b51eb6a949c7a0fef6b32576fd2130a.jpg"
   },
   {
     "id": 6,
@@ -113,9 +116,10 @@
     "dynastyId": 4,
     "sources": [
       1,
-      2
+      2,
+      44
     ],
-    "avatarUrl": "/images/full/f08c0c6d504d8c742d9d62507798581322df81e3.jpg"
+    "avatarUrl": "/images/full/31bc3dab3c75a3cab7104e4c1aa6286f7287a148.jpg"
   },
   {
     "id": 7,
@@ -134,9 +138,10 @@
     "dynastyId": 5,
     "sources": [
       1,
-      2
+      2,
+      45
     ],
-    "avatarUrl": "/images/full/2336625c16edd4687d563a4eaf9ad7df8eca735c.jpg"
+    "avatarUrl": "/images/full/f683f25b612497640161fb4129af1903849804e0.jpg"
   },
   {
     "id": 8,
@@ -156,7 +161,8 @@
     "birthplace": "邯郸",
     "sources": [
       1,
-      2
+      2,
+      46
     ],
     "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
   },
@@ -174,9 +180,10 @@
     ],
     "dynastyId": 6,
     "sources": [
-      1
+      1,
+      47
     ],
-    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
+    "avatarUrl": "/images/full/c8acaae3fdc67dd034d87bfab4aa1f823660cd41.jpg"
   },
   {
     "id": 10,
@@ -189,9 +196,10 @@
     ],
     "dynastyId": 6,
     "sources": [
-      1
+      1,
+      48
     ],
-    "avatarUrl": "/images/full/23067c144c04d94ce8922b8de214c424f5d19272.jpg"
+    "avatarUrl": "/images/full/0a310f1c5023cbe44ca773f0ec8af31f13f459f7.jpg"
   },
   {
     "id": 11,
@@ -210,9 +218,10 @@
     "dynastyId": 7,
     "sources": [
       1,
-      2
+      2,
+      49
     ],
-    "avatarUrl": "/images/full/ff209a7ef878404c597f5ac124a797bf70f0f25a.jpg"
+    "avatarUrl": "/images/full/e798719add13a7fa984932adca7bccd7d0f00937.jpg"
   },
   {
     "id": 12,
@@ -229,9 +238,10 @@
     "dynastyId": 7,
     "sources": [
       1,
-      2
+      2,
+      50
     ],
-    "avatarUrl": "/images/full/f5b7ff7b889534cfbca5a5e291734a21a09aecb1.jpg"
+    "avatarUrl": "/images/full/23a71cd5ec341dfc60ce3feeed33c28188cf6322.jpg"
   },
   {
     "id": 13,
@@ -267,9 +277,10 @@
     "dynastyId": 7,
     "sources": [
       1,
-      2
+      2,
+      51
     ],
-    "avatarUrl": "/images/full/3118bae43c6c28b423fa7e9654a348d4fe6c3209.jpg"
+    "avatarUrl": "/images/full/87ed1a8baf76fb13020820e81f6a128dfa76bdf8.jpg"
   },
   {
     "id": 15,
@@ -283,9 +294,10 @@
     "dynastyId": 7,
     "sources": [
       1,
-      2
+      2,
+      52
     ],
-    "avatarUrl": "/images/full/ea1ff26dad03a0c5867cab598005b39e91700a89.jpg"
+    "avatarUrl": "/images/full/ff7de97757c8e2a1b448f334821b85352ec09b4f.jpg"
   },
   {
     "id": 16,
@@ -299,9 +311,10 @@
     "dynastyId": 7,
     "sources": [
       1,
-      2
+      2,
+      53
     ],
-    "avatarUrl": "/images/full/2336625c16edd4687d563a4eaf9ad7df8eca735c.jpg"
+    "avatarUrl": "/images/full/08ece45f985a8839cdced7b6089d2f65dec202ee.jpg"
   },
   {
     "id": 17,
@@ -321,9 +334,10 @@
     "dynastyId": 8,
     "sources": [
       1,
-      4
+      4,
+      54
     ],
-    "avatarUrl": "/images/full/9e6794efd8f56fd70cc8749c4e5f0cbadaceee0e.jpg"
+    "avatarUrl": "/images/full/a7d46c0148fe9c4e4dee3edaf7e186ade0bc7efb.jpg"
   },
   {
     "id": 18,
@@ -342,9 +356,10 @@
     "dynastyId": 8,
     "sources": [
       1,
-      4
+      4,
+      55
     ],
-    "avatarUrl": "/images/full/482a566b71570f5bef3e616c32135f233c096861.jpg"
+    "avatarUrl": "/images/full/7fe549d51cff0d801f10ee47c6f7fd531b0e19b9.jpg"
   },
   {
     "id": 19,
@@ -363,9 +378,10 @@
     "dynastyId": 8,
     "sources": [
       1,
-      4
+      4,
+      57
     ],
-    "avatarUrl": "/images/full/5da8ea53c2f691a65da862f3ea56c147af33d182.jpg"
+    "avatarUrl": "/images/full/ba3bb031ed40822f10ecc08ecb8f9fd87d9d0cd9.jpg"
   },
   {
     "id": 20,
@@ -385,9 +401,10 @@
     "dynastyId": 8,
     "sources": [
       1,
-      4
+      4,
+      58
     ],
-    "avatarUrl": "/images/full/b042ce1da00020e33bc9a523c222c1a7c03488c6.jpg"
+    "avatarUrl": "/images/full/12e7fb1db99879af9de8499a2ef9a912b3a6b808.jpg"
   },
   {
     "id": 21,
@@ -440,9 +457,10 @@
     "dynastyId": 12,
     "sources": [
       1,
-      5
+      5,
+      59
     ],
-    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+    "avatarUrl": "/images/full/ab8ba5018ed04f600cc6677033015bd9713e889e.jpg"
   },
   {
     "id": 24,
@@ -456,9 +474,10 @@
     "dynastyId": 12,
     "sources": [
       1,
-      5
+      5,
+      60
     ],
-    "avatarUrl": "/images/full/f5b7ff7b889534cfbca5a5e291734a21a09aecb1.jpg"
+    "avatarUrl": "/images/full/c7d36760a9a0a0cce6eeebc0dff56a6f11650da2.jpg"
   },
   {
     "id": 25,
@@ -476,7 +495,8 @@
     "dynastyId": 13,
     "sources": [
       1,
-      7
+      7,
+      56
     ],
     "avatarUrl": "/images/full/954f4f916f43e54c0359eb3dc545215aaac14f7e.jpg"
   },
@@ -497,9 +517,10 @@
     "dynastyId": 13,
     "sources": [
       1,
-      7
+      7,
+      61
     ],
-    "avatarUrl": "/images/full/9e6794efd8f56fd70cc8749c4e5f0cbadaceee0e.jpg"
+    "avatarUrl": "/images/full/ad673de212be50bbe5a6515c6d3210045b138c69.jpg"
   },
   {
     "id": 27,
@@ -535,9 +556,10 @@
     "dynastyId": 15,
     "sources": [
       1,
-      9
+      9,
+      62
     ],
-    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+    "avatarUrl": "/images/full/d74f01f67e4b6cf1e42bb8aa27314f682371cc32.jpg"
   },
   {
     "id": 29,
@@ -554,9 +576,10 @@
     "dynastyId": 16,
     "sources": [
       1,
-      10
+      10,
+      63
     ],
-    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+    "avatarUrl": "/images/full/7cb31b84bd0ac2fab153c500b2a7e22737b9d0bf.jpg"
   },
   {
     "id": 30,
@@ -569,8 +592,10 @@
       "philosopher"
     ],
     "dynastyId": 4,
-    "sources": [],
-    "avatarUrl": "/images/full/07f9e772e1da44f0e1eeb986bdfd9bc99f3e3850.jpg"
+    "sources": [
+      13
+    ],
+    "avatarUrl": "/images/full/f5b7ff7b889534cfbca5a5e291734a21a09aecb1.jpg"
   },
   {
     "id": 31,
@@ -583,7 +608,9 @@
       "philosopher"
     ],
     "dynastyId": 4,
-    "sources": [],
+    "sources": [
+      14
+    ],
     "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
   },
   {
@@ -597,8 +624,10 @@
       "philosopher"
     ],
     "dynastyId": 5,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      15
+    ],
+    "avatarUrl": "/images/full/11bc69a98612fb0092e38481a8850009e378214c.jpg"
   },
   {
     "id": 33,
@@ -611,8 +640,10 @@
       "philosopher"
     ],
     "dynastyId": 5,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      16
+    ],
+    "avatarUrl": "/images/full/c901f7f9b0fe6c3998f695eb7f60196ebd48a35c.jpg"
   },
   {
     "id": 34,
@@ -627,8 +658,10 @@
       "military"
     ],
     "dynastyId": 4,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      17
+    ],
+    "avatarUrl": "/images/full/3a10b0a08d1af0d00ac9bef168ba60fa7e3cf186.jpg"
   },
   {
     "id": 35,
@@ -644,8 +677,10 @@
       "military"
     ],
     "dynastyId": 7,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      18
+    ],
+    "avatarUrl": "/images/full/e9ea9ba1d3f80b1e7450dab5c221d4f8ef1ad853.jpg"
   },
   {
     "id": 36,
@@ -661,8 +696,10 @@
       "military"
     ],
     "dynastyId": 12,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      19
+    ],
+    "avatarUrl": "/images/full/a5abdad2b8503ba882fefa1bddaaa06f789e9785.jpg"
   },
   {
     "id": 37,
@@ -678,7 +715,9 @@
       "military"
     ],
     "dynastyId": 14,
-    "sources": [],
-    "avatarUrl": ""
+    "sources": [
+      20
+    ],
+    "avatarUrl": "/images/full/ecfb095a5191d699b145c8af4252b794d5df1164.jpg"
   }
 ]

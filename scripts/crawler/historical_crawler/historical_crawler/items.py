@@ -19,6 +19,10 @@ class HistoricalPersonItem(scrapy.Item):
     image_urls = scrapy.Field()  # 图片URL列表
     images = scrapy.Field()      # 下载后的图片信息
     avatarUrl = scrapy.Field()   # 头像相对路径
+
+    # 来源/参考资料（增量补全用）
+    pageUrl = scrapy.Field()     # 当前词条页面URL（百度百科/维基百科）
+    references = scrapy.Field()  # 参考资料列表：[{title, url}]
     
     # 验证信息
     verification = scrapy.Field()
@@ -36,3 +40,7 @@ class HistoricalEventItem(scrapy.Item):
     # 图片信息
     image_urls = scrapy.Field()  # 图片URL列表
     images = scrapy.Field()      # 下载后的图片信息
+
+    # 来源/参考资料（增量补全用）
+    pageUrl = scrapy.Field()     # 当前词条页面URL（百度百科/维基百科）
+    references = scrapy.Field()  # 参考资料列表：[{title, url}]

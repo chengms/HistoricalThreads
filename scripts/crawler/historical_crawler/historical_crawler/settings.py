@@ -102,3 +102,10 @@ IMAGES_RESULT_FIELD = "images"
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+
+# ===== 项目自定义：安全增量模式 =====
+# 默认不允许追加新人物/事件（避免写坏 frontend/public/data 的既有结构）
+HISTORICAL_CRAWLER_APPEND_NEW = False
+
+# 默认启用 sources/参考资料补全（写 sources.json 并回填 sourceId）
+HISTORICAL_CRAWLER_ENRICH_SOURCES = True

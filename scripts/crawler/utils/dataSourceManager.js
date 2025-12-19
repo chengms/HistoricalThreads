@@ -43,6 +43,13 @@ class DataSourceManager {
           rateLimit: 2000
         },
         {
+          name: '搜狗百科',
+          baseUrl: 'https://baike.sogou.com',
+          searchUrl: 'https://baike.sogou.com/Search.e?query=',
+          enabled: true,
+          rateLimit: 2500
+        },
+        {
           name: '维基百科',
           baseUrl: 'https://zh.wikipedia.org/wiki',
           enabled: true,
@@ -55,6 +62,13 @@ class DataSourceManager {
           baseUrl: 'https://baike.baidu.com/item',
           enabled: true,
           rateLimit: 2000
+        },
+        {
+          name: '搜狗百科',
+          baseUrl: 'https://baike.sogou.com',
+          searchUrl: 'https://baike.sogou.com/Search.e?query=',
+          enabled: true,
+          rateLimit: 2500
         }
       ],
       imageSources: [

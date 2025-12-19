@@ -3,8 +3,9 @@ import scrapy
 import re
 import os
 import hashlib
+import json
 from historical_crawler.items import HistoricalEventItem
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 
 class EventSpider(scrapy.Spider):
@@ -18,6 +19,32 @@ class EventSpider(scrapy.Spider):
         # 从命令行获取要爬取的事件列表
         if kwargs.get('names'):
             self.start_urls = [f"https://baike.baidu.com/item/{event}" for event in kwargs.get('names').split(',')]
+        elif kwargs.get('names_file'):
+            names_file = kwargs.get('names_file')
+            names = self._load_names_file(names_file)
+            if names:
+                self.start_urls = [f"https://baike.baidu.com/item/{event}" for event in names]
+
+    def _load_names_file(self, file_path):
+        """从文件读取事件列表：支持 .txt（一行一个）或 .json（数组或含 title 字段对象数组）"""
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                if file_path.lower().endswith('.json'):
+                    data = json.load(f)
+                    if isinstance(data, list):
+                        titles = []
+                        for x in data:
+                            if isinstance(x, str):
+                                titles.append(x.strip())
+                            elif isinstance(x, dict) and x.get('title'):
+                                titles.append(str(x.get('title')).strip())
+                        return [t for t in titles if t]
+                    return []
+                else:
+                    return [line.strip() for line in f if line.strip()]
+        except Exception as e:
+            self.logger.warning(f"读取 names_file 失败: {file_path} -> {e}")
+            return []
 
     def parse(self, response):
         item = HistoricalEventItem()
@@ -30,6 +57,8 @@ class EventSpider(scrapy.Spider):
         item['eventType'] = 'historical'
         item['persons'] = []
         item['image_urls'] = []
+        item['pageUrl'] = response.url
+        item['references'] = []
         
         if 'baike.baidu.com' in response.url:
             # 从百度百科爬取
@@ -45,6 +74,7 @@ class EventSpider(scrapy.Spider):
         
         # 提取标题
         item['title'] = response.css('h1::text').get(default='').strip()
+        item['pageUrl'] = response.url
         
         # 提取基本信息
         basic_info = {}
@@ -90,6 +120,9 @@ class EventSpider(scrapy.Spider):
             summary = response.css('.lemma-summary').xpath('string(.)').get(default='').strip()
         
         item['description'] = summary
+
+        # 提取参考资料/参考文献
+        item['references'] = self.extract_baidu_references(response)
         
         # 提取相关人物
         # 从基本信息中提取相关人物
@@ -126,6 +159,7 @@ class EventSpider(scrapy.Spider):
         
         # 提取标题
         item['title'] = response.css('.firstHeading::text').get(default='').strip()
+        item['pageUrl'] = response.url
         
         # 提取简介
         summary = response.css('#mw-content-text .mw-parser-output > p').first().xpath('string(.)').get(default='').strip()
@@ -174,6 +208,81 @@ class EventSpider(scrapy.Spider):
         item['image_urls'] = image_urls
         
         return item
+
+    def extract_baidu_references(self, response, limit=30):
+        """尽量从百度百科页面底部提取参考资料链接（鲁棒处理不同结构）"""
+        refs = []
+
+        bad_url_patterns = [
+            re.compile(r'baike\.baidu\.com/(help|usercenter|operation)\b', re.I),
+            re.compile(r'beian\.miit\.gov\.cn', re.I),
+            re.compile(r'beian\.gov\.cn', re.I),
+            re.compile(r'ufosdk\.baidu\.com', re.I),
+            re.compile(r'tieba\.baidu\.com', re.I),
+            re.compile(r'www\.baidu\.com/duty', re.I),
+        ]
+        bad_titles = {
+            '成长任务', '编辑入门', '编辑规则', '个人编辑', '在线客服', '官方贴吧',
+            '举报不良信息', '未通过词条申诉', '投诉侵权信息', '封禁查询与解封',
+            '使用百度前必读', '百科协议', '隐私政策', '百度百科合作平台',
+            '京ICP证030173号', '京公网安备11000002000001号'
+        }
+
+        def add_ref(title, href):
+            title = (title or '').strip()
+            href = (href or '').strip()
+            if not title or not href:
+                return
+            if title in bad_titles:
+                return
+            full_url = urljoin(response.url, href)
+            if full_url.startswith('javascript:'):
+                return
+            if full_url.endswith('#'):
+                return
+            for p in bad_url_patterns:
+                if p.search(full_url):
+                    return
+            host = urlparse(full_url).netloc.lower()
+            if host.endswith('baike.baidu.com'):
+                return
+            key = (title, full_url)
+            if key in seen:
+                return
+            seen.add(key)
+            refs.append({'title': title, 'url': full_url})
+
+        seen = set()
+
+        containers = response.xpath('//*[contains(@class,"lemma-reference") or contains(@id,"reference") or contains(@class,"reference")]')
+        for c in containers:
+            for a in c.xpath('.//a[@href]'):
+                title = a.xpath('normalize-space(string(.))').get()
+                href = a.attrib.get('href')
+                add_ref(title, href)
+                if len(refs) >= limit:
+                    return refs
+
+        heading_nodes = response.xpath('//*[self::h2 or self::h3 or self::div or self::span][contains(normalize-space(string(.)),"参考资料") or contains(normalize-space(string(.)),"参考文献")]')
+        for h in heading_nodes[:3]:
+            sibs = h.xpath('following-sibling::*[position()<=8]')
+            for s in sibs:
+                for a in s.xpath('.//a[@href]'):
+                    title = a.xpath('normalize-space(string(.))').get()
+                    href = a.attrib.get('href')
+                    add_ref(title, href)
+                    if len(refs) >= limit:
+                        return refs
+
+        for a in response.xpath('//a[@href]'):
+            title = a.xpath('normalize-space(string(.))').get()
+            href = a.attrib.get('href')
+            if title and ('《' in title and '》' in title):
+                add_ref(title, href)
+                if len(refs) >= limit:
+                    return refs
+
+        return refs
 
     def extract_year(self, year_str):
         """从字符串中提取年份"""
