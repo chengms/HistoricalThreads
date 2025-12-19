@@ -16,8 +16,14 @@ function App() {
                           !window.location.hostname.includes('github.io') && 
                           window.location.hostname !== 'localhost' &&
                           window.location.hostname !== '127.0.0.1')
-  
-  const basename = isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : '')
+
+  // 如果站点实际部署在子路径（例如自定义域名下仍使用 /HistoricalThreads/），优先以当前路径推断 basename
+  const detectedBasename =
+    typeof window !== 'undefined' && window.location.pathname.startsWith('/HistoricalThreads')
+      ? '/HistoricalThreads'
+      : ''
+
+  const basename = detectedBasename || (isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : ''))
   
   // 调试信息（仅在开发环境或自定义域名时显示）
   if (typeof window !== 'undefined' && (import.meta.env.DEV || isCustomDomain)) {

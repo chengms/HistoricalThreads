@@ -6,13 +6,8 @@
     <title>中国历史时间线</title>
     <script>
       // GitHub Pages SPA 路由支持
-      // 将所有 404 请求重定向到 index.html
-      var path = window.location.pathname;
-      if (path !== '/' && !path.startsWith('/HistoricalThreads/')) {
-        window.location.replace('/HistoricalThreads/' + path.replace(/^\/+/, ''));
-      } else {
-        window.location.replace('/HistoricalThreads/');
-      }
+      // 404 时直接回到站点首页（避免把不存在的路径继续拼接导致“错误地址”）
+      window.location.replace('/HistoricalThreads/');
     </script>
   </head>
   <body>
