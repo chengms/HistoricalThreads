@@ -392,11 +392,14 @@ export default function NetworkPage() {
         { nodes, edges },
         {
           nodes: {
-            shape: 'dot',
-            size: 30,
+            // 'dot' 的 label 默认在节点外；用 'circle' 让人名显示在小圆内
+            shape: 'circle',
+            size: 34,
             font: {
-              size: 16,
-              color: '#000',
+              size: 14,
+              color: '#111827',
+              align: 'center',
+              vadjust: 0,
             },
           },
           edges: {

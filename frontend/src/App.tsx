@@ -38,7 +38,8 @@ function App() {
             <Route path="/" element={<TimelinePage />} />
             <Route path="/home" element={<HomePage />} />
             <Route path="/timeline" element={<TimelinePage />} />
-            <Route path="/network" element={<NetworkPage />} />
+            {/* allow extra sub-paths (e.g. /network/xxx) to still render the graph */}
+            <Route path="/network/*" element={<NetworkPage />} />
             <Route path="/detail/:type/:id" element={<DetailPage />} />
             <Route path="/suggestion" element={<SuggestionPage />} />
             <Route path="/suggestions" element={<SuggestionsListPage />} />
