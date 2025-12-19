@@ -37,7 +37,8 @@ export default function Layout({ children }: LayoutProps) {
   } = theme.useToken()
 
   const isCompactHeader = viewportWidth <= 1024
-  const isNarrowSearch = viewportWidth <= 860
+  // <= 1024: 用搜索图标 + 点击弹出搜索框，避免占用导航栏空间
+  const isSearchIconMode = viewportWidth <= 1024
 
   // 监听窗口大小变化
   useEffect(() => {
@@ -135,12 +136,12 @@ export default function Layout({ children }: LayoutProps) {
     setSearchOverlayOpen(false)
   }
 
-  // narrow -> show icon. If viewport becomes wide, close overlay.
+  // icon-mode -> show icon. If viewport becomes wide, close overlay.
   useEffect(() => {
-    if (!isNarrowSearch && searchOverlayOpen) {
+    if (!isSearchIconMode && searchOverlayOpen) {
       setSearchOverlayOpen(false)
     }
-  }, [isNarrowSearch, searchOverlayOpen])
+  }, [isSearchIconMode, searchOverlayOpen])
 
   // close overlay on outside click / Esc
   useEffect(() => {
@@ -222,7 +223,8 @@ export default function Layout({ children }: LayoutProps) {
               onClick={() => setMenuCollapsed(!menuCollapsed)}
               style={{ marginRight: '10px' }}
             >
-              {menuCollapsed ? <CloseOutlined /> : <MenuOutlined />}
+              {/* menuCollapsed=true 表示菜单已折叠，应显示“展开菜单”图标 */}
+              {menuCollapsed ? <MenuOutlined /> : <CloseOutlined />}
             </div>
           )}
           
@@ -255,7 +257,7 @@ export default function Layout({ children }: LayoutProps) {
           </div>
           
           {/* 搜索框 */}
-          {!isNarrowSearch ? (
+          {!isSearchIconMode ? (
             <div 
               className="flex items-center"
               style={{ 
