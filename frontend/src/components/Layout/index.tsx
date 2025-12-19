@@ -196,10 +196,10 @@ export default function Layout({ children }: LayoutProps) {
     },
   ]
 
-  const isTimelinePage = location.pathname === '/timeline' || 
-                         location.pathname === '/HistoricalThreads/timeline' || 
-                         location.pathname === '/' ||
-                         location.pathname.startsWith('/timeline')
+  const isTimelinePage =
+    location.pathname === '/timeline' ||
+    location.pathname === '/' ||
+    location.pathname.startsWith('/timeline')
   
   return (
     <AntLayout 
@@ -349,7 +349,7 @@ export default function Layout({ children }: LayoutProps) {
         <div 
           className="min-h-[calc(100vh-64px-70px)]"
           style={{ 
-            background: location.pathname === '/timeline' || location.pathname === '/HistoricalThreads/timeline' || location.pathname === '/' || location.pathname.startsWith('/timeline') 
+            background: location.pathname === '/timeline' || location.pathname === '/' || location.pathname.startsWith('/timeline') 
               ? 'transparent' 
               : colorBgContainer 
           }}

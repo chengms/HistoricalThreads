@@ -9,29 +9,15 @@ import SuggestionsListPage from './pages/SuggestionsList'
 import HomePage from './pages/Home'
 
 function App() {
-  // 检测是否使用自定义域名
-  // 如果设置了 VITE_USE_CUSTOM_DOMAIN=true，或者当前域名不是 github.io，则使用根路径
-  const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
-                         (typeof window !== 'undefined' && 
-                          !window.location.hostname.includes('github.io') && 
-                          window.location.hostname !== 'localhost' &&
-                          window.location.hostname !== '127.0.0.1')
-
-  // 如果站点实际部署在子路径（例如自定义域名下仍使用 /HistoricalThreads/），优先以当前路径推断 basename
-  const detectedBasename =
-    typeof window !== 'undefined' && window.location.pathname.startsWith('/HistoricalThreads')
-      ? '/HistoricalThreads'
-      : ''
-
-  const basename = detectedBasename || (isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : ''))
+  // basename 统一从 Vite 的 BASE_URL 推断（当前配置为根路径 '/'，因此 basename 为空字符串）
+  const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
   
-  // 调试信息（仅在开发环境或自定义域名时显示）
-  if (typeof window !== 'undefined' && (import.meta.env.DEV || isCustomDomain)) {
+  // 调试信息（仅在开发环境显示）
+  if (typeof window !== 'undefined' && import.meta.env.DEV) {
     console.log('[App] 域名检测:', {
       hostname: window.location.hostname,
-      isCustomDomain,
       basename,
-      envVar: import.meta.env.VITE_USE_CUSTOM_DOMAIN,
+      baseUrl: import.meta.env.BASE_URL,
       prod: import.meta.env.PROD
     })
   }

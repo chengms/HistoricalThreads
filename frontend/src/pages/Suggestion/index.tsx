@@ -358,15 +358,7 @@ export default function SuggestionPage() {
     // 获取正确的 URL 路径
     // 考虑 basename 和当前域名
     const getCorrectUrl = () => {
-      // 如果使用自定义域名，basename 是 ''
-      // 如果使用 GitHub Pages，basename 是 '/HistoricalThreads'
-      const isCustomDomain = import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' || 
-                             (typeof window !== 'undefined' && 
-                              !window.location.hostname.includes('github.io') && 
-                              window.location.hostname !== 'localhost' &&
-                              window.location.hostname !== '127.0.0.1')
-      
-      const basename = isCustomDomain ? '' : (import.meta.env.PROD ? '/HistoricalThreads' : '')
+      const basename = (import.meta.env.BASE_URL || '/').replace(/\/$/, '')
       
       // 使用完整的 URL，包含协议和域名，这样管理后台可以正确跳转
       if (typeof window !== 'undefined') {
