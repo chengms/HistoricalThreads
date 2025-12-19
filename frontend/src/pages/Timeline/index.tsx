@@ -67,6 +67,9 @@ export default function TimelinePage() {
   const floatingNavRef = useRef<HTMLDivElement>(null)
   const autoHideTimerRef = useRef<number | null>(null)
   const sidebarRef = useRef<HTMLDivElement>(null)
+
+  // 事件右侧人物列表：默认只显示少量，点击“更多”展开
+  const [expandedPersonsByEventId, setExpandedPersonsByEventId] = useState<Record<number, boolean>>({})
   
   // 导航栏自动折叠逻辑
   const [shouldCollapseNav, setShouldCollapseNav] = useState(false)
@@ -732,9 +735,14 @@ export default function TimelinePage() {
                       const eventPersons = getEventPersons(event)
                       if (eventPersons.length === 0) return null
 
+                      const isExpanded = !!expandedPersonsByEventId[event.id]
+                      const MAX_PERSONS = 3
+                      const visiblePersons = isExpanded ? eventPersons : eventPersons.slice(0, MAX_PERSONS)
+                      const hiddenCount = Math.max(0, eventPersons.length - visiblePersons.length)
+
                       return (
                         <div key={event.id} className="event-persons-group">
-                          {eventPersons.map(person => (
+                          {visiblePersons.map(person => (
                             <Button
                               key={person.id}
                               type="link"
@@ -747,6 +755,32 @@ export default function TimelinePage() {
                               <span className="person-name">{person.name}</span>
                             </Button>
                           ))}
+
+                          {!isExpanded && hiddenCount > 0 && (
+                            <Button
+                              type="link"
+                              className="person-link person-link-more"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setExpandedPersonsByEventId(prev => ({ ...prev, [event.id]: true }))
+                              }}
+                            >
+                              <span className="person-name">更多 +{hiddenCount}</span>
+                            </Button>
+                          )}
+
+                          {isExpanded && eventPersons.length > MAX_PERSONS && (
+                            <Button
+                              type="link"
+                              className="person-link person-link-more"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setExpandedPersonsByEventId(prev => ({ ...prev, [event.id]: false }))
+                              }}
+                            >
+                              <span className="person-name">收起</span>
+                            </Button>
+                          )}
                         </div>
                       )
                     })}
