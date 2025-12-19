@@ -89,7 +89,18 @@ export default function TimelinePage() {
   // 页面变窄时自动折叠（但允许点击图标临时展开为浮动面板）
   const autoCollapseSidebar = !isMobile && viewportWidth <= 1100
   const navCollapsed = autoCollapseSidebar ? !isSidebarFloating : isNavCollapsed
-  const isNavCollapsedEffective = navCollapsed || false
+
+  // 当当前筛选结果事件数量很少时，让页面进入“全宽模式”（隐藏左侧朝代导航）
+  // 这对应原先 shouldCollapseNav 的用途：事件太少时侧边栏价值不大，且容易显得拥挤
+  useEffect(() => {
+    const should = events.length > 0 && events.length < EVENTS_THRESHOLD
+    setShouldCollapseNav(should)
+    if (should) {
+      // 进入全宽模式时关闭浮动面板/折叠状态，避免状态互相影响布局
+      setIsSidebarFloating(false)
+      setIsNavCollapsed(false)
+    }
+  }, [events.length])
   
   // 手动切换导航折叠状态
   const toggleNavCollapse = () => {
@@ -109,19 +120,10 @@ export default function TimelinePage() {
       }
     }
 
-    // 滚动时也取消浮动
-    const handleScroll = () => {
-      if (isSidebarFloating) {
-        setIsSidebarFloating(false)
-      }
-    }
-
     if (isSidebarFloating) {
       document.addEventListener('mousedown', handleClickOutside)
-      window.addEventListener('scroll', handleScroll, true)
       return () => {
         document.removeEventListener('mousedown', handleClickOutside)
-        window.removeEventListener('scroll', handleScroll, true)
       }
     }
   }, [isSidebarFloating])
@@ -577,6 +579,10 @@ export default function TimelinePage() {
               className="timeline-sidebar-toggle"
               onClick={(e) => {
                 e.stopPropagation()
+                // 宽屏手动折叠：点击图标应真正展开
+                if (!autoCollapseSidebar) {
+                  setIsNavCollapsed(false)
+                }
                 setIsSidebarFloating(true)
               }}
             >
