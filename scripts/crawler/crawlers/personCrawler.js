@@ -5,6 +5,7 @@
 import { CrawlerBase } from '../utils/crawlerBase.js'
 import { verifyPerson } from '../utils/aiVerifier.js'
 import { saveJSON, readJSON, downloadFile, sanitizeFileName, getFileExtension } from '../utils/helpers.js'
+import { dataSourceManager } from '../utils/dataSourceManager.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -25,7 +26,7 @@ class PersonCrawler extends CrawlerBase {
     const url = `https://baike.baidu.com/item/${encodeURIComponent(personName)}`
     const html = await this.fetchPage(url)
     if (!html) return null
-
+  
     const $ = this.parseHTML(html)
     const person = {
       name: personName,
@@ -39,56 +40,119 @@ class PersonCrawler extends CrawlerBase {
 
     // 提取基本信息
     const basicInfo = {}
-    $('.basic-info .name-value').each((i, elem) => {
-      const key = $(elem).prev('.name').text().trim()
-      const value = $(elem).text().trim()
-      basicInfo[key] = value
-    })
-
-    // 提取生卒年份
-    if (basicInfo['出生日期'] || basicInfo['出生年']) {
-      const birth = basicInfo['出生日期'] || basicInfo['出生年']
-      const birthMatch = birth.match(/(\d+)/)
-      if (birthMatch) {
-        person.birthYear = parseInt(birthMatch[1])
-        if (birth.includes('前') || birth.includes('BC')) {
-          person.birthYear = -person.birthYear
-        }
-      }
+    try {
+      // 新的百度百科结构：查找名称和值对
+       $('.basicInfo_M3XoO .itemName_hpSfh').each((i, nameElem) => {
+         const key = $(nameElem).text().trim()
+         const valueElem = $(nameElem).next('.itemValue_xOT6m')
+         const value = valueElem.text().trim()
+         if (key && value) {
+           basicInfo[key] = value
+         }
+       })
+       
+       // 如果新结构没找到，尝试备用选择器
+       if (Object.keys(basicInfo).length === 0) {
+         $('.basic-info .name-value').each((i, elem) => {
+           const key = $(elem).prev('.name').text().trim()
+           const value = $(elem).text().trim()
+           basicInfo[key] = value
+         })
+       }
+    } catch (infoError) {
+      console.warn(`提取基本信息失败: ${personName}`, infoError.message)
     }
 
-    if (basicInfo['逝世日期'] || basicInfo['逝世年']) {
-      const death = basicInfo['逝世日期'] || basicInfo['逝世年']
-      const deathMatch = death.match(/(\d+)/)
-      if (deathMatch) {
-        person.deathYear = parseInt(deathMatch[1])
-        if (death.includes('前') || death.includes('BC')) {
-          person.deathYear = -person.deathYear
+    // 提取生卒年份
+    try {
+      if (basicInfo['出生日期'] || basicInfo['出生年']) {
+        const birth = basicInfo['出生日期'] || basicInfo['出生年']
+        const birthMatch = birth.match(/(\d+)/)
+        if (birthMatch) {
+          person.birthYear = parseInt(birthMatch[1])
+          if (birth.includes('前') || birth.includes('BC')) {
+            person.birthYear = -person.birthYear
+          }
         }
       }
+
+      if (basicInfo['逝世日期'] || basicInfo['逝世年']) {
+        const death = basicInfo['逝世日期'] || basicInfo['逝世年']
+        const deathMatch = death.match(/(\d+)/)
+        if (deathMatch) {
+          person.deathYear = parseInt(deathMatch[1])
+          if (death.includes('前') || death.includes('BC')) {
+            person.deathYear = -person.deathYear
+          }
+        }
+      }
+    } catch (yearError) {
+      console.warn(`提取年份信息失败: ${personName}`, yearError.message)
     }
 
     // 提取朝代
-    if (basicInfo['所处时代'] || basicInfo['朝代']) {
-      person.dynasty = basicInfo['所处时代'] || basicInfo['朝代']
+    try {
+      if (basicInfo['所处时代'] || basicInfo['朝代']) {
+        person.dynasty = basicInfo['所处时代'] || basicInfo['朝代']
+      } else {
+        // 如果没有明确的朝代信息，尝试从简介中提取
+        const introText = $('.lemma-summary').text().trim()
+        const dynastyMatch = introText.match(/(\w+)[朝代国]/)
+        if (dynastyMatch) {
+          person.dynasty = dynastyMatch[1] + '朝'
+        }
+      }
+    } catch (dynastyError) {
+      console.warn(`提取朝代信息失败: ${personName}`, dynastyError.message)
     }
 
     // 提取简介
-    const summary = $('.lemma-summary').text().trim()
-    if (summary) {
-      person.description = summary
+    try {
+      // 新的百度百科结构：查找包含summary的元素
+      let summary = ''
+      
+      // 尝试新的选择器
+      const summaryElements = $('[class*="summary"]')
+      if (summaryElements.length > 0) {
+        // 找到第一个较长的内容作为简介
+        for (const elem of summaryElements.toArray()) {
+          const text = $(elem).text().trim()
+          if (text.length > 200 && !text.includes('百度百科') && !text.includes('免责声明')) {
+            summary = text
+            break
+          }
+        }
+      }
+      
+      // 如果新选择器没找到，尝试原始选择器
+      if (!summary) {
+        summary = $('.lemma-summary').text().trim()
+      }
+      
+      if (summary) {
+        person.description = summary
+      }
+    } catch (summaryError) {
+      console.warn(`提取简介信息失败: ${personName}`, summaryError.message)
     }
 
     // 提取图片
-    const imageUrl = $('.summary-pic img').attr('src') || $('.lemma-picture img').attr('src')
-    if (imageUrl) {
-      const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `https:${imageUrl}`
-      const fileName = `${sanitizeFileName(personName)}.${getFileExtension(fullImageUrl)}`
-      const imagePath = path.join(this.imagesDir, fileName)
-      
-      if (await downloadFile(fullImageUrl, imagePath)) {
-        person.avatarUrl = `/images/persons/${fileName}`
+    try {
+      const imageUrl = $('.summary-pic img').attr('src') || $('.lemma-picture img').attr('src')
+      if (imageUrl) {
+        const fullImageUrl = imageUrl.startsWith('http') ? imageUrl : `https:${imageUrl}`
+        const fileName = `${sanitizeFileName(personName)}.${getFileExtension(fullImageUrl)}`
+        const imagePath = path.join(this.imagesDir, fileName)
+        
+        if (await downloadFile(fullImageUrl, imagePath)) {
+          person.avatarUrl = `/images/persons/${fileName}`
+        } else {
+          console.warn(`无法下载图片: ${fullImageUrl}`)
+        }
       }
+    } catch (imageError) {
+      console.error(`下载图片失败: ${personName}`, imageError.message)
+      // 图片下载失败不影响整体爬虫流程
     }
 
     return person
@@ -157,26 +221,48 @@ class PersonCrawler extends CrawlerBase {
   /**
    * 爬取人物信息
    */
-  async crawlPerson(personName, sources = ['baidu', 'wikipedia']) {
+  async crawlPerson(personName) {
     console.log(`\n📥 开始爬取人物: ${personName}`)
 
     let personData = null
 
+    // 从数据源配置获取启用的源
+    const enabledSources = await dataSourceManager.getPersonSources()
+
     // 尝试从多个源爬取
-    for (const source of sources) {
+    for (const source of enabledSources) {
       try {
-        if (source === 'baidu') {
+        // 根据源名称调用对应的爬取方法
+        if (source.name === '百度百科') {
+          // 设置当前源的速率限制
+          const originalRateLimit = this.rateLimit
+          if (source.rateLimit) {
+            this.rateLimit = source.rateLimit
+          }
+          
           personData = await this.crawlFromBaiduBaike(personName)
-        } else if (source === 'wikipedia') {
+          
+          // 恢复原始速率限制
+          this.rateLimit = originalRateLimit
+        } else if (source.name === '维基百科') {
+          // 设置当前源的速率限制
+          const originalRateLimit = this.rateLimit
+          if (source.rateLimit) {
+            this.rateLimit = source.rateLimit
+          }
+          
           personData = await this.crawlFromWikipedia(personName)
+          
+          // 恢复原始速率限制
+          this.rateLimit = originalRateLimit
         }
 
         if (personData && personData.description) {
-          console.log(`✅ 从 ${source} 成功获取数据`)
+          console.log(`✅ 从 ${source.name} 成功获取数据`)
           break
         }
       } catch (error) {
-        console.error(`❌ 从 ${source} 爬取失败:`, error.message)
+        console.error(`❌ 从 ${source.name} 爬取失败:`, error.message)
       }
     }
 
@@ -239,7 +325,7 @@ class PersonCrawler extends CrawlerBase {
 }
 
 // 如果直接运行此文件
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && process.argv[1].endsWith('personCrawler.js')) {
   const crawler = new PersonCrawler()
   const names = process.argv.slice(2)
   

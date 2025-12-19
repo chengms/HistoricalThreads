@@ -7,8 +7,12 @@
     "eventType": "cultural",
     "dynastyId": 1,
     "location": "黄河流域",
-    "persons": [1],
-    "sources": [1]
+    "persons": [
+      1
+    ],
+    "sources": [
+      1
+    ]
   },
   {
     "id": 2,
@@ -18,8 +22,12 @@
     "eventType": "military",
     "dynastyId": 2,
     "location": "鸣条",
-    "persons": [2],
-    "sources": [1]
+    "persons": [
+      2
+    ],
+    "sources": [
+      1
+    ]
   },
   {
     "id": 3,
@@ -29,8 +37,12 @@
     "eventType": "military",
     "dynastyId": 3,
     "location": "牧野",
-    "persons": [3],
-    "sources": [1]
+    "persons": [
+      3
+    ],
+    "sources": [
+      1
+    ]
   },
   {
     "id": 4,
@@ -40,8 +52,15 @@
     "eventType": "political",
     "dynastyId": 4,
     "location": "中原",
-    "persons": [4, 5, 6],
-    "sources": [1, 2]
+    "persons": [
+      4,
+      5,
+      6
+    ],
+    "sources": [
+      1,
+      2
+    ]
   },
   {
     "id": 5,
@@ -51,8 +70,13 @@
     "eventType": "reform",
     "dynastyId": 5,
     "location": "秦国",
-    "persons": [7],
-    "sources": [1, 2]
+    "persons": [
+      7
+    ],
+    "sources": [
+      1,
+      2
+    ]
   },
   {
     "id": 6,
@@ -62,8 +86,13 @@
     "eventType": "political",
     "dynastyId": 6,
     "location": "咸阳",
-    "persons": [8],
-    "sources": [1, 2]
+    "persons": [
+      8
+    ],
+    "sources": [
+      1,
+      2
+    ]
   },
   {
     "id": 7,
@@ -73,8 +102,12 @@
     "eventType": "cultural",
     "dynastyId": 6,
     "location": "咸阳",
-    "persons": [8],
-    "sources": [1]
+    "persons": [
+      8
+    ],
+    "sources": [
+      1
+    ]
   },
   {
     "id": 8,
@@ -84,8 +117,13 @@
     "eventType": "military",
     "dynastyId": 6,
     "location": "大泽乡",
-    "persons": [9, 10],
-    "sources": [1]
+    "persons": [
+      9,
+      10
+    ],
+    "sources": [
+      1
+    ]
   },
   {
     "id": 9,
@@ -95,8 +133,14 @@
     "eventType": "military",
     "dynastyId": 7,
     "location": "中原",
-    "persons": [11, 12],
-    "sources": [1, 2]
+    "persons": [
+      11,
+      12
+    ],
+    "sources": [
+      1,
+      2
+    ]
   },
   {
     "id": 10,
@@ -106,8 +150,16 @@
     "eventType": "military",
     "dynastyId": 7,
     "location": "长安",
-    "persons": [13, 14, 15],
-    "sources": [1, 2, 3]
+    "persons": [
+      13,
+      14,
+      15
+    ],
+    "sources": [
+      1,
+      2,
+      3
+    ]
   },
   {
     "id": 11,
@@ -117,8 +169,13 @@
     "eventType": "cultural",
     "dynastyId": 7,
     "location": "西域",
-    "persons": [16],
-    "sources": [1, 2]
+    "persons": [
+      16
+    ],
+    "sources": [
+      1,
+      2
+    ]
   },
   {
     "id": 12,
@@ -128,8 +185,16 @@
     "eventType": "military",
     "dynastyId": 8,
     "location": "赤壁",
-    "persons": [17, 18, 19, 20],
-    "sources": [1, 4]
+    "persons": [
+      17,
+      18,
+      19,
+      20
+    ],
+    "sources": [
+      1,
+      4
+    ]
   },
   {
     "id": 13,
@@ -139,8 +204,12 @@
     "eventType": "economic",
     "dynastyId": 11,
     "location": "大运河",
-    "persons": [21],
-    "sources": [5]
+    "persons": [
+      21
+    ],
+    "sources": [
+      5
+    ]
   },
   {
     "id": 14,
@@ -150,8 +219,14 @@
     "eventType": "political",
     "dynastyId": 12,
     "location": "长安",
-    "persons": [22],
-    "sources": [1, 5, 6]
+    "persons": [
+      22
+    ],
+    "sources": [
+      1,
+      5,
+      6
+    ]
   },
   {
     "id": 15,
@@ -161,8 +236,14 @@
     "eventType": "military",
     "dynastyId": 12,
     "location": "范阳",
-    "persons": [23, 24],
-    "sources": [1, 5]
+    "persons": [
+      23,
+      24
+    ],
+    "sources": [
+      1,
+      5
+    ]
   },
   {
     "id": 16,
@@ -172,8 +253,13 @@
     "eventType": "political",
     "dynastyId": 13,
     "location": "开封",
-    "persons": [25],
-    "sources": [1, 7]
+    "persons": [
+      25
+    ],
+    "sources": [
+      1,
+      7
+    ]
   },
   {
     "id": 17,
@@ -183,8 +269,13 @@
     "eventType": "reform",
     "dynastyId": 13,
     "location": "开封",
-    "persons": [26],
-    "sources": [1, 7]
+    "persons": [
+      26
+    ],
+    "sources": [
+      1,
+      7
+    ]
   },
   {
     "id": 18,
@@ -194,8 +285,12 @@
     "eventType": "military",
     "dynastyId": 14,
     "location": "蒙古",
-    "persons": [27],
-    "sources": [8]
+    "persons": [
+      27
+    ],
+    "sources": [
+      8
+    ]
   },
   {
     "id": 19,
@@ -205,8 +300,12 @@
     "eventType": "cultural",
     "dynastyId": 15,
     "location": "西洋",
-    "persons": [28],
-    "sources": [9]
+    "persons": [
+      28
+    ],
+    "sources": [
+      9
+    ]
   },
   {
     "id": 20,
@@ -216,7 +315,51 @@
     "eventType": "military",
     "dynastyId": 16,
     "location": "广东",
-    "persons": [29],
-    "sources": [10]
+    "persons": [
+      29
+    ],
+    "sources": [
+      10
+    ]
+  },
+  {
+    "title": "",
+    "year": null,
+    "location": null,
+    "description": "巨鹿之战，是秦末大起义中项羽率领数万楚军（后期各诸侯义军也参战）同秦名将章邯、王离所率四十万 [1]秦军主力在巨鹿（现属邢台市平乡县地区）进行的一场重大决战性战役，也是中国历史上著名的以少胜多的战役之一。项羽破釜沉舟，以大无畏精神在各诸侯军畏缩不进时率先猛攻秦军，带动诸侯义军，一起最终全歼王离军，并于八个月后迫使另二十万章邯秦军投降。从此项羽确立了在各路义军中的领导地位。经此一战，加之刘邦西路大军攻破武关、蓝田，秦朝主力尽丧，加速覆亡。",
+    "eventType": "historical",
+    "persons": []
+  },
+  {
+    "title": "巨鹿之战",
+    "year": null,
+    "location": null,
+    "description": "巨鹿之战，是秦末大起义中项羽率领数万楚军（后期各诸侯义军也参战）同秦名将章邯、王离所率四十万 [1]秦军主力在巨鹿（现属邢台市平乡县地区）进行的一场重大决战性战役，也是中国历史上著名的以少胜多的战役之一。项羽破釜沉舟，以大无畏精神在各诸侯军畏缩不进时率先猛攻秦军，带动诸侯义军，一起最终全歼王离军，并于八个月后迫使另二十万章邯秦军投降。从此项羽确立了在各路义军中的领导地位。经此一战，加之刘邦西路大军攻破武关、蓝田，秦朝主力尽丧，加速覆亡。",
+    "eventType": "historical",
+    "persons": []
+  },
+  {
+    "title": "长平之战",
+    "year": null,
+    "location": null,
+    "description": "长平之战，是秦昭襄王四十七年（公元前260年）5月至10月秦国率军在赵国的长平（今山西省晋城高平市西北）一带同赵国军队发生的战争。秦、赵两国因争夺上党，而爆发大规模的战争。从秦国出兵使韩国割让上党到秦国获胜，耗时三年。而长平之战仅仅持续了5个月，赵军最终战败，秦国获胜进占长平，此战共斩首坑杀赵军约45万。此战是秦、赵两国之间的战略决战。秦国数战连胜，致使赵军损失惨重，战场上的局面对赵国极其不利。秦见赵国固守不战，便派间谍散布廉颇投降的谣言并扬言秦不怕廉颇，怕的是赵奢（曾大败秦国）之子赵括。赵括遵照赵王意图，变更了廉颇的防御部署及军规，更换将吏，组织进攻。秦国暗中任命名将白起为统帅，白起针对赵括急于求胜的弱点，采取了佯败后退、诱敌脱离阵地，进而分割包围、切断赵军粮道，予以歼灭的作战方针，最终获得战争的胜利。赵国经此一战元气大伤，加速了秦国统一中国的进程，长平之战是战国历史的最后转折，至此秦国的统一只是时间问题（见战国历史分期）。此战是中国古代军事史上最早、规模最大、最彻底的大型歼灭战。2011年5月初，在高平市永录乡后沟村附近，发现200多平方米的尸骨坑遗址。另外，在丹河西岸的寺庄镇柏枝庄村，也发现了尸骨坑。2020年7月15日，山西高平市北城街街道南王庄村发现疑似长平之战尸骨坑。 [1] [41]",
+    "eventType": "historical",
+    "persons": []
+  },
+  {
+    "title": "官渡之战",
+    "year": null,
+    "location": null,
+    "description": "",
+    "eventType": "historical",
+    "persons": []
+  },
+  {
+    "title": "淝水之战",
+    "year": null,
+    "location": null,
+    "description": "淝水之战，是公元383年东晋和前秦之间发生在淝水（今安徽省寿县的东南方）的一场战争。最终东晋仅以八万军力大胜八十七万的前秦军。 [18] [26] [31-32]淝水之战是中国历史上著名的以少胜多的战例。拥有绝对优势的前秦败给了东晋，国家也因此衰败，北方各民族纷纷脱离了前秦的统治，分裂为后秦和后燕为主的几个政权。而东晋则趁此北伐，把边界线推进到了黄河南部。淝水之战使得北府兵声威大振，谢玄、谢安、谢石等人也凭借此战留名青史。东晋孝武帝司马曜借此机会收回权力，成为了东晋唯一掌握皇权的皇帝。而战败的前秦天王苻坚，也并非是一位怯懦无能的君王，他诛杀暴君苻生，为永嘉之乱以来的关中百姓，带来了二十多年的和平岁月，使得五胡乱华以来的北方再度恢复生机，不过因淝水战败，本已经和平的中原，又陷入了四分五裂的局面，而苻坚也在两年后被叛将姚苌杀死。",
+    "eventType": "historical",
+    "persons": []
   }
 ]

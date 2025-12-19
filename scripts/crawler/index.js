@@ -4,6 +4,7 @@
 
 import PersonCrawler from './crawlers/personCrawler.js'
 import EventCrawler from './crawlers/eventCrawler.js'
+import ScrapyCrawler from './scrapyCrawler.js'
 import { readJSON } from './utils/helpers.js'
 import path from 'path'
 import { fileURLToPath } from 'url'

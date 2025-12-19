@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-12-15T15:02:27.218456",
+  "validation_summary": {
+    "total_persons": 37,
+    "total_events": 25,
+    "total_images": 26,
+    "persons_with_avatars": 37,
+    "events_with_images": 0,
+    "avatar_coverage": "100.0%",
+    "data_quality_score": 100.0
+  },
+  "issues_found": {
+    "missing_avatars": 0,
+    "missing_event_images": 0,
+    "invalid_images": 0,
+    "duplicate_names": 0,
+    "orphaned_images": 5
+  },
+  "details": {
+    "missing_avatars": [],
+    "missing_event_images": [],
+    "invalid_images": [],
+    "duplicate_names": [],
+    "orphaned_images": [
+      "f7af377273c14e46eb603c08201e1b50be694b55.jpg",
+      "6e6001e9973b00d47644c32cf6a4db6f109c1919.jpg",
+      "2e3386cbea115e71f1c984b933056865fbea45a7.jpg",
+      "07f9e772e1da44f0e1eeb986bdfd9bc99f3e3850.jpg",
+      "e6cd499ce19109c01e05dfc3693a4bf73986cea1.jpg"
+    ]
+  },
+  "fixes_applied": [],
+  "recommendations": [
+    "清理 5 个孤立图片文件"
+  ]
+}

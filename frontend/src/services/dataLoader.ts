@@ -7,7 +7,7 @@ import type {
   Source 
 } from '@/types'
 
-// 数据缓存
+// 数据缓存（每次修改后重置为null以清除缓存）
 let dynastiesCache: Dynasty[] | null = null
 let eventsCache: Event[] | null = null
 let personsCache: Person[] | null = null
@@ -66,9 +66,23 @@ export async function loadDynasties(): Promise<Dynasty[]> {
   return dynastiesCache
 }
 
+// JSON 数据中的事件类型（persons 和 sources 可能是 ID 数组）
+interface EventJson {
+  id: number
+  title: string
+  description: string
+  eventDate?: string
+  eventYear: number
+  eventType: 'political' | 'economic' | 'cultural' | 'military' | 'reform' | 'other'
+  dynastyId: number
+  location?: string
+  persons?: number[]
+  sources?: number[]
+}
+
 export async function loadEvents(): Promise<Event[]> {
   if (eventsCache) return eventsCache
-  const events = await loadJson<any[]>('/data/events.json')
+  const events = await loadJson<EventJson[]>('/data/events.json')
   const dynasties = await loadDynasties()
   const persons = await loadPersons()
   const sources = await loadSources()
@@ -77,16 +91,34 @@ export async function loadEvents(): Promise<Event[]> {
   eventsCache = events.map(event => ({
     ...event,
     dynasty: dynasties.find(d => d.id === event.dynastyId),
-    persons: (event.persons as number[] | undefined)?.map(id => persons.find(p => p.id === id)).filter((p): p is Person => p !== undefined) || [],
-    sources: (event.sources as number[] | undefined)?.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined) || [],
+    persons: (event.persons || []).map(id => persons.find(p => p.id === id)).filter((p): p is Person => p !== undefined),
+    sources: (event.sources || []).map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined),
   }))
   
   return eventsCache
 }
 
+// JSON 数据中的人物类型（sources 可能是 ID 数组）
+interface PersonJson {
+  id: number
+  name: string
+  nameVariants?: string[]
+  birthYear?: number
+  deathYear?: number
+  birthDate?: string
+  deathDate?: string
+  biography?: string
+  personType: ('politician' | 'economist' | 'writer' | 'artist' | 'philosopher' | 'scientist' | 'military' | 'other')[]
+  dynastyId?: number
+  avatarUrl?: string
+  birthplace?: string
+  deathplace?: string
+  sources?: number[]
+}
+
 export async function loadPersons(): Promise<Person[]> {
   if (personsCache) return personsCache
-  const persons = await loadJson<any[]>('/data/persons.json')
+  const persons = await loadJson<PersonJson[]>('/data/persons.json')
   const dynasties = await loadDynasties()
   const sources = await loadSources()
   
@@ -94,7 +126,9 @@ export async function loadPersons(): Promise<Person[]> {
   personsCache = persons.map(person => ({
     ...person,
     dynasty: dynasties.find(d => d.id === person.dynastyId),
-    sources: (person.sources as number[] | undefined)?.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined) || [],
+    sources: (person.sources || []).map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined),
+    // 保持头像URL路径不变
+    avatarUrl: person.avatarUrl,
   }))
   
   return personsCache

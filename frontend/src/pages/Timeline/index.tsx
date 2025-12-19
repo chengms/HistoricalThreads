@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Space, Typography, Spin, Tag, Button, Avatar, FloatButton } from 'antd'
-import { CalendarOutlined, UserOutlined, VerticalAlignTopOutlined } from '@ant-design/icons'
+import { Card, Select, Space, Typography, Spin, Tag, Button, FloatButton, Tooltip, message } from 'antd'
+import { CalendarOutlined, VerticalAlignTopOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties } from '@/services/dataLoader'
 import type { Event, Dynasty, Person } from '@/types'
@@ -59,6 +59,96 @@ export default function TimelinePage() {
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  // 在窄屏设备上默认显示悬浮导航
+  const [floatingNavVisible, setFloatingNavVisible] = useState<boolean>(false)
+  const [floatingNavOpen, setFloatingNavOpen] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const floatingNavRef = useRef<HTMLDivElement>(null)
+  const autoHideTimerRef = useRef<number | null>(null)
+  const sidebarRef = useRef<HTMLDivElement>(null)
+  
+  // 导航栏自动折叠逻辑
+  const [shouldCollapseNav, setShouldCollapseNav] = useState(false)
+  const [isNavCollapsed, setIsNavCollapsed] = useState(false)
+  const [isSidebarFloating, setIsSidebarFloating] = useState(false)
+  const EVENTS_THRESHOLD = 5 // 事件数量阈值，少于此数量时自动折叠
+  
+  // 初始化响应式状态（仅在客户端）
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768
+      setIsMobile(mobile)
+      setFloatingNavVisible(mobile)
+    }
+    checkMobile()
+  }, [])
+  
+  // 监听事件数量变化，决定是否自动折叠导航
+  useEffect(() => {
+    if (events.length < EVENTS_THRESHOLD) {
+      // 当事件数量过少时，折叠导航内容，但保持侧边栏可见
+      setShouldCollapseNav(false) // 保持侧边栏可见
+      setIsNavCollapsed(true) // 折叠导航内容
+    } else {
+      // 当事件数量足够时，保持导航展开
+      setShouldCollapseNav(false)
+      setIsNavCollapsed(false)
+    }
+  }, [events.length])
+  
+  // 手动切换导航折叠状态
+  const toggleNavCollapse = () => {
+    setIsNavCollapsed(!isNavCollapsed)
+  }
+
+  // 切换导航栏浮动状态
+  const toggleSidebarFloating = () => {
+    setIsSidebarFloating(!isSidebarFloating)
+  }
+
+  // 点击导航栏外部区域时取消浮动
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+        setIsSidebarFloating(false)
+      }
+    }
+
+    // 滚动时也取消浮动
+    const handleScroll = () => {
+      if (isSidebarFloating) {
+        setIsSidebarFloating(false)
+      }
+    }
+
+    if (isSidebarFloating) {
+      document.addEventListener('mousedown', handleClickOutside)
+      window.addEventListener('scroll', handleScroll, true)
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        window.removeEventListener('scroll', handleScroll, true)
+      }
+    }
+  }, [isSidebarFloating])
+  
+  // 监听窗口大小变化，在窄屏设备上默认显示悬浮导航
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768
+      setIsMobile(mobile)
+      if (mobile) {
+        setFloatingNavVisible(true)
+      } else {
+        // 在宽屏设备上，保持默认隐藏状态
+        setFloatingNavVisible(false)
+      }
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   // 设置背景的函数 - 使用CSS变量实现平滑渐变过渡
   const setBackgroundGradient = (gradient: typeof defaultGradient) => {
@@ -139,6 +229,7 @@ export default function TimelinePage() {
         }
       } catch (error) {
         console.error('加载数据失败:', error)
+        message.error('加载数据失败，请刷新页面重试')
       } finally {
         setLoading(false)
       }
@@ -225,6 +316,114 @@ export default function TimelinePage() {
       setTimeout(() => setSelectedYear(null), 2000)
     }
   }
+
+  // 显示悬浮导航
+  const showFloatingNav = () => {
+    setFloatingNavVisible(true)
+    // 如果有自动隐藏定时器，清除它
+    if (autoHideTimerRef.current) {
+      clearTimeout(autoHideTimerRef.current)
+      autoHideTimerRef.current = null
+    }
+    
+    // 在宽屏设备上设置5秒后自动隐藏，窄屏设备上不自动隐藏
+    if (!isMobile) {
+      autoHideTimerRef.current = setTimeout(() => {
+        setFloatingNavVisible(false)
+      }, 5000)
+    }
+  }
+
+  // 隐藏悬浮导航
+  const hideFloatingNav = () => {
+    // 在窄屏设备上不允许隐藏悬浮按钮
+    if (isMobile) return
+    
+    setFloatingNavVisible(false)
+    if (autoHideTimerRef.current) {
+      clearTimeout(autoHideTimerRef.current)
+      autoHideTimerRef.current = null
+    }
+  }
+
+  // 切换悬浮导航展开/收起
+  const toggleFloatingNav = () => {
+    setFloatingNavOpen(!floatingNavOpen)
+  }
+
+  // 点击悬浮导航项
+  const handleNavItemClick = (year: number) => {
+    scrollToYear(year)
+    // 点击导航项后自动收起菜单
+    setFloatingNavOpen(false)
+    // 重置自动隐藏计时
+    if (autoHideTimerRef.current) {
+      clearTimeout(autoHideTimerRef.current)
+      autoHideTimerRef.current = null
+    }
+    
+    // 在宽屏设备上设置3秒后自动隐藏，窄屏设备上不自动隐藏
+    if (!isMobile) {
+      autoHideTimerRef.current = setTimeout(() => {
+        setFloatingNavVisible(false)
+      }, 3000)
+    }
+  }
+
+  // 监听鼠标移动以显示/隐藏悬浮按钮
+  useEffect(() => {
+    // 在窄屏设备上不自动隐藏悬浮按钮，始终保持可见
+    if (isMobile) return
+    
+    const handleMouseMove = (e: MouseEvent) => {
+      // 当鼠标在屏幕右侧区域时显示悬浮按钮
+      const isInRightArea = e.clientX > window.innerWidth * 0.7
+      const isNearTop = e.clientY < window.innerHeight * 0.2
+      
+      if (isInRightArea && isNearTop) {
+        showFloatingNav()
+      } else if (!floatingNavOpen) {
+        // 如果菜单没有展开，则可以自动隐藏按钮
+        hideFloatingNav()
+      }
+    }
+
+    // 添加触摸事件支持移动设备
+    const handleTouchStart = (e: TouchEvent) => {
+      const touch = e.touches[0]
+      const isInRightArea = touch.clientX > window.innerWidth * 0.7
+      const isNearTop = touch.clientY < window.innerHeight * 0.2
+      
+      if (isInRightArea && isNearTop) {
+        showFloatingNav()
+      } else if (!floatingNavOpen) {
+        // 如果菜单没有展开，则可以自动隐藏按钮
+        hideFloatingNav()
+      }
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('touchstart', handleTouchStart)
+    
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('touchstart', handleTouchStart)
+    }
+  }, [floatingNavOpen])
+
+  // 点击外部区域隐藏悬浮菜单
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (floatingNavRef.current && !floatingNavRef.current.contains(event.target as Node)) {
+        setFloatingNavOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   // 格式化年份显示
   const formatYear = (year: number): string => {
@@ -336,9 +535,9 @@ export default function TimelinePage() {
   }
 
   return (
-    <div className="timeline-page-container">
+    <div className={`timeline-page-container ${isNavCollapsed ? 'nav-collapsed' : ''}`}>
       {/* 顶部筛选栏 */}
-      <Card className="timeline-filter-card">
+      <Card className={`timeline-filter-card ${shouldCollapseNav ? 'full-width' : ''}`}>
         <Space size="large" wrap>
           <Select
             style={{ width: 150 }}
@@ -366,38 +565,112 @@ export default function TimelinePage() {
       </Card>
 
       <div className="timeline-layout">
-        {/* 左侧侧边栏 - 朝代导航 */}
-        <div className="timeline-sidebar">
-          <div className="dynasty-nav-header">朝代导航</div>
-          <div className="dynasty-nav">
+        {/* 左侧侧边栏 - 朝代导航 (含自动折叠逻辑) */}
+        {!shouldCollapseNav && (
+          isNavCollapsed ? (
+            <Button
+              type="text"
+              className="timeline-sidebar-toggle"
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsNavCollapsed(false)
+                setIsSidebarFloating(true)
+              }}
+            >
+              <MenuUnfoldOutlined />
+            </Button>
+          ) : (
+            <div 
+              ref={sidebarRef}
+              className={`timeline-sidebar ${isSidebarFloating ? 'floating' : ''}`}
+              style={{ 
+                visibility: 'visible',
+                opacity: 1,
+                transition: 'opacity 0.3s ease'
+              }}
+              onClick={() => setIsSidebarFloating(true)}
+            >
+              <div className="dynasty-nav-header">
+                <span className="dynasty-nav-title">朝代导航</span>
+                <Button 
+                  type="text" 
+                  size="small"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setIsSidebarFloating(false)
+                    setIsNavCollapsed(true)
+                  }}
+                  className="nav-collapse-button"
+                >
+                  <MenuFoldOutlined />
+                </Button>
+              </div>
+              <div 
+                className="dynasty-nav"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {dynasties
+                  .sort((a, b) => a.startYear - b.startYear)
+                  .map(dynasty => {
+                    const dynastyEvents = events.filter(e => e.dynastyId === dynasty.id)
+                    const firstEventYear = dynastyEvents.length > 0 ? Math.min(...dynastyEvents.map(e => e.eventYear)) : dynasty.startYear
+                    
+                    return (
+                      <Button
+                        key={dynasty.id}
+                        type="text"
+                        block
+                        className="dynasty-nav-item"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          scrollToYear(firstEventYear)
+                        }}
+                      >
+                        <div className="dynasty-nav-name">{dynasty.name}</div>
+                        <div className="dynasty-nav-years">
+                          {formatYear(dynasty.startYear)} - {formatYear(dynasty.endYear)}
+                        </div>
+                      </Button>
+                    )
+                  })}
+              </div>
+            </div>
+          )
+        )}
+
+        {/* 悬浮导航 - 窄屏设备上显示 */}
+        <div ref={floatingNavRef} className="floating-dynasty-nav">
+          <Tooltip title="朝代导航" placement="right">
+            <div className="floating-nav-button" onClick={toggleFloatingNav}>
+              {floatingNavOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+            </div>
+          </Tooltip>
+          <div className={`floating-nav-menu ${floatingNavOpen ? 'visible' : ''}`}>
+            <div className="dynasty-nav-header" style={{ marginBottom: '8px' }}>朝代导航</div>
             {dynasties
               .sort((a, b) => a.startYear - b.startYear)
               .map(dynasty => {
                 const dynastyEvents = events.filter(e => e.dynastyId === dynasty.id)
-                if (dynastyEvents.length === 0) return null
-                
-                const firstEventYear = Math.min(...dynastyEvents.map(e => e.eventYear))
+                const firstEventYear = dynastyEvents.length > 0 ? Math.min(...dynastyEvents.map(e => e.eventYear)) : dynasty.startYear
                 
                 return (
-                  <Button
+                  <div
                     key={dynasty.id}
-                    type="text"
-                    block
-                    className="dynasty-nav-item"
-                    onClick={() => scrollToYear(firstEventYear)}
+                    className="floating-nav-item"
+                    onClick={() => handleNavItemClick(firstEventYear)}
                   >
-                    <div className="dynasty-nav-name">{dynasty.name}</div>
-                    <div className="dynasty-nav-years">
+                    <div className="floating-nav-name">{dynasty.name}</div>
+                    <div className="floating-nav-years">
                       {formatYear(dynasty.startYear)} - {formatYear(dynasty.endYear)}
                     </div>
-                  </Button>
+                  </div>
                 )
               })}
           </div>
         </div>
 
         {/* 中间时间轴区域 */}
-        <div className="timeline-main" ref={timelineContainerRef}>
+        <div className={`timeline-main ${shouldCollapseNav ? 'full-width' : ''}`} ref={timelineContainerRef}>
           {allYears.map(year => {
             const yearEvents = groupedEvents[year] || []
             if (yearEvents.length === 0) return null
@@ -430,7 +703,7 @@ export default function TimelinePage() {
                           {event.description}
                         </div>
                         {event.location && (
-                          <div className="event-location">
+                          <div key={`location-${event.id}`} className="event-location">
                             <CalendarOutlined /> {event.location}
                           </div>
                         )}
@@ -456,20 +729,7 @@ export default function TimelinePage() {
                                 navigate(`/detail/person/${person.id}`)
                               }}
                             >
-                              {person.avatarUrl ? (
-                                <Space size={8}>
-                                  <Avatar
-                                    src={person.avatarUrl}
-                                    icon={<UserOutlined />}
-                                    size="small"
-                                    className="person-avatar"
-                                    onError={() => true}
-                                  />
-                                  <span className="person-name">{person.name}</span>
-                                </Space>
-                              ) : (
-                                <span className="person-name">{person.name}</span>
-                              )}
+                              <span className="person-name">{person.name}</span>
                             </Button>
                           ))}
                         </div>

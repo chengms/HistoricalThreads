@@ -1,4 +1,4 @@
-import { Card, Row, Col, Button, Typography, Input, AutoComplete } from 'antd'
+import { Card, Row, Col, Button, Typography, Input, AutoComplete, message } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { ClockCircleOutlined, ShareAltOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons'
 import { useState } from 'react'
@@ -57,6 +57,7 @@ export default function HomePage() {
       setSearchOptions(options)
     } catch (error) {
       console.error('搜索失败:', error)
+      message.error('搜索失败，请稍后重试')
     } finally {
       setLoading(false)
     }

@@ -101,15 +101,6 @@
   },
   {
     "id": 12,
-    "fromPersonId": 22,
-    "toPersonId": 23,
-    "relationshipType": "enemy",
-    "description": "唐太宗时期，安禄山发动叛乱，使唐朝由盛转衰。",
-    "startYear": 755,
-    "strength": 5
-  },
-  {
-    "id": 13,
     "fromPersonId": 23,
     "toPersonId": 24,
     "relationshipType": "cooperation",
@@ -118,21 +109,12 @@
     "strength": 4
   },
   {
-    "id": 14,
+    "id": 13,
     "fromPersonId": 25,
     "toPersonId": 26,
-    "relationshipType": "colleague",
-    "description": "宋太祖建立宋朝，王安石在宋朝推行变法。",
+    "relationshipType": "other",
+    "description": "宋太祖建立宋朝，王安石是宋朝中期的政治家，推行变法。",
     "startYear": 1069,
-    "strength": 3
-  },
-  {
-    "id": 15,
-    "fromPersonId": 27,
-    "toPersonId": 28,
-    "relationshipType": "influence",
-    "description": "成吉思汗统一蒙古，为元朝建立奠定基础，郑和是明朝的航海家。",
-    "startYear": 1405,
     "strength": 2
   }
 ]

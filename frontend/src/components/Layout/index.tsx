@@ -1,4 +1,4 @@
-import { Layout as AntLayout, Menu, theme, Input, AutoComplete } from 'antd'
+import { Layout as AntLayout, Menu, theme, Input, AutoComplete, message } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   HomeOutlined, 
@@ -6,9 +6,11 @@ import {
   ShareAltOutlined,
   EditOutlined,
   EyeOutlined,
-  SearchOutlined
+  SearchOutlined,
+  MenuOutlined,
+  CloseOutlined
 } from '@ant-design/icons'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useState, useEffect } from 'react'
 import { searchEvents, searchPersons } from '@/services/dataLoader'
 import './index.css'
 
@@ -24,9 +26,47 @@ export default function Layout({ children }: LayoutProps) {
   const [searchValue, setSearchValue] = useState('')
   const [searchOptions, setSearchOptions] = useState<Array<{ value: string; label: JSX.Element }>>([])
   const [searchLoading, setSearchLoading] = useState(false)
+  const [menuCollapsed, setMenuCollapsed] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const {
     token: { colorBgContainer },
   } = theme.useToken()
+
+  // 初始化响应式状态（仅在客户端）
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768
+      setIsMobile(mobile)
+      if (window.innerWidth <= 1024) {
+        setMenuCollapsed(true)
+      }
+    }
+    checkMobile()
+  }, [])
+
+  // 监听窗口大小变化
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768
+      setIsMobile(newIsMobile)
+      
+      // 在大屏幕上自动展开菜单
+      if (window.innerWidth > 1024) {
+        setMenuCollapsed(false)
+      } 
+      // 在中等屏幕上如果之前是展开状态，保持展开
+      else if (window.innerWidth > 768 && !menuCollapsed) {
+        // 保持当前状态
+      }
+      // 在小屏幕上自动折叠菜单
+      else if (window.innerWidth <= 768) {
+        setMenuCollapsed(true)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [menuCollapsed])
 
   // 搜索功能
   const handleSearch = async (value: string) => {
@@ -73,6 +113,7 @@ export default function Layout({ children }: LayoutProps) {
       setSearchOptions(options)
     } catch (error) {
       console.error('搜索失败:', error)
+      message.error('搜索失败，请稍后重试')
     } finally {
       setSearchLoading(false)
     }
@@ -128,19 +169,61 @@ export default function Layout({ children }: LayoutProps) {
         <div className="flex items-center h-full gap-4">
           <div 
             className="text-xl font-bold cursor-pointer"
+            style={{ flexShrink: 0, whiteSpace: 'nowrap', marginRight: '20px' }}
             onClick={() => navigate('/')}
           >
             中国历史时间线
           </div>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            selectedKeys={[location.pathname]}
-            items={menuItems}
-            onClick={({ key }) => navigate(key)}
-            className="flex-1 border-0"
-          />
-          <div className="w-64 flex items-center">
+          
+          {/* 折叠按钮 - 在小屏幕和中等屏幕上显示 */}
+          {isMobile && (
+            <div 
+              className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all"
+              onClick={() => setMenuCollapsed(!menuCollapsed)}
+              style={{ marginRight: '10px' }}
+            >
+              {menuCollapsed ? <CloseOutlined /> : <MenuOutlined />}
+            </div>
+          )}
+          
+          {/* 导航菜单 */}
+          <div 
+            className="flex-1"
+            style={{ 
+              overflow: 'hidden',
+              transition: 'width 0.3s ease'
+            }}
+          >
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              selectedKeys={[location.pathname]}
+              items={menuItems}
+              onClick={({ key }) => {
+                navigate(key)
+                // 在小屏幕和中等屏幕上点击菜单项后自动折叠菜单
+                if (isMobile) {
+                  setMenuCollapsed(true)
+                }
+              }}
+              className="border-0"
+              style={{
+                display: (isMobile && menuCollapsed) ? 'none' : 'flex',
+                flexWrap: 'wrap'
+              }}
+            />
+          </div>
+          
+          {/* 搜索框 */}
+          <div 
+            className="flex items-center"
+            style={{ 
+              flexShrink: 0,
+              width: (isMobile && !menuCollapsed) ? '0' : '160px',
+              overflow: 'hidden',
+              transition: 'width 0.3s ease'
+            }}
+          >
             <AutoComplete
               value={searchValue}
               options={searchOptions}

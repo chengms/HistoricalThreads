@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Card, Select, Input, Space, Typography, Spin } from 'antd'
+import { Card, Select, Input, Space, Typography, Spin, message } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { Network } from 'vis-network/standalone'
@@ -37,6 +37,7 @@ export default function NetworkPage() {
         setDynasties(dynastiesData)
       } catch (error) {
         console.error('加载数据失败:', error)
+        message.error('加载数据失败，请刷新页面重试')
       } finally {
         setLoading(false)
       }
@@ -91,7 +92,7 @@ export default function NetworkPage() {
       persons.map(person => ({
         id: person.id,
         label: person.name,
-        group: person.personType[0] || 'other',
+        group: person.personType?.[0] || 'other',
         title: `${person.name}\n${person.biography?.substring(0, 100)}...`,
       }))
     )

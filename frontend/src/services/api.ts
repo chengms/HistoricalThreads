@@ -9,13 +9,50 @@ import type {
   PaginatedResponse 
 } from '@/types'
 
+// 获取 API 基础 URL
+// 优先使用环境变量，否则根据当前环境自动判断
+const getApiBaseURL = () => {
+  // 如果设置了环境变量，直接使用
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL
+  }
+  
+  // 开发环境使用代理
+  if (import.meta.env.DEV) {
+    return '/api'
+  }
+  
+  // 生产环境：如果设置了自定义域名，使用相对路径
+  // 否则可能需要配置完整的 API 地址
+  return import.meta.env.VITE_USE_CUSTOM_DOMAIN === 'true' ? '/api' : '/api'
+}
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: getApiBaseURL(),
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 })
+
+// 添加请求拦截器，用于错误处理
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // 统一错误处理
+    if (error.response) {
+      // 服务器返回了错误状态码
+      console.error('API 错误:', error.response.status, error.response.data)
+    } else if (error.request) {
+      // 请求已发出但没有收到响应
+      console.error('API 请求失败:', error.request)
+    } else {
+      // 其他错误
+      console.error('API 错误:', error.message)
+    }
+    return Promise.reject(error)
+  }
+)
 
 // 事件相关API
 export const eventApi = {

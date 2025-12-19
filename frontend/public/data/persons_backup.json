@@ -1,0 +1,625 @@
+[
+  {
+    "id": 1,
+    "name": "大禹",
+    "nameVariants": [
+      "禹",
+      "夏禹"
+    ],
+    "birthYear": -2123,
+    "deathYear": -2025,
+    "biography": "大禹，夏朝开国君主，以治水功绩著称，三过家门而不入，被后世尊为治水英雄。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 1,
+    "birthplace": "有崇",
+    "sources": [
+      1
+    ],
+    "avatarUrl": "/images/full/954f4f916f43e54c0359eb3dc545215aaac14f7e.jpg"
+  },
+  {
+    "id": 2,
+    "name": "商汤",
+    "nameVariants": [
+      "汤",
+      "成汤"
+    ],
+    "birthYear": -1670,
+    "deathYear": -1588,
+    "biography": "商汤，商朝开国君主，起兵推翻夏朝，建立商朝。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 2,
+    "sources": [
+      1
+    ],
+    "avatarUrl": "/images/full/f08c0c6d504d8c742d9d62507798581322df81e3.jpg"
+  },
+  {
+    "id": 3,
+    "name": "周武王",
+    "nameVariants": [
+      "姬发",
+      "武王"
+    ],
+    "birthYear": -1087,
+    "deathYear": -1043,
+    "biography": "周武王，周朝开国君主，在牧野之战中击败商纣王，建立周朝。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 3,
+    "sources": [
+      1
+    ],
+    "avatarUrl": "/images/full/ea1ff26dad03a0c5867cab598005b39e91700a89.jpg"
+  },
+  {
+    "id": 4,
+    "name": "齐桓公",
+    "nameVariants": [
+      "小白"
+    ],
+    "birthYear": -716,
+    "deathYear": -643,
+    "biography": "齐桓公，春秋五霸之首，任用管仲为相，成为春秋时期第一个霸主。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 4,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/ff209a7ef878404c597f5ac124a797bf70f0f25a.jpg"
+  },
+  {
+    "id": 5,
+    "name": "晋文公",
+    "nameVariants": [
+      "重耳"
+    ],
+    "birthYear": -697,
+    "deathYear": -628,
+    "biography": "晋文公，春秋五霸之一，流亡十九年后回国，使晋国成为霸主。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 4,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
+  },
+  {
+    "id": 6,
+    "name": "楚庄王",
+    "nameVariants": [
+      "熊旅"
+    ],
+    "birthYear": -591,
+    "deathYear": -591,
+    "biography": "楚庄王，春秋五霸之一，问鼎中原，使楚国成为南方霸主。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 4,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/f08c0c6d504d8c742d9d62507798581322df81e3.jpg"
+  },
+  {
+    "id": 7,
+    "name": "商鞅",
+    "nameVariants": [
+      "卫鞅",
+      "公孙鞅"
+    ],
+    "birthYear": -395,
+    "deathYear": -338,
+    "biography": "商鞅，战国时期法家代表人物，在秦国推行变法，使秦国迅速强大。",
+    "personType": [
+      "politician",
+      "philosopher"
+    ],
+    "dynastyId": 5,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
+  },
+  {
+    "id": 8,
+    "name": "秦始皇",
+    "nameVariants": [
+      "嬴政",
+      "赵政"
+    ],
+    "birthYear": -259,
+    "deathYear": -210,
+    "biography": "秦始皇，中国历史上第一个皇帝，统一六国，建立了中央集权制度，统一文字、货币、度量衡，修筑万里长城。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 6,
+    "birthplace": "邯郸",
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+  },
+  {
+    "id": 9,
+    "name": "陈胜",
+    "nameVariants": [
+      "陈涉"
+    ],
+    "birthYear": -240,
+    "deathYear": -208,
+    "biography": "陈胜，秦末农民起义领袖，与吴广一起发动大泽乡起义，虽然失败，但动摇了秦朝统治。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 6,
+    "sources": [
+      1
+    ],
+    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
+  },
+  {
+    "id": 10,
+    "name": "吴广",
+    "birthYear": -240,
+    "deathYear": -208,
+    "biography": "吴广，秦末农民起义领袖，与陈胜一起发动大泽乡起义。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 6,
+    "sources": [
+      1
+    ],
+    "avatarUrl": "/images/full/23067c144c04d94ce8922b8de214c424f5d19272.jpg"
+  },
+  {
+    "id": 11,
+    "name": "刘邦",
+    "nameVariants": [
+      "汉高祖",
+      "刘季"
+    ],
+    "birthYear": -256,
+    "deathYear": -195,
+    "biography": "刘邦，汉朝开国皇帝，在楚汉之争中击败项羽，建立汉朝。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/ff209a7ef878404c597f5ac124a797bf70f0f25a.jpg"
+  },
+  {
+    "id": 12,
+    "name": "项羽",
+    "nameVariants": [
+      "西楚霸王"
+    ],
+    "birthYear": -232,
+    "deathYear": -202,
+    "biography": "项羽，西楚霸王，楚汉之争中与刘邦争夺天下，最终失败自刎于乌江。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/6e6001e9973b00d47644c32cf6a4db6f109c1919.jpg"
+  },
+  {
+    "id": 13,
+    "name": "汉武帝",
+    "nameVariants": [
+      "刘彻"
+    ],
+    "birthYear": -156,
+    "deathYear": -87,
+    "biography": "汉武帝刘彻，西汉第七位皇帝，在位期间开疆拓土，使汉朝达到极盛，同时独尊儒术，奠定了儒家思想在中国的主导地位。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 7,
+    "birthplace": "长安",
+    "sources": [
+      1,
+      2,
+      3
+    ],
+    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
+  },
+  {
+    "id": 14,
+    "name": "卫青",
+    "birthYear": -140,
+    "deathYear": -106,
+    "biography": "卫青，西汉名将，汉武帝时期的大将军，多次率军北击匈奴，为汉朝开疆拓土立下赫赫战功。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/3118bae43c6c28b423fa7e9654a348d4fe6c3209.jpg"
+  },
+  {
+    "id": 15,
+    "name": "霍去病",
+    "birthYear": -140,
+    "deathYear": -117,
+    "biography": "霍去病，西汉名将，卫青的外甥，以勇猛善战著称，曾率军深入漠北，大败匈奴，封狼居胥。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/ea1ff26dad03a0c5867cab598005b39e91700a89.jpg"
+  },
+  {
+    "id": 16,
+    "name": "张骞",
+    "birthYear": -164,
+    "deathYear": -114,
+    "biography": "张骞，西汉外交家、探险家，两次出使西域，开辟了丝绸之路，促进了东西方文化交流。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      1,
+      2
+    ],
+    "avatarUrl": "/images/full/07f9e772e1da44f0e1eeb986bdfd9bc99f3e3850.jpg"
+  },
+  {
+    "id": 17,
+    "name": "曹操",
+    "nameVariants": [
+      "魏武帝",
+      "孟德"
+    ],
+    "birthYear": 155,
+    "deathYear": 220,
+    "biography": "曹操，三国时期魏国奠基者，政治家、军事家、文学家，统一北方，为曹魏的建立奠定了基础。",
+    "personType": [
+      "politician",
+      "military",
+      "writer"
+    ],
+    "dynastyId": 8,
+    "sources": [
+      1,
+      4
+    ],
+    "avatarUrl": "/images/full/9e6794efd8f56fd70cc8749c4e5f0cbadaceee0e.jpg"
+  },
+  {
+    "id": 18,
+    "name": "刘备",
+    "nameVariants": [
+      "汉昭烈帝",
+      "玄德"
+    ],
+    "birthYear": 161,
+    "deathYear": 223,
+    "biography": "刘备，三国时期蜀汉开国皇帝，以仁德著称，与关羽、张飞结为兄弟。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 8,
+    "sources": [
+      1,
+      4
+    ],
+    "avatarUrl": "/images/full/13b6058c8330c07f5c23f53ba717d4deba9f9446.jpg"
+  },
+  {
+    "id": 19,
+    "name": "孙权",
+    "nameVariants": [
+      "吴大帝",
+      "仲谋"
+    ],
+    "birthYear": 182,
+    "deathYear": 252,
+    "biography": "孙权，三国时期吴国开国皇帝，在赤壁之战中与刘备联合击败曹操。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 8,
+    "sources": [
+      1,
+      4
+    ],
+    "avatarUrl": "/images/full/b6b0144a7f8e831f65e1592e5c5a13a6e104cc9a.jpg"
+  },
+  {
+    "id": 20,
+    "name": "诸葛亮",
+    "nameVariants": [
+      "孔明",
+      "卧龙"
+    ],
+    "birthYear": 181,
+    "deathYear": 234,
+    "biography": "诸葛亮，三国时期蜀汉丞相，杰出的政治家、军事家、发明家，以智慧著称。",
+    "personType": [
+      "politician",
+      "military",
+      "scientist"
+    ],
+    "dynastyId": 8,
+    "sources": [
+      1,
+      4
+    ],
+    "avatarUrl": "/images/full/b042ce1da00020e33bc9a523c222c1a7c03488c6.jpg"
+  },
+  {
+    "id": 21,
+    "name": "隋炀帝",
+    "nameVariants": [
+      "杨广"
+    ],
+    "birthYear": 569,
+    "deathYear": 618,
+    "biography": "隋炀帝杨广，隋朝第二位皇帝，开凿大运河，但统治残暴，导致隋朝灭亡。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 11,
+    "sources": [
+      1,
+      5
+    ],
+    "avatarUrl": "/images/full/e9ea9ba1d3f80b1e7450dab5c221d4f8ef1ad853.jpg"
+  },
+  {
+    "id": 22,
+    "name": "唐太宗",
+    "nameVariants": [
+      "李世民"
+    ],
+    "birthYear": 598,
+    "deathYear": 649,
+    "biography": "唐太宗李世民，唐朝第二位皇帝，开创了贞观之治，使唐朝成为当时世界上最强大的国家之一。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 12,
+    "sources": [
+      1,
+      5,
+      6
+    ],
+    "avatarUrl": "/images/full/13b6058c8330c07f5c23f53ba717d4deba9f9446.jpg"
+  },
+  {
+    "id": 23,
+    "name": "安禄山",
+    "birthYear": 703,
+    "deathYear": 757,
+    "biography": "安禄山，唐朝叛将，发动安史之乱，使唐朝由盛转衰。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 12,
+    "sources": [
+      1,
+      5
+    ],
+    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+  },
+  {
+    "id": 24,
+    "name": "史思明",
+    "birthYear": 703,
+    "deathYear": 761,
+    "biography": "史思明，唐朝叛将，安史之乱的主要参与者之一。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 12,
+    "sources": [
+      1,
+      5
+    ],
+    "avatarUrl": "/images/full/3a10b0a08d1af0d00ac9bef168ba60fa7e3cf186.jpg"
+  },
+  {
+    "id": 25,
+    "name": "宋太祖",
+    "nameVariants": [
+      "赵匡胤"
+    ],
+    "birthYear": 927,
+    "deathYear": 976,
+    "biography": "宋太祖赵匡胤，宋朝开国皇帝，通过陈桥兵变建立宋朝，结束了五代十国的分裂局面。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 13,
+    "sources": [
+      1,
+      7
+    ],
+    "avatarUrl": "/images/full/954f4f916f43e54c0359eb3dc545215aaac14f7e.jpg"
+  },
+  {
+    "id": 26,
+    "name": "王安石",
+    "nameVariants": [
+      "介甫",
+      "半山"
+    ],
+    "birthYear": 1021,
+    "deathYear": 1086,
+    "biography": "王安石，北宋政治家、文学家，推行新法，试图富国强兵，但因保守派反对而失败。",
+    "personType": [
+      "politician",
+      "writer"
+    ],
+    "dynastyId": 13,
+    "sources": [
+      1,
+      7
+    ],
+    "avatarUrl": "/images/full/9e6794efd8f56fd70cc8749c4e5f0cbadaceee0e.jpg"
+  },
+  {
+    "id": 27,
+    "name": "成吉思汗",
+    "nameVariants": [
+      "铁木真"
+    ],
+    "birthYear": 1162,
+    "deathYear": 1227,
+    "biography": "成吉思汗，蒙古帝国建立者，统一蒙古各部，建立大蒙古国，为元朝的建立奠定了基础。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 14,
+    "sources": [
+      1,
+      8
+    ],
+    "avatarUrl": "/images/full/23067c144c04d94ce8922b8de214c424f5d19272.jpg"
+  },
+  {
+    "id": 28,
+    "name": "郑和",
+    "nameVariants": [
+      "三宝太监"
+    ],
+    "birthYear": 1371,
+    "deathYear": 1433,
+    "biography": "郑和，明朝航海家、外交家，七次下西洋，最远到达非洲东海岸，促进了中外文化交流。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 15,
+    "sources": [
+      1,
+      9
+    ],
+    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+  },
+  {
+    "id": 29,
+    "name": "林则徐",
+    "nameVariants": [
+      "少穆"
+    ],
+    "birthYear": 1785,
+    "deathYear": 1850,
+    "biography": "林则徐，清朝政治家，在广东禁烟，是鸦片战争的重要人物。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      1,
+      10
+    ],
+    "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
+  },
+  {
+    "name": "孔子",
+    "nameVariants": [],
+    "birthYear": -551,
+    "deathYear": -479,
+    "dynasty": "春秋末期",
+    "description": "孔子（公元前551年9月28日—前479年4月11日），名丘，字仲尼，春秋时期鲁国陬邑（今山东省曲阜市）人，祖籍宋国栗邑（今河南省商丘市夏邑县王公楼村 [75]）。父叔梁纥、母颜氏。是中国古代思想家、政治家、教育家，儒家学派创始人。儒家学说是中华优秀传统文化的重要组成部分 [1-3] [51] [54] [57-58]。孔子三岁丧父，家道中落。少好礼，自幼熟悉传统礼制。青年时便以广博的礼乐知识闻名于鲁，做过管粮仓、管放牧的小官。中年聚徒讲学，从事教育活动。从事儒者之业，以办理丧祭之礼为生。年五十，担任鲁国司寇，摄行相职。不久弃官 [51]，偕弟子周游列国 [51]。晚年回到鲁国，致力教育事业，整理《诗》《书》、删修《春秋》，以传述六艺为志业 [51]。孔子弟子众多 [51]，通六艺者七十余人 [51]。他奔走呼号 [64]，敢批当世权贵 [64]，在哲学、社会学、伦理学、教育学、政治学等诸多领域均有建树 [52]，对后世影响深远。孔子的思想学说主要记载于他的学生纂缉的《论语》中 [1] [51]。他的"仁"与"礼"成为国家施政和个人修养的重要准则，有教无类的平民教育思想使华夏文明得以传承。孔子对古代文献的系统整理，使中华民族的文化遗产具有深广的内涵 [52]。",
+    "verification": {
+      "verified": true,
+      "confidence": 0.95,
+      "issues": [],
+      "suggestions": [],
+      "notes": "审核备注：提供的孔子信息基本准确，生卒年份、朝代归属以及简介内容均与历史记载相符。没有发现明显的历史错误。"
+    },
+    "id": 30,
+    "avatarUrl": "/images/full/07f9e772e1da44f0e1eeb986bdfd9bc99f3e3850.jpg"
+  },
+  {
+    "name": "老子",
+    "nameVariants": [],
+    "birthYear": -571,
+    "deathYear": -470,
+    "dynasty": null,
+    "description": "老子（约公元前571年—约公元前470年 [70]，一说公元前571年—公元前471年 [73]），姓李名耳，字聃，字伯阳（或曰谥伯阳），春秋时期人。《史记》《后汉书》等记载老子出生于楚国 [29] [66-67]或陈国 [1-3]，苦县（今河南省鹿邑县）厉乡 [29]（一作赖乡 [2]）曲仁里人 [65]（一说安徽省涡阳县人 [71]）。中国古代思想家、哲学家、文学家和史学家，道家学派创始人和主要代表人物，与庄子并称"老庄"。在唐朝，被追认为李姓始祖。曾被列为世界文化名人，世界百位历史名人之一。 [4] [69]老子曾担任周朝守藏室之史，以博学而闻名，孔子曾入周向他问礼。春秋末年，天下大乱，老子欲弃官归隐，遂骑青牛西行。到函谷关时，受关令尹喜之请著《道德经》。老子思想对中国哲学发展具有深刻影响，其思想核心是朴素的辩证法。在政治上，主张无为而治、不言之教。在权术上，讲究物极必反之理。在修身方面，讲究虚心实腹、不与人争的修持，是道家性命双修的始祖。相传老子晚年在临洮凤台讲道并飞升 [77]。老子传世作品《道德经》（又称《老子》），是全球文字出版发行量最大的著作之一。 [5]",
+    "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg",
+    "verification": {
+      "verified": true,
+      "confidence": 0.9,
+      "issues": [
+        "朝代归属描述不明确"
+      ],
+      "suggestions": [
+        "明确指出老子生活在春秋时期"
+      ],
+      "notes": "审核备注"
+    },
+    "id": 31
+  },
+  {
+    "name": "孟子",
+    "nameVariants": [],
+    "birthYear": null,
+    "deathYear": null,
+    "dynasty": null,
+    "description": "孟子（前372年-前289年），姬姓、孟氏、名轲、字子舆（待考，一说字子车、子居），与孔子并称"孔孟"，战国时期邹国（今山东邹城）人 [34]。是儒学集大成者 [35]、儒家学派的代表人物 [26]，中国古代思想家、哲学家、政治家、教育家 [26-27]。孟子自幼父亲早逝，与母亲相依为命，为了给他营造一个良好的成长氛围，孟母曾三次搬家，这也成为一时佳话 [30]。学成之后，孟子开始"周游列国" [28]，终孟子一生，游说诸侯，历齐、梁、宋、滕、鲁诸国，均未能见用 [29]。晚年孟子回到了自己的家乡，在那里传道授业，与弟子们一起，将自己的思想著书立说，最终成就了《孟子》一书 [30]。卒于周赧王二十六年（前289年） [31]。孟子的思想学说对唐宋之后的中国产生了深刻且巨大的影响，其中许多命题的哲学思辨以及伦理启示，至今仍潜移默化影响着中国乃至整个东亚 [29]。孟子的地位仅次于孔子，对儒家学说的继承与发展，也产生了十分深远的影响 [30]。所著《孟子》一书虽然只有7篇34000余字，但早已是世界文化遗产的一部分。孟子不仅在哲学论理上发展了孔子的思想，而且建立了以"民本"为基础的政治思想体系 [32]。在儒家思想与佛教理论交锋融合的过程中，孟子的影响尤为重要。孟子强调"权"，而非强调伦理原则。至中唐时，韩愈著《原道》，把孟子视为唐以前儒家唯一继承孔子"道统"的人物。南宋朱熹又把《孟子》与《论语》《大学》《中庸》合定为"四书"，使之成为儒家基本经典之一 [29]。",
+    "avatarUrl": ""
+  },
+  {
+    "name": "庄子",
+    "nameVariants": [],
+    "birthYear": null,
+    "deathYear": null,
+    "dynasty": null,
+    "description": "庄子（约公元前369年—约公元前286年），名周，战国时期宋国蒙（一说为今河南商丘民权县 [71]，一说为山东省菏泽市东明，一说为安徽省亳州市蒙城县 [72]）人。 [67-70]战国中期思想家、哲学家、文学家，道家学派代表人物，与老子并称"老庄"。 [2]庄子因崇尚自由而不应楚威王之聘，仅担任过宋国地方的漆园吏，史称"漆园傲吏"，被誉为地方官吏之楷模。他最早提出的"内圣外王"思想对儒家影响深远。他洞悉易理，指出"《易》以道阴阳"，其"三籁"思想与《易经》三才之道相合。其文想象丰富奇特，语言运用自如，灵活多变，能把微妙难言的哲理写得引人入胜，被称为"文学的哲学，哲学的文学"。其作品收录于《庄子》一书，代表作有《逍遥游》《齐物论》《养生主》等。 [2]据传庄子尝隐居南华山，卒葬于彼，故唐玄宗天宝初，被诏封为南华真人，《庄子》一书亦因之被奉为《南华真经》。 [3] [5] [79]",
+    "avatarUrl": ""
+  },
+  {
+    "name": "孙武",
+    "nameVariants": [],
+    "birthYear": null,
+    "deathYear": null,
+    "dynasty": null,
+    "description": "孙武（约前545年—约前470年），字长卿，春秋末期齐国乐安（今山东省惠民县）人 [1-5]。中国春秋时期著名的军事家、政治家，兵家代表人物，约活动于公元前六世纪末至五世纪初 [6]。被后世尊称为孙子、孙武子、兵圣，著有《孙子兵法》十三篇 [7-8]，为后世兵法家所推崇，被誉为"兵学圣典" [9]。《孙子兵法》是世界上最早的军事著作 [10]，被译成多种语言，在世界军事史上具有重要地位 [11]。《孙子兵法》开篇写道："兵者，国之大事，死生之地，存亡之道，不可不察也。" [12]强调战争的重要性以及对国家生死存亡的决定性作用 [12]。孙武的军事思想对后世影响深远，他的战略战术理论至今仍被广泛应用于商业、足球、谈判等各个领域 [13]。孙武出仕于吴国，为吴王阖闾[14]献策良多，并率军攻破楚国都城郢城 [15]，使吴国成为春秋时期一霸 [16]。"
+  }
+]

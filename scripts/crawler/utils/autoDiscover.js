@@ -53,18 +53,26 @@ export class AutoDiscover extends CrawlerBase {
       ])
 
       const content = response.choices[0].message.content
-      const result = typeof content === 'string' ? JSON.parse(content) : content
-      // 处理不同的响应格式
-      if (Array.isArray(result)) {
-        return result
-      } else if (result.persons) {
-        return result.persons
-      } else if (result.list) {
-        return result.list
-      } else if (result.data) {
-        return result.data
+      try {
+        const result = typeof content === 'string' ? JSON.parse(content) : content
+        // 处理不同的响应格式
+        if (Array.isArray(result)) {
+          return result
+        } else if (result.persons) {
+          return result.persons
+        } else if (result.list) {
+          return result.list
+        } else if (result.data) {
+          return result.data
+        }
+        console.warn('AI 返回的数据格式不符合预期，使用默认列表')
+        return this.getDefaultPersons(dynastyName)
+      } catch (jsonError) {
+        console.error('解析 AI 返回的 JSON 数据失败:', jsonError.message)
+        console.error('AI 返回的原始内容:', content.substring(0, 200) + '...') // 只显示前200个字符
+        console.warn('使用默认人物列表')
+        return this.getDefaultPersons(dynastyName)
       }
-      return []
     } catch (error) {
       console.error('AI 发现人物失败:', error.message)
       return this.getDefaultPersons(dynastyName)
@@ -109,18 +117,26 @@ export class AutoDiscover extends CrawlerBase {
       ])
 
       const content = response.choices[0].message.content
-      const result = typeof content === 'string' ? JSON.parse(content) : content
-      // 处理不同的响应格式
-      if (Array.isArray(result)) {
-        return result
-      } else if (result.events) {
-        return result.events
-      } else if (result.list) {
-        return result.list
-      } else if (result.data) {
-        return result.data
+      try {
+        const result = typeof content === 'string' ? JSON.parse(content) : content
+        // 处理不同的响应格式
+        if (Array.isArray(result)) {
+          return result
+        } else if (result.events) {
+          return result.events
+        } else if (result.list) {
+          return result.list
+        } else if (result.data) {
+          return result.data
+        }
+        console.warn('AI 返回的数据格式不符合预期，使用默认列表')
+        return this.getDefaultEvents(dynastyName)
+      } catch (jsonError) {
+        console.error('解析 AI 返回的 JSON 数据失败:', jsonError.message)
+        console.error('AI 返回的原始内容:', content.substring(0, 200) + '...') // 只显示前200个字符
+        console.warn('使用默认事件列表')
+        return this.getDefaultEvents(dynastyName)
       }
-      return []
     } catch (error) {
       console.error('AI 发现事件失败:', error.message)
       return this.getDefaultEvents(dynastyName)

@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { Card, Typography, Tag, Button, List, Space, Spin, Avatar } from 'antd'
-import { ArrowLeftOutlined, LinkOutlined, UserOutlined, CalendarOutlined } from '@ant-design/icons'
+import { Card, Typography, Tag, Button, List, Space, Spin } from 'antd'
+import { ArrowLeftOutlined, LinkOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
-import type { Event, Person } from '@/types'
+import type { Event, Person, PersonWithDetails } from '@/types'
 import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
 
@@ -12,8 +12,9 @@ const { Title, Paragraph } = Typography
 export default function DetailPage() {
   const { type, id } = useParams()
   const navigate = useNavigate()
-  const [data, setData] = useState<Event | Person | null>(null)
+  const [data, setData] = useState<Event | Person | PersonWithDetails | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchData() {
@@ -52,11 +53,18 @@ export default function DetailPage() {
               e.persons && e.persons.some(p => p.id === person.id)
             )
             
-            setData({ ...person, relationships: personRelationships, events: personEvents } as any)
+            const personWithDetails: PersonWithDetails = {
+              ...person,
+              relationships: personRelationships,
+              events: personEvents,
+            }
+            
+            setData(personWithDetails)
           }
         }
       } catch (error) {
         console.error('加载数据失败:', error)
+        setError('加载数据失败，请稍后重试')
         setData(null)
       } finally {
         setLoading(false)
@@ -76,7 +84,22 @@ export default function DetailPage() {
   if (!data) {
     return (
       <div className="container mx-auto px-6 py-6">
-        <Card>未找到数据</Card>
+        <Card>
+          {error ? (
+            <div>
+              <Typography.Text type="danger">{error}</Typography.Text>
+              <Button 
+                type="primary" 
+                onClick={() => window.location.reload()} 
+                style={{ marginLeft: 16 }}
+              >
+                重新加载
+              </Button>
+            </div>
+          ) : (
+            <Typography.Text>未找到数据</Typography.Text>
+          )}
+        </Card>
       </div>
     )
   }
@@ -186,15 +209,6 @@ export default function DetailPage() {
                   renderItem={(person) => (
                     <List.Item>
                       <Space>
-                        {person.avatarUrl && (
-                          <Avatar
-                            src={person.avatarUrl}
-                            icon={<UserOutlined />}
-                            size="small"
-                            shape="square"
-                            onError={() => true}
-                          />
-                        )}
                         <Button 
                           type="link" 
                           onClick={() => navigate(`/detail/person/${person.id}`)}
@@ -242,16 +256,23 @@ export default function DetailPage() {
       ) : (
         <Card>
           <Space direction="vertical" size="large" className="w-full">
-            <Space size="large" align="start">
-              <Avatar
-                src={(data as Person).avatarUrl}
-                icon={<UserOutlined />}
-                size={120}
-                shape="square"
-                className="person-detail-avatar"
-                onError={() => true}
-              />
-              <div style={{ flex: 1 }}>
+            <Space size="large" align="start" style={{ marginTop: '-20px' }}>
+              {(data as Person).avatarUrl?.trim() !== '' ? (
+                <div
+                  className="person-detail-avatar"
+                  style={{ marginBottom: '0', marginTop: '-10px' }}
+                >
+                  <img
+                    src={(data as Person).avatarUrl}
+                    alt={(data as Person).name}
+                    className="person-detail-avatar-image"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                    }}
+                  />
+                </div>
+              ) : null}
+              <Space direction="vertical" size="small" style={{ flex: 1 }}>
                 <Title level={2} style={{ marginBottom: 16 }}>{(data as Person).name}</Title>
                 
                 {/* 别名 */}
@@ -310,7 +331,7 @@ export default function DetailPage() {
                     </Space>
                   </div>
                 )}
-              </div>
+              </Space>
             </Space>
             
             {/* 传记 */}
@@ -325,11 +346,11 @@ export default function DetailPage() {
           </Space>
 
           {/* 相关事件 */}
-          {(data as any).events && (data as any).events.length > 0 && (
+          {type === 'person' && (data as PersonWithDetails).events && (data as PersonWithDetails).events.length > 0 && (
             <>
               <Title level={4}>相关事件</Title>
               <List
-                dataSource={(data as any).events}
+                dataSource={(data as PersonWithDetails).events}
                 renderItem={(event: Event) => (
                   <List.Item>
                     <div style={{ width: '100%' }}>
@@ -356,11 +377,11 @@ export default function DetailPage() {
             </>
           )}
 
-          {(data as any).relationships && (data as any).relationships.length > 0 && (
+          {type === 'person' && (data as PersonWithDetails).relationships && (data as PersonWithDetails).relationships.length > 0 && (
             <>
               <Title level={4}>人物关系</Title>
               <List
-                dataSource={(data as any).relationships}
+                dataSource={(data as PersonWithDetails).relationships}
                 renderItem={(rel: any) => {
                   const currentPersonId = (data as Person).id
                   const otherPerson = rel.fromPersonId === currentPersonId 
@@ -392,12 +413,6 @@ export default function DetailPage() {
                         className="mr-4"
                         style={{ display: 'flex', alignItems: 'center', gap: 8 }}
                       >
-                        <Avatar
-                          src={otherPerson.avatarUrl}
-                          icon={<UserOutlined />}
-                          size="small"
-                          onError={() => true}
-                        />
                         {otherPerson.name}
                       </Button>
                       <Tag color="blue">{getRelationshipLabel(rel.relationshipType)}</Tag>

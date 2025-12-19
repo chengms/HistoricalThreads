@@ -10,14 +10,42 @@
 /* 筛选卡片 */
 .timeline-filter-card {
   margin-bottom: 32px;
-  margin-left: 260px; /* 为固定定位的侧边栏留出空间 */
+  margin-left: 320px; /* 为左侧侧边栏留出空间（300px + 20px） */
   margin-right: 24px;
-  max-width: calc(100% - 284px); /* 减去左边距和右边距 */
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: calc(100% - 344px); /* 减去左边距和右边距 */
+  max-width: none;
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 251, 255, 0.95));
+  backdrop-filter: blur(20px) saturate(180%);
+  border: none;
+  transition: all 0.3s ease;
+  /* 确保筛选卡片与固定宽度的侧边栏配合良好 */
+  box-sizing: border-box;
+}
+
+/* 折叠状态下调整筛选卡片（由 JS 给容器加 nav-collapsed 类，避免 :has 兼容问题） */
+.timeline-page-container.nav-collapsed .timeline-filter-card {
+  margin-left: 60px;
+  width: calc(100% - 84px);
+}
+
+/* 当侧边栏隐藏时调整筛选卡片布局 */
+.timeline-filter-card.full-width {
+  margin-left: 24px;
+  width: calc(100% - 48px);
+}
+
+/* 在移动设备上调整筛选卡片 */
+@media (max-width: 768px) {
+  .timeline-filter-card {
+    margin-left: 80px;
+    margin-right: 16px;
+    width: calc(100% - 96px);
+  }
 }
 
 /* 时间线布局 */
@@ -30,83 +58,556 @@
   padding-left: 0; /* 侧边栏是固定定位，不需要在布局中留空间 */
 }
 
-/* 左侧侧边栏 */
+/* 左侧侧边栏 - 与背景融合，流媒体风格 */
 .timeline-sidebar {
-  width: 220px;
+  width: 300px; /* 进一步增加宽度以容纳完整日期 */
+  min-width: 300px;
   flex-shrink: 0;
   position: fixed;
-  top: 64px;
+  top: 72px;
   left: 24px;
-  max-height: calc(100vh - 88px);
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
+  overflow-x: hidden; /* 隐藏水平滚动条，内容在内部滚动 */
   z-index: 100;
   padding: 0;
+  background: transparent; /* 完全透明，与背景融合 */
+  backdrop-filter: none; /* 移除毛玻璃效果 */
+  border-radius: 0; /* 移除圆角 */
+  box-shadow: none; /* 移除所有阴影 */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  background-clip: padding-box;
+  /* 确保侧边栏宽度始终固定，不受内容影响 */
+  box-sizing: border-box;
+  /* 默认隐藏滚动条 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 折叠后的独立悬浮按钮（不依赖侧边栏 DOM，滚动永不消失） */
+.timeline-sidebar-toggle {
+  position: fixed !important;
+  top: 80px !important;
+  left: 12px !important;
+  width: 48px !important;
+  height: 48px !important;
+  padding: 0 !important;
+  border-radius: 12px !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: rgba(255, 255, 255, 1) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+}
+
+.timeline-sidebar-toggle:hover {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.08);
+}
+
+.timeline-sidebar.collapsed .nav-collapse-button:hover {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  transform: scale(1.1);
+  box-shadow: 
+    0 6px 16px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* 隐藏滚动条但保持滚动功能 - 使用更强的选择器 */
+.timeline-sidebar::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+/* 浮动状态下显示滚动条 */
+.timeline-sidebar.floating::-webkit-scrollbar {
+  width: 6px !important;
+  display: block !important;
+}
+
+/* 点击时浮动效果 */
+.timeline-sidebar.floating {
+  background: rgba(0, 0, 0, 0.75) !important; /* 深色半透明背景 */
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+  padding: 8px !important;
+  transform: translateX(0) scale(1.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 浮动状态下显示滚动条 */
+.timeline-sidebar.floating::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* 浮动状态下的导航容器 */
+.timeline-sidebar.floating .dynasty-nav {
+  padding: 8px 0;
+}
+
+/* 导航折叠按钮样式 - 放在文字旁边，增强可见性 */
+.nav-collapse-button {
+  margin-left: 0; /* 移除自动左边距 */
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.2) !important; /* 增强背景可见性 */
+  border: 1px solid rgba(255, 255, 255, 0.3) !important; /* 增强边框可见性 */
+  color: rgba(255, 255, 255, 1) !important; /* 白色图标，完全不透明 */
+  font-size: 14px;
+  line-height: 1;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto; /* 不伸缩，保持原始大小 */
+  min-width: 32px;
+  height: 32px;
+  opacity: 1 !important;
+  visibility: visible !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影增强可见性 */
+}
+
+.nav-collapse-button:hover {
+  background: rgba(255, 255, 255, 0.35) !important; /* 悬停时更明显 */
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.nav-collapse-button:active {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* 确保按钮内的图标可见 */
+.nav-collapse-button .anticon {
+  color: rgba(255, 255, 255, 1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 折叠状态样式 - 修复文字显示问题 */
+.dynasty-nav.collapsed {
+  max-height: 300px; /* 增加最大高度，确保可以看到更多内容 */
+  overflow-y: auto; /* 允许滚动查看所有内容 */
+  overflow-x: hidden;
+  transition: max-height 0.3s ease;
+  padding: 4px 0;
+  margin: 0;
+  /* 确保容器宽度不变 */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+
+.dynasty-nav {
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding: 8px 0;
+  /* 确保导航内容区域不会影响侧边栏宽度 */
+  width: 100%;
+  box-sizing: border-box;
+  /* 默认隐藏滚动条但保持滚动功能 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 隐藏 .dynasty-nav 的滚动条 */
+.dynasty-nav::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
+}
+
+/* 浮动状态下显示滚动条 */
+.timeline-sidebar.floating .dynasty-nav {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.timeline-sidebar.floating .dynasty-nav::-webkit-scrollbar {
+  width: 6px !important;
+  height: 0 !important;
+  display: block !important;
+}
+
+.timeline-sidebar.floating .dynasty-nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 3px;
+}
+
+.timeline-sidebar.floating .dynasty-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.timeline-sidebar.floating .dynasty-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5) !important;
+}
+
+
+
+/* 悬浮导航容器 */
+.floating-dynasty-nav {
+  position: fixed;
+  top: 84px; /* 增加top值，确保不会与头部重叠 */
+  left: 24px;
+  z-index: 200;
+  display: none; /* 默认隐藏，窄屏设备上显示 */
+}
+
+/* 悬浮导航按钮 */
+.floating-nav-button {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.floating-nav-button:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 悬浮导航菜单 */
+.floating-nav-menu {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  width: 240px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  transform: translateY(-10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.floating-nav-menu.visible {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* 悬浮导航项 */
+.floating-nav-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.floating-nav-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.floating-nav-item:last-child {
+  margin-bottom: 0;
+}
+
+.floating-nav-name {
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.floating-nav-years {
+  font-size: 11px;
+  color: #666;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  /* 窄屏设备上隐藏固定侧边栏 */
+  .timeline-sidebar {
+    display: none !important;
+  }
+  
+  /* 窄屏设备上显示悬浮导航 */
+  .floating-dynasty-nav {
+    display: block;
+  }
+  
+  /* 调整筛选卡片布局 */
+  .timeline-filter-card {
+    margin-left: 76px; /* 为左侧悬浮导航按钮留出空间 */
+    margin-right: 24px;
+    max-width: calc(100% - 100px);
+  }
+  
+  /* 调整主时间线布局 */
+  .timeline-main {
+    margin-left: 24px;
+  }
 }
 
 .dynasty-nav-header {
-  font-size: 15px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.95);
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.95); /* 白色文字，在深色背景上可见 */
   letter-spacing: 0.5px;
-  padding: 12px 16px 16px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 8px 8px 0 0;
-  margin-bottom: 8px;
+  padding: 22px 28px;
+  background: transparent; /* 透明背景 */
+  backdrop-filter: none;
+  border-radius: 0;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: flex-start; /* 改为左对齐 */
+  align-items: center;
+  gap: 12px; /* 文字和按钮之间的间距 */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: none; /* 移除阴影 */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15); /* 淡白色边框 */
+  background-clip: padding-box;
+  /* 确保导航头部在折叠状态下仍然正常显示 */
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease; /* 添加过渡效果 */
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* 文字阴影增强可读性 */
 }
 
+.dynasty-nav-title {
+  flex: 0 0 auto; /* 不伸缩，保持原始大小 */
+}
+
+/* 浮动状态下的头部样式 */
+.timeline-sidebar.floating .dynasty-nav-header {
+  background: rgba(255, 255, 255, 0.05); /* 淡白色背景 */
+  border-radius: 12px 12px 0 0;
+  padding: 18px 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 第二个 .dynasty-nav 定义已合并到上面的定义，这里只保留必要的样式覆盖 */
 .dynasty-nav {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 0 4px;
+  gap: 6px;
+  /* 确保容器宽度始终固定 */
+  width: 100%;
+  box-sizing: border-box;
+  /* 确保内容可以完整显示，允许滚动但隐藏滚动条 */
+  overflow-x: auto;
+  overflow-y: auto;
+  /* 默认隐藏滚动条但保持滚动功能 */
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+/* 确保第二个定义的滚动条也被隐藏 */
+.dynasty-nav::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+  display: none !important;
 }
 
 .dynasty-nav-item {
-  text-align: left;
-  padding: 12px 16px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  text-align: left !important;
+  padding: 16px 20px !important;
+  border-radius: 0 !important; /* 移除圆角 */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background: transparent !important; /* 透明背景 */
+  backdrop-filter: none !important;
+  border: none !important; /* 移除边框 */
+  height: auto !important;
+  min-height: 64px !important; /* 确保有足够高度显示内容 */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  box-shadow: none !important; /* 移除阴影 */
+  margin: 4px 0 !important; /* 减少边距 */
+  position: relative !important;
+  overflow: visible !important; /* 允许内容可见，确保日期完整显示 */
+  /* 确保导航项宽度始终固定，不受折叠影响 */
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important; /* 防止flex布局影响 */
+  /* 确保文字显示清晰 */
+  z-index: 1 !important;
+  /* 确保按钮元素可见 */
+  opacity: 1 !important;
+  visibility: visible !important;
+  cursor: pointer !important;
+}
+
+/* 浮动状态下的导航项样式 */
+.timeline-sidebar.floating .dynasty-nav-item {
+  border-radius: 10px !important;
+  margin: 4px 8px !important;
+  padding: 14px 18px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.timeline-sidebar.floating .dynasty-nav-item:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  transform: translateX(4px);
+}
+
+.dynasty-nav-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0; /* 默认隐藏 */
+  background: rgba(255, 255, 255, 0.3); /* 淡白色指示条 */
+  border-radius: 0 3px 3px 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
 }
 
 .dynasty-nav-item:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1) !important; /* 淡白色背景 */
+  border-color: transparent !important;
   transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: none !important;
+}
+
+.dynasty-nav-item:hover::before {
+  width: 3px;
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.5); /* 淡白色指示条 */
 }
 
 .dynasty-nav-item:active {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.15) !important; /* 稍深的白色背景 */
+  transform: translateX(2px);
+  box-shadow: none !important;
 }
 
 .dynasty-nav-name {
-  font-weight: 500;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.95);
-  margin-bottom: 2px;
-  line-height: 1.4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  width: 100%;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  color: rgba(255, 255, 255, 0.95) !important; /* 白色文字 */
+  margin-bottom: 6px !important;
+  line-height: 1.4 !important;
+  width: 100% !important;
+  letter-spacing: 0.2px !important;
+  /* 确保文字显示完整，不换行 */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  display: block !important;
+  /* 确保在折叠状态下文字显示正常 */
+  min-width: 0 !important;
+  flex-shrink: 0 !important;
+  /* 增强文字可读性 */
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important; /* 文字阴影增强可读性 */
+}
+
+/* 针对Ant Design Button元素的强制样式覆盖 */
+.dynasty-nav-item.dynasty-nav-item,
+button.dynasty-nav-item {
+  color: rgba(255, 255, 255, 0.95) !important; /* 白色文字 */
+}
+
+button.dynasty-nav-item .dynasty-nav-name,
+button.dynasty-nav-item .dynasty-nav-years {
+  color: inherit !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+}
+
+/* 确保文字在所有情况下都可见 */
+.dynasty-nav-name, 
+.dynasty-nav-years {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 强制显示所有按钮元素 */
+button.ant-btn {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 针对Ant Design text按钮的特殊处理 */
+button.ant-btn-text {
+  background-color: transparent !important; /* 透明背景 */
+  color: rgba(255, 255, 255, 0.95) !important; /* 白色文字 */
+  border: none !important; /* 无边框 */
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* 确保Dynasty导航按钮完全可见 */
+button.dynasty-nav-item {
+  background-color: transparent !important; /* 透明背景 */
+  color: rgba(255, 255, 255, 0.95) !important; /* 白色文字 */
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 16px 20px !important;
 }
 
 .dynasty-nav-years {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 400;
-  line-height: 1.3;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  width: 100%;
+  font-size: 13px !important;
+  color: rgba(255, 255, 255, 0.8) !important; /* 淡白色文字 */
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  width: 100% !important;
+  letter-spacing: 0.1px !important;
+  /* 确保文字显示完整，不换行，使用滚动显示 */
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+  display: block !important;
+  /* 确保在折叠状态下文字显示正常 */
+  min-width: 0 !important;
+  flex-shrink: 0 !important;
+  /* 增强文字可读性 */
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important; /* 文字阴影增强可读性 */
+  /* 如果内容超出，允许在父容器中滚动 */
+  max-width: 100%;
 }
 
 /* 中间时间轴主区域 */
@@ -114,7 +615,20 @@
   flex: 1;
   position: relative;
   padding: 60px 0;
-  margin-left: 260px; /* 为固定定位的侧边栏留出空间 */
+  margin-left: 320px; /* 为固定定位的侧边栏留出空间（300px + 20px） */
+  transition: all 0.3s ease;
+}
+
+/* 折叠状态下调整主内容区域 */
+.timeline-page-container.nav-collapsed .timeline-main {
+  margin-left: 60px;
+}
+
+/* 当侧边栏隐藏时调整主区域布局 */
+.timeline-main.full-width {
+  margin-left: 0;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /* 时间轴中心线 */
@@ -169,20 +683,21 @@
   display: flex;
   align-items: center;
   z-index: 10;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 10px 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: transparent; /* 去掉背景色 */
+  backdrop-filter: none;
+  padding: 6px 0;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
 }
 
 .year-text {
   font-size: 18px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.95);
   white-space: nowrap;
   letter-spacing: 0.3px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 /* 时间轴内容行 */
@@ -376,14 +891,29 @@
   line-height: 1.4;
 }
 
-.person-avatar {
+.person-avatar-wrapper {
   flex-shrink: 0;
+  width: 40px;
+  height: 50px;
+  overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.person-link:hover .person-avatar {
+.person-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.person-link:hover .person-avatar-wrapper {
   border-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
   transform: scale(1.1);
@@ -490,23 +1020,30 @@
   }
 }
 
-/* 滚动条样式 */
-.timeline-sidebar::-webkit-scrollbar {
-  width: 8px;
+/* 滚动条样式 - 仅在浮动或交互时显示 */
+.timeline-sidebar:hover::-webkit-scrollbar-track,
+.timeline-sidebar:active::-webkit-scrollbar-track,
+.timeline-sidebar:focus::-webkit-scrollbar-track,
+.timeline-sidebar.floating::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05); /* 极淡的轨道 */
+  border-radius: 3px;
+  margin: 8px 0;
 }
 
-.timeline-sidebar::-webkit-scrollbar-track {
-  background: rgba(240, 240, 240, 0.5);
-  border-radius: 4px;
+.timeline-sidebar:hover::-webkit-scrollbar-thumb,
+.timeline-sidebar:active::-webkit-scrollbar-thumb,
+.timeline-sidebar:focus::-webkit-scrollbar-thumb,
+.timeline-sidebar.floating::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3); /* 淡白色滚动条 */
+  border-radius: 3px;
+  transition: background 0.3s ease;
 }
 
-.timeline-sidebar::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 4px;
-}
-
-.timeline-sidebar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+.timeline-sidebar:hover::-webkit-scrollbar-thumb:hover,
+.timeline-sidebar:active::-webkit-scrollbar-thumb:hover,
+.timeline-sidebar:focus::-webkit-scrollbar-thumb:hover,
+.timeline-sidebar.floating::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5); /* 稍深的白色 */
 }
 
 /* 加载动画 */

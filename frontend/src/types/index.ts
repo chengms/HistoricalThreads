@@ -43,6 +43,12 @@ export interface Person {
   sources?: Source[]
 }
 
+// 扩展的人物类型（用于详情页，包含完整的关系和事件信息）
+export interface PersonWithDetails extends Person {
+  relationships: Relationship[]
+  events: Event[]
+}
+
 // 关系类型
 export interface Relationship {
   id: number

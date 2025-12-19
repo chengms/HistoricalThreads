@@ -5,6 +5,7 @@
 import { CrawlerBase } from '../utils/crawlerBase.js'
 import { verifyEvent } from '../utils/aiVerifier.js'
 import { saveJSON, readJSON } from '../utils/helpers.js'
+import { dataSourceManager } from '../utils/dataSourceManager.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -37,33 +38,49 @@ class EventCrawler extends CrawlerBase {
 
     // 提取基本信息
     const basicInfo = {}
-    $('.basic-info .name-value').each((i, elem) => {
-      const key = $(elem).prev('.name').text().trim()
-      const value = $(elem).text().trim()
-      basicInfo[key] = value
-    })
+    try {
+      $('.basic-info .name-value').each((i, elem) => {
+        const key = $(elem).prev('.name').text().trim()
+        const value = $(elem).text().trim()
+        basicInfo[key] = value
+      })
+    } catch (infoError) {
+      console.warn(`提取事件基本信息失败: ${eventName}`, infoError.message)
+    }
 
     // 提取时间
-    if (basicInfo['发生时间'] || basicInfo['时间']) {
-      const time = basicInfo['发生时间'] || basicInfo['时间']
-      const match = time.match(/(\d+)/)
-      if (match) {
-        event.year = parseInt(match[1])
-        if (time.includes('前') || time.includes('BC')) {
-          event.year = -event.year
+    try {
+      if (basicInfo['发生时间'] || basicInfo['时间']) {
+        const time = basicInfo['发生时间'] || basicInfo['时间']
+        const match = time.match(/(\d+)/)
+        if (match) {
+          event.year = parseInt(match[1])
+          if (time.includes('前') || time.includes('BC')) {
+            event.year = -event.year
+          }
         }
       }
+    } catch (timeError) {
+      console.warn(`提取事件时间失败: ${eventName}`, timeError.message)
     }
 
     // 提取地点
-    if (basicInfo['发生地点'] || basicInfo['地点']) {
-      event.location = basicInfo['发生地点'] || basicInfo['地点']
+    try {
+      if (basicInfo['发生地点'] || basicInfo['地点']) {
+        event.location = basicInfo['发生地点'] || basicInfo['地点']
+      }
+    } catch (locationError) {
+      console.warn(`提取事件地点失败: ${eventName}`, locationError.message)
     }
 
     // 提取描述
-    const summary = $('.lemma-summary').text().trim()
-    if (summary) {
-      event.description = summary
+    try {
+      const summary = $('.lemma-summary').text().trim()
+      if (summary) {
+        event.description = summary
+      }
+    } catch (summaryError) {
+      console.warn(`提取事件描述失败: ${eventName}`, summaryError.message)
     }
 
     return event
@@ -75,7 +92,36 @@ class EventCrawler extends CrawlerBase {
   async crawlEvent(eventName) {
     console.log(`\n📥 开始爬取事件: ${eventName}`)
 
-    const eventData = await this.crawlFromBaiduBaike(eventName)
+    let eventData = null
+
+    // 从数据源配置获取启用的源
+    const enabledSources = await dataSourceManager.getEventSources()
+
+    // 尝试从多个源爬取
+    for (const source of enabledSources) {
+      try {
+        // 根据源名称调用对应的爬取方法
+        if (source.name === '百度百科') {
+          // 设置当前源的速率限制
+          const originalRateLimit = this.rateLimit
+          if (source.rateLimit) {
+            this.rateLimit = source.rateLimit
+          }
+          
+          eventData = await this.crawlFromBaiduBaike(eventName)
+          
+          // 恢复原始速率限制
+          this.rateLimit = originalRateLimit
+        }
+
+        if (eventData && eventData.description) {
+          console.log(`✅ 从 ${source.name} 成功获取数据`)
+          break
+        }
+      } catch (error) {
+        console.error(`❌ 从 ${source.name} 爬取失败:`, error.message)
+      }
+    }
 
     if (!eventData || !eventData.description) {
       console.error(`❌ 无法获取 ${eventName} 的信息`)
@@ -136,7 +182,7 @@ class EventCrawler extends CrawlerBase {
 }
 
 // 如果直接运行此文件
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && process.argv[1].endsWith('eventCrawler.js')) {
   const crawler = new EventCrawler()
   const names = process.argv.slice(2)
   
