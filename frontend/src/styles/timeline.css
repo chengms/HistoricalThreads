@@ -275,6 +275,11 @@
   display: none; /* 默认隐藏，窄屏设备上显示 */
 }
 
+/* 桌面端：由 JS 控制显隐（避免一直占位） */
+.floating-dynasty-nav.visible {
+  display: block;
+}
+
 /* 悬浮导航按钮 */
 .floating-nav-button {
   background: rgba(255, 255, 255, 0.9);

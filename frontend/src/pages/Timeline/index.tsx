@@ -59,7 +59,7 @@ export default function TimelinePage() {
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
-  // 在窄屏设备上默认显示悬浮导航
+  // 悬浮导航按钮可见性（桌面端可自动隐藏；移动端始终可见）
   const [floatingNavVisible, setFloatingNavVisible] = useState<boolean>(false)
   const [floatingNavOpen, setFloatingNavOpen] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -102,16 +102,6 @@ export default function TimelinePage() {
     }
   }, [events.length])
   
-  // 手动切换导航折叠状态
-  const toggleNavCollapse = () => {
-    setIsNavCollapsed(!isNavCollapsed)
-  }
-
-  // 切换导航栏浮动状态
-  const toggleSidebarFloating = () => {
-    setIsSidebarFloating(!isSidebarFloating)
-  }
-
   // 点击导航栏外部区域时取消浮动
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -653,8 +643,11 @@ export default function TimelinePage() {
           )
         )}
 
-        {/* 悬浮导航 - 窄屏设备上显示 */}
-        <div ref={floatingNavRef} className="floating-dynasty-nav">
+        {/* 悬浮导航 */}
+        <div
+          ref={floatingNavRef}
+          className={`floating-dynasty-nav ${floatingNavVisible ? 'visible' : ''}`}
+        >
           <Tooltip title="朝代导航" placement="right">
             <div className="floating-nav-button" onClick={toggleFloatingNav}>
               {floatingNavOpen ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}

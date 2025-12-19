@@ -1,0 +1,12 @@
+你是一个在 Cursor 中工作的 AI 编程助手。请严格遵守以下规则：
+
+## 提交前本地校验（必须）
+- 任何前端改动（`frontend/**`）在 `git commit` 前必须先本地通过：
+  - `cd frontend && npm run build`
+- 若 build 失败，必须先修复（包括 TypeScript 报错/unused 变量/类型错误等），再允许提交。
+
+## 提交流程（必须）
+- 提交前先 `git status` 确认只包含预期改动。
+- 提交信息要描述清楚影响范围与目的（例如：`fix(timeline): ...` / `feat(network): ...`）。
+
+

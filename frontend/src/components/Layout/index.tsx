@@ -32,7 +32,6 @@ export default function Layout({ children }: LayoutProps) {
     token: { colorBgContainer },
   } = theme.useToken()
 
-  const isMobile = viewportWidth < 768
   const isCompactHeader = viewportWidth <= 1024
 
   // 监听窗口大小变化
