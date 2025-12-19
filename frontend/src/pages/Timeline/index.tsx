@@ -736,9 +736,18 @@ export default function TimelinePage() {
                       if (eventPersons.length === 0) return null
 
                       const isExpanded = !!expandedPersonsByEventId[event.id]
-                      const MAX_PERSONS = 3
-                      const visiblePersons = isExpanded ? eventPersons : eventPersons.slice(0, MAX_PERSONS)
-                      const hiddenCount = Math.max(0, eventPersons.length - visiblePersons.length)
+                      const MAX_VISIBLE_PERSONS = 3
+                      const shouldUseMoreSlot = eventPersons.length > MAX_VISIBLE_PERSONS
+                      const visiblePersons = isExpanded
+                        ? eventPersons
+                        : shouldUseMoreSlot
+                          ? eventPersons.slice(0, 2) // 第3个位置留给“更多”按钮
+                          : eventPersons.slice(0, MAX_VISIBLE_PERSONS)
+                      const hiddenCount = isExpanded
+                        ? 0
+                        : shouldUseMoreSlot
+                          ? eventPersons.length - 2
+                          : Math.max(0, eventPersons.length - visiblePersons.length)
 
                       return (
                         <div key={event.id} className="event-persons-group">
@@ -756,7 +765,7 @@ export default function TimelinePage() {
                             </Button>
                           ))}
 
-                          {!isExpanded && hiddenCount > 0 && (
+                          {!isExpanded && shouldUseMoreSlot && hiddenCount > 0 && (
                             <Button
                               type="link"
                               className="person-link person-link-more"
@@ -769,7 +778,7 @@ export default function TimelinePage() {
                             </Button>
                           )}
 
-                          {isExpanded && eventPersons.length > MAX_PERSONS && (
+                          {isExpanded && shouldUseMoreSlot && (
                             <Button
                               type="link"
                               className="person-link person-link-more"
