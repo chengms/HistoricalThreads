@@ -65,6 +65,9 @@ python scripts/textbooks/export_mappings_csv.py --in scripts/textbooks/mappings_
 - `note`（可选备注）
 - `verified`（可选：填 1/0 或 true/false）
 
+说明：
+- `suggestedChapter` 是脚本按 `hintYear/hintDynasty` 给出的**粗分段建议**，方便你快速填 `chapter`；它**不会被回写**到 mappings.json。
+
 3) 回写到 mappings JSON：
 
 ```bash
