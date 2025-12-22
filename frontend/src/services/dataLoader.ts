@@ -4,7 +4,8 @@ import type {
   Person, 
   Relationship, 
   Dynasty, 
-  Source 
+  Source,
+  Citation
 } from '@/types'
 
 // 数据缓存（每次修改后重置为null以清除缓存）
@@ -95,6 +96,26 @@ function normalizeEventYear(raw: RawEventJson): number | null {
   return null
 }
 
+function normalizeCitations(raw: any, sources: Source[]): Citation[] | undefined {
+  const arr = Array.isArray(raw) ? raw : []
+  const out: Citation[] = []
+  for (const item of arr) {
+    if (!item || typeof item !== 'object') continue
+    const sourceId = item.sourceId
+    if (typeof sourceId !== 'number' || !Number.isFinite(sourceId)) continue
+    const source = sources.find(s => s.id === sourceId)
+    out.push({
+      sourceId,
+      source,
+      page: typeof item.page === 'string' ? item.page : undefined,
+      line: typeof item.line === 'string' ? item.line : undefined,
+      chapter: typeof item.chapter === 'string' ? item.chapter : undefined,
+      note: typeof item.note === 'string' ? item.note : undefined,
+    })
+  }
+  return out.length ? out : undefined
+}
+
 export async function loadEvents(): Promise<Event[]> {
   if (eventsCache) return eventsCache
   const events = await loadJson<RawEventJson[]>('/data/events.json')
@@ -137,6 +158,7 @@ export async function loadEvents(): Promise<Event[]> {
 
     const personIds = Array.isArray(raw.persons) ? raw.persons.filter((x: any) => typeof x === 'number') : []
     const sourceIds = Array.isArray(raw.sources) ? raw.sources.filter((x: any) => typeof x === 'number') : []
+    const citations = normalizeCitations(raw.citations, sources)
 
     normalized.push({
       id: raw.id,
@@ -150,6 +172,7 @@ export async function loadEvents(): Promise<Event[]> {
       location: typeof raw.location === 'string' ? raw.location : undefined,
       persons: personIds.map(id => persons.find(p => p.id === id)).filter((p): p is Person => p !== undefined),
       sources: sourceIds.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined),
+      citations,
     })
   }
 
@@ -208,6 +231,7 @@ export async function loadPersons(): Promise<Person[]> {
     if (typeof raw.id !== 'number' || !Number.isFinite(raw.id)) continue
     const dynastyId = normalizeDynastyIdForPerson(raw, dynasties)
     const srcIds = Array.isArray(raw.sources) ? raw.sources.filter((x: any) => typeof x === 'number') : []
+    const citations = normalizeCitations(raw.citations, sources)
     const biography = typeof raw.biography === 'string'
       ? raw.biography
       : (typeof raw.description === 'string' ? raw.description : undefined)
@@ -228,6 +252,7 @@ export async function loadPersons(): Promise<Person[]> {
       birthplace: typeof raw.birthplace === 'string' ? raw.birthplace : undefined,
       deathplace: typeof raw.deathplace === 'string' ? raw.deathplace : undefined,
       sources: srcIds.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined),
+      citations,
     })
   }
 

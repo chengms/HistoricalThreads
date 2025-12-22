@@ -3,11 +3,20 @@ import { Card, Typography, Tag, Button, List, Space, Spin } from 'antd'
 import { ArrowLeftOutlined, LinkOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
-import type { Event, Person, PersonWithDetails } from '@/types'
+import type { Citation, Event, Person, PersonWithDetails } from '@/types'
 import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
 
 const { Title, Paragraph } = Typography
+
+function renderCitationMeta(c: Citation) {
+  const parts: string[] = []
+  if (c.chapter) parts.push(`章节：${c.chapter}`)
+  if (c.page) parts.push(`页码：${c.page}`)
+  if (c.line) parts.push(`行：${c.line}`)
+  if (c.note) parts.push(c.note)
+  return parts.length ? `（${parts.join('；')}）` : ''
+}
 
 export default function DetailPage() {
   const { type, id } = useParams()
@@ -227,13 +236,19 @@ export default function DetailPage() {
               </>
             )}
 
-            {/* 信息来源 */}
-            {(data as Event).sources && (data as Event).sources!.length > 0 && (
+            {/* 信息来源（优先 citations，兼容 sources） */}
+            {(((data as Event).citations && (data as Event).citations!.length > 0) || ((data as Event).sources && (data as Event).sources!.length > 0)) && (
               <>
                 <Title level={4}>信息来源</Title>
                 <List
-                  dataSource={(data as Event).sources}
-                  renderItem={(source) => (
+                  dataSource={((data as Event).citations && (data as Event).citations!.length > 0)
+                    ? (data as Event).citations!
+                    : ((data as Event).sources || []).map(s => ({ sourceId: s.id, source: s } as Citation))}
+                  renderItem={(item: any) => {
+                    const c = item as Citation
+                    const source = c.source
+                    if (!source) return null
+                    return (
                     <List.Item>
                       <LinkOutlined className="mr-2" />
                       {source.url ? (
@@ -246,8 +261,10 @@ export default function DetailPage() {
                       {source.author && (
                         <span className="text-gray-500 ml-2">（{source.author}）</span>
                       )}
+                      <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                     </List.Item>
-                  )}
+                    )
+                  }}
                 />
               </>
             )}
@@ -427,12 +444,19 @@ export default function DetailPage() {
             </>
           )}
 
-          {(data as Person).sources && (data as Person).sources!.length > 0 && (
+          {/* 信息来源（优先 citations，兼容 sources） */}
+          {(((data as Person).citations && (data as Person).citations!.length > 0) || ((data as Person).sources && (data as Person).sources!.length > 0)) && (
             <>
               <Title level={4}>信息来源</Title>
               <List
-                dataSource={(data as Person).sources}
-                renderItem={(source) => (
+                dataSource={((data as Person).citations && (data as Person).citations!.length > 0)
+                  ? (data as Person).citations!
+                  : ((data as Person).sources || []).map(s => ({ sourceId: s.id, source: s } as Citation))}
+                renderItem={(item: any) => {
+                  const c = item as Citation
+                  const source = c.source
+                  if (!source) return null
+                  return (
                   <List.Item>
                     <LinkOutlined className="mr-2" />
                     {source.url ? (
@@ -442,8 +466,10 @@ export default function DetailPage() {
                     ) : (
                       <span>{source.title}</span>
                     )}
+                    <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                   </List.Item>
-                )}
+                  )
+                }}
               />
             </>
           )}

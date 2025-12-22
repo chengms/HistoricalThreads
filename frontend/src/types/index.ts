@@ -20,6 +20,7 @@ export interface Event {
   location?: string
   persons?: Person[]
   sources?: Source[]
+  citations?: Citation[]
 }
 
 // 人物类型
@@ -41,6 +42,7 @@ export interface Person {
   relationships?: Relationship[]
   events?: Event[]
   sources?: Source[]
+  citations?: Citation[]
 }
 
 // 扩展的人物类型（用于详情页，包含完整的关系和事件信息）
@@ -84,6 +86,16 @@ export interface Source {
   notes?: string
   credibilityLevel: number
   verified: boolean
+}
+
+// 引用（用于“教材条目级”溯源：页码/章节等）
+export interface Citation {
+  sourceId: number
+  source?: Source
+  page?: string
+  line?: string
+  chapter?: string
+  note?: string
 }
 
 // 建议类型

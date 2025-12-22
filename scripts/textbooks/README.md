@@ -28,4 +28,15 @@ python scripts/textbooks/merge_textbook_sources.py
 - 只做**历史教材**：统编版义务教育《历史》（七/八/九年级上下册）+ 高中《中外历史纲要》（必修上下）等
 - 还是连同**语文教材**一起做（会大幅增加“作家/诗人/文化名人”覆盖面）
 
+### 条目级整理（把教材页码/章节映射到事件/人物）
+如果你要把“教材里出现过的事件/人物”做成可追溯信息源，推荐用 `citations`（页码/章节）而不是只加一个 `sourceId`。
+
+- 编辑 `mappings_template.json`，按条目逐条填写（ISBN 可不填）
+- 运行脚本写回 `events.json / persons.json`：
+
+```bash
+python scripts/textbooks/apply_mappings.py
+```
+
+
 
