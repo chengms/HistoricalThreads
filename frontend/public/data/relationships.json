@@ -116,5 +116,122 @@
     "description": "宋太祖建立宋朝，王安石是宋朝中期的政治家，推行变法。",
     "startYear": 1069,
     "strength": 2
+  },
+  {
+    "id": 14,
+    "fromPersonId": 12,
+    "toPersonId": 46,
+    "relationshipType": "enemy",
+    "description": "巨鹿之战中，项羽率楚军与章邯所率秦军主力决战。",
+    "startYear": -207,
+    "strength": 5
+  },
+  {
+    "id": 15,
+    "fromPersonId": 12,
+    "toPersonId": 47,
+    "relationshipType": "enemy",
+    "description": "巨鹿之战中，项羽与王离等秦将交战。",
+    "startYear": -207,
+    "strength": 4
+  },
+  {
+    "id": 16,
+    "fromPersonId": 17,
+    "toPersonId": 48,
+    "relationshipType": "enemy",
+    "description": "官渡之战中，曹操与袁绍是直接对手，曹操以少胜多。",
+    "startYear": 200,
+    "strength": 5
+  },
+  {
+    "id": 17,
+    "fromPersonId": 49,
+    "toPersonId": 51,
+    "relationshipType": "enemy",
+    "description": "长平之战中，白起与赵括分别代表秦赵两军主将，对阵决战。",
+    "startYear": -260,
+    "strength": 5
+  },
+  {
+    "id": 18,
+    "fromPersonId": 50,
+    "toPersonId": 51,
+    "relationshipType": "other",
+    "description": "长平之战前后赵军主将由廉颇更替为赵括，反映赵国用将变化。",
+    "startYear": -260,
+    "strength": 2
+  },
+  {
+    "id": 19,
+    "fromPersonId": 52,
+    "toPersonId": 54,
+    "relationshipType": "enemy",
+    "description": "淝水之战中，前秦苻坚南下与东晋将领谢玄所部对阵。",
+    "startYear": 383,
+    "strength": 5
+  },
+  {
+    "id": 20,
+    "fromPersonId": 52,
+    "toPersonId": 53,
+    "relationshipType": "enemy",
+    "description": "淝水之战中，苻坚与东晋朝廷决策核心谢安处于对立阵营。",
+    "startYear": 383,
+    "strength": 4
+  },
+  {
+    "id": 21,
+    "fromPersonId": 53,
+    "toPersonId": 54,
+    "relationshipType": "cooperation",
+    "description": "淝水之战前后，谢安主持朝政与谢玄统兵作战相互配合，共同稳定东晋。",
+    "startYear": 383,
+    "strength": 4
+  },
+  {
+    "id": 22,
+    "fromPersonId": 58,
+    "toPersonId": 55,
+    "relationshipType": "cooperation",
+    "description": "戊戌变法中，光绪帝支持维新派主张，康有为等推动改革方案。",
+    "startYear": 1898,
+    "strength": 4
+  },
+  {
+    "id": 23,
+    "fromPersonId": 59,
+    "toPersonId": 58,
+    "relationshipType": "enemy",
+    "description": "戊戌变法失败后，慈禧太后发动政变并幽禁光绪帝，双方形成对立。",
+    "startYear": 1898,
+    "strength": 5
+  },
+  {
+    "id": 24,
+    "fromPersonId": 55,
+    "toPersonId": 56,
+    "relationshipType": "cooperation",
+    "description": "维新运动中，康有为与梁启超在思想宣传与政治倡议上密切合作。",
+    "startYear": 1898,
+    "strength": 4
+  },
+  {
+    "id": 25,
+    "fromPersonId": 55,
+    "toPersonId": 57,
+    "relationshipType": "cooperation",
+    "description": "戊戌变法期间，康有为与谭嗣同等维新人士共同倡议改革。",
+    "startYear": 1898,
+    "strength": 3
+  },
+  {
+    "id": 26,
+    "fromPersonId": 60,
+    "toPersonId": 61,
+    "relationshipType": "colleague",
+    "description": "中国加入WTO前后，江泽民与朱镕基等领导层在对外开放与经济治理上协同推进相关工作。",
+    "startYear": 2001,
+    "strength": 4
   }
 ]
