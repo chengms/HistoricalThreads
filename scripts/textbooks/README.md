@@ -38,5 +38,17 @@ python scripts/textbooks/merge_textbook_sources.py
 python scripts/textbooks/apply_mappings.py
 ```
 
+你也可以指定自定义映射文件（推荐按教材拆分多个文件）：
+
+```bash
+python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json
+```
+
+只想验证匹配情况、不写入文件：
+
+```bash
+python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --dry-run
+```
+
 
 

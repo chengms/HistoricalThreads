@@ -1,3 +1,4 @@
+import argparse
 import json
 import os
 from typing import Any, Dict, List, Optional, Tuple
@@ -7,7 +8,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 SOURCES_PATH = os.path.join(ROOT, "frontend", "public", "data", "sources.json")
 EVENTS_PATH = os.path.join(ROOT, "frontend", "public", "data", "events.json")
 PERSONS_PATH = os.path.join(ROOT, "frontend", "public", "data", "persons.json")
-MAPPINGS_PATH = os.path.join(os.path.dirname(__file__), "mappings_template.json")
+DEFAULT_MAPPINGS_PATH = os.path.join(os.path.dirname(__file__), "mappings_template.json")
 
 
 def _norm(v: Any) -> str:
@@ -79,30 +80,55 @@ def _append_unique_citation(arr: List[Dict[str, Any]], cit: Dict[str, Any]) -> N
     arr.append(cit)
 
 
-def _find_entity(items: List[Dict[str, Any]], entity_type: str, entity_name: str) -> Tuple[Optional[Dict[str, Any]], str]:
+def _find_entity(
+    items: List[Dict[str, Any]],
+    entity_type: str,
+    entity_name: str,
+    entity_id: Optional[int],
+) -> Tuple[Optional[Dict[str, Any]], str]:
     name = _lower(entity_name)
     if entity_type == "event":
+        if isinstance(entity_id, int):
+            for it in items:
+                if it.get("id") == entity_id:
+                    return it, ""
+            return None, f"未找到事件 id={entity_id}（name={entity_name}）"
         for it in items:
             if _lower(it.get("title")) == name:
                 return it, ""
         return None, f"未找到事件 title={entity_name}"
     if entity_type == "person":
+        if isinstance(entity_id, int):
+            for it in items:
+                if it.get("id") == entity_id:
+                    return it, ""
+            return None, f"未找到人物 id={entity_id}（name={entity_name}）"
         for it in items:
             if _lower(it.get("name")) == name:
+                return it, ""
+            # 支持别名匹配（nameVariants）
+            variants = it.get("nameVariants")
+            if isinstance(variants, list) and any(_lower(v) == name for v in variants):
                 return it, ""
         return None, f"未找到人物 name={entity_name}"
     return None, f"未知 entityType={entity_type}"
 
 
 def main() -> None:
-    for p in [SOURCES_PATH, EVENTS_PATH, PERSONS_PATH, MAPPINGS_PATH]:
+    parser = argparse.ArgumentParser(description="将教材条目映射写入 events/persons 的 citations，并保持 sources 兼容。")
+    parser.add_argument("--mappings", default=DEFAULT_MAPPINGS_PATH, help="映射文件路径（默认：mappings_template.json）")
+    parser.add_argument("--dry-run", action="store_true", help="仅打印将要应用的条目数，不写入 JSON")
+    args = parser.parse_args()
+
+    mappings_path = os.path.abspath(args.mappings)
+    for p in [SOURCES_PATH, EVENTS_PATH, PERSONS_PATH, mappings_path]:
         if not os.path.exists(p):
             raise SystemExit(f"文件不存在：{p}")
 
     sources: List[Dict[str, Any]] = _load_json(SOURCES_PATH)
     events: List[Dict[str, Any]] = _load_json(EVENTS_PATH)
     persons: List[Dict[str, Any]] = _load_json(PERSONS_PATH)
-    mappings: List[Dict[str, Any]] = _load_json(MAPPINGS_PATH)
+    mappings: List[Dict[str, Any]] = _load_json(mappings_path)
 
     warnings: List[str] = []
     applied = 0
@@ -110,6 +136,8 @@ def main() -> None:
     for m in mappings:
         entity_type = _norm(m.get("entityType"))
         entity_name = _norm(m.get("entityName"))
+        entity_id = m.get("entityId")
+        entity_id = int(entity_id) if isinstance(entity_id, int) else None
         source_title = _norm(m.get("sourceTitle"))
         publisher = _norm(m.get("publisher"))
 
@@ -123,7 +151,7 @@ def main() -> None:
             continue
 
         target_list = events if entity_type == "event" else persons if entity_type == "person" else []
-        target, err = _find_entity(target_list, entity_type, entity_name)
+        target, err = _find_entity(target_list, entity_type, entity_name, entity_id)
         if not target:
             warnings.append(err)
             continue
@@ -146,11 +174,11 @@ def main() -> None:
         _append_unique_citation(citations, cit)
         applied += 1
 
-    if applied:
+    if applied and not args.dry_run:
         _save_json(EVENTS_PATH, events)
         _save_json(PERSONS_PATH, persons)
 
-    print(f"[apply_mappings] applied={applied} warnings={len(warnings)}")
+    print(f"[apply_mappings] applied={applied} warnings={len(warnings)} dry_run={bool(args.dry_run)} mappings={mappings_path}")
     if warnings:
         print("Warnings:")
         for w in warnings[:200]:

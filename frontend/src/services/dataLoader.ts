@@ -300,8 +300,8 @@ export async function searchEvents(query: string): Promise<Event[]> {
     
     return events.filter(event => 
       event.title.toLowerCase().includes(lowerQuery) ||
-      event.description?.toLowerCase().includes(lowerQuery) ||
-      event.dynasty?.name.toLowerCase().includes(lowerQuery)
+      event.description?.toLowerCase()?.includes(lowerQuery) ||
+      event.dynasty?.name?.toLowerCase()?.includes(lowerQuery)
     )
   } catch (error) {
     console.error('搜索事件失败:', error)
@@ -317,9 +317,9 @@ export async function searchPersons(query: string): Promise<Person[]> {
     
     return persons.filter(person => 
       person.name.toLowerCase().includes(lowerQuery) ||
-      person.biography?.toLowerCase().includes(lowerQuery) ||
+      person.biography?.toLowerCase()?.includes(lowerQuery) ||
       person.nameVariants?.some(v => v.toLowerCase().includes(lowerQuery)) ||
-      person.dynasty?.name.toLowerCase().includes(lowerQuery)
+      person.dynasty?.name?.toLowerCase()?.includes(lowerQuery)
     )
   } catch (error) {
     console.error('搜索人物失败:', error)
