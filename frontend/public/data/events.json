@@ -387,5 +387,176 @@
     "sources": [
       24
     ]
+  },
+  {
+    "id": 25,
+    "title": "甲午中日战争",
+    "description": "1894年爆发的甲午中日战争以清政府战败告终，对中国近代历史进程产生重大影响。",
+    "eventYear": 1894,
+    "eventType": "military",
+    "dynastyId": 16,
+    "location": "朝鲜半岛、黄海等",
+    "persons": [
+      38
+    ],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 26,
+    "title": "戊戌变法",
+    "description": "1898年的戊戌变法是晚清的一次改革尝试，主张变革旧制以图自强。",
+    "eventYear": 1898,
+    "eventType": "reform",
+    "dynastyId": 16,
+    "location": "北京",
+    "persons": [],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 27,
+    "title": "辛亥革命",
+    "description": "1911年的辛亥革命推翻清王朝统治，推动中国政治体制发生重大变化。",
+    "eventYear": 1911,
+    "eventType": "political",
+    "dynastyId": 16,
+    "location": "武昌等",
+    "persons": [
+      39
+    ],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 28,
+    "title": "中华民国成立",
+    "description": "1912年中华民国建立，标志中国政治形态进入新的历史阶段。",
+    "eventYear": 1912,
+    "eventType": "political",
+    "dynastyId": 17,
+    "location": "南京",
+    "persons": [
+      39
+    ],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 29,
+    "title": "五四运动",
+    "description": "1919年爆发的五四运动推动新文化运动发展，并对中国近现代思想与社会变革产生重要影响。",
+    "eventYear": 1919,
+    "eventType": "cultural",
+    "dynastyId": 17,
+    "location": "北京",
+    "persons": [
+      40
+    ],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 30,
+    "title": "全面抗战爆发",
+    "description": "1937年抗日战争进入全面抗战阶段，中国社会与国家命运面临严峻考验。",
+    "eventYear": 1937,
+    "eventType": "military",
+    "dynastyId": 17,
+    "location": "华北等",
+    "persons": [
+      41
+    ],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 31,
+    "title": "抗日战争胜利",
+    "description": "1945年中国人民抗日战争取得胜利，世界反法西斯战争走向胜利。",
+    "eventYear": 1945,
+    "eventType": "military",
+    "dynastyId": 17,
+    "location": "中国",
+    "persons": [],
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 32,
+    "title": "中华人民共和国成立",
+    "description": "1949年中华人民共和国成立，开启中国历史发展的新阶段。",
+    "eventYear": 1949,
+    "eventType": "political",
+    "dynastyId": 18,
+    "location": "北京",
+    "persons": [
+      42,
+      43
+    ],
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 33,
+    "title": "抗美援朝",
+    "description": "1950年抗美援朝战争爆发，中国人民志愿军入朝作战，对国际格局与国内发展产生重要影响。",
+    "eventYear": 1950,
+    "eventType": "military",
+    "dynastyId": 18,
+    "location": "朝鲜半岛",
+    "persons": [
+      45
+    ],
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 34,
+    "title": "改革开放",
+    "description": "1978年后中国实行改革开放政策，推动经济社会快速发展与深刻变革。",
+    "eventYear": 1978,
+    "eventType": "economic",
+    "dynastyId": 18,
+    "location": "中国",
+    "persons": [
+      44
+    ],
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 35,
+    "title": "中国加入世界贸易组织",
+    "description": "2001年中国加入世界贸易组织（WTO），对中国与世界经济的联系产生深远影响。",
+    "eventYear": 2001,
+    "eventType": "economic",
+    "dynastyId": 18,
+    "location": "多哈等",
+    "persons": [],
+    "sources": [
+      69,
+      71
+    ]
   }
 ]

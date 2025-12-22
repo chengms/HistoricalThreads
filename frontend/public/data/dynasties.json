@@ -110,5 +110,19 @@
     "startYear": 1644,
     "endYear": 1912,
     "description": "中国最后一个封建王朝，由满族建立"
+  },
+  {
+    "id": 17,
+    "name": "民国",
+    "startYear": 1912,
+    "endYear": 1949,
+    "description": "中华民国时期（1912—1949）"
+  },
+  {
+    "id": 18,
+    "name": "中华人民共和国",
+    "startYear": 1949,
+    "endYear": 2100,
+    "description": "中华人民共和国时期（1949—）"
   }
 ]

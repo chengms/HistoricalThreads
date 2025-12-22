@@ -719,5 +719,141 @@
       20
     ],
     "avatarUrl": "/images/full/ecfb095a5191d699b145c8af4252b794d5df1164.jpg"
+  },
+  {
+    "id": 38,
+    "name": "李鸿章",
+    "nameVariants": [
+      "少荃"
+    ],
+    "birthYear": 1823,
+    "deathYear": 1901,
+    "biography": "李鸿章（1823—1901），晚清政治家、洋务派代表人物之一，参与多项近代外交与军事事务。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 39,
+    "name": "孙中山",
+    "nameVariants": [
+      "孙逸仙",
+      "中山先生"
+    ],
+    "birthYear": 1866,
+    "deathYear": 1925,
+    "biography": "孙中山（1866—1925），近代民主革命先行者，与辛亥革命及中华民国创建等历史进程相关。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 17,
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 40,
+    "name": "陈独秀",
+    "nameVariants": [],
+    "birthYear": 1879,
+    "deathYear": 1942,
+    "biography": "陈独秀（1879—1942），新文化运动重要人物之一，与五四运动等历史进程相关。",
+    "personType": [
+      "writer"
+    ],
+    "dynastyId": 17,
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 41,
+    "name": "蒋介石",
+    "nameVariants": [
+      "中正"
+    ],
+    "birthYear": 1887,
+    "deathYear": 1975,
+    "biography": "蒋介石（1887—1975），民国时期重要政治军事人物，与抗日战争等历史进程相关。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 17,
+    "sources": [
+      68,
+      71
+    ]
+  },
+  {
+    "id": 42,
+    "name": "毛泽东",
+    "nameVariants": [],
+    "birthYear": 1893,
+    "deathYear": 1976,
+    "biography": "毛泽东（1893—1976），中国近现代重要政治人物，与中华人民共和国成立等历史进程相关。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 43,
+    "name": "周恩来",
+    "nameVariants": [],
+    "birthYear": 1898,
+    "deathYear": 1976,
+    "biography": "周恩来（1898—1976），中国近现代重要政治人物，与中华人民共和国成立等历史进程相关。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 44,
+    "name": "邓小平",
+    "nameVariants": [],
+    "birthYear": 1904,
+    "deathYear": 1997,
+    "biography": "邓小平（1904—1997），中国近现代重要政治人物，与改革开放等历史进程相关。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ]
+  },
+  {
+    "id": 45,
+    "name": "彭德怀",
+    "nameVariants": [],
+    "birthYear": 1898,
+    "deathYear": 1974,
+    "biography": "彭德怀（1898—1974），中国近现代军事人物，与抗美援朝等历史进程相关。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ]
   }
 ]
