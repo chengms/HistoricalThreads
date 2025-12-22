@@ -466,6 +466,9 @@ export default function DetailPage() {
                     ) : (
                       <span>{source.title}</span>
                     )}
+                    {source.author && (
+                      <span className="text-gray-500 ml-2">（{source.author}）</span>
+                    )}
                     <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                   </List.Item>
                   )
