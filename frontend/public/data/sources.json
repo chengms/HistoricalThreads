@@ -945,5 +945,69 @@
     "credibilityLevel": 5,
     "verified": true,
     "url": "https://www.guoxue.com/shibu/beishi/"
+  },
+  {
+    "id": 186,
+    "title": "维基百科：中华民国",
+    "url": "https://zh.wikipedia.org/wiki/中华民国",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 187,
+    "title": "维基百科：五四运动",
+    "url": "https://zh.wikipedia.org/wiki/五四运动",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 188,
+    "title": "维基百科：七七事变（全面抗战爆发）",
+    "url": "https://zh.wikipedia.org/wiki/七七事变",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 189,
+    "title": "维基百科：中国抗日战争",
+    "url": "https://zh.wikipedia.org/wiki/中国抗日战争",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 190,
+    "title": "维基百科：开国大典",
+    "url": "https://zh.wikipedia.org/wiki/开国大典",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 191,
+    "title": "维基百科：朝鲜战争（抗美援朝）",
+    "url": "https://zh.wikipedia.org/wiki/朝鲜战争",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 192,
+    "title": "维基百科：改革开放",
+    "url": "https://zh.wikipedia.org/wiki/改革开放",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 3,
+    "verified": false
+  },
+  {
+    "id": 193,
+    "title": "WTO：China and the WTO",
+    "url": "https://www.wto.org/english/thewto_e/countries_e/china_e.htm",
+    "sourceType": "authoritative_website",
+    "credibilityLevel": 4,
+    "verified": false
   }
 ]
