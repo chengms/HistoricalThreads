@@ -64,6 +64,7 @@ export default function TimelinePage() {
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const [dynasty, setDynasty] = useState<string>('all')
   const [eventType, setEventType] = useState<string>('all')
+  const [citationStatus, setCitationStatus] = useState<string>('all') // all | has | pending | has_page
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
@@ -295,13 +296,31 @@ export default function TimelinePage() {
       if (eventType !== 'all') {
         filtered = filtered.filter(e => e.eventType === eventType)
       }
+
+      if (citationStatus !== 'all') {
+        filtered = filtered.filter(e => {
+          const citations = (e.citations || []) as Citation[]
+          if (citationStatus === 'has') return citations.length > 0
+          if (citationStatus === 'pending') {
+            if (!citations.length) return false
+            const hasAnyPage = citations.some(c => (c.page || '').trim().length > 0)
+            const hasPlaceholder = citations.some(c => c.note === '待补页码')
+            return hasPlaceholder || !hasAnyPage
+          }
+          if (citationStatus === 'has_page') {
+            if (!citations.length) return false
+            return citations.some(c => (c.page || '').trim().length > 0)
+          }
+          return true
+        })
+      }
       
       // 按年份排序
       filtered.sort((a, b) => a.eventYear - b.eventYear)
       setEvents(filtered)
     }
     filterEvents()
-  }, [dynasty, eventType])
+  }, [dynasty, eventType, citationStatus])
 
   // 按年份分组事件
   const groupEventsByYear = () => {
@@ -576,6 +595,17 @@ export default function TimelinePage() {
               { label: '文化', value: 'cultural' },
               { label: '军事', value: 'military' },
               { label: '改革', value: 'reform' },
+            ]}
+          />
+          <Select
+            style={{ width: 160 }}
+            value={citationStatus}
+            onChange={setCitationStatus}
+            options={[
+              { label: '全部引用', value: 'all' },
+              { label: '已有引用', value: 'has' },
+              { label: '待补页码', value: 'pending' },
+              { label: '已补页码', value: 'has_page' },
             ]}
           />
         </Space>
