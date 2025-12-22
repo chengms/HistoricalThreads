@@ -6,10 +6,47 @@ import { Network } from 'vis-network/standalone'
 import { DataSet } from 'vis-data/standalone'
 import 'vis-network/styles/vis-network.min.css'
 import '@/styles/network.css'
-import { loadPersons, loadRelationships, loadDynasties, searchPersons } from '@/services/dataLoader'
+import { loadPersons, loadRelationships, loadDynasties } from '@/services/dataLoader'
 import type { Person, Relationship } from '@/types'
 
 const { Title } = Typography
+
+const getRelationshipLabel = (type: string): string => {
+  const labels: Record<string, string> = {
+    teacher_student: '师生',
+    colleague: '同僚',
+    enemy: '敌对',
+    family: '家族',
+    friend: '朋友',
+    mentor: '导师',
+    influence: '影响',
+    cooperation: '合作',
+  }
+  return labels[type] || type
+}
+
+const getRelationshipColor = (type: string): string => {
+  const colors: Record<string, string> = {
+    teacher_student: '#2B7CE9',
+    colleague: '#97C2FC',
+    enemy: '#FF6B6B',
+    family: '#4ECDC4',
+    friend: '#95E1D3',
+    mentor: '#F38181',
+    influence: '#848484',
+    cooperation: '#FFA07A',
+  }
+  return colors[type] || '#848484'
+}
+
+const clampToCircle = (x: number, y: number, cx: number, cy: number, r: number) => {
+  const dx = x - cx
+  const dy = y - cy
+  const dist = Math.sqrt(dx * dx + dy * dy)
+  if (dist <= r || dist === 0) return { x, y }
+  const s = r / dist
+  return { x: cx + dx * s, y: cy + dy * s }
+}
 
 function getDynastyColor(dynastyKey: number): { background: string; border: string } {
   // dynastyKey=0 for unknown. Use stable HSL mapping for deterministic colors.
@@ -150,6 +187,9 @@ export default function NetworkPage() {
   const transitionPersonIdsRef = useRef<Set<number>>(new Set())
   const [dynasty, setDynasty] = useState<string>('all')
   const [searchText, setSearchText] = useState<string>('')
+  const searchDebounceTimerRef = useRef<number | null>(null)
+  const [allPersons, setAllPersons] = useState<Person[]>([])
+  const [allRelationships, setAllRelationships] = useState<Relationship[]>([])
   const [persons, setPersons] = useState<Person[]>([])
   const [relationships, setRelationships] = useState<Relationship[]>([])
   const [dynasties, setDynasties] = useState<any[]>([])
@@ -165,6 +205,8 @@ export default function NetworkPage() {
           loadRelationships(),
           loadDynasties(),
         ])
+        setAllPersons(personsData)
+        setAllRelationships(relationshipsData)
         setPersons(personsData)
         setRelationships(relationshipsData)
         setDynasties(dynastiesData)
@@ -178,34 +220,67 @@ export default function NetworkPage() {
     fetchData()
   }, [])
 
+  // 页面卸载时清理 vis-network 实例，避免内存泄漏/残留监听
+  useEffect(() => {
+    return () => {
+      try {
+        networkInstanceRef.current?.destroy()
+      } catch {
+        // ignore
+      } finally {
+        networkInstanceRef.current = null
+      }
+    }
+  }, [])
+
   // 筛选和搜索
   useEffect(() => {
-    async function filterData() {
-      let filteredPersons = await loadPersons()
-      
-      if (dynasty !== 'all') {
-        filteredPersons = filteredPersons.filter(p => p.dynastyId === Number(dynasty))
+    // 避免快速输入/切换筛选时出现竞态：对搜索做轻量防抖，并且只基于已加载的全量数据过滤
+    if (searchDebounceTimerRef.current) {
+      window.clearTimeout(searchDebounceTimerRef.current)
+      searchDebounceTimerRef.current = null
+    }
+
+    const run = () => {
+      const dynastyId = dynasty !== 'all' ? Number(dynasty) : null
+      const q = searchText.toLowerCase().trim()
+
+      let filtered = allPersons
+      if (dynastyId !== null && Number.isFinite(dynastyId)) {
+        filtered = filtered.filter(p => p.dynastyId === dynastyId)
       }
-      
-      if (searchText) {
-        const searched = await searchPersons(searchText)
-        filteredPersons = searched.filter(p => 
-          dynasty === 'all' || p.dynastyId === Number(dynasty)
+
+      if (q) {
+        filtered = filtered.filter(p =>
+          p.name.toLowerCase().includes(q) ||
+          p.biography?.toLowerCase().includes(q) ||
+          p.nameVariants?.some(v => v.toLowerCase().includes(q)) ||
+          p.dynasty?.name.toLowerCase().includes(q)
         )
       }
-      
-      setPersons(filteredPersons)
-      
-      // 筛选相关关系
-      const allRelationships = await loadRelationships()
-      const personIds = new Set(filteredPersons.map(p => p.id))
-      const filteredRelationships = allRelationships.filter(r => 
-        personIds.has(r.fromPersonId) && personIds.has(r.toPersonId)
+
+      setPersons(filtered)
+
+      const personIds = new Set(filtered.map(p => p.id))
+      setRelationships(
+        allRelationships.filter(r => personIds.has(r.fromPersonId) && personIds.has(r.toPersonId))
       )
-      setRelationships(filteredRelationships)
     }
-    filterData()
-  }, [dynasty, searchText])
+
+    // 仅在有搜索词时防抖，避免“选择朝代”这种即时操作变慢
+    if (searchText.trim()) {
+      searchDebounceTimerRef.current = window.setTimeout(run, 180)
+    } else {
+      run()
+    }
+
+    return () => {
+      if (searchDebounceTimerRef.current) {
+        window.clearTimeout(searchDebounceTimerRef.current)
+        searchDebounceTimerRef.current = null
+      }
+    }
+  }, [dynasty, searchText, allPersons, allRelationships])
 
   // 更新网络图
   useEffect(() => {
@@ -300,6 +375,15 @@ export default function NetworkPage() {
     }
     transitionPersonIdsRef.current = transitionPersonIds
 
+    // 预计算每个朝代的 Vogel 点位，避免每个节点都重复生成（从 O(n^2) 降到 O(n)）
+    const vogelPointsByDynasty = new Map<number, Array<{ x: number; y: number }>>()
+    for (const dk of dynastyKeys) {
+      const n = countByDynasty.get(dk) ?? 1
+      const circleR = circleRadiusByDynasty.get(dk) || 260
+      const innerR = Math.max(90, circleR - 140)
+      vogelPointsByDynasty.set(dk, goldenAngleSpiralPoints(n, innerR))
+    }
+
     const personNodes = persons.map(person => {
       const dynastyKey = typeof person.dynastyId === 'number' ? person.dynastyId : 0
       const dynastyName = dynastyKey === 0 ? '未知朝代' : (dynastyNameById.get(dynastyKey) || `朝代 ${dynastyKey}`)
@@ -322,9 +406,7 @@ export default function NetworkPage() {
         y = anchorPos.y + r * Math.sin(angle)
       } else {
         // Fill disk inside (leave margin to avoid crossing boundary)
-        const innerR = Math.max(90, circleR - 140)
-        // deterministic spiral point using idx
-        const pts = goldenAngleSpiralPoints(n, innerR)
+        const pts = vogelPointsByDynasty.get(dynastyKey) || [{ x: 0, y: 0 }]
         const p = pts[idx % pts.length] || { x: 0, y: 0 }
         x = anchorPos.x + p.x
         y = anchorPos.y + p.y
@@ -415,20 +497,8 @@ export default function NetworkPage() {
               align: 'middle',
             },
           },
-          physics: {
-            enabled: true,
-            solver: 'forceAtlas2Based',
-            forceAtlas2Based: {
-              gravitationalConstant: -50,
-              centralGravity: 0.01,
-              springLength: 140,
-              springConstant: 0.08,
-              damping: 0.6,
-            },
-            stabilization: {
-              iterations: 200,
-            },
-          },
+          // 节点已固定布局（physics: false），关闭全局物理引擎可显著降低 CPU 占用
+          physics: { enabled: false },
           interaction: {
             hover: true,
             tooltipDelay: 200,
@@ -470,15 +540,6 @@ export default function NetworkPage() {
       })
 
       // Constrain dragging: keep person nodes inside their dynasty circle.
-      const clampToCircle = (x: number, y: number, cx: number, cy: number, r: number) => {
-        const dx = x - cx
-        const dy = y - cy
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist <= r || dist === 0) return { x, y }
-        const s = r / dist
-        return { x: cx + dx * s, y: cy + dy * s }
-      }
-
       network.on('dragging', (params: any) => {
         const ids: number[] = (params.nodes || []).filter((id: any) => typeof id === 'number')
         if (!ids.length) return
@@ -541,34 +602,6 @@ export default function NetworkPage() {
       networkInstanceRef.current = network
     }
   }, [persons, relationships, dynasties, loading])
-
-  const getRelationshipLabel = (type: string): string => {
-    const labels: Record<string, string> = {
-      teacher_student: '师生',
-      colleague: '同僚',
-      enemy: '敌对',
-      family: '家族',
-      friend: '朋友',
-      mentor: '导师',
-      influence: '影响',
-      cooperation: '合作',
-    }
-    return labels[type] || type
-  }
-
-  const getRelationshipColor = (type: string): string => {
-    const colors: Record<string, string> = {
-      teacher_student: '#2B7CE9',
-      colleague: '#97C2FC',
-      enemy: '#FF6B6B',
-      family: '#4ECDC4',
-      friend: '#95E1D3',
-      mentor: '#F38181',
-      influence: '#848484',
-      cooperation: '#FFA07A',
-    }
-    return colors[type] || '#848484'
-  }
 
   if (loading) {
     return (
