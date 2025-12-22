@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2025-12-22T06:25:38.519Z",
+  "apply": true,
+  "timeoutMs": 12000,
+  "limit": null,
+  "modernEvents": [
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
+  ],
+  "candidateSourceIds": [
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81
+  ],
+  "fetched": 7,
+  "errors": 0,
+  "verifiedCount": 7,
+  "results": [
+    {
+      "sourceId": 75,
+      "title": "百度百科：中华民国",
+      "url": "https://baike.baidu.com/item/%E4%B8%AD%E5%8D%8E%E6%B0%91%E5%9B%BD",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 76,
+      "title": "百度百科：五四运动",
+      "url": "https://baike.baidu.com/item/%E4%BA%94%E5%9B%9B%E8%BF%90%E5%8A%A8",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 77,
+      "title": "百度百科：中国人民抗日战争",
+      "url": "https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E4%BA%BA%E6%B0%91%E6%8A%97%E6%97%A5%E6%88%98%E4%BA%89",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 78,
+      "title": "百度百科：中华人民共和国",
+      "url": "https://baike.baidu.com/item/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 79,
+      "title": "百度百科：抗美援朝战争",
+      "url": "https://baike.baidu.com/item/%E6%8A%97%E7%BE%8E%E6%8F%B4%E6%9C%9D%E6%88%98%E4%BA%89",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 80,
+      "title": "百度百科：改革开放",
+      "url": "https://baike.baidu.com/item/%E6%94%B9%E9%9D%A9%E5%BC%80%E6%94%BE",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    },
+    {
+      "sourceId": 81,
+      "title": "百度百科：中国加入世界贸易组织",
+      "url": "https://baike.baidu.com/item/%E4%B8%AD%E5%9B%BD%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C%E8%B4%B8%E6%98%93%E7%BB%84%E7%BB%87",
+      "markers": [
+        "权威合作"
+      ],
+      "matched": true,
+      "verifiedBefore": false,
+      "verifiedAfter": true
+    }
+  ]
+}
