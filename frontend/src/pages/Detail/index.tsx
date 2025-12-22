@@ -31,24 +31,32 @@ function pickConfirmItem(items: SourceItem[]): SourceItem | null {
   const score = (it: SourceItem): number => {
     const s = it.source
     const url = (s.url || '').toLowerCase()
-    // 优先“百科类确认”链接（国内外都可）
-    if (s.sourceType === 'authoritative_website' && url.includes('baike.baidu.com')) return 1000
-    if (s.sourceType === 'authoritative_website' && url.includes('baike.sogou.com')) return 950
-    if (s.sourceType === 'authoritative_website' && url.includes('baike.so.com')) return 930
-    if (s.sourceType === 'authoritative_website' && url.includes('zh.wikipedia.org')) return 900
-    if (s.sourceType === 'authoritative_website' && url.includes('wikipedia.org')) return 880
-    if (s.sourceType === 'authoritative_website' && url.includes('britannica.com')) return 860
-    if (s.sourceType === 'authoritative_website' && url.includes('wikidata.org')) return 840
-    if (s.sourceType === 'authoritative_website') return 820
-    // 其次教材/史书等
-    if (s.sourceType === 'textbook') return 700
-    if (s.sourceType === 'official_history') return 650
-    return 500
+    // 优先权威来源：教材和史书
+    if (s.sourceType === 'textbook') return 1000
+    if (s.sourceType === 'official_history') return 950
+    if (s.sourceType === 'academic_book') return 900
+    if (s.sourceType === 'research_paper') return 850
+    if (s.sourceType === 'archive') return 800
+    if (s.sourceType === 'museum') return 750
+    // 其次百科类网站（作为补充确认）
+    if (s.sourceType === 'authoritative_website' && url.includes('zh.wikipedia.org')) return 700
+    if (s.sourceType === 'authoritative_website' && url.includes('wikipedia.org')) return 680
+    if (s.sourceType === 'authoritative_website' && url.includes('britannica.com')) return 660
+    if (s.sourceType === 'authoritative_website' && url.includes('wikidata.org')) return 640
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.baidu.com')) return 620
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.sogou.com')) return 600
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.so.com')) return 580
+    if (s.sourceType === 'authoritative_website') return 500
+    return 400
   }
 
-  let best = items[0]
+  // 优先选择有meta信息（来自citations）的项
+  const withMeta = items.filter(it => it.meta)
+  const candidates = withMeta.length > 0 ? withMeta : items
+
+  let best = candidates[0]
   let bestScore = score(best)
-  for (const it of items.slice(1)) {
+  for (const it of candidates.slice(1)) {
     const sc = score(it)
     if (sc > bestScore) {
       best = it
@@ -327,7 +335,25 @@ export default function DetailPage() {
                 <Title level={4}>确认信息</Title>
                 {(() => {
                   const items = buildSourceItems((data as Event).citations || [], (data as Event).sources || [])
-                  const it = pickConfirmItem(items)
+                  const eventTitle = (data as Event).title || ''
+                  
+                  // 过滤掉明显不匹配的来源（标题只包含人物名称，不包含事件关键词）
+                  const filteredItems = items.filter(item => {
+                    const sourceTitle = item.source.title || ''
+                    // 如果来源标题是"百度百科：XXX"格式，且XXX不在事件标题中，可能是人物来源而非事件来源
+                    const baikeMatch = sourceTitle.match(/^(百度百科|维基百科|搜狗百科|360百科)[：:]\s*(.+)$/)
+                    if (baikeMatch) {
+                      const entityName = baikeMatch[2]
+                      // 如果实体名称不在事件标题中，且事件标题长度明显大于实体名称，可能是人物来源
+                      if (!eventTitle.includes(entityName) && eventTitle.length > entityName.length + 3) {
+                        return false
+                      }
+                    }
+                    return true
+                  })
+                  
+                  const validItems = filteredItems.length > 0 ? filteredItems : items
+                  const it = pickConfirmItem(validItems)
                   if (!it) return null
                   const source = it.source
                   const badge = getSourceBadge(source)
@@ -344,6 +370,9 @@ export default function DetailPage() {
                       )}
                       {source.author && (
                         <span className="text-gray-500">（{source.author}）</span>
+                      )}
+                      {it.meta && (
+                        <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
                       )}
                     </div>
                   )
@@ -558,7 +587,30 @@ export default function DetailPage() {
               <Title level={4}>确认信息</Title>
               {(() => {
                 const items = buildSourceItems((data as Person).citations || [], (data as Person).sources || [])
-                const it = pickConfirmItem(items)
+                const personName = (data as Person).name || ''
+                
+                // 过滤掉明显不匹配的来源（标题不包含人物名称）
+                const filteredItems = items.filter(item => {
+                  const sourceTitle = item.source.title || ''
+                  // 如果来源标题是"百度百科：XXX"格式，检查XXX是否匹配人物名称
+                  const baikeMatch = sourceTitle.match(/^(百度百科|维基百科|搜狗百科|360百科)[：:]\s*(.+)$/)
+                  if (baikeMatch) {
+                    const entityName = baikeMatch[2]
+                    // 如果实体名称与人物名称不匹配，可能是错误关联
+                    if (entityName !== personName && !personName.includes(entityName) && !entityName.includes(personName)) {
+                      // 检查是否是别名
+                      const nameVariants = (data as Person).nameVariants || []
+                      const isVariant = nameVariants.some(v => v === entityName || entityName.includes(v) || v.includes(entityName))
+                      if (!isVariant) {
+                        return false
+                      }
+                    }
+                  }
+                  return true
+                })
+                
+                const validItems = filteredItems.length > 0 ? filteredItems : items
+                const it = pickConfirmItem(validItems)
                 if (!it) return null
                 const source = it.source
                 const badge = getSourceBadge(source)
@@ -575,6 +627,9 @@ export default function DetailPage() {
                     )}
                     {source.author && (
                       <span className="text-gray-500">（{source.author}）</span>
+                    )}
+                    {it.meta && (
+                      <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
                     )}
                   </div>
                 )
