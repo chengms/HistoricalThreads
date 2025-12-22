@@ -360,7 +360,9 @@
     "eventType": "military",
     "dynastyId": 6,
     "location": "巨鹿",
-    "persons": [],
+    "persons": [
+      12
+    ],
     "sources": [
       70,
       65,
@@ -390,7 +392,9 @@
     "eventType": "military",
     "dynastyId": 7,
     "location": "官渡",
-    "persons": [],
+    "persons": [
+      17
+    ],
     "sources": [
       70,
       65,
@@ -520,7 +524,10 @@
     "eventType": "military",
     "dynastyId": 17,
     "location": "中国",
-    "persons": [],
+    "persons": [
+      41,
+      42
+    ],
     "sources": [
       68,
       71,
