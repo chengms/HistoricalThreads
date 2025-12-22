@@ -45,3 +45,6 @@ Thumbs.db
 # Prisma
 prisma/migrations/
 
+# Cursor rules (keep local, do not commit)
+.cursorrules
+
