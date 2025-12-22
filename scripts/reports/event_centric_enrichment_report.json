@@ -1,0 +1,1868 @@
+{
+  "generatedAt": "2025-12-22T03:31:44.815Z",
+  "dataDir": "D:\\MyFile\\Coder\\HistoricalThreads\\frontend\\public\\data",
+  "summary": {
+    "events": {
+      "total": 35,
+      "missingDescription": 0,
+      "missingLocation": 0,
+      "missingPersons": 7,
+      "missingSources": 0,
+      "eventsWithSuggestions": 5,
+      "eventsWithHighConfidenceSuggestions": 2
+    },
+    "persons": {
+      "personsTotal": 45,
+      "personsInEvents": 37,
+      "topImportant": [
+        {
+          "personId": 8,
+          "name": "秦始皇",
+          "eventCount": 2
+        },
+        {
+          "personId": 39,
+          "name": "孙中山",
+          "eventCount": 2
+        },
+        {
+          "personId": 23,
+          "name": "安禄山",
+          "eventCount": 1
+        },
+        {
+          "personId": 17,
+          "name": "曹操",
+          "eventCount": 1
+        },
+        {
+          "personId": 40,
+          "name": "陈独秀",
+          "eventCount": 1
+        },
+        {
+          "personId": 9,
+          "name": "陈胜",
+          "eventCount": 1
+        },
+        {
+          "personId": 27,
+          "name": "成吉思汗",
+          "eventCount": 1
+        },
+        {
+          "personId": 6,
+          "name": "楚庄王",
+          "eventCount": 1
+        },
+        {
+          "personId": 1,
+          "name": "大禹",
+          "eventCount": 1
+        },
+        {
+          "personId": 44,
+          "name": "邓小平",
+          "eventCount": 1
+        },
+        {
+          "personId": 13,
+          "name": "汉武帝",
+          "eventCount": 1
+        },
+        {
+          "personId": 15,
+          "name": "霍去病",
+          "eventCount": 1
+        },
+        {
+          "personId": 41,
+          "name": "蒋介石",
+          "eventCount": 1
+        },
+        {
+          "personId": 5,
+          "name": "晋文公",
+          "eventCount": 1
+        },
+        {
+          "personId": 38,
+          "name": "李鸿章",
+          "eventCount": 1
+        }
+      ],
+      "missingBiography": 0,
+      "missingDynastyId": 0,
+      "missingBirthYear": 0,
+      "missingDeathYear": 0
+    }
+  },
+  "events": [
+    {
+      "eventId": 21,
+      "title": "巨鹿之战",
+      "eventYear": -207,
+      "dynastyId": 6,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [
+        {
+          "personId": 12,
+          "name": "项羽",
+          "matchedToken": "项羽",
+          "confidence": "high",
+          "ambiguousToken": false
+        }
+      ],
+      "suggestionsCount": 1
+    },
+    {
+      "eventId": 23,
+      "title": "官渡之战",
+      "eventYear": 200,
+      "dynastyId": 7,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [
+        {
+          "personId": 17,
+          "name": "曹操",
+          "matchedToken": "曹操",
+          "confidence": "high",
+          "ambiguousToken": false
+        }
+      ],
+      "suggestionsCount": 1
+    },
+    {
+      "eventId": 22,
+      "title": "长平之战",
+      "eventYear": -260,
+      "dynastyId": 5,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 24,
+      "title": "淝水之战",
+      "eventYear": 383,
+      "dynastyId": 9,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 26,
+      "title": "戊戌变法",
+      "eventYear": 1898,
+      "dynastyId": 16,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 31,
+      "title": "抗日战争胜利",
+      "eventYear": 1945,
+      "dynastyId": 17,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 35,
+      "title": "中国加入世界贸易组织",
+      "eventYear": 2001,
+      "dynastyId": 18,
+      "personsCount": 0,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": true,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 10,
+      "title": "汉武帝开疆拓土",
+      "eventYear": -140,
+      "dynastyId": 7,
+      "personsCount": 3,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [
+        {
+          "personId": 35,
+          "name": "刘彻",
+          "matchedToken": "汉武帝",
+          "confidence": "low",
+          "ambiguousToken": true
+        }
+      ],
+      "suggestionsCount": 1
+    },
+    {
+      "eventId": 14,
+      "title": "唐太宗贞观之治",
+      "eventYear": 627,
+      "dynastyId": 12,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [
+        {
+          "personId": 36,
+          "name": "李世民",
+          "matchedToken": "李世民",
+          "confidence": "low",
+          "ambiguousToken": true
+        }
+      ],
+      "suggestionsCount": 1
+    },
+    {
+      "eventId": 18,
+      "title": "成吉思汗统一蒙古",
+      "eventYear": 1206,
+      "dynastyId": 14,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [
+        {
+          "personId": 37,
+          "name": "孛儿只斤·铁木真",
+          "matchedToken": "成吉思汗",
+          "confidence": "low",
+          "ambiguousToken": true
+        }
+      ],
+      "suggestionsCount": 1
+    },
+    {
+      "eventId": 1,
+      "title": "大禹治水",
+      "eventYear": -2070,
+      "dynastyId": 1,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 2,
+      "title": "商汤灭夏",
+      "eventYear": -1600,
+      "dynastyId": 2,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 3,
+      "title": "武王伐纣",
+      "eventYear": -1046,
+      "dynastyId": 3,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 4,
+      "title": "春秋五霸",
+      "eventYear": -770,
+      "dynastyId": 4,
+      "personsCount": 3,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 5,
+      "title": "商鞅变法",
+      "eventYear": -356,
+      "dynastyId": 5,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 6,
+      "title": "秦始皇统一六国",
+      "eventYear": -221,
+      "dynastyId": 6,
+      "personsCount": 1,
+      "sourcesCount": 4,
+      "sourcesByType": {
+        "textbook": 3,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 7,
+      "title": "焚书坑儒",
+      "eventYear": -213,
+      "dynastyId": 6,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 8,
+      "title": "陈胜吴广起义",
+      "eventYear": -209,
+      "dynastyId": 6,
+      "personsCount": 2,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 9,
+      "title": "楚汉之争",
+      "eventYear": -206,
+      "dynastyId": 7,
+      "personsCount": 2,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 11,
+      "title": "张骞出使西域",
+      "eventYear": -138,
+      "dynastyId": 7,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 12,
+      "title": "赤壁之战",
+      "eventYear": 208,
+      "dynastyId": 8,
+      "personsCount": 4,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 13,
+      "title": "隋炀帝开凿大运河",
+      "eventYear": 605,
+      "dynastyId": 11,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 15,
+      "title": "安史之乱",
+      "eventYear": 755,
+      "dynastyId": 12,
+      "personsCount": 2,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 16,
+      "title": "宋太祖建立宋朝",
+      "eventYear": 960,
+      "dynastyId": 13,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 17,
+      "title": "王安石变法",
+      "eventYear": 1069,
+      "dynastyId": 13,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 19,
+      "title": "郑和下西洋",
+      "eventYear": 1405,
+      "dynastyId": 15,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 20,
+      "title": "鸦片战争",
+      "eventYear": 1840,
+      "dynastyId": 16,
+      "personsCount": 1,
+      "sourcesCount": 5,
+      "sourcesByType": {
+        "textbook": 4,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 25,
+      "title": "甲午中日战争",
+      "eventYear": 1894,
+      "dynastyId": 16,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 27,
+      "title": "辛亥革命",
+      "eventYear": 1911,
+      "dynastyId": 16,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 28,
+      "title": "中华民国成立",
+      "eventYear": 1912,
+      "dynastyId": 17,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 29,
+      "title": "五四运动",
+      "eventYear": 1919,
+      "dynastyId": 17,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 30,
+      "title": "全面抗战爆发",
+      "eventYear": 1937,
+      "dynastyId": 17,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 32,
+      "title": "中华人民共和国成立",
+      "eventYear": 1949,
+      "dynastyId": 18,
+      "personsCount": 2,
+      "sourcesCount": 4,
+      "sourcesByType": {
+        "textbook": 3,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 33,
+      "title": "抗美援朝",
+      "eventYear": 1950,
+      "dynastyId": 18,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 34,
+      "title": "改革开放",
+      "eventYear": 1978,
+      "dynastyId": 18,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    }
+  ],
+  "persons": [
+    {
+      "personId": 8,
+      "name": "秦始皇",
+      "dynastyId": 6,
+      "eventCount": 2,
+      "firstEventYear": -221,
+      "lastEventYear": -213,
+      "sampleEvents": "-221 秦始皇统一六国 | -213 焚书坑儒",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 4,
+      "sourcesByType": {
+        "textbook": 3,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 39,
+      "name": "孙中山",
+      "dynastyId": 17,
+      "eventCount": 2,
+      "firstEventYear": 1911,
+      "lastEventYear": 1912,
+      "sampleEvents": "1911 辛亥革命 | 1912 中华民国成立",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 23,
+      "name": "安禄山",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 755,
+      "lastEventYear": 755,
+      "sampleEvents": "755 安史之乱",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 17,
+      "name": "曹操",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 40,
+      "name": "陈独秀",
+      "dynastyId": 17,
+      "eventCount": 1,
+      "firstEventYear": 1919,
+      "lastEventYear": 1919,
+      "sampleEvents": "1919 五四运动",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 9,
+      "name": "陈胜",
+      "dynastyId": 6,
+      "eventCount": 1,
+      "firstEventYear": -209,
+      "lastEventYear": -209,
+      "sampleEvents": "-209 陈胜吴广起义",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 27,
+      "name": "成吉思汗",
+      "dynastyId": 14,
+      "eventCount": 1,
+      "firstEventYear": 1206,
+      "lastEventYear": 1206,
+      "sampleEvents": "1206 成吉思汗统一蒙古",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 6,
+      "name": "楚庄王",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 1,
+      "name": "大禹",
+      "dynastyId": 1,
+      "eventCount": 1,
+      "firstEventYear": -2070,
+      "lastEventYear": -2070,
+      "sampleEvents": "-2070 大禹治水",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 44,
+      "name": "邓小平",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1978,
+      "lastEventYear": 1978,
+      "sampleEvents": "1978 改革开放",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 13,
+      "name": "汉武帝",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 15,
+      "name": "霍去病",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 41,
+      "name": "蒋介石",
+      "dynastyId": 17,
+      "eventCount": 1,
+      "firstEventYear": 1937,
+      "lastEventYear": 1937,
+      "sampleEvents": "1937 全面抗战爆发",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 5,
+      "name": "晋文公",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 38,
+      "name": "李鸿章",
+      "dynastyId": 16,
+      "eventCount": 1,
+      "firstEventYear": 1894,
+      "lastEventYear": 1894,
+      "sampleEvents": "1894 甲午中日战争",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 29,
+      "name": "林则徐",
+      "dynastyId": 16,
+      "eventCount": 1,
+      "firstEventYear": 1840,
+      "lastEventYear": 1840,
+      "sampleEvents": "1840 鸦片战争",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 5,
+      "sourcesByType": {
+        "textbook": 4,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 11,
+      "name": "刘邦",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -206,
+      "lastEventYear": -206,
+      "sampleEvents": "-206 楚汉之争",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 18,
+      "name": "刘备",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 42,
+      "name": "毛泽东",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1949,
+      "lastEventYear": 1949,
+      "sampleEvents": "1949 中华人民共和国成立",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 4,
+      "sourcesByType": {
+        "textbook": 3,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 45,
+      "name": "彭德怀",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1950,
+      "lastEventYear": 1950,
+      "sampleEvents": "1950 抗美援朝",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 4,
+      "name": "齐桓公",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 2,
+      "name": "商汤",
+      "dynastyId": 2,
+      "eventCount": 1,
+      "firstEventYear": -1600,
+      "lastEventYear": -1600,
+      "sampleEvents": "-1600 商汤灭夏",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 7,
+      "name": "商鞅",
+      "dynastyId": 5,
+      "eventCount": 1,
+      "firstEventYear": -356,
+      "lastEventYear": -356,
+      "sampleEvents": "-356 商鞅变法",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 24,
+      "name": "史思明",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 755,
+      "lastEventYear": 755,
+      "sampleEvents": "755 安史之乱",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 25,
+      "name": "宋太祖",
+      "dynastyId": 13,
+      "eventCount": 1,
+      "firstEventYear": 960,
+      "lastEventYear": 960,
+      "sampleEvents": "960 宋太祖建立宋朝",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 21,
+      "name": "隋炀帝",
+      "dynastyId": 11,
+      "eventCount": 1,
+      "firstEventYear": 605,
+      "lastEventYear": 605,
+      "sampleEvents": "605 隋炀帝开凿大运河",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 19,
+      "name": "孙权",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 22,
+      "name": "唐太宗",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 627,
+      "lastEventYear": 627,
+      "sampleEvents": "627 唐太宗贞观之治",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 26,
+      "name": "王安石",
+      "dynastyId": 13,
+      "eventCount": 1,
+      "firstEventYear": 1069,
+      "lastEventYear": 1069,
+      "sampleEvents": "1069 王安石变法",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 14,
+      "name": "卫青",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 10,
+      "name": "吴广",
+      "dynastyId": 6,
+      "eventCount": 1,
+      "firstEventYear": -209,
+      "lastEventYear": -209,
+      "sampleEvents": "-209 陈胜吴广起义",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 12,
+      "name": "项羽",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -206,
+      "lastEventYear": -206,
+      "sampleEvents": "-206 楚汉之争",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 16,
+      "name": "张骞",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -138,
+      "lastEventYear": -138,
+      "sampleEvents": "-138 张骞出使西域",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 28,
+      "name": "郑和",
+      "dynastyId": 15,
+      "eventCount": 1,
+      "firstEventYear": 1405,
+      "lastEventYear": 1405,
+      "sampleEvents": "1405 郑和下西洋",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 43,
+      "name": "周恩来",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1949,
+      "lastEventYear": 1949,
+      "sampleEvents": "1949 中华人民共和国成立",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": true,
+        "missingSources": false
+      },
+      "sourcesCount": 4,
+      "sourcesByType": {
+        "textbook": 3,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 3,
+      "name": "周武王",
+      "dynastyId": 3,
+      "eventCount": 1,
+      "firstEventYear": -1046,
+      "lastEventYear": -1046,
+      "sampleEvents": "-1046 武王伐纣",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    },
+    {
+      "personId": 20,
+      "name": "诸葛亮",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "missing": {
+        "missingBiography": false,
+        "missingBirthYear": false,
+        "missingDeathYear": false,
+        "missingDynastyId": false,
+        "missingAvatarUrl": false,
+        "missingSources": false
+      },
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      }
+    }
+  ]
+}
