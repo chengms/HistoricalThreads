@@ -855,6 +855,58 @@ button.dynasty-nav-item {
   font-weight: 500;
 }
 
+/* 事件引用（列表页快速判断“是否已补页码/章节”） */
+.event-citations {
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.event-citations-label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.55);
+  flex: 0 0 auto;
+  padding-top: 2px;
+}
+
+.event-citations-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.citation-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.citation-tag {
+  margin: 0 !important;
+}
+
+.citation-link {
+  padding: 0 !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
+.citation-meta {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.citation-more {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
 /* 右侧人物区域 */
 .timeline-persons {
   display: flex;

@@ -3,7 +3,7 @@ import { Card, Select, Space, Typography, Spin, Tag, Button, FloatButton, Toolti
 import { CalendarOutlined, VerticalAlignTopOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties } from '@/services/dataLoader'
-import type { Event, Dynasty, Person } from '@/types'
+import type { Citation, Dynasty, Event, Person, Source } from '@/types'
 import '@/styles/timeline.css'
 
 const { Title } = Typography
@@ -50,6 +50,15 @@ const dynastyGradients: Record<string, { start: string; end: string; name: strin
 // 默认背景色
 const defaultGradient = { start: '#667eea', end: '#764ba2', name: '默认紫蓝' }
 
+type CitationLike = {
+  sourceId: number
+  source?: Source
+  chapter?: string
+  page?: string
+  line?: string
+  note?: string
+}
+
 export default function TimelinePage() {
   const navigate = useNavigate()
   const timelineContainerRef = useRef<HTMLDivElement>(null)
@@ -76,6 +85,15 @@ export default function TimelinePage() {
   const [isNavCollapsed, setIsNavCollapsed] = useState(false)
   const [isSidebarFloating, setIsSidebarFloating] = useState(false)
   const EVENTS_THRESHOLD = 5 // 事件数量阈值，少于此数量时自动折叠
+
+  const formatCitationMeta = (c: CitationLike) => {
+    const parts: string[] = []
+    if (c.chapter) parts.push(`章节：${c.chapter}`)
+    if (c.page) parts.push(`页码：${c.page}`)
+    if (c.line) parts.push(`行：${c.line}`)
+    if (c.note && c.note !== '待补页码') parts.push(c.note)
+    return parts.length ? `（${parts.join('；')}）` : ''
+  }
   
   // 初始化响应式状态（仅在客户端）
   useEffect(() => {
@@ -725,6 +743,54 @@ export default function TimelinePage() {
                             <CalendarOutlined /> {event.location}
                           </div>
                         )}
+
+                        {(() => {
+                          const citations = (event.citations || []) as Citation[]
+                          const sources = (event.sources || []) as Source[]
+
+                          const items: CitationLike[] = citations.length
+                            ? citations.map(c => ({ ...c, sourceId: c.sourceId, source: c.source }))
+                            : sources.map(s => ({ sourceId: s.id, source: s }))
+
+                          if (!items.length) return null
+
+                          const visible = items.slice(0, 2)
+                          const hidden = Math.max(0, items.length - visible.length)
+
+                          return (
+                            <div className="event-citations">
+                              <div className="event-citations-label">引用：</div>
+                              <div className="event-citations-list">
+                                {visible.map((c) => {
+                                  const source = c.source
+                                  if (!source) return null
+                                  return (
+                                    <div key={`${event.id}-${c.sourceId}`} className="citation-item">
+                                      {c.note === '待补页码' && (
+                                        <Tag color="gold" className="citation-tag">待补页码</Tag>
+                                      )}
+                                      <Button
+                                        type="link"
+                                        size="small"
+                                        className="citation-link"
+                                        onClick={(e) => {
+                                          e.stopPropagation()
+                                          if (source.url) window.open(source.url, '_blank', 'noopener,noreferrer')
+                                        }}
+                                      >
+                                        {source.title}
+                                      </Button>
+                                      <span className="citation-meta">{formatCitationMeta(c)}</span>
+                                    </div>
+                                  )
+                                })}
+                                {hidden > 0 && (
+                                  <span className="citation-more">+{hidden}</span>
+                                )}
+                              </div>
+                            </div>
+                          )
+                        })()}
                       </Card>
                     ))}
                   </div>
