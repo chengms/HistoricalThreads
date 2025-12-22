@@ -15,7 +15,11 @@
     "dynastyId": 1,
     "birthplace": "有崇",
     "sources": [
-      1
+      1,
+      90,
+      91,
+      92,
+      93
     ],
     "avatarUrl": "/images/full/2336625c16edd4687d563a4eaf9ad7df8eca735c.jpg"
   },
@@ -56,7 +60,11 @@
     ],
     "dynastyId": 3,
     "sources": [
-      1
+      1,
+      94,
+      95,
+      96,
+      97
     ],
     "avatarUrl": "/images/full/482a566b71570f5bef3e616c32135f233c096861.jpg"
   },
@@ -261,7 +269,11 @@
     "sources": [
       1,
       2,
-      3
+      3,
+      98,
+      99,
+      100,
+      101
     ],
     "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
   },
@@ -421,7 +433,11 @@
     "dynastyId": 11,
     "sources": [
       1,
-      5
+      5,
+      102,
+      103,
+      104,
+      105
     ],
     "avatarUrl": "/images/full/e6cd499ce19109c01e05dfc3693a4bf73986cea1.jpg"
   },
@@ -441,7 +457,11 @@
     "sources": [
       1,
       5,
-      6
+      6,
+      106,
+      107,
+      108,
+      109
     ],
     "avatarUrl": "/images/full/13b6058c8330c07f5c23f53ba717d4deba9f9446.jpg"
   },
@@ -537,7 +557,11 @@
     "dynastyId": 14,
     "sources": [
       1,
-      8
+      8,
+      110,
+      111,
+      112,
+      113
     ],
     "avatarUrl": "/images/full/23067c144c04d94ce8922b8de214c424f5d19272.jpg"
   },

@@ -9,6 +9,8 @@
  *   node enrichSources.js --type events
  *   node enrichSources.js --type all
  *   node enrichSources.js --type all --only-missing
+ *   node enrichSources.js --type all --only-missing-web   (仅补齐百科/网站类来源)
+ *   node enrichSources.js --type all --only-missing-web --no-refs (只补链接，不抓参考资料)
  */
 
 import path from 'path'
@@ -30,7 +32,12 @@ function parseArgs() {
   return {
     type,
     onlyMissing: args.has('--only-missing'),
+    onlyMissingWeb: args.has('--only-missing-web'),
     noSogou: args.has('--no-sogou'),
+    noRefs: args.has('--no-refs'),
+    includeWiki: !args.has('--no-wiki'),
+    includeEnWiki: args.has('--en-wiki'),
+    includeBritannica: args.has('--britannica'),
   }
 }
 
@@ -100,37 +107,64 @@ async function enrichEntity(client, allSources, entity, kind) {
   entity.sources = Array.isArray(entity.sources) ? entity.sources : []
   const sourceIds = new Set(entity.sources)
 
+  const hasAnyWebsite = () => {
+    for (const sid of sourceIds) {
+      const s = allSources.find(x => x && x.id === sid)
+      if (s && s.sourceType === 'authoritative_website') return true
+    }
+    return false
+  }
+
+  const hasWebsiteHost = (host) => {
+    for (const sid of sourceIds) {
+      const s = allSources.find(x => x && x.id === sid)
+      const url = (s && s.url) ? String(s.url) : ''
+      if (s && s.sourceType === 'authoritative_website' && url.includes(host)) return true
+    }
+    return false
+  }
+
+  // 0) 仅补齐百科/网站来源时：如果已经有 authoritative_website，就直接跳过（避免无谓膨胀）
+  if (client.__onlyMissingWeb && hasAnyWebsite()) {
+    entity.sources = Array.from(sourceIds)
+    return
+  }
+
   // 1) 百度百科词条页（稳定可构造）
   const baiduUrl = `https://baike.baidu.com/item/${encodeURIComponent(name)}`
-  const baiduId = upsertSource(allSources, {
-    title: `百度百科：${name}`,
-    url: baiduUrl,
-    sourceType: 'authoritative_website',
-    credibilityLevel: 3,
-    verified: false,
-  })
-  sourceIds.add(baiduId)
+  if (!hasWebsiteHost('baike.baidu.com')) {
+    const baiduId = upsertSource(allSources, {
+      title: `百度百科：${name}`,
+      url: baiduUrl,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(baiduId)
+  }
 
   // 2) 尝试抓取百度参考资料
-  try {
-    const html = await client.fetchPage(baiduUrl)
-    if (html) {
-      const $ = cheerio.load(html)
-      const refs = extractBaiduReferences($)
-      for (const r of refs.slice(0, 20)) {
-        const absUrl = ensureUrlAbsolute(r.url, baiduUrl)
-        const sid = upsertSource(allSources, {
-          title: r.title,
-          url: absUrl,
-          sourceType: guessSourceType({ title: r.title, url: absUrl }),
-          credibilityLevel: /《[^》]+》/.test(r.title) ? 4 : 3,
-          verified: false,
-        })
-        sourceIds.add(sid)
+  if (!client.__noRefs) {
+    try {
+      const html = await client.fetchPage(baiduUrl)
+      if (html) {
+        const $ = cheerio.load(html)
+        const refs = extractBaiduReferences($)
+        for (const r of refs.slice(0, 20)) {
+          const absUrl = ensureUrlAbsolute(r.url, baiduUrl)
+          const sid = upsertSource(allSources, {
+            title: r.title,
+            url: absUrl,
+            sourceType: guessSourceType({ title: r.title, url: absUrl }),
+            credibilityLevel: /《[^》]+》/.test(r.title) ? 4 : 3,
+            verified: false,
+          })
+          sourceIds.add(sid)
+        }
       }
+    } catch (e) {
+      if (process.env.DEBUG) console.warn('[enrichSources] baidu refs failed:', name, e?.message)
     }
-  } catch (e) {
-    if (process.env.DEBUG) console.warn('[enrichSources] baidu refs failed:', name, e?.message)
   }
 
   // 3) 搜狗百科：先搜索获取词条链接（可被禁用或自动跳过）
@@ -138,29 +172,33 @@ async function enrichEntity(client, allSources, entity, kind) {
     try {
       const sogouUrl = await findSogouBaikeUrl(client, name)
       if (sogouUrl) {
-        const sogouId = upsertSource(allSources, {
-          title: `搜狗百科：${name}`,
-          url: sogouUrl,
-          sourceType: 'authoritative_website',
-          credibilityLevel: 3,
-          verified: false,
-        })
-        sourceIds.add(sogouId)
+        if (!hasWebsiteHost('baike.sogou.com')) {
+          const sogouId = upsertSource(allSources, {
+            title: `搜狗百科：${name}`,
+            url: sogouUrl,
+            sourceType: 'authoritative_website',
+            credibilityLevel: 3,
+            verified: false,
+          })
+          sourceIds.add(sogouId)
+        }
 
-        const html2 = await client.fetchPage(sogouUrl)
-        if (html2) {
-          const $2 = cheerio.load(html2)
-          const refs2 = extractSogouReferences($2)
-          for (const r of refs2.slice(0, 20)) {
-            const absUrl2 = ensureUrlAbsolute(r.url, sogouUrl)
-            const sid2 = upsertSource(allSources, {
-              title: r.title,
-              url: absUrl2,
-              sourceType: guessSourceType({ title: r.title, url: absUrl2 }),
-              credibilityLevel: /《[^》]+》/.test(r.title) ? 4 : 3,
-              verified: false,
-            })
-            sourceIds.add(sid2)
+        if (!client.__noRefs) {
+          const html2 = await client.fetchPage(sogouUrl)
+          if (html2) {
+            const $2 = cheerio.load(html2)
+            const refs2 = extractSogouReferences($2)
+            for (const r of refs2.slice(0, 20)) {
+              const absUrl2 = ensureUrlAbsolute(r.url, sogouUrl)
+              const sid2 = upsertSource(allSources, {
+                title: r.title,
+                url: absUrl2,
+                sourceType: guessSourceType({ title: r.title, url: absUrl2 }),
+                credibilityLevel: /《[^》]+》/.test(r.title) ? 4 : 3,
+                verified: false,
+              })
+              sourceIds.add(sid2)
+            }
           }
         }
       }
@@ -169,13 +207,55 @@ async function enrichEntity(client, allSources, entity, kind) {
     }
   }
 
+  // 4) 维基百科（默认中文检索链接；可选英文）
+  if (client.__includeWiki && !hasWebsiteHost('wikipedia.org')) {
+    const zhWiki = `https://zh.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(name)}`
+    const wid = upsertSource(allSources, {
+      title: `维基百科（检索）：${name}`,
+      url: zhWiki,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(wid)
+    if (client.__includeEnWiki) {
+      const enWiki = `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(name)}`
+      const wid2 = upsertSource(allSources, {
+        title: `Wikipedia（Search）：${name}`,
+        url: enWiki,
+        sourceType: 'authoritative_website',
+        credibilityLevel: 3,
+        verified: false,
+      })
+      sourceIds.add(wid2)
+    }
+  }
+
+  // 5) Britannica（可选）
+  if (client.__includeBritannica && !hasWebsiteHost('britannica.com')) {
+    const bri = `https://www.britannica.com/search?query=${encodeURIComponent(name)}`
+    const bid = upsertSource(allSources, {
+      title: `大英百科（检索）：${name}`,
+      url: bri,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(bid)
+  }
+
   entity.sources = Array.from(sourceIds)
 }
 
 async function main() {
-  const { type, onlyMissing, noSogou } = parseArgs()
+  const { type, onlyMissing, onlyMissingWeb, noSogou, noRefs, includeWiki, includeEnWiki, includeBritannica } = parseArgs()
   const client = new WebClient()
   client.__enableSogou = !noSogou
+  client.__onlyMissingWeb = !!onlyMissingWeb
+  client.__noRefs = !!noRefs
+  client.__includeWiki = !!includeWiki
+  client.__includeEnWiki = !!includeEnWiki
+  client.__includeBritannica = !!includeBritannica
 
   // 如果 DNS/网络环境不允许访问搜狗百科，提前禁用，避免每条都报错浪费时间
   if (client.__enableSogou) {
@@ -209,7 +289,7 @@ async function main() {
     }
   }
 
-  console.log(`将处理 ${tasks.length} 条记录（type=${type}${onlyMissing ? ', only-missing' : ''}）...`)
+  console.log(`将处理 ${tasks.length} 条记录（type=${type}${onlyMissing ? ', only-missing' : ''}${onlyMissingWeb ? ', only-missing-web' : ''}${noRefs ? ', no-refs' : ''}）...`)
   for (const t of tasks) {
     // 串行执行，避免被封 + 保持速率限制
     // eslint-disable-next-line no-await-in-loop
