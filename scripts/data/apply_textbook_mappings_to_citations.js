@@ -62,7 +62,9 @@ function upsertCitation(entity, sourceId, mapping) {
     for (const k of ['chapter', 'page', 'line', 'note']) {
       const v = patch[k]
       if (!v) continue
-      if (typeof c[k] !== 'string' || !String(c[k]).trim()) {
+      const cur = typeof c[k] === 'string' ? String(c[k]).trim() : ''
+      const treatEmpty = !cur || (k === 'note' && cur === '待补页码')
+      if (treatEmpty) {
         c[k] = v
         changed = true
       }
