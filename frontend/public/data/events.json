@@ -1022,5 +1022,313 @@
         "note": "待补页码"
       }
     ]
+  },
+  {
+    "id": 36,
+    "title": "第二次鸦片战争",
+    "description": "1856-1860年，英法联军发动第二次鸦片战争，清政府战败，签订《天津条约》和《北京条约》，进一步加深了中国的半殖民地化。",
+    "eventYear": 1856,
+    "eventType": "military",
+    "dynastyId": 34,
+    "location": "广东、天津、北京",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "洋务运动",
+    "description": "19世纪60-90年代，清政府推行洋务运动，以"自强"、"求富"为口号，兴办近代军事工业和民用工业，是中国近代化的开端。",
+    "eventYear": 1861,
+    "eventType": "reform",
+    "dynastyId": 34,
+    "location": "全国",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "中法战争",
+    "description": "1883-1885年，中法战争爆发，虽然清军在陆战中取得胜利，但最终仍签订不平等条约，暴露了清政府的腐败无能。",
+    "eventYear": 1883,
+    "eventType": "military",
+    "dynastyId": 34,
+    "location": "越南、台湾、福建",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "义和团运动",
+    "description": "1899-1901年，义和团运动兴起，以"扶清灭洋"为口号，最终被八国联军镇压，清政府签订《辛丑条约》，中国完全沦为半殖民地半封建社会。",
+    "eventYear": 1899,
+    "eventType": "military",
+    "dynastyId": 34,
+    "location": "华北",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "八国联军侵华",
+    "description": "1900年，八国联军（英、美、法、德、俄、日、意、奥）以镇压义和团为名，攻占北京，烧杀抢掠，清政府被迫签订《辛丑条约》。",
+    "eventYear": 1900,
+    "eventType": "military",
+    "dynastyId": 34,
+    "location": "北京、天津",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "title": "清末新政",
+    "description": "1901-1911年，清政府推行新政，包括废除科举、设立新式学堂、编练新军等，但未能挽救清王朝的覆灭。",
+    "eventYear": 1901,
+    "eventType": "reform",
+    "dynastyId": 34,
+    "location": "全国",
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "护国运动",
+    "description": "1915-1916年，为反对袁世凯称帝，蔡锷、唐继尧等人在云南发动护国运动，最终迫使袁世凯取消帝制。",
+    "eventYear": 1915,
+    "eventType": "political",
+    "dynastyId": 35,
+    "location": "云南、四川",
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "新文化运动",
+    "description": "1915-1923年，新文化运动兴起，提倡民主与科学，反对封建思想，推动了中国思想文化的现代化。",
+    "eventYear": 1915,
+    "eventType": "cultural",
+    "dynastyId": 35,
+    "location": "北京、上海",
+    "sources": [
+      68,
+      71,
+      76
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "北伐战争",
+    "description": "1926-1928年，国民革命军进行北伐，基本消灭了北洋军阀，统一了全国，但随后国共合作破裂。",
+    "eventYear": 1926,
+    "eventType": "military",
+    "dynastyId": 36,
+    "location": "全国",
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "九一八事变",
+    "description": "1931年9月18日，日本关东军发动九一八事变，侵占中国东北，标志着日本侵华战争的开始。",
+    "eventYear": 1931,
+    "eventType": "military",
+    "dynastyId": 36,
+    "location": "沈阳",
+    "sources": [
+      68,
+      71,
+      77
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "title": "一二九运动",
+    "description": "1935年12月9日，北平学生发起一二九运动，反对华北自治，要求抗日，推动了全国抗日救亡运动的高涨。",
+    "eventYear": 1935,
+    "eventType": "political",
+    "dynastyId": 36,
+    "location": "北平",
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "title": "西安事变",
+    "description": "1936年12月12日，张学良、杨虎城发动西安事变，扣押蒋介石，要求停止内战、一致抗日，促成了国共第二次合作。",
+    "eventYear": 1936,
+    "eventType": "political",
+    "dynastyId": 36,
+    "location": "西安",
+    "sources": [
+      68,
+      71,
+      77
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "title": "解放战争开始",
+    "description": "1946年，国共内战全面爆发，中国共产党领导的人民解放军经过三年艰苦作战，最终取得胜利。",
+    "eventYear": 1946,
+    "eventType": "military",
+    "dynastyId": 38,
+    "location": "全国",
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
   }
 ]

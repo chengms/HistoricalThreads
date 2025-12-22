@@ -21,6 +21,20 @@
     "description": "中国历史上最长的王朝，分为西周和东周，东周又分为春秋和战国"
   },
   {
+    "id": 19,
+    "name": "西周",
+    "startYear": -1046,
+    "endYear": -771,
+    "description": "周朝前期，定都镐京，实行分封制与宗法制"
+  },
+  {
+    "id": 20,
+    "name": "东周",
+    "startYear": -770,
+    "endYear": -256,
+    "description": "周朝后期，定都洛邑，分为春秋和战国两个时期"
+  },
+  {
     "id": 4,
     "name": "春秋",
     "startYear": -770,
@@ -49,6 +63,27 @@
     "description": "中国历史上强盛的王朝之一，分为西汉和东汉"
   },
   {
+    "id": 21,
+    "name": "西汉",
+    "startYear": -202,
+    "endYear": 9,
+    "description": "汉朝前期，定都长安，文景之治、汉武帝开疆拓土"
+  },
+  {
+    "id": 22,
+    "name": "新朝",
+    "startYear": 9,
+    "endYear": 23,
+    "description": "王莽建立的短暂王朝"
+  },
+  {
+    "id": 23,
+    "name": "东汉",
+    "startYear": 25,
+    "endYear": 220,
+    "description": "汉朝后期，定都洛阳，光武中兴、明章之治"
+  },
+  {
     "id": 8,
     "name": "三国",
     "startYear": 220,
@@ -61,6 +96,20 @@
     "startYear": 265,
     "endYear": 420,
     "description": "分为西晋和东晋，短暂统一后又分裂"
+  },
+  {
+    "id": 24,
+    "name": "西晋",
+    "startYear": 265,
+    "endYear": 316,
+    "description": "晋朝前期，短暂统一全国，八王之乱后衰落"
+  },
+  {
+    "id": 25,
+    "name": "东晋",
+    "startYear": 317,
+    "endYear": 420,
+    "description": "晋朝后期，偏安江南，与北方十六国对峙"
   },
   {
     "id": 10,
@@ -84,11 +133,53 @@
     "description": "中国历史上最繁荣的朝代之一，被誉为盛唐"
   },
   {
+    "id": 26,
+    "name": "初唐",
+    "startYear": 618,
+    "endYear": 712,
+    "description": "唐朝前期，贞观之治、永徽之治，奠定盛世基础"
+  },
+  {
+    "id": 27,
+    "name": "盛唐",
+    "startYear": 712,
+    "endYear": 755,
+    "description": "唐朝鼎盛期，开元盛世，国力强盛，文化繁荣"
+  },
+  {
+    "id": 28,
+    "name": "中唐",
+    "startYear": 755,
+    "endYear": 820,
+    "description": "唐朝中期，安史之乱后，藩镇割据，国力衰退"
+  },
+  {
+    "id": 29,
+    "name": "晚唐",
+    "startYear": 820,
+    "endYear": 907,
+    "description": "唐朝后期，政治腐败，农民起义，最终灭亡"
+  },
+  {
     "id": 13,
     "name": "宋朝",
     "startYear": 960,
     "endYear": 1279,
     "description": "分为北宋和南宋，文化繁荣，经济发达"
+  },
+  {
+    "id": 30,
+    "name": "北宋",
+    "startYear": 960,
+    "endYear": 1127,
+    "description": "宋朝前期，定都开封，经济文化繁荣，与辽、西夏对峙"
+  },
+  {
+    "id": 31,
+    "name": "南宋",
+    "startYear": 1127,
+    "endYear": 1279,
+    "description": "宋朝后期，定都临安，偏安江南，与金、元对峙"
   },
   {
     "id": 14,
@@ -112,11 +203,60 @@
     "description": "中国最后一个封建王朝，由满族建立"
   },
   {
+    "id": 32,
+    "name": "清前期",
+    "startYear": 1644,
+    "endYear": 1735,
+    "description": "清朝前期，康雍乾盛世，统一全国，国力强盛"
+  },
+  {
+    "id": 33,
+    "name": "清中期",
+    "startYear": 1735,
+    "endYear": 1840,
+    "description": "清朝中期，由盛转衰，社会矛盾加剧"
+  },
+  {
+    "id": 34,
+    "name": "清后期",
+    "startYear": 1840,
+    "endYear": 1912,
+    "description": "清朝后期，鸦片战争后，内忧外患，最终灭亡"
+  },
+  {
     "id": 17,
     "name": "民国",
     "startYear": 1912,
     "endYear": 1949,
     "description": "中华民国时期（1912—1949）"
+  },
+  {
+    "id": 35,
+    "name": "民国初期",
+    "startYear": 1912,
+    "endYear": 1927,
+    "description": "民国前期，北洋政府时期，军阀混战"
+  },
+  {
+    "id": 36,
+    "name": "民国中期",
+    "startYear": 1927,
+    "endYear": 1937,
+    "description": "民国中期，国民政府时期，国共对峙"
+  },
+  {
+    "id": 37,
+    "name": "抗战时期",
+    "startYear": 1937,
+    "endYear": 1945,
+    "description": "抗日战争时期，全民族抗战"
+  },
+  {
+    "id": 38,
+    "name": "解放战争",
+    "startYear": 1945,
+    "endYear": 1949,
+    "description": "解放战争时期，国共内战，最终新中国成立"
   },
   {
     "id": 18,
