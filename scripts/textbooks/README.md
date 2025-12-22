@@ -53,6 +53,13 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 ### 用 Excel 批量填写页码/章节（推荐）
 映射 JSON 直接编辑也行，但更推荐用 CSV（Excel 友好）：
 
+#### 一键生成（推荐从七上开始）
+这条命令会同时生成 `mappings_grade7_up.json` 和 `mappings_grade7_up.csv`（CSV 含 `suggestedChapter`，适合 Excel 直接填）：
+
+```bash
+python scripts/textbooks/bootstrap_preset.py --preset grade7_up
+```
+
 1) 导出 CSV（建议加 `--excel-bom`，避免 Excel 打开乱码）：
 
 ```bash
