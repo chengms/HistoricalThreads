@@ -552,7 +552,7 @@
     "description": "1840年，英国发动鸦片战争，中国战败，被迫签订《南京条约》，开始沦为半殖民地半封建社会。",
     "eventYear": 1840,
     "eventType": "military",
-    "dynastyId": 16,
+    "dynastyId": 34,
     "location": "广东",
     "persons": [
       29
@@ -709,10 +709,11 @@
     "description": "1894年爆发的甲午中日战争以清政府战败告终，对中国近代历史进程产生重大影响。",
     "eventYear": 1894,
     "eventType": "military",
-    "dynastyId": 16,
+    "dynastyId": 34,
     "location": "朝鲜半岛、黄海等",
     "persons": [
-      38
+      38,
+      59
     ],
     "sources": [
       10,
@@ -737,7 +738,7 @@
     "description": "1898年的戊戌变法是晚清的一次改革尝试，主张变革旧制以图自强。",
     "eventYear": 1898,
     "eventType": "reform",
-    "dynastyId": 16,
+    "dynastyId": 34,
     "location": "北京",
     "persons": [
       55,
@@ -769,7 +770,7 @@
     "description": "1911年的辛亥革命推翻清王朝统治，推动中国政治体制发生重大变化。",
     "eventYear": 1911,
     "eventType": "political",
-    "dynastyId": 16,
+    "dynastyId": 34,
     "location": "武昌等",
     "persons": [
       39
@@ -825,10 +826,11 @@
     "description": "1919年爆发的五四运动推动新文化运动发展，并对中国近现代思想与社会变革产生重要影响。",
     "eventYear": 1919,
     "eventType": "cultural",
-    "dynastyId": 17,
+    "dynastyId": 35,
     "location": "北京",
     "persons": [
-      40
+      40,
+      67
     ],
     "sources": [
       68,
@@ -853,10 +855,11 @@
     "description": "1937年抗日战争进入全面抗战阶段，中国社会与国家命运面临严峻考验。",
     "eventYear": 1937,
     "eventType": "military",
-    "dynastyId": 17,
+    "dynastyId": 37,
     "location": "华北等",
     "persons": [
-      41
+      41,
+      42
     ],
     "sources": [
       68,
@@ -881,7 +884,7 @@
     "description": "1945年中国人民抗日战争取得胜利，世界反法西斯战争走向胜利。",
     "eventYear": 1945,
     "eventType": "military",
-    "dynastyId": 17,
+    "dynastyId": 37,
     "location": "中国",
     "persons": [
       41,
@@ -1031,6 +1034,10 @@
     "eventType": "military",
     "dynastyId": 34,
     "location": "广东、天津、北京",
+    "persons": [
+      38,
+      59
+    ],
     "sources": [
       10,
       68,
@@ -1055,6 +1062,12 @@
     "eventType": "reform",
     "dynastyId": 34,
     "location": "全国",
+    "persons": [
+      38,
+      62,
+      63,
+      64
+    ],
     "sources": [
       10,
       68,
@@ -1079,6 +1092,10 @@
     "eventType": "military",
     "dynastyId": 34,
     "location": "越南、台湾、福建",
+    "persons": [
+      38,
+      63
+    ],
     "sources": [
       10,
       68,
@@ -1103,6 +1120,10 @@
     "eventType": "military",
     "dynastyId": 34,
     "location": "华北",
+    "persons": [
+      38,
+      59
+    ],
     "sources": [
       10,
       68,
@@ -1127,6 +1148,10 @@
     "eventType": "military",
     "dynastyId": 34,
     "location": "北京、天津",
+    "persons": [
+      38,
+      59
+    ],
     "sources": [
       10,
       68,
@@ -1151,6 +1176,10 @@
     "eventType": "reform",
     "dynastyId": 34,
     "location": "全国",
+    "persons": [
+      38,
+      64
+    ],
     "sources": [
       10,
       68,
@@ -1175,6 +1204,10 @@
     "eventType": "political",
     "dynastyId": 35,
     "location": "云南、四川",
+    "persons": [
+      65,
+      66
+    ],
     "sources": [
       68,
       71
@@ -1198,6 +1231,10 @@
     "eventType": "cultural",
     "dynastyId": 35,
     "location": "北京、上海",
+    "persons": [
+      40,
+      67
+    ],
     "sources": [
       68,
       71,
@@ -1222,6 +1259,10 @@
     "eventType": "military",
     "dynastyId": 36,
     "location": "全国",
+    "persons": [
+      39,
+      41
+    ],
     "sources": [
       68,
       71
@@ -1245,6 +1286,10 @@
     "eventType": "military",
     "dynastyId": 36,
     "location": "沈阳",
+    "persons": [
+      41,
+      68
+    ],
     "sources": [
       68,
       71,
@@ -1269,6 +1314,9 @@
     "eventType": "political",
     "dynastyId": 36,
     "location": "北平",
+    "persons": [
+      42
+    ],
     "sources": [
       68,
       71
@@ -1292,6 +1340,11 @@
     "eventType": "political",
     "dynastyId": 36,
     "location": "西安",
+    "persons": [
+      41,
+      68,
+      69
+    ],
     "sources": [
       68,
       71,
@@ -1316,6 +1369,10 @@
     "eventType": "military",
     "dynastyId": 38,
     "location": "全国",
+    "persons": [
+      41,
+      42
+    ],
     "sources": [
       68,
       71

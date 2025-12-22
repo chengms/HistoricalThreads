@@ -1473,5 +1473,237 @@
     "sources": [
       182
     ]
+  },
+  {
+    "id": 62,
+    "name": "曾国藩",
+    "nameVariants": [
+      "曾文正"
+    ],
+    "birthYear": 1811,
+    "deathYear": 1872,
+    "biography": "曾国藩（1811年11月26日—1872年3月12日），初名子城，字伯涵，号涤生，湖南湘乡人，晚清政治家、军事家、理学家、文学家，湘军的创立者和统帅。与李鸿章、左宗棠、张之洞并称“晚清中兴四大名臣”。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 34,
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "name": "左宗棠",
+    "nameVariants": [
+      "左季高"
+    ],
+    "birthYear": 1812,
+    "deathYear": 1885,
+    "biography": "左宗棠（1812年11月10日—1885年9月5日），字季高，一字朴存，号湘上农人，湖南湘阴人，晚清政治家、军事家、民族英雄，洋务派代表人物之一，与曾国藩、李鸿章、张之洞并称“晚清中兴四大名臣”。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 34,
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "name": "张之洞",
+    "nameVariants": [
+      "张香涛"
+    ],
+    "birthYear": 1837,
+    "deathYear": 1909,
+    "biography": "张之洞（1837年9月2日—1909年10月4日），字孝达，号香涛，晚清名臣、洋务派代表人物，与曾国藩、李鸿章、左宗棠并称“晚清中兴四大名臣”。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 34,
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "name": "袁世凯",
+    "nameVariants": [
+      "袁慰亭"
+    ],
+    "birthYear": 1859,
+    "deathYear": 1916,
+    "biography": "袁世凯（1859年9月16日—1916年6月6日），字慰亭，号容庵，河南项城人，中国近代史上著名的政治、军事人物，北洋军阀领袖。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 35,
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "name": "蔡锷",
+    "nameVariants": [
+      "蔡松坡"
+    ],
+    "birthYear": 1882,
+    "deathYear": 1916,
+    "biography": "蔡锷（1882年12月18日—1916年11月8日），原名艮寅，字松坡，湖南邵阳人，近代军事家、革命家，护国运动的主要领导人之一。",
+    "personType": [
+      "military",
+      "politician"
+    ],
+    "dynastyId": 35,
+    "sources": [
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "name": "胡适",
+    "nameVariants": [
+      "胡适之"
+    ],
+    "birthYear": 1891,
+    "deathYear": 1962,
+    "biography": "胡适（1891年12月17日—1962年2月24日），原名嗣穈，学名洪骍，字希疆，笔名胡适，字适之，安徽绩溪人，中国现代思想家、文学家、哲学家，新文化运动的重要代表人物之一。",
+    "personType": [
+      "writer",
+      "philosopher"
+    ],
+    "dynastyId": 35,
+    "sources": [
+      68,
+      71,
+      76
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "name": "张学良",
+    "nameVariants": [
+      "张汉卿"
+    ],
+    "birthYear": 1901,
+    "deathYear": 2001,
+    "biography": "张学良（1901年6月3日—2001年10月14日），字汉卿，号毅庵，辽宁海城人，中国近代著名爱国将领，西安事变的主要发动者之一。",
+    "personType": [
+      "military",
+      "politician"
+    ],
+    "dynastyId": 36,
+    "sources": [
+      68,
+      71,
+      77
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "name": "杨虎城",
+    "nameVariants": [],
+    "birthYear": 1893,
+    "deathYear": 1949,
+    "biography": "杨虎城（1893年11月26日—1949年9月6日），原名虎臣，陕西蒲城人，中国近代著名爱国将领，西安事变的主要发动者之一。",
+    "personType": [
+      "military",
+      "politician"
+    ],
+    "dynastyId": 36,
+    "sources": [
+      68,
+      71,
+      77
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
   }
 ]
