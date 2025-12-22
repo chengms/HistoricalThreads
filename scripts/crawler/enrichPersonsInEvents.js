@@ -23,8 +23,16 @@ const DATA_DIR = path.resolve(__dirname, '../../frontend/public/data')
 function parseArgs() {
   const idx = process.argv.indexOf('--limit')
   const limit = idx !== -1 ? Number(process.argv[idx + 1]) : null
+  const idsIdx = process.argv.indexOf('--ids')
+  const idsRaw = idsIdx !== -1 ? String(process.argv[idsIdx + 1] || '') : ''
+  const ids = idsRaw
+    ? idsRaw.split(',').map(x => Number(String(x).trim())).filter(x => Number.isFinite(x))
+    : null
+  const onlyMissing = process.argv.includes('--only-missing')
   return {
     limit: Number.isFinite(limit) ? Math.max(1, Math.floor(limit)) : null,
+    ids,
+    onlyMissing,
   }
 }
 
@@ -63,8 +71,15 @@ class WebClient extends CrawlerBase {
   }
 }
 
+async function fetchBaiduSummaryByName(client, name) {
+  const baiduUrl = `https://baike.baidu.com/item/${encodeURIComponent(name)}`
+  const html = await client.fetchPage(baiduUrl)
+  const summary = html ? extractBaiduSummary(html) : ''
+  return { summary, url: baiduUrl }
+}
+
 async function main() {
-  const { limit } = parseArgs()
+  const { limit, ids, onlyMissing } = parseArgs()
   const client = new WebClient()
 
   const events = await readJSON(path.join(DATA_DIR, 'events.json'))
@@ -89,16 +104,18 @@ async function main() {
   }
 
   const targetIds = limit ? idsInEvents.slice(0, limit) : idsInEvents
+  const finalIds = ids && ids.length ? targetIds.filter(x => ids.includes(x)) : targetIds
   let updated = 0
   let skipped = 0
   let failed = 0
+  const failedList = []
 
-  for (const pid of targetIds) {
+  for (const pid of finalIds) {
     const p = personById.get(pid)
     if (!p) continue
 
     const currentBio = String(p.biography || p.description || '').trim()
-    if (currentBio && currentBio.length >= 60) {
+    if (onlyMissing && currentBio && currentBio.length >= 60) {
       skipped += 1
       continue
     }
@@ -109,19 +126,32 @@ async function main() {
       continue
     }
 
-    const baiduUrl = `https://baike.baidu.com/item/${encodeURIComponent(name)}`
     try {
-      // eslint-disable-next-line no-await-in-loop
-      const html = await client.fetchPage(baiduUrl)
-      const summary = html ? extractBaiduSummary(html) : ''
-      if (summary && summary.length >= 60) {
-        p.biography = summary
+      const candidates = [
+        name,
+        ...(Array.isArray(p.nameVariants) ? p.nameVariants.filter(v => typeof v === 'string' && v.trim()) : []),
+      ]
+
+      let best = { summary: '', url: '' }
+      for (const cand of candidates) {
+        // eslint-disable-next-line no-await-in-loop
+        const res = await fetchBaiduSummaryByName(client, cand)
+        if (res.summary && res.summary.length > best.summary.length) best = res
+        if (best.summary.length >= 120) break // 足够长就不再尝试更多别名
+      }
+
+      if (best.summary && best.summary.length >= 60) {
+        p.biography = best.summary
+        // 记录用于人工追踪（不影响 UI）
+        p._bioSource = best.url
         updated += 1
       } else {
         failed += 1
+        failedList.push({ id: pid, name, tried: candidates })
       }
     } catch {
       failed += 1
+      failedList.push({ id: pid, name, tried: [name] })
     }
   }
 
@@ -129,11 +159,14 @@ async function main() {
 
   console.log('[enrichPersonsInEvents] done', {
     personsInEvents: idsInEvents.length,
-    processed: targetIds.length,
+    processed: finalIds.length,
     updated,
     skipped,
     failed,
   })
+  if (failedList.length) {
+    console.log('[enrichPersonsInEvents] failed:', failedList)
+  }
 }
 
 main().catch(err => {

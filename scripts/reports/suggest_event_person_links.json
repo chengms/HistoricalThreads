@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2025-12-22T03:01:06.927Z",
+  "totalEvents": 35,
+  "scannedEvents": 35,
+  "eventsWithSuggestions": 5,
+  "items": [
+    {
+      "eventId": 10,
+      "title": "汉武帝开疆拓土",
+      "eventYear": -140,
+      "suggestedPersons": [
+        {
+          "personId": 35,
+          "name": "刘彻",
+          "matchedToken": "汉武帝"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "eventId": 14,
+      "title": "唐太宗贞观之治",
+      "eventYear": 627,
+      "suggestedPersons": [
+        {
+          "personId": 36,
+          "name": "李世民",
+          "matchedToken": "李世民"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "eventId": 18,
+      "title": "成吉思汗统一蒙古",
+      "eventYear": 1206,
+      "suggestedPersons": [
+        {
+          "personId": 37,
+          "name": "孛儿只斤·铁木真",
+          "matchedToken": "成吉思汗"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "eventId": 21,
+      "title": "巨鹿之战",
+      "eventYear": -207,
+      "suggestedPersons": [
+        {
+          "personId": 12,
+          "name": "项羽",
+          "matchedToken": "项羽"
+        }
+      ],
+      "total": 1
+    },
+    {
+      "eventId": 23,
+      "title": "官渡之战",
+      "eventYear": 200,
+      "suggestedPersons": [
+        {
+          "personId": 17,
+          "name": "曹操",
+          "matchedToken": "曹操"
+        }
+      ],
+      "total": 1
+    }
+  ]
+}
