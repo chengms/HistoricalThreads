@@ -50,5 +50,16 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --dry-run
 ```
 
+### 生成“七上/先秦~秦统一”映射骨架（推荐起点）
+如果你想先快速得到一个可编辑的骨架文件（事件 + 相关人物，页码/章节留空），可以用下面脚本从当前数据集中生成：
+
+```bash
+python scripts/textbooks/generate_mappings_skeleton.py ^
+  --preset grade7_up ^
+  --out scripts/textbooks/mappings_grade7_up.json ^
+  --year-min -3000 --year-max -221 ^
+  --include-persons
+```
+
 
 
