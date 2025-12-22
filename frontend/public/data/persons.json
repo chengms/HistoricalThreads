@@ -1705,5 +1705,89 @@
         "note": "待补页码"
       }
     ]
+  },
+  {
+    "id": 70,
+    "name": "洪秀全",
+    "nameVariants": [
+      "洪仁坤"
+    ],
+    "birthYear": 1814,
+    "deathYear": 1864,
+    "biography": "洪秀全（1814年1月1日—1864年6月1日），原名洪仁坤，广东花县人，太平天国运动的创始人和主要领导人。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 34,
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "name": "周恩来",
+    "nameVariants": [
+      "周总理"
+    ],
+    "birthYear": 1898,
+    "deathYear": 1976,
+    "biography": "周恩来（1898年3月5日—1976年1月8日），字翔宇，江苏淮安人，伟大的马克思主义者，伟大的无产阶级革命家、政治家、军事家、外交家，党和国家主要领导人之一，中国人民解放军主要创建人之一，中华人民共和国的开国元勋。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "name": "邓小平",
+    "nameVariants": [],
+    "birthYear": 1904,
+    "deathYear": 1997,
+    "biography": "邓小平（1904年8月22日—1997年2月19日），四川广安人，伟大的马克思主义者，伟大的无产阶级革命家、政治家、军事家、外交家，久经考验的共产主义战士，中国社会主义改革开放和现代化建设的总设计师，中国特色社会主义道路的开创者。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
   }
 ]

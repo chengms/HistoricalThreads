@@ -978,7 +978,8 @@
     "dynastyId": 18,
     "location": "中国",
     "persons": [
-      44
+      44,
+      72
     ],
     "sources": [
       69,
@@ -1381,6 +1382,246 @@
       {
         "sourceId": 68,
         "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "title": "太平天国运动",
+    "description": "1851-1864年，洪秀全领导的太平天国运动是中国历史上规模最大的农民起义，沉重打击了清王朝的统治。",
+    "eventYear": 1851,
+    "eventType": "military",
+    "dynastyId": 34,
+    "location": "广西、江南",
+    "persons": [
+      70,
+      62
+    ],
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "title": "《马关条约》签订",
+    "description": "1895年，甲午战争后，清政府与日本签订《马关条约》，割让台湾及澎湖列岛，赔偿巨额款项，进一步加深了中国的半殖民地化。",
+    "eventYear": 1895,
+    "eventType": "political",
+    "dynastyId": 34,
+    "location": "日本马关",
+    "persons": [
+      38
+    ],
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "title": "《辛丑条约》签订",
+    "description": "1901年，八国联军侵华后，清政府与列强签订《辛丑条约》，中国完全沦为半殖民地半封建社会。",
+    "eventYear": 1901,
+    "eventType": "political",
+    "dynastyId": 34,
+    "location": "北京",
+    "persons": [
+      38,
+      59
+    ],
+    "sources": [
+      10,
+      68,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：近代（1840-1949）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "title": "土地改革",
+    "description": "1950-1952年，新中国进行土地改革，废除封建土地所有制，实行农民土地所有制，解放了农村生产力。",
+    "eventYear": 1950,
+    "eventType": "reform",
+    "dynastyId": 18,
+    "location": "全国",
+    "persons": [
+      42
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "title": "三大改造",
+    "description": "1953-1956年，新中国对农业、手工业和资本主义工商业进行社会主义改造，确立了社会主义基本制度。",
+    "eventYear": 1953,
+    "eventType": "reform",
+    "dynastyId": 18,
+    "location": "全国",
+    "persons": [
+      42
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "title": "第一届全国人民代表大会",
+    "description": "1954年，第一届全国人民代表大会召开，通过了《中华人民共和国宪法》，确立了人民代表大会制度。",
+    "eventYear": 1954,
+    "eventType": "political",
+    "dynastyId": 18,
+    "location": "北京",
+    "persons": [
+      42
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "title": "中国恢复联合国合法席位",
+    "description": "1971年，第26届联合国大会通过决议，恢复中华人民共和国在联合国的合法席位，这是中国外交的重大胜利。",
+    "eventYear": 1971,
+    "eventType": "political",
+    "dynastyId": 18,
+    "location": "纽约",
+    "persons": [
+      42,
+      71
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "title": "香港回归",
+    "description": "1997年7月1日，中华人民共和国恢复对香港行使主权，香港特别行政区成立，标志着\"一国两制\"构想的成功实践。",
+    "eventYear": 1997,
+    "eventType": "political",
+    "dynastyId": 18,
+    "location": "香港",
+    "persons": [
+      60
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
+      },
+      {
+        "sourceId": 71,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "title": "澳门回归",
+    "description": "1999年12月20日，中华人民共和国恢复对澳门行使主权，澳门特别行政区成立，完成了祖国统一大业的重要一步。",
+    "eventYear": 1999,
+    "eventType": "political",
+    "dynastyId": 18,
+    "location": "澳门",
+    "persons": [
+      60
+    ],
+    "sources": [
+      69,
+      71
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：现代（1949-）（待补页码）"
       },
       {
         "sourceId": 71,
