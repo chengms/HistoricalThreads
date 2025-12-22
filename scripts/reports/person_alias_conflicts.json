@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2025-12-22T03:40:43.370Z",
+  "totalPersons": 61,
+  "conflictAliases": 5,
+  "items": [
+    {
+      "alias": "成吉思汗",
+      "personCount": 2,
+      "persons": [
+        {
+          "id": 27,
+          "name": "成吉思汗",
+          "dynastyId": 14
+        },
+        {
+          "id": 37,
+          "name": "孛儿只斤·铁木真",
+          "dynastyId": 14
+        }
+      ]
+    },
+    {
+      "alias": "汉武帝",
+      "personCount": 2,
+      "persons": [
+        {
+          "id": 13,
+          "name": "汉武帝",
+          "dynastyId": 7
+        },
+        {
+          "id": 35,
+          "name": "刘彻",
+          "dynastyId": 7
+        }
+      ]
+    },
+    {
+      "alias": "李世民",
+      "personCount": 2,
+      "persons": [
+        {
+          "id": 22,
+          "name": "唐太宗",
+          "dynastyId": 12
+        },
+        {
+          "id": 36,
+          "name": "李世民",
+          "dynastyId": 12
+        }
+      ]
+    },
+    {
+      "alias": "刘彻",
+      "personCount": 2,
+      "persons": [
+        {
+          "id": 13,
+          "name": "汉武帝",
+          "dynastyId": 7
+        },
+        {
+          "id": 35,
+          "name": "刘彻",
+          "dynastyId": 7
+        }
+      ]
+    },
+    {
+      "alias": "唐太宗",
+      "personCount": 2,
+      "persons": [
+        {
+          "id": 22,
+          "name": "唐太宗",
+          "dynastyId": 12
+        },
+        {
+          "id": 36,
+          "name": "李世民",
+          "dynastyId": 12
+        }
+      ]
+    }
+  ]
+}
