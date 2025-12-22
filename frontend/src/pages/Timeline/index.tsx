@@ -3,7 +3,7 @@ import { Card, Select, Space, Typography, Spin, Tag, Button, FloatButton, Toolti
 import { CalendarOutlined, VerticalAlignTopOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties } from '@/services/dataLoader'
-import type { Citation, Dynasty, Event, Person, Source } from '@/types'
+import type { Dynasty, Event, Person } from '@/types'
 import '@/styles/timeline.css'
 
 const { Title } = Typography
@@ -50,21 +50,11 @@ const dynastyGradients: Record<string, { start: string; end: string; name: strin
 // 默认背景色
 const defaultGradient = { start: '#667eea', end: '#764ba2', name: '默认紫蓝' }
 
-type CitationLike = {
-  sourceId: number
-  source?: Source
-  chapter?: string
-  page?: string
-  line?: string
-  note?: string
-}
-
 export default function TimelinePage() {
   const navigate = useNavigate()
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const [dynasty, setDynasty] = useState<string>('all')
   const [eventType, setEventType] = useState<string>('all')
-  const [citationStatus, setCitationStatus] = useState<string>('all') // all | has
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
@@ -87,43 +77,7 @@ export default function TimelinePage() {
   const [isSidebarFloating, setIsSidebarFloating] = useState(false)
   const EVENTS_THRESHOLD = 5 // 事件数量阈值，少于此数量时自动折叠
 
-  const formatCitationMeta = (c: CitationLike) => {
-    const parts: string[] = []
-    if (c.chapter) parts.push(`章节：${c.chapter}`)
-    // 页码/行号会随教材版本变动：默认不展示
-    if (c.note && c.note !== '待补页码') parts.push(c.note)
-    return parts.length ? `（${parts.join('；')}）` : ''
-  }
-
-  const getWebsiteLabel = (url?: string) => {
-    const u = (url || '').toLowerCase()
-    if (u.includes('baike.baidu.com')) return '百度百科'
-    if (u.includes('baike.sogou.com')) return '搜狗百科'
-    if (u.includes('wikipedia.org')) return '维基百科'
-    if (u.includes('britannica.com')) return '大英百科'
-    return '百科/网站'
-  }
-
-  const getSourceBadge = (source: Source): { text: string; color: string } => {
-    switch (source.sourceType) {
-      case 'textbook':
-        return { text: '教材', color: 'green' }
-      case 'authoritative_website':
-        return { text: getWebsiteLabel(source.url), color: 'geekblue' }
-      case 'official_history':
-        return { text: '史书', color: 'gold' }
-      case 'archive':
-        return { text: '档案', color: 'default' }
-      case 'museum':
-        return { text: '博物馆', color: 'cyan' }
-      case 'research_paper':
-        return { text: '论文', color: 'purple' }
-      case 'academic_book':
-        return { text: '书籍', color: 'volcano' }
-      default:
-        return { text: '来源', color: 'default' }
-    }
-  }
+  // Timeline 页面不展示引用/来源，避免信息噪音（详情页提供“确认信息”即可）
   
   // 初始化响应式状态（仅在客户端）
   useEffect(() => {
@@ -326,20 +280,12 @@ export default function TimelinePage() {
         filtered = filtered.filter(e => e.eventType === eventType)
       }
 
-      if (citationStatus === 'has') {
-        filtered = filtered.filter(e => {
-          const c = ((e.citations || []) as Citation[]).length
-          const s = (e.sources || []).length
-          return c + s > 0
-        })
-      }
-      
       // 按年份排序
       filtered.sort((a, b) => a.eventYear - b.eventYear)
       setEvents(filtered)
     }
     filterEvents()
-  }, [dynasty, eventType, citationStatus])
+  }, [dynasty, eventType])
 
   // 按年份分组事件
   const groupEventsByYear = () => {
@@ -616,15 +562,6 @@ export default function TimelinePage() {
               { label: '改革', value: 'reform' },
             ]}
           />
-          <Select
-            style={{ width: 160 }}
-            value={citationStatus}
-            onChange={setCitationStatus}
-            options={[
-              { label: '全部来源', value: 'all' },
-              { label: '已有来源', value: 'has' },
-            ]}
-          />
         </Space>
       </Card>
 
@@ -791,77 +728,7 @@ export default function TimelinePage() {
                           </div>
                         )}
 
-                        {(() => {
-                          const citations = (event.citations || []) as Citation[]
-                          const sources = (event.sources || []) as Source[]
-
-                          const bySourceId = new Map<number, CitationLike>()
-                          // citations 优先提供 meta，但 sources 也要展示（百科/网站等）
-                          for (const c of citations) {
-                            if (c?.sourceId && c.source) bySourceId.set(c.sourceId, { ...c, sourceId: c.sourceId, source: c.source })
-                          }
-                          for (const s of sources) {
-                            if (!s?.id) continue
-                            if (!bySourceId.has(s.id)) bySourceId.set(s.id, { sourceId: s.id, source: s })
-                          }
-
-                          const allItems = [...bySourceId.values()].filter(it => !!it.source)
-                          if (!allItems.length) return null
-
-                          const textbookItems = allItems.filter(it => it.source?.sourceType === 'textbook')
-                          const websiteItems = allItems.filter(it => it.source?.sourceType === 'authoritative_website')
-                          const otherItems = allItems.filter(it => it.source?.sourceType !== 'textbook' && it.source?.sourceType !== 'authoritative_website')
-
-                          const groups: Array<{ key: string; label: string; items: CitationLike[] }> = [
-                            { key: 'textbook', label: '教材', items: textbookItems },
-                            { key: 'website', label: '百科/网站', items: websiteItems },
-                            { key: 'other', label: '其他', items: otherItems },
-                          ].filter(g => g.items.length > 0)
-
-                          return (
-                            <div className="event-citations">
-                              <div className="event-citations-label">来源：</div>
-                              <div className="event-citations-list">
-                                {groups.map(g => {
-                                  const visible = g.items.slice(0, 2)
-                                  const hidden = Math.max(0, g.items.length - visible.length)
-                                  return (
-                                    <div key={`${event.id}-${g.key}`} className="event-citations-group">
-                                      <span className="event-citations-group-label">{g.label}：</span>
-                                      <div className="event-citations-group-items">
-                                        {visible.map((c) => {
-                                          const source = c.source
-                                          if (!source) return null
-                                          const badge = getSourceBadge(source)
-                                          return (
-                                            <div key={`${event.id}-${g.key}-${c.sourceId}`} className="citation-item">
-                                              <Tag color={badge.color} className="citation-tag">{badge.text}</Tag>
-                                              <Button
-                                                type="link"
-                                                size="small"
-                                                className="citation-link"
-                                                onClick={(e) => {
-                                                  e.stopPropagation()
-                                                  if (source.url) window.open(source.url, '_blank', 'noopener,noreferrer')
-                                                }}
-                                              >
-                                                {source.title}
-                                              </Button>
-                                              <span className="citation-meta">{formatCitationMeta(c)}</span>
-                                            </div>
-                                          )
-                                        })}
-                                        {hidden > 0 && (
-                                          <span className="citation-more">+{hidden}</span>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )
-                                })}
-                              </div>
-                            </div>
-                          )
-                        })()}
+                        {/* Timeline 不展示来源/引用；详情页提供“确认信息”即可 */}
                       </Card>
                     ))}
                   </div>

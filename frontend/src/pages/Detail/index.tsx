@@ -23,12 +23,47 @@ type SourceItem = {
   meta?: string
 }
 
+function pickConfirmItem(items: SourceItem[]): SourceItem | null {
+  if (!items.length) return null
+
+  const score = (it: SourceItem): number => {
+    const s = it.source
+    const url = (s.url || '').toLowerCase()
+    // 优先“百科类确认”链接（国内外都可）
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.baidu.com')) return 1000
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.sogou.com')) return 950
+    if (s.sourceType === 'authoritative_website' && url.includes('baike.so.com')) return 930
+    if (s.sourceType === 'authoritative_website' && url.includes('zh.wikipedia.org')) return 900
+    if (s.sourceType === 'authoritative_website' && url.includes('wikipedia.org')) return 880
+    if (s.sourceType === 'authoritative_website' && url.includes('britannica.com')) return 860
+    if (s.sourceType === 'authoritative_website' && url.includes('wikidata.org')) return 840
+    if (s.sourceType === 'authoritative_website') return 820
+    // 其次教材/史书等
+    if (s.sourceType === 'textbook') return 700
+    if (s.sourceType === 'official_history') return 650
+    return 500
+  }
+
+  let best = items[0]
+  let bestScore = score(best)
+  for (const it of items.slice(1)) {
+    const sc = score(it)
+    if (sc > bestScore) {
+      best = it
+      bestScore = sc
+    }
+  }
+  return best
+}
+
 function getWebsiteLabel(url?: string) {
   const u = (url || '').toLowerCase()
   if (u.includes('baike.baidu.com')) return '百度百科'
   if (u.includes('baike.sogou.com')) return '搜狗百科'
+  if (u.includes('baike.so.com')) return '360百科'
   if (u.includes('wikipedia.org')) return '维基百科'
   if (u.includes('britannica.com')) return '大英百科'
+  if (u.includes('wikidata.org')) return 'Wikidata'
   return '百科/网站'
 }
 
@@ -64,17 +99,6 @@ function buildSourceItems(citations: Citation[] = [], sources: Source[] = []): S
     if (!byId.has(s.id)) byId.set(s.id, { sourceId: s.id, source: s })
   }
   return [...byId.values()]
-}
-
-function groupSourceItems(items: SourceItem[]) {
-  const textbook = items.filter(it => it.source.sourceType === 'textbook')
-  const website = items.filter(it => it.source.sourceType === 'authoritative_website')
-  const other = items.filter(it => it.source.sourceType !== 'textbook' && it.source.sourceType !== 'authoritative_website')
-  return [
-    { key: 'textbook', label: '教材', items: textbook },
-    { key: 'website', label: '百科/网站', items: website },
-    { key: 'other', label: '其他', items: other },
-  ].filter(g => g.items.length > 0)
 }
 
 export default function DetailPage() {
@@ -298,47 +322,30 @@ export default function DetailPage() {
             {/* 信息来源（优先 citations，兼容 sources） */}
             {(((data as Event).citations && (data as Event).citations!.length > 0) || ((data as Event).sources && (data as Event).sources!.length > 0)) && (
               <>
-                <Title level={4}>信息来源</Title>
-                <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                  {groupSourceItems(buildSourceItems((data as Event).citations || [], (data as Event).sources || [])).map(g => (
-                    <div key={`event-sources-${g.key}`}>
-                      <div style={{ marginBottom: 6 }}>
-                        <Tag color="default" style={{ margin: 0 }}>{g.label}</Tag>
-                        <span className="text-gray-500 ml-2">（{g.items.length}）</span>
-                      </div>
-                      <List
-                        size="small"
-                        dataSource={g.items.slice(0, 6)}
-                        renderItem={(it) => {
-                          const source = it.source
-                          const badge = getSourceBadge(source)
-                          return (
-                            <List.Item>
-                              <Tag color={badge.color} style={{ margin: 0, marginRight: 8 }}>{badge.text}</Tag>
-                              <LinkOutlined className="mr-2" />
-                              {source.url ? (
-                                <a href={source.url} target="_blank" rel="noopener noreferrer">
-                                  {source.title}
-                                </a>
-                              ) : (
-                                <span>{source.title}</span>
-                              )}
-                              {source.author && (
-                                <span className="text-gray-500 ml-2">（{source.author}）</span>
-                              )}
-                              {it.meta && (
-                                <span className="text-gray-500 ml-2">{it.meta}</span>
-                              )}
-                            </List.Item>
-                          )
-                        }}
-                      />
-                      {g.items.length > 6 && (
-                        <div className="text-gray-500" style={{ fontSize: 12, marginTop: 4 }}>+{g.items.length - 6}</div>
+                <Title level={4}>确认信息</Title>
+                {(() => {
+                  const items = buildSourceItems((data as Event).citations || [], (data as Event).sources || [])
+                  const it = pickConfirmItem(items)
+                  if (!it) return null
+                  const source = it.source
+                  const badge = getSourceBadge(source)
+                  return (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                      <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
+                      <LinkOutlined />
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">
+                          {source.title}
+                        </a>
+                      ) : (
+                        <span>{source.title}</span>
+                      )}
+                      {source.author && (
+                        <span className="text-gray-500">（{source.author}）</span>
                       )}
                     </div>
-                  ))}
-                </Space>
+                  )
+                })()}
               </>
             )}
           </Space>
@@ -461,21 +468,13 @@ export default function DetailPage() {
                       )}
 
                       {(() => {
-                        const citations = (event.citations || []) as Citation[]
-                        const sources = (event.sources || []) as any[]
-                        const items = citations.length
-                          ? citations
-                          : sources.map(s => ({ sourceId: s.id, source: s } as Citation))
-
-                        if (!items.length) return null
-
-                        const first = items[0]
-                        const source = first.source
-                        if (!source) return null
-
+                        const items = buildSourceItems((event.citations || []) as Citation[], (event.sources || []) as any[])
+                        const it = pickConfirmItem(items)
+                        if (!it) return null
+                        const source = it.source
                         return (
                           <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                            <span className="text-gray-500" style={{ fontSize: 12 }}>引用：</span>
+                            <span className="text-gray-500" style={{ fontSize: 12 }}>确认：</span>
                             {source.url ? (
                               <a
                                 href={source.url}
@@ -489,10 +488,6 @@ export default function DetailPage() {
                               </a>
                             ) : (
                               <span className="text-gray-700" style={{ fontSize: 12 }}>{source.title}</span>
-                            )}
-                            <span className="text-gray-500" style={{ fontSize: 12 }}>{renderCitationMeta(first)}</span>
-                            {items.length > 1 && (
-                              <span className="text-gray-500" style={{ fontSize: 12 }}>+{items.length - 1}</span>
                             )}
                           </div>
                         )
@@ -558,47 +553,30 @@ export default function DetailPage() {
           {/* 信息来源（优先 citations，兼容 sources） */}
           {(((data as Person).citations && (data as Person).citations!.length > 0) || ((data as Person).sources && (data as Person).sources!.length > 0)) && (
             <>
-              <Title level={4}>信息来源</Title>
-              <Space direction="vertical" size="small" style={{ width: '100%' }}>
-                {groupSourceItems(buildSourceItems((data as Person).citations || [], (data as Person).sources || [])).map(g => (
-                  <div key={`person-sources-${g.key}`}>
-                    <div style={{ marginBottom: 6 }}>
-                      <Tag color="default" style={{ margin: 0 }}>{g.label}</Tag>
-                      <span className="text-gray-500 ml-2">（{g.items.length}）</span>
-                    </div>
-                    <List
-                      size="small"
-                      dataSource={g.items.slice(0, 6)}
-                      renderItem={(it) => {
-                        const source = it.source
-                        const badge = getSourceBadge(source)
-                        return (
-                          <List.Item>
-                            <Tag color={badge.color} style={{ margin: 0, marginRight: 8 }}>{badge.text}</Tag>
-                            <LinkOutlined className="mr-2" />
-                            {source.url ? (
-                              <a href={source.url} target="_blank" rel="noopener noreferrer">
-                                {source.title}
-                              </a>
-                            ) : (
-                              <span>{source.title}</span>
-                            )}
-                            {source.author && (
-                              <span className="text-gray-500 ml-2">（{source.author}）</span>
-                            )}
-                            {it.meta && (
-                              <span className="text-gray-500 ml-2">{it.meta}</span>
-                            )}
-                          </List.Item>
-                        )
-                      }}
-                    />
-                    {g.items.length > 6 && (
-                      <div className="text-gray-500" style={{ fontSize: 12, marginTop: 4 }}>+{g.items.length - 6}</div>
+              <Title level={4}>确认信息</Title>
+              {(() => {
+                const items = buildSourceItems((data as Person).citations || [], (data as Person).sources || [])
+                const it = pickConfirmItem(items)
+                if (!it) return null
+                const source = it.source
+                const badge = getSourceBadge(source)
+                return (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                    <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
+                    <LinkOutlined />
+                    {source.url ? (
+                      <a href={source.url} target="_blank" rel="noopener noreferrer">
+                        {source.title}
+                      </a>
+                    ) : (
+                      <span>{source.title}</span>
+                    )}
+                    {source.author && (
+                      <span className="text-gray-500">（{source.author}）</span>
                     )}
                   </div>
-                ))}
-              </Space>
+                )
+              })()}
             </>
           )}
         </Card>
