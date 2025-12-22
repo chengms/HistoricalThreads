@@ -361,7 +361,9 @@
     "dynastyId": 6,
     "location": "巨鹿",
     "persons": [
-      12
+      12,
+      46,
+      47
     ],
     "sources": [
       70,
@@ -377,7 +379,11 @@
     "eventType": "military",
     "dynastyId": 5,
     "location": "长平",
-    "persons": [],
+    "persons": [
+      49,
+      50,
+      51
+    ],
     "sources": [
       70,
       64,
@@ -393,7 +399,8 @@
     "dynastyId": 7,
     "location": "官渡",
     "persons": [
-      17
+      17,
+      48
     ],
     "sources": [
       70,
@@ -409,7 +416,11 @@
     "eventType": "military",
     "dynastyId": 9,
     "location": "淝水（今安徽寿县一带）",
-    "persons": [],
+    "persons": [
+      52,
+      53,
+      54
+    ],
     "sources": [
       70,
       65,
@@ -441,7 +452,13 @@
     "eventType": "reform",
     "dynastyId": 16,
     "location": "北京",
-    "persons": [],
+    "persons": [
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
     "sources": [
       68,
       71,
@@ -595,7 +612,10 @@
     "eventType": "economic",
     "dynastyId": 18,
     "location": "多哈等",
-    "persons": [],
+    "persons": [
+      60,
+      61
+    ],
     "sources": [
       69,
       71,

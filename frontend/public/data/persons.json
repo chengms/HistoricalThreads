@@ -885,5 +885,254 @@
       71,
       89
     ]
+  },
+  {
+    "id": 46,
+    "name": "章邯",
+    "nameVariants": [],
+    "deathYear": -205,
+    "biography": "秦末将领，镇压陈胜吴广起义并与反秦诸侯作战，巨鹿之战后势衰，后归降并被封王。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 6,
+    "sources": [
+      167
+    ]
+  },
+  {
+    "id": 47,
+    "name": "王离",
+    "nameVariants": [],
+    "biography": "秦将，在秦末战争中与章邯等率军作战，巨鹿之战相关人物之一。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 6,
+    "sources": [
+      168
+    ]
+  },
+  {
+    "id": 48,
+    "name": "袁绍",
+    "nameVariants": [
+      "本初"
+    ],
+    "birthYear": 154,
+    "deathYear": 202,
+    "biography": "东汉末军阀，割据河北并与曹操争雄，官渡之战中败于曹操，此后势力转衰。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 7,
+    "sources": [
+      169
+    ]
+  },
+  {
+    "id": 49,
+    "name": "白起",
+    "nameVariants": [
+      "武安君"
+    ],
+    "birthYear": -332,
+    "deathYear": -257,
+    "biography": "战国秦国名将，长平之战中秦军主将之一，秦国扩张的重要军事人物。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 5,
+    "sources": [
+      170
+    ]
+  },
+  {
+    "id": 50,
+    "name": "廉颇",
+    "nameVariants": [],
+    "birthYear": -327,
+    "deathYear": -243,
+    "biography": "战国赵国名将，长平之战前期赵军主将之一，赵国重要军事人物。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 5,
+    "sources": [
+      171
+    ]
+  },
+  {
+    "id": 51,
+    "name": "赵括",
+    "nameVariants": [],
+    "deathYear": -260,
+    "biography": "战国赵国将领，长平之战中接替廉颇为主将，战败阵亡。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 5,
+    "sources": [
+      172
+    ]
+  },
+  {
+    "id": 52,
+    "name": "苻坚",
+    "nameVariants": [],
+    "birthYear": 338,
+    "deathYear": 385,
+    "biography": "十六国时期前秦君主，统一北方后南下伐晋，淝水之战失败导致前秦迅速衰落。",
+    "personType": [
+      "politician",
+      "military"
+    ],
+    "dynastyId": 9,
+    "sources": [
+      173
+    ]
+  },
+  {
+    "id": 53,
+    "name": "谢安",
+    "nameVariants": [],
+    "birthYear": 320,
+    "deathYear": 385,
+    "biography": "东晋政治家，淝水之战时主持朝政并推动战守决策，是东晋稳定的重要人物。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 9,
+    "sources": [
+      174
+    ]
+  },
+  {
+    "id": 54,
+    "name": "谢玄",
+    "nameVariants": [],
+    "birthYear": 343,
+    "deathYear": 388,
+    "biography": "东晋将领，统率北府兵，在淝水之战中发挥关键作用。",
+    "personType": [
+      "military"
+    ],
+    "dynastyId": 9,
+    "sources": [
+      175
+    ]
+  },
+  {
+    "id": 55,
+    "name": "康有为",
+    "nameVariants": [],
+    "birthYear": 1858,
+    "deathYear": 1927,
+    "biography": "清末思想家、政治家，维新派代表人物之一，参与推动戊戌变法。",
+    "personType": [
+      "politician",
+      "writer"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      176
+    ]
+  },
+  {
+    "id": 56,
+    "name": "梁启超",
+    "nameVariants": [],
+    "birthYear": 1873,
+    "deathYear": 1929,
+    "biography": "清末民初思想家、学者、政论家，维新派重要人物，参与并宣传戊戌变法主张。",
+    "personType": [
+      "writer",
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      177
+    ]
+  },
+  {
+    "id": 57,
+    "name": "谭嗣同",
+    "nameVariants": [],
+    "birthYear": 1865,
+    "deathYear": 1898,
+    "biography": "维新派人士，“戊戌六君子”之一，因变法失败被杀。",
+    "personType": [
+      "writer",
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      178
+    ]
+  },
+  {
+    "id": 58,
+    "name": "光绪帝",
+    "nameVariants": [
+      "载湉"
+    ],
+    "birthYear": 1871,
+    "deathYear": 1908,
+    "biography": "清朝皇帝，在戊戌变法中支持维新改革，后变法失败被幽禁。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      179
+    ]
+  },
+  {
+    "id": 59,
+    "name": "慈禧太后",
+    "nameVariants": [
+      "叶赫那拉氏"
+    ],
+    "birthYear": 1835,
+    "deathYear": 1908,
+    "biography": "清末重要政治人物，戊戌变法中发动政变，导致变法失败。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 16,
+    "sources": [
+      180
+    ]
+  },
+  {
+    "id": 60,
+    "name": "江泽民",
+    "nameVariants": [],
+    "birthYear": 1926,
+    "deathYear": 2022,
+    "biography": "中国重要政治人物，20世纪末至21世纪初中国对外开放与改革进程的重要参与者之一。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      181
+    ]
+  },
+  {
+    "id": 61,
+    "name": "朱镕基",
+    "nameVariants": [],
+    "birthYear": 1928,
+    "deathYear": 2020,
+    "biography": "中国重要政治人物，参与并推动经济体制改革与对外开放相关工作。",
+    "personType": [
+      "politician"
+    ],
+    "dynastyId": 18,
+    "sources": [
+      182
+    ]
   }
 ]
