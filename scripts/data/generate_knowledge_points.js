@@ -46,6 +46,17 @@ function resolvePersonIdsByName(persons, names) {
   return Array.from(new Set(ids))
 }
 
+function stableIdFromTitle(title) {
+  // djb2 -> unsigned 32-bit
+  let h = 5381
+  const s = String(title || '')
+  for (let i = 0; i < s.length; i++) {
+    h = ((h << 5) + h + s.charCodeAt(i)) >>> 0
+  }
+  // keep it smaller but stable
+  return (h % 1000000000) + 1
+}
+
 function main() {
   const args = parseArgs(process.argv)
   const eventsFile = path.resolve('frontend/public/data/events.json')
@@ -60,6 +71,55 @@ function main() {
   // - references 只放公开网页链接，便于溯源与进一步阅读。
   // - relatedEventIds/relatedPersonIds 用现有数据 id 关联，便于前端跳转详情页。
   const templates = [
+    // 小学（更偏“故事/地理/文化符号”，避免过细的制度与争议）
+    {
+      title: '中华文明的早期印象：传说人物与文明起源（启蒙版）',
+      stage: '小学',
+      category: '中国古代史/启蒙',
+      period: '上古-夏商周',
+      summary: '认识黄河流域、治水传说与早期王朝更替的基本脉络，建立“时间很长、文明很早”的直观印象。',
+      keyPoints: [
+        '传说与历史：知道它们不同，但都影响文化记忆',
+        '黄河与农业：地理环境对文明形成的重要性',
+      ],
+      relatedEventTitles: ['大禹治水'],
+      relatedPersonNames: ['大禹'],
+      references: [
+        { title: '维基百科：黄河文明', url: 'https://zh.wikipedia.org/wiki/%E9%BB%84%E6%B2%B3%E6%96%87%E6%98%8E' },
+        { title: '维基百科：大禹', url: 'https://zh.wikipedia.org/wiki/%E5%A4%A7%E7%A6%B9' },
+      ],
+    },
+    {
+      title: '伟大的工程：长城与大运河（地理与国家）',
+      stage: '小学',
+      category: '中国古代史/工程与地理',
+      period: '秦-隋唐',
+      summary: '认识长城与大运河作为大型工程在交通、防御、粮运与国家治理中的意义。',
+      keyPoints: [
+        '大型工程与组织能力：谁来修、怎么修、为什么修',
+        '工程影响社会：交通、贸易与区域联系',
+      ],
+      relatedEventTitles: ['隋炀帝开凿大运河'],
+      references: [
+        { title: '维基百科：长城', url: 'https://zh.wikipedia.org/wiki/%E9%95%BF%E5%9F%8E' },
+        { title: '维基百科：京杭大运河', url: 'https://zh.wikipedia.org/wiki/%E4%BA%AC%E6%9D%AD%E5%A4%A7%E8%BF%90%E6%B2%B3' },
+      ],
+    },
+    {
+      title: '中国古代科技与文化符号：四大发明',
+      stage: '小学',
+      category: '中国古代史/科技文化',
+      period: '隋唐-宋元明',
+      summary: '通过造纸术、印刷术、火药、指南针认识科技改变生活与交流的方式。',
+      keyPoints: [
+        '技术如何传播：贸易、战争、交流网络',
+        '发明与生活：读写传播、航海、军事与社会变化',
+      ],
+      references: [
+        { title: '维基百科：四大发明', url: 'https://zh.wikipedia.org/wiki/%E5%9B%9B%E5%A4%A7%E5%8F%91%E6%98%8E' },
+        { title: '维基百科：造纸术', url: 'https://zh.wikipedia.org/wiki/%E9%80%A0%E7%BA%B8%E6%9C%AF' },
+      ],
+    },
     {
       title: '上古传说与早期国家：治水与王朝起源',
       stage: '初中',
@@ -95,6 +155,21 @@ function main() {
       ],
     },
     {
+      title: '西周政治基础：分封制与宗法制',
+      stage: '初中',
+      category: '中国古代史/政治制度',
+      period: '西周-春秋',
+      summary: '理解分封与宗法如何组织权力与社会秩序，并认识其在后期面临的结构性压力。',
+      keyPoints: [
+        '分封制：地方治理与宗族政治的结合',
+        '宗法制：血缘与政治权力的绑定方式',
+      ],
+      references: [
+        { title: '维基百科：分封制', url: 'https://zh.wikipedia.org/wiki/%E5%88%86%E5%B0%81%E5%88%B6' },
+        { title: '维基百科：宗法', url: 'https://zh.wikipedia.org/wiki/%E5%AE%97%E6%B3%95' },
+      ],
+    },
+    {
       title: '春秋争霸与诸侯政治：从礼崩乐坏到新秩序探索',
       stage: '初中',
       category: '中国古代史/政治',
@@ -108,6 +183,21 @@ function main() {
       references: [
         { title: '维基百科：春秋五霸', url: 'https://zh.wikipedia.org/wiki/%E6%98%A5%E7%A7%8B%E4%BA%94%E9%9C%B8' },
         { title: '维基百科：春秋时代', url: 'https://zh.wikipedia.org/wiki/%E6%98%A5%E7%A7%8B%E6%97%B6%E4%BB%A3' },
+      ],
+    },
+    {
+      title: '思想的时代：百家争鸣与思想传统',
+      stage: '初中',
+      category: '中国古代史/思想文化',
+      period: '春秋战国',
+      summary: '了解诸子百家在社会变动背景下的思想回应，并理解其对后世政治与文化的影响。',
+      keyPoints: [
+        '儒、道、法等思想关注点差异',
+        '思想与现实：为什么在乱世产生多种方案',
+      ],
+      references: [
+        { title: '维基百科：诸子百家', url: 'https://zh.wikipedia.org/wiki/%E8%AF%B8%E5%AD%90%E7%99%BE%E5%AE%B6' },
+        { title: '维基百科：百家争鸣', url: 'https://zh.wikipedia.org/wiki/%E7%99%BE%E5%AE%B6%E4%BA%89%E9%B8%A3' },
       ],
     },
     {
@@ -128,6 +218,21 @@ function main() {
       ],
     },
     {
+      title: '战国兼并与统一趋势：从合纵连横到最终一统',
+      stage: '初中',
+      category: '中国古代史/政治与战争',
+      period: '战国末期',
+      summary: '理解战国后期的外交与战争格局，以及统一趋势背后的制度与资源因素。',
+      keyPoints: [
+        '合纵连横：外交策略与利益同盟',
+        '兼并战争：资源动员、制度与地缘',
+      ],
+      references: [
+        { title: '维基百科：合纵连横', url: 'https://zh.wikipedia.org/wiki/%E5%90%88%E7%BA%B5%E8%BF%9E%E6%A8%AA' },
+        { title: '维基百科：战国时代', url: 'https://zh.wikipedia.org/wiki/%E6%88%98%E5%9B%BD%E6%97%B6%E4%BB%A3' },
+      ],
+    },
+    {
       title: '秦的统一与中央集权：制度建设与思想控制',
       stage: '初中',
       category: '中国古代史/政治制度',
@@ -145,6 +250,21 @@ function main() {
       ],
     },
     {
+      title: '中央集权的关键机制：郡县制与官僚体系（入门）',
+      stage: '初中',
+      category: '中国古代史/政治制度',
+      period: '秦-汉',
+      summary: '理解郡县制与官僚体系如何将地方纳入统一治理，以及其与分封制的差别。',
+      keyPoints: [
+        '郡县制：任命官员治理地方，强调中央控制',
+        '官僚治理：制度、文书与行政层级',
+      ],
+      references: [
+        { title: '维基百科：郡县制', url: 'https://zh.wikipedia.org/wiki/%E9%83%A1%E5%8E%BF%E5%88%B6' },
+        { title: '维基百科：中央集权', url: 'https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%A4%AE%E9%9B%86%E6%9D%83' },
+      ],
+    },
+    {
       title: '秦末民变与帝国崩溃：陈胜吴广与楚汉之争',
       stage: '初中',
       category: '中国古代史/社会与政治',
@@ -158,6 +278,21 @@ function main() {
       references: [
         { title: '维基百科：陈胜吴广起义', url: 'https://zh.wikipedia.org/wiki/%E9%99%88%E8%83%9C%E5%90%B4%E5%B9%BF%E8%B5%B7%E4%B9%89' },
         { title: '维基百科：楚汉战争', url: 'https://zh.wikipedia.org/wiki/%E6%A5%9A%E6%B1%89%E6%88%98%E4%BA%89' },
+      ],
+    },
+    {
+      title: '汉代“大一统”的巩固：文景之治与休养生息（概念）',
+      stage: '初中',
+      category: '中国古代史/政治与经济',
+      period: '西汉',
+      summary: '理解西汉初期的恢复政策如何为后续对外扩张与制度建设奠定基础。',
+      keyPoints: [
+        '休养生息：减轻负担、恢复生产',
+        '稳定与发展：财政、人口与国家能力',
+      ],
+      references: [
+        { title: '维基百科：文景之治', url: 'https://zh.wikipedia.org/wiki/%E6%96%87%E6%99%AF%E4%B9%8B%E6%B2%BB' },
+        { title: '维基百科：西汉', url: 'https://zh.wikipedia.org/wiki/%E8%A5%BF%E6%B1%89' },
       ],
     },
     {
@@ -179,6 +314,21 @@ function main() {
       ],
     },
     {
+      title: '选官制度的演变：察举制到科举制（概念线索）',
+      stage: '高中',
+      category: '中国古代史/政治制度',
+      period: '汉-隋唐-宋',
+      summary: '把握选官制度从门第到考试的变化方向，以及其对社会流动与官僚结构的影响。',
+      keyPoints: [
+        '察举制：地方举荐与社会评价机制',
+        '科举制：考试选官与文化教育的扩张',
+      ],
+      references: [
+        { title: '维基百科：察举制', url: 'https://zh.wikipedia.org/wiki/%E5%AF%9F%E4%B8%BE%E5%88%B6' },
+        { title: '维基百科：科举', url: 'https://zh.wikipedia.org/wiki/%E7%A7%91%E4%B8%BE' },
+      ],
+    },
+    {
       title: '典型战役与战略：从长平到赤壁（战争与政治）',
       stage: '初中',
       category: '中国古代史/军事',
@@ -193,6 +343,21 @@ function main() {
         { title: '维基百科：长平之战', url: 'https://zh.wikipedia.org/wiki/%E9%95%BF%E5%B9%B3%E4%B9%8B%E6%88%98' },
         { title: '维基百科：赤壁之战', url: 'https://zh.wikipedia.org/wiki/%E8%B5%A4%E5%A3%81%E4%B9%8B%E6%88%98' },
         { title: '维基百科：淝水之战', url: 'https://zh.wikipedia.org/wiki/%E6%B7%9D%E6%B0%B4%E4%B9%8B%E6%88%98' },
+      ],
+    },
+    {
+      title: '魏晋南北朝：分裂对峙与民族交往交融（概念）',
+      stage: '初中',
+      category: '中国古代史/社会',
+      period: '魏晋南北朝',
+      summary: '理解长期分裂背景下的政权更替、人口迁徙与民族融合趋势。',
+      keyPoints: [
+        '分裂格局：政权并立与区域差异',
+        '交往交融：迁徙、通婚、文化互鉴',
+      ],
+      references: [
+        { title: '维基百科：魏晋南北朝', url: 'https://zh.wikipedia.org/wiki/%E9%AD%8F%E6%99%8B%E5%8D%97%E5%8C%97%E6%9C%9D' },
+        { title: '维基百科：民族融合', url: 'https://zh.wikipedia.org/wiki/%E6%B0%91%E6%97%8F%E8%9E%8D%E5%90%88' },
       ],
     },
     {
@@ -213,6 +378,21 @@ function main() {
       ],
     },
     {
+      title: '隋唐制度框架：三省六部与科举制（概念）',
+      stage: '高中',
+      category: '中国古代史/政治制度',
+      period: '隋唐',
+      summary: '理解隋唐时期的中央官制与选官制度如何提高行政效率并塑造士大夫群体。',
+      keyPoints: [
+        '三省六部：决策、审议与执行的分工',
+        '科举扩张：教育、文化与政治参与路径',
+      ],
+      references: [
+        { title: '维基百科：三省六部', url: 'https://zh.wikipedia.org/wiki/%E4%B8%89%E7%9C%81%E5%85%AD%E9%83%A8' },
+        { title: '维基百科：科举', url: 'https://zh.wikipedia.org/wiki/%E7%A7%91%E4%B8%BE' },
+      ],
+    },
+    {
       title: '宋代国家与改革：赵宋建立与王安石变法',
       stage: '初中',
       category: '中国古代史/改革与治理',
@@ -226,6 +406,21 @@ function main() {
       references: [
         { title: '维基百科：宋太祖', url: 'https://zh.wikipedia.org/wiki/%E5%AE%8B%E5%A4%AA%E7%A5%96' },
         { title: '维基百科：王安石变法', url: 'https://zh.wikipedia.org/wiki/%E7%8E%8B%E5%AE%89%E7%9F%B3%E5%8F%98%E6%B3%95' },
+      ],
+    },
+    {
+      title: '宋代经济与城市：商业、手工业与社会生活（概念）',
+      stage: '高中',
+      category: '中国古代史/经济与社会',
+      period: '宋',
+      summary: '理解宋代商品经济、城市生活与文化繁荣的特征，以及其与制度、技术、交通的关系。',
+      keyPoints: [
+        '商业与城市：市场、货币、人口流动',
+        '技术与文化：印刷、教育与士人文化',
+      ],
+      references: [
+        { title: '维基百科：宋朝', url: 'https://zh.wikipedia.org/wiki/%E5%AE%8B%E6%9C%9D' },
+        { title: '维基百科：交子', url: 'https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%AD%90' },
       ],
     },
     {
@@ -246,6 +441,51 @@ function main() {
       ],
     },
     {
+      title: '元代治理创新：行省制度与多民族帝国（概念）',
+      stage: '高中',
+      category: '中国古代史/政治制度',
+      period: '元',
+      summary: '理解元代的行省制度及其对后世地方行政区划与治理框架的影响。',
+      keyPoints: [
+        '行省制度：中央—地方关系的新形态',
+        '多民族帝国治理：法律、文化与区域差异',
+      ],
+      references: [
+        { title: '维基百科：行省', url: 'https://zh.wikipedia.org/wiki/%E8%A1%8C%E7%9C%81' },
+        { title: '维基百科：元朝', url: 'https://zh.wikipedia.org/wiki/%E5%85%83%E6%9C%9D' },
+      ],
+    },
+    {
+      title: '明清君主专制的强化：内阁、军机处与厂卫（概念）',
+      stage: '高中',
+      category: '中国古代史/政治制度',
+      period: '明清',
+      summary: '理解明清时期中央权力集中化的制度机制及其对政治生态的影响。',
+      keyPoints: [
+        '内阁与军机处：决策机制的演化',
+        '监察与情报：厂卫等机构在政治控制中的作用',
+      ],
+      references: [
+        { title: '维基百科：内阁 (中国)', url: 'https://zh.wikipedia.org/wiki/%E5%86%85%E9%98%81_(%E4%B8%AD%E5%9B%BD)' },
+        { title: '维基百科：军机处', url: 'https://zh.wikipedia.org/wiki/%E5%86%9B%E6%9C%BA%E5%A4%84' },
+      ],
+    },
+    {
+      title: '清代盛世与对外政策：康乾盛世与闭关（概念）',
+      stage: '初中',
+      category: '中国古代史/政治与对外关系',
+      period: '清前期',
+      summary: '理解清前期社会经济发展与人口增长的特征，并认识对外贸易政策与世界变局的张力。',
+      keyPoints: [
+        '人口与农业扩张：社会结构变化',
+        '对外贸易与政策：广州口岸与贸易管理',
+      ],
+      references: [
+        { title: '维基百科：康乾盛世', url: 'https://zh.wikipedia.org/wiki/%E5%BA%B7%E4%B9%BE%E7%9B%9B%E4%B8%96' },
+        { title: '维基百科：闭关锁国', url: 'https://zh.wikipedia.org/wiki/%E9%97%AD%E5%85%B3%E9%94%81%E5%9B%BD' },
+      ],
+    },
+    {
       title: '近代中国的开端：鸦片战争与近代国际秩序冲击',
       stage: '初中',
       category: '中国近代史',
@@ -262,6 +502,21 @@ function main() {
       ],
     },
     {
+      title: '近代化自强探索：洋务运动（概念）',
+      stage: '初中',
+      category: '中国近代史/改革与工业化',
+      period: '1860s-1890s',
+      summary: '理解洋务运动“自强”“求富”的主张、主要实践与局限，并认识近代工业化的起步困难。',
+      keyPoints: [
+        '近代企业与军工：技术引进与制度环境',
+        '局限性：政治结构与社会动员能力',
+      ],
+      references: [
+        { title: '维基百科：洋务运动', url: 'https://zh.wikipedia.org/wiki/%E6%B4%8B%E5%8A%A1%E8%BF%90%E5%8A%A8' },
+        { title: '维基百科：自强运动', url: 'https://zh.wikipedia.org/wiki/%E8%87%AA%E5%BC%BA%E8%BF%90%E5%8A%A8' },
+      ],
+    },
+    {
       title: '近代化探索：甲午、戊戌到辛亥（变革与革命）',
       stage: '初中',
       category: '中国近代史/改革与革命',
@@ -271,7 +526,7 @@ function main() {
         '甲午战争后的震动：国家危机与改革呼声',
         '维新与革命：路径、组织与社会基础差异',
       ],
-      relatedEventTitles: ['甲午中日战争', '戊戌变法', '辛亥革命', '中华民国成立', '中华民国成立'],
+      relatedEventTitles: ['甲午中日战争', '戊戌变法', '辛亥革命', '中华民国成立'],
       references: [
         { title: '维基百科：甲午战争', url: 'https://zh.wikipedia.org/wiki/%E7%94%B2%E5%8D%88%E6%88%98%E4%BA%89' },
         { title: '维基百科：戊戌变法', url: 'https://zh.wikipedia.org/wiki/%E6%88%8A%E6%88%8C%E5%8F%98%E6%B3%95' },
@@ -292,6 +547,21 @@ function main() {
       references: [
         { title: '维基百科：五四运动', url: 'https://zh.wikipedia.org/wiki/%E4%BA%94%E5%9B%9B%E8%BF%90%E5%8A%A8' },
         { title: '维基百科：新文化运动', url: 'https://zh.wikipedia.org/wiki/%E6%96%B0%E6%96%87%E5%8C%96%E8%BF%90%E5%8A%A8' },
+      ],
+    },
+    {
+      title: '共和与国家重建：民国初期的政治探索（概念）',
+      stage: '高中',
+      category: '中国近现代史/政治',
+      period: '1912-1920s',
+      summary: '理解共和制度建立后的政治整合难题与社会转型压力，为理解后续革命与战争提供背景。',
+      keyPoints: [
+        '制度更替后的权力整合：地方、军队与财政',
+        '社会转型：城市化、教育与舆论空间',
+      ],
+      references: [
+        { title: '维基百科：中华民国（大陆时期）', url: 'https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E6%B0%91%E5%9B%BD_(%E5%A4%A7%E9%99%86%E6%97%B6%E6%9C%9F)' },
+        { title: '维基百科：北洋政府', url: 'https://zh.wikipedia.org/wiki/%E5%8C%97%E6%B4%8B%E6%94%BF%E5%BA%9C' },
       ],
     },
     {
@@ -327,6 +597,37 @@ function main() {
       ],
     },
     {
+      title: '新中国的社会经济变革：土地改革与“三大改造”（概念）',
+      stage: '高中',
+      category: '中国现代史/经济与社会',
+      period: '1950s',
+      summary: '理解建国初期的土地制度变革与所有制改造在社会结构与经济组织上的影响。',
+      keyPoints: [
+        '土地改革：农村社会结构变化与生产关系调整',
+        '三大改造：公私关系与经济体制变迁',
+      ],
+      references: [
+        { title: '维基百科：土地改革', url: 'https://zh.wikipedia.org/wiki/%E5%9C%9F%E5%9C%B0%E6%94%B9%E9%9D%A9' },
+        { title: '维基百科：三大改造', url: 'https://zh.wikipedia.org/wiki/%E4%B8%89%E5%A4%A7%E6%94%B9%E9%80%A0' },
+      ],
+    },
+    {
+      title: '当代中国的转型：改革开放的关键政策与路径（概念）',
+      stage: '高中',
+      category: '中国当代史/经济与制度',
+      period: '1978-',
+      summary: '在不陷入细碎事件的前提下，理解改革开放的核心方向：放活要素、扩大开放、形成市场机制。',
+      keyPoints: [
+        '农村改革与家庭联产承包责任制（概念）',
+        '经济特区与对外开放：制度试验与扩散',
+      ],
+      relatedEventTitles: ['改革开放'],
+      references: [
+        { title: '维基百科：家庭联产承包责任制', url: 'https://zh.wikipedia.org/wiki/%E5%AE%B6%E5%BA%AD%E8%81%94%E4%BA%A7%E6%89%BF%E5%8C%85%E8%B4%A3%E4%BB%BB%E5%88%B6' },
+        { title: '维基百科：经济特区', url: 'https://zh.wikipedia.org/wiki/%E7%BB%8F%E6%B5%8E%E7%89%B9%E5%8C%BA' },
+      ],
+    },
+    {
       title: '改革开放与全球化：从制度改革到加入WTO',
       stage: '高中',
       category: '中国当代史/经济与开放',
@@ -345,11 +646,15 @@ function main() {
     },
   ]
 
-  const knowledgePoints = templates.map((t, idx) => {
+  const usedIds = new Set()
+  const knowledgePoints = templates.map((t) => {
     const relatedEventIds = resolveEventIdsByTitle(events, t.relatedEventTitles || [])
     const relatedPersonIds = resolvePersonIdsByName(persons, t.relatedPersonNames || [])
+    let id = stableIdFromTitle(t.title)
+    while (usedIds.has(id)) id++
+    usedIds.add(id)
     return {
-      id: idx + 1,
+      id,
       title: t.title,
       stage: t.stage,
       category: t.category,
