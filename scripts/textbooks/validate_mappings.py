@@ -78,9 +78,8 @@ def main() -> None:
     issues: List[str] = []
     seen_keys: Set[Tuple[str, int, str, str]] = set()
 
-    empty_chapter = 0
-    empty_page = 0
-    empty_all_meta = 0
+    # 教材页码/行号会随版本变动：此脚本只关注“实体/来源是否能匹配、是否重复”
+    # chapter/page/line/note 仅作为可选补充信息，不作为质量门槛统计。
     unmatched_entity = 0
     unmatched_source = 0
     duplicates = 0
@@ -138,26 +137,13 @@ def main() -> None:
             unmatched_source += 1
             issues.append(f"[{i}] 未找到 source：title={st} publisher={pub}")
 
-        chapter = _norm(m.get("chapter"))
-        page = _norm(m.get("page"))
-        line = _norm(m.get("line"))
-        note = _norm(m.get("note"))
-
-        if not chapter:
-            empty_chapter += 1
-        if not page:
-            empty_page += 1
-        if not chapter and not page and not line and not note:
-            empty_all_meta += 1
+        # optional meta fields ignored for validation
 
     print(f"[validate_mappings] file={mappings_path}")
     print(f"- total: {total}")
     print(f"- duplicates: {duplicates}")
     print(f"- unmatched_entity: {unmatched_entity}")
     print(f"- unmatched_source: {unmatched_source}")
-    print(f"- empty_chapter: {empty_chapter}")
-    print(f"- empty_page: {empty_page}")
-    print(f"- empty_all_meta(chapter/page/line/note all empty): {empty_all_meta}")
 
     if issues:
         print("Issues:")

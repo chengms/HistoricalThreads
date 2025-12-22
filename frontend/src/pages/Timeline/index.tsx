@@ -64,7 +64,7 @@ export default function TimelinePage() {
   const timelineContainerRef = useRef<HTMLDivElement>(null)
   const [dynasty, setDynasty] = useState<string>('all')
   const [eventType, setEventType] = useState<string>('all')
-  const [citationStatus, setCitationStatus] = useState<string>('all') // all | has | pending | has_page
+  const [citationStatus, setCitationStatus] = useState<string>('all') // all | has
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
@@ -90,8 +90,7 @@ export default function TimelinePage() {
   const formatCitationMeta = (c: CitationLike) => {
     const parts: string[] = []
     if (c.chapter) parts.push(`章节：${c.chapter}`)
-    if (c.page) parts.push(`页码：${c.page}`)
-    if (c.line) parts.push(`行：${c.line}`)
+    // 页码/行号会随教材版本变动：默认不展示
     if (c.note && c.note !== '待补页码') parts.push(c.note)
     return parts.length ? `（${parts.join('；')}）` : ''
   }
@@ -297,22 +296,8 @@ export default function TimelinePage() {
         filtered = filtered.filter(e => e.eventType === eventType)
       }
 
-      if (citationStatus !== 'all') {
-        filtered = filtered.filter(e => {
-          const citations = (e.citations || []) as Citation[]
-          if (citationStatus === 'has') return citations.length > 0
-          if (citationStatus === 'pending') {
-            if (!citations.length) return false
-            const hasAnyPage = citations.some(c => (c.page || '').trim().length > 0)
-            const hasPlaceholder = citations.some(c => c.note === '待补页码')
-            return hasPlaceholder || !hasAnyPage
-          }
-          if (citationStatus === 'has_page') {
-            if (!citations.length) return false
-            return citations.some(c => (c.page || '').trim().length > 0)
-          }
-          return true
-        })
+      if (citationStatus === 'has') {
+        filtered = filtered.filter(e => ((e.citations || []) as Citation[]).length > 0)
       }
       
       // 按年份排序
@@ -604,8 +589,6 @@ export default function TimelinePage() {
             options={[
               { label: '全部引用', value: 'all' },
               { label: '已有引用', value: 'has' },
-              { label: '待补页码', value: 'pending' },
-              { label: '已补页码', value: 'has_page' },
             ]}
           />
         </Space>
@@ -796,9 +779,6 @@ export default function TimelinePage() {
                                   if (!source) return null
                                   return (
                                     <div key={`${event.id}-${c.sourceId}`} className="citation-item">
-                                      {c.note === '待补页码' && (
-                                        <Tag color="gold" className="citation-tag">待补页码</Tag>
-                                      )}
                                       <Button
                                         type="link"
                                         size="small"

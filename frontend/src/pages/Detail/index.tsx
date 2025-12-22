@@ -12,9 +12,7 @@ const { Title, Paragraph } = Typography
 function renderCitationMeta(c: Citation) {
   const parts: string[] = []
   if (c.chapter) parts.push(`章节：${c.chapter}`)
-  if (c.page) parts.push(`页码：${c.page}`)
-  if (c.line) parts.push(`行：${c.line}`)
-  // “待补页码” 用更醒目的 Tag 展示，这里不再塞进 meta 文案里
+  // 页码/行号会随教材版本变动：默认不展示
   if (c.note && c.note !== '待补页码') parts.push(c.note)
   return parts.length ? `（${parts.join('；')}）` : ''
 }
@@ -262,9 +260,6 @@ export default function DetailPage() {
                       {source.author && (
                         <span className="text-gray-500 ml-2">（{source.author}）</span>
                       )}
-                      {c.note === '待补页码' && (
-                        <Tag color="gold" style={{ marginLeft: 8, marginRight: 0 }}>待补页码</Tag>
-                      )}
                       <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                     </List.Item>
                     )
@@ -407,9 +402,6 @@ export default function DetailPage() {
                         return (
                           <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                             <span className="text-gray-500" style={{ fontSize: 12 }}>引用：</span>
-                            {first.note === '待补页码' && (
-                              <Tag color="gold" style={{ margin: 0 }}>待补页码</Tag>
-                            )}
                             {source.url ? (
                               <a
                                 href={source.url}
@@ -513,9 +505,6 @@ export default function DetailPage() {
                     )}
                     {source.author && (
                       <span className="text-gray-500 ml-2">（{source.author}）</span>
-                    )}
-                    {c.note === '待补页码' && (
-                      <Tag color="gold" style={{ marginLeft: 8, marginRight: 0 }}>待补页码</Tag>
                     )}
                     <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                   </List.Item>
