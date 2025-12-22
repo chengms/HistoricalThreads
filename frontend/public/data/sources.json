@@ -915,5 +915,35 @@
     "sourceType": "authoritative_website",
     "credibilityLevel": 3,
     "verified": false
+  },
+  {
+    "id": 183,
+    "title": "《晋书》",
+    "author": "房玄龄等",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/jinshu/"
+  },
+  {
+    "id": 184,
+    "title": "《南史》",
+    "author": "李延寿",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/nanshi/"
+  },
+  {
+    "id": 185,
+    "title": "《北史》",
+    "author": "李延寿",
+    "sourceType": "official_history",
+    "publisher": "中华书局",
+    "credibilityLevel": 5,
+    "verified": true,
+    "url": "https://www.guoxue.com/shibu/beishi/"
   }
 ]

@@ -51,25 +51,29 @@ const OFFICIAL_HISTORY_IDS = {
   YUANSHI: 8, // 《元史》
   MINGSHI: 9, // 《明史》
   QINGSHIGAO: 10, // 《清史稿》
+  JINSHU: 183, // 《晋书》
+  NANSHI: 184, // 《南史》
+  BEISHI: 185, // 《北史》
 }
 
 function pickOfficialHistoryId(eventYear, dynastyId) {
   // dynastyId 基于项目内 dynasties.json 的序号，粗粒度选择即可（宁可不加也不乱加）
-  // 1 夏 2 商 3 周 4 春秋 5 战国 6 秦 7 汉 8 三国 9 两晋南北朝 10 隋 11 唐 12 宋 13 元 14 明 15 清 16 近代 17 民国 18 新中国
+  // 1 夏 2 商 3 周 4 春秋 5 战国 6 秦 7 汉 8 三国 9 晋 10 南北朝 11 隋 12 唐 13 宋 14 元 15 明 16 清 17 民国 18 中华人民共和国
   if (dynastyId === 4) return OFFICIAL_HISTORY_IDS.ZUOZHUAN
   if (dynastyId >= 1 && dynastyId <= 6) return OFFICIAL_HISTORY_IDS.SHIJI
   if (dynastyId === 7) return OFFICIAL_HISTORY_IDS.HANSHU
   if (dynastyId === 8) return OFFICIAL_HISTORY_IDS.SANGUOZHI
-  if (dynastyId === 9) return null // 两晋南北朝：当前 sources.json 未提供《晋书》《魏书》等，先不强加
-  if (dynastyId === 10) return OFFICIAL_HISTORY_IDS.SUISHU
-  if (dynastyId === 11) return OFFICIAL_HISTORY_IDS.JIUTANGSHU
-  if (dynastyId === 12) return OFFICIAL_HISTORY_IDS.SONGSHI
-  if (dynastyId === 13) return OFFICIAL_HISTORY_IDS.YUANSHI
-  if (dynastyId === 14) return OFFICIAL_HISTORY_IDS.MINGSHI
-  if (dynastyId === 15) return OFFICIAL_HISTORY_IDS.QINGSHIGAO
+  if (dynastyId === 9) return OFFICIAL_HISTORY_IDS.JINSHU
+  if (dynastyId === 10) return OFFICIAL_HISTORY_IDS.BEISHI // 南北朝：用《北史》作粗粒度兜底
+  if (dynastyId === 11) return OFFICIAL_HISTORY_IDS.SUISHU
+  if (dynastyId === 12) return OFFICIAL_HISTORY_IDS.JIUTANGSHU
+  if (dynastyId === 13) return OFFICIAL_HISTORY_IDS.SONGSHI
+  if (dynastyId === 14) return OFFICIAL_HISTORY_IDS.YUANSHI
+  if (dynastyId === 15) return OFFICIAL_HISTORY_IDS.MINGSHI
+  if (dynastyId === 16) return OFFICIAL_HISTORY_IDS.QINGSHIGAO
 
   // 近代/民国/新中国：现有 sources.json 的“正史”不覆盖，跳过
-  if (dynastyId >= 16) return null
+  if (dynastyId >= 17) return null
 
   // 兜底：按年份粗略判断（仅在 dynastyId 缺失/异常时才会走到这里）
   if (typeof eventYear === 'number') {
