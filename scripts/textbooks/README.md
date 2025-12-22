@@ -50,6 +50,34 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --dry-run
 ```
 
+### 用 Excel 批量填写页码/章节（推荐）
+映射 JSON 直接编辑也行，但更推荐用 CSV（Excel 友好）：
+
+1) 导出 CSV（建议加 `--excel-bom`，避免 Excel 打开乱码）：
+
+```bash
+python scripts/textbooks/export_mappings_csv.py --in scripts/textbooks/mappings_grade7_up.json --out C:\Temp\mappings_grade7_up.csv --excel-bom
+```
+
+2) 用 Excel 打开 `mappings_grade7_up.csv`，主要填写：
+- `chapter`（课题/单元/小栏目名）
+- `page`（页码范围）
+- `note`（可选备注）
+- `verified`（可选：填 1/0 或 true/false）
+
+3) 回写到 mappings JSON：
+
+```bash
+python scripts/textbooks/import_mappings_csv.py --mappings scripts/textbooks/mappings_grade7_up.json --csv C:\Temp\mappings_grade7_up.csv
+```
+
+4) dry-run 验证 + 正式写入 events/persons：
+
+```bash
+python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --dry-run
+python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json
+```
+
 默认情况下，如果某条映射的 `chapter/page/line/note` 都为空，脚本**不会写入 citations**（避免骨架文件产生大量空引用），但会维护 `sources` 的关联。
 如果你确实希望“即使没页码也先生成 citations”，可以加：
 
