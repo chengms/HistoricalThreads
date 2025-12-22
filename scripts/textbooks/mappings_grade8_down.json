@@ -1,0 +1,56 @@
+[
+  {
+    "entityType": "event",
+    "entityId": 19,
+    "entityName": "郑和下西洋",
+    "sourceTitle": "义务教育教科书·历史 八年级 下册（统编版）",
+    "publisher": "人民教育出版社",
+    "chapter": "",
+    "page": "",
+    "line": "",
+    "note": "",
+    "hintDynasty": "明朝",
+    "hintYear": 1405,
+    "verified": false
+  },
+  {
+    "entityType": "event",
+    "entityId": 20,
+    "entityName": "鸦片战争",
+    "sourceTitle": "义务教育教科书·历史 八年级 下册（统编版）",
+    "publisher": "人民教育出版社",
+    "chapter": "",
+    "page": "",
+    "line": "",
+    "note": "",
+    "hintDynasty": "清朝",
+    "hintYear": 1840,
+    "verified": false
+  },
+  {
+    "entityType": "person",
+    "entityId": 28,
+    "entityName": "郑和",
+    "sourceTitle": "义务教育教科书·历史 八年级 下册（统编版）",
+    "publisher": "人民教育出版社",
+    "chapter": "",
+    "page": "",
+    "line": "",
+    "note": "",
+    "hintDynasty": "明朝",
+    "verified": false
+  },
+  {
+    "entityType": "person",
+    "entityId": 29,
+    "entityName": "林则徐",
+    "sourceTitle": "义务教育教科书·历史 八年级 下册（统编版）",
+    "publisher": "人民教育出版社",
+    "chapter": "",
+    "page": "",
+    "line": "",
+    "note": "",
+    "hintDynasty": "清朝",
+    "verified": false
+  }
+]

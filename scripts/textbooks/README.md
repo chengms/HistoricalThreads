@@ -64,9 +64,16 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 python scripts/textbooks/generate_mappings_skeleton.py ^
   --preset grade7_up ^
   --out scripts/textbooks/mappings_grade7_up.json ^
-  --year-min -3000 --year-max -221 ^
   --include-persons
 ```
+
+`--preset` 支持：
+- `grade7_up` / `grade7_down`
+- `grade8_up` / `grade8_down`
+- `grade9_up` / `grade9_down`
+- `hs_outline_up` / `hs_outline_down`
+
+你也可以用 `--year-min/--year-max` 覆盖预设的默认范围。
 
 
 
