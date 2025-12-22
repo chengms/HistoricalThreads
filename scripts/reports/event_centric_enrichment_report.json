@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2025-12-22T03:37:40.322Z",
+  "generatedAt": "2025-12-22T03:43:29.693Z",
   "dataDir": "D:\\MyFile\\Coder\\HistoricalThreads\\frontend\\public\\data",
   "summary": {
     "events": {
@@ -8,11 +8,11 @@
       "missingLocation": 0,
       "missingPersons": 0,
       "missingSources": 0,
-      "eventsWithSuggestions": 3,
+      "eventsWithSuggestions": 0,
       "eventsWithHighConfidenceSuggestions": 0
     },
     "persons": {
-      "personsTotal": 61,
+      "personsTotal": 58,
       "personsInEvents": 53,
       "topImportant": [
         {
@@ -98,108 +98,6 @@
     }
   },
   "events": [
-    {
-      "eventId": 10,
-      "title": "汉武帝开疆拓土",
-      "eventYear": -140,
-      "dynastyId": 7,
-      "personsCount": 3,
-      "sourcesCount": 3,
-      "sourcesByType": {
-        "textbook": 2,
-        "authoritative_website": 1
-      },
-      "coverage": {
-        "hasWeb": true,
-        "hasTextbook": true,
-        "hasOfficialHistory": false
-      },
-      "danglingPersonIds": [],
-      "missingCoreFields": {
-        "missingDescription": false,
-        "missingLocation": false,
-        "missingPersons": false,
-        "missingSources": false
-      },
-      "suggestedPersons": [
-        {
-          "personId": 35,
-          "name": "刘彻",
-          "matchedToken": "汉武帝",
-          "confidence": "low",
-          "ambiguousToken": true
-        }
-      ],
-      "suggestionsCount": 1
-    },
-    {
-      "eventId": 14,
-      "title": "唐太宗贞观之治",
-      "eventYear": 627,
-      "dynastyId": 12,
-      "personsCount": 1,
-      "sourcesCount": 3,
-      "sourcesByType": {
-        "textbook": 2,
-        "authoritative_website": 1
-      },
-      "coverage": {
-        "hasWeb": true,
-        "hasTextbook": true,
-        "hasOfficialHistory": false
-      },
-      "danglingPersonIds": [],
-      "missingCoreFields": {
-        "missingDescription": false,
-        "missingLocation": false,
-        "missingPersons": false,
-        "missingSources": false
-      },
-      "suggestedPersons": [
-        {
-          "personId": 36,
-          "name": "李世民",
-          "matchedToken": "李世民",
-          "confidence": "low",
-          "ambiguousToken": true
-        }
-      ],
-      "suggestionsCount": 1
-    },
-    {
-      "eventId": 18,
-      "title": "成吉思汗统一蒙古",
-      "eventYear": 1206,
-      "dynastyId": 14,
-      "personsCount": 1,
-      "sourcesCount": 3,
-      "sourcesByType": {
-        "textbook": 2,
-        "authoritative_website": 1
-      },
-      "coverage": {
-        "hasWeb": true,
-        "hasTextbook": true,
-        "hasOfficialHistory": false
-      },
-      "danglingPersonIds": [],
-      "missingCoreFields": {
-        "missingDescription": false,
-        "missingLocation": false,
-        "missingPersons": false,
-        "missingSources": false
-      },
-      "suggestedPersons": [
-        {
-          "personId": 37,
-          "name": "孛儿只斤·铁木真",
-          "matchedToken": "成吉思汗",
-          "confidence": "low",
-          "ambiguousToken": true
-        }
-      ],
-      "suggestionsCount": 1
-    },
     {
       "eventId": 1,
       "title": "大禹治水",
@@ -487,6 +385,32 @@
       "suggestionsCount": 0
     },
     {
+      "eventId": 10,
+      "title": "汉武帝开疆拓土",
+      "eventYear": -140,
+      "dynastyId": 7,
+      "personsCount": 3,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
       "eventId": 11,
       "title": "张骞出使西域",
       "eventYear": -138,
@@ -617,6 +541,32 @@
       "suggestionsCount": 0
     },
     {
+      "eventId": 14,
+      "title": "唐太宗贞观之治",
+      "eventYear": 627,
+      "dynastyId": 12,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
       "eventId": 15,
       "title": "安史之乱",
       "eventYear": 755,
@@ -673,6 +623,32 @@
       "title": "王安石变法",
       "eventYear": 1069,
       "dynastyId": 13,
+      "personsCount": 1,
+      "sourcesCount": 3,
+      "sourcesByType": {
+        "textbook": 2,
+        "authoritative_website": 1
+      },
+      "coverage": {
+        "hasWeb": true,
+        "hasTextbook": true,
+        "hasOfficialHistory": false
+      },
+      "danglingPersonIds": [],
+      "missingCoreFields": {
+        "missingDescription": false,
+        "missingLocation": false,
+        "missingPersons": false,
+        "missingSources": false
+      },
+      "suggestedPersons": [],
+      "suggestionsCount": 0
+    },
+    {
+      "eventId": 18,
+      "title": "成吉思汗统一蒙古",
+      "eventYear": 1206,
+      "dynastyId": 14,
       "personsCount": 1,
       "sourcesCount": 3,
       "sourcesByType": {
@@ -1269,10 +1245,10 @@
         "missingAvatarUrl": false,
         "missingSources": false
       },
-      "sourcesCount": 3,
+      "sourcesCount": 4,
       "sourcesByType": {
         "textbook": 2,
-        "authoritative_website": 1
+        "authoritative_website": 2
       }
     },
     {
@@ -1420,10 +1396,10 @@
         "missingAvatarUrl": false,
         "missingSources": false
       },
-      "sourcesCount": 3,
+      "sourcesCount": 4,
       "sourcesByType": {
         "textbook": 2,
-        "authoritative_website": 1
+        "authoritative_website": 2
       }
     },
     {
@@ -1855,10 +1831,10 @@
         "missingAvatarUrl": false,
         "missingSources": false
       },
-      "sourcesCount": 3,
+      "sourcesCount": 4,
       "sourcesByType": {
         "textbook": 2,
-        "authoritative_website": 1
+        "authoritative_website": 2
       }
     },
     {
