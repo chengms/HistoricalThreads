@@ -390,6 +390,47 @@ export default function DetailPage() {
                           {event.description}
                         </div>
                       )}
+
+                      {(() => {
+                        const citations = (event.citations || []) as Citation[]
+                        const sources = (event.sources || []) as any[]
+                        const items = citations.length
+                          ? citations
+                          : sources.map(s => ({ sourceId: s.id, source: s } as Citation))
+
+                        if (!items.length) return null
+
+                        const first = items[0]
+                        const source = first.source
+                        if (!source) return null
+
+                        return (
+                          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                            <span className="text-gray-500" style={{ fontSize: 12 }}>引用：</span>
+                            {first.note === '待补页码' && (
+                              <Tag color="gold" style={{ margin: 0 }}>待补页码</Tag>
+                            )}
+                            {source.url ? (
+                              <a
+                                href={source.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700"
+                                style={{ fontSize: 12 }}
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {source.title}
+                              </a>
+                            ) : (
+                              <span className="text-gray-700" style={{ fontSize: 12 }}>{source.title}</span>
+                            )}
+                            <span className="text-gray-500" style={{ fontSize: 12 }}>{renderCitationMeta(first)}</span>
+                            {items.length > 1 && (
+                              <span className="text-gray-500" style={{ fontSize: 12 }}>+{items.length - 1}</span>
+                            )}
+                          </div>
+                        )
+                      })()}
                     </div>
                   </List.Item>
                 )}
