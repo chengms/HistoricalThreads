@@ -29,10 +29,12 @@ function parseArgs() {
     ? idsRaw.split(',').map(x => Number(String(x).trim())).filter(x => Number.isFinite(x))
     : null
   const onlyMissing = process.argv.includes('--only-missing')
+  const allPersons = process.argv.includes('--all-persons')
   return {
     limit: Number.isFinite(limit) ? Math.max(1, Math.floor(limit)) : null,
     ids,
     onlyMissing,
+    allPersons,
   }
 }
 
@@ -79,7 +81,7 @@ async function fetchBaiduSummaryByName(client, name) {
 }
 
 async function main() {
-  const { limit, ids, onlyMissing } = parseArgs()
+  const { limit, ids, onlyMissing, allPersons } = parseArgs()
   const client = new WebClient()
 
   const events = await readJSON(path.join(DATA_DIR, 'events.json'))
@@ -103,7 +105,11 @@ async function main() {
     }
   }
 
-  const targetIds = limit ? idsInEvents.slice(0, limit) : idsInEvents
+  const allIds = allPersons
+    ? persons.filter(p => p && typeof p.id === 'number').map(p => p.id)
+    : idsInEvents
+
+  const targetIds = limit ? allIds.slice(0, limit) : allIds
   const finalIds = ids && ids.length ? targetIds.filter(x => ids.includes(x)) : targetIds
   let updated = 0
   let skipped = 0
@@ -159,6 +165,8 @@ async function main() {
 
   console.log('[enrichPersonsInEvents] done', {
     personsInEvents: idsInEvents.length,
+    allPersons: persons.length,
+    mode: allPersons ? 'all-persons' : 'persons-in-events',
     processed: finalIds.length,
     updated,
     skipped,
