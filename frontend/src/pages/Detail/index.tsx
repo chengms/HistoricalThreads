@@ -12,7 +12,9 @@ const { Title, Paragraph } = Typography
 function renderCitationMeta(c: Citation) {
   const parts: string[] = []
   if (c.chapter) parts.push(`章节：${c.chapter}`)
-  // 页码/行号会随教材版本变动：默认不展示
+  // 页码/行号会随教材版本变动：仅在用户已填写时展示
+  if (c.page) parts.push(`页码：${c.page}`)
+  if (c.line) parts.push(`行：${c.line}`)
   if (c.note && c.note !== '待补页码') parts.push(c.note)
   return parts.length ? `（${parts.join('；')}）` : ''
 }
