@@ -11,6 +11,7 @@
  *   node enrichSources.js --type all --only-missing
  *   node enrichSources.js --type all --only-missing-web   (仅补齐百科/网站类来源)
  *   node enrichSources.js --type all --only-missing-web --no-refs (只补链接，不抓参考资料)
+ *   node enrichSources.js --type all --ensure-encyclopedia-links --no-refs --no-sogou (为所有条目补齐“百科链接包”，不抓参考资料)
  */
 
 import path from 'path'
@@ -33,11 +34,15 @@ function parseArgs() {
     type,
     onlyMissing: args.has('--only-missing'),
     onlyMissingWeb: args.has('--only-missing-web'),
+    ensureEncyclopediaLinks: args.has('--ensure-encyclopedia-links'),
     noSogou: args.has('--no-sogou'),
     noRefs: args.has('--no-refs'),
     includeWiki: !args.has('--no-wiki'),
     includeEnWiki: args.has('--en-wiki'),
     includeBritannica: args.has('--britannica'),
+    include360: !args.has('--no-360'),
+    includeMbalib: args.has('--mbalib'),
+    includeWikidata: args.has('--wikidata'),
   }
 }
 
@@ -125,7 +130,7 @@ async function enrichEntity(client, allSources, entity, kind) {
   }
 
   // 0) 仅补齐百科/网站来源时：如果已经有 authoritative_website，就直接跳过（避免无谓膨胀）
-  if (client.__onlyMissingWeb && hasAnyWebsite()) {
+  if (client.__onlyMissingWeb && !client.__ensureEncyclopediaLinks && hasAnyWebsite()) {
     entity.sources = Array.from(sourceIds)
     return
   }
@@ -165,6 +170,32 @@ async function enrichEntity(client, allSources, entity, kind) {
     } catch (e) {
       if (process.env.DEBUG) console.warn('[enrichSources] baidu refs failed:', name, e?.message)
     }
+  }
+
+  // 国内百科补充：360百科（检索页）
+  if (client.__include360 && !hasWebsiteHost('baike.so.com')) {
+    const so360 = `https://baike.so.com/search/?q=${encodeURIComponent(name)}`
+    const sid = upsertSource(allSources, {
+      title: `360百科（检索）：${name}`,
+      url: so360,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(sid)
+  }
+
+  // 国内百科补充：MBA智库百科（可选，默认不启用）
+  if (client.__includeMbalib && !hasWebsiteHost('mbalib.com')) {
+    const mb = `https://www.mbalib.com/wiki/Special:Search?search=${encodeURIComponent(name)}`
+    const sid = upsertSource(allSources, {
+      title: `MBA智库百科（检索）：${name}`,
+      url: mb,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(sid)
   }
 
   // 3) 搜狗百科：先搜索获取词条链接（可被禁用或自动跳过）
@@ -244,18 +275,35 @@ async function enrichEntity(client, allSources, entity, kind) {
     sourceIds.add(bid)
   }
 
+  // 6) Wikidata（可选，国外结构化百科/知识库）
+  if (client.__includeWikidata && !hasWebsiteHost('wikidata.org')) {
+    const wd = `https://www.wikidata.org/wiki/Special:Search?search=${encodeURIComponent(name)}`
+    const sid = upsertSource(allSources, {
+      title: `Wikidata（Search）：${name}`,
+      url: wd,
+      sourceType: 'authoritative_website',
+      credibilityLevel: 3,
+      verified: false,
+    })
+    sourceIds.add(sid)
+  }
+
   entity.sources = Array.from(sourceIds)
 }
 
 async function main() {
-  const { type, onlyMissing, onlyMissingWeb, noSogou, noRefs, includeWiki, includeEnWiki, includeBritannica } = parseArgs()
+  const { type, onlyMissing, onlyMissingWeb, ensureEncyclopediaLinks, noSogou, noRefs, includeWiki, includeEnWiki, includeBritannica, include360, includeMbalib, includeWikidata } = parseArgs()
   const client = new WebClient()
   client.__enableSogou = !noSogou
   client.__onlyMissingWeb = !!onlyMissingWeb
+  client.__ensureEncyclopediaLinks = !!ensureEncyclopediaLinks
   client.__noRefs = !!noRefs
   client.__includeWiki = !!includeWiki
   client.__includeEnWiki = !!includeEnWiki
   client.__includeBritannica = !!includeBritannica
+  client.__include360 = !!include360
+  client.__includeMbalib = !!includeMbalib
+  client.__includeWikidata = !!includeWikidata
 
   // 如果 DNS/网络环境不允许访问搜狗百科，提前禁用，避免每条都报错浪费时间
   if (client.__enableSogou) {
@@ -289,7 +337,7 @@ async function main() {
     }
   }
 
-  console.log(`将处理 ${tasks.length} 条记录（type=${type}${onlyMissing ? ', only-missing' : ''}${onlyMissingWeb ? ', only-missing-web' : ''}${noRefs ? ', no-refs' : ''}）...`)
+  console.log(`将处理 ${tasks.length} 条记录（type=${type}${onlyMissing ? ', only-missing' : ''}${onlyMissingWeb ? ', only-missing-web' : ''}${ensureEncyclopediaLinks ? ', ensure-encyclopedia-links' : ''}${noRefs ? ', no-refs' : ''}）...`)
   for (const t of tasks) {
     // 串行执行，避免被封 + 保持速率限制
     // eslint-disable-next-line no-await-in-loop
