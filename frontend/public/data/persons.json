@@ -16,6 +16,7 @@
     "birthplace": "有崇",
     "sources": [
       70,
+      64,
       90
     ],
     "avatarUrl": "/images/full/2336625c16edd4687d563a4eaf9ad7df8eca735c.jpg"
@@ -37,6 +38,7 @@
     "dynastyId": 2,
     "sources": [
       70,
+      64,
       25
     ],
     "avatarUrl": "/images/full/2369661758ec7f464cfb02e5ed07f3a0dd6445d8.jpg"
@@ -58,6 +60,7 @@
     "dynastyId": 3,
     "sources": [
       70,
+      64,
       94
     ],
     "avatarUrl": "/images/full/482a566b71570f5bef3e616c32135f233c096861.jpg"
@@ -77,6 +80,7 @@
     "dynastyId": 4,
     "sources": [
       70,
+      64,
       26
     ],
     "avatarUrl": "/images/full/269c0cce93fc6f883f0bae1f38e0fea0a67cf17d.jpg"
@@ -96,6 +100,7 @@
     "dynastyId": 4,
     "sources": [
       70,
+      64,
       27
     ],
     "avatarUrl": "/images/full/4533fd135b51eb6a949c7a0fef6b32576fd2130a.jpg"
@@ -116,6 +121,7 @@
     "dynastyId": 4,
     "sources": [
       70,
+      64,
       44
     ],
     "avatarUrl": "/images/full/31bc3dab3c75a3cab7104e4c1aa6286f7287a148.jpg"
@@ -137,6 +143,7 @@
     "dynastyId": 5,
     "sources": [
       70,
+      64,
       45
     ],
     "avatarUrl": "/images/full/f683f25b612497640161fb4129af1903849804e0.jpg"
@@ -159,6 +166,8 @@
     "birthplace": "邯郸",
     "sources": [
       70,
+      64,
+      65,
       46
     ],
     "avatarUrl": "/images/full/c7a25d7e799324cfe1f2ed585f98061866c7ced1.jpg"
@@ -178,6 +187,7 @@
     "dynastyId": 6,
     "sources": [
       70,
+      65,
       47
     ],
     "avatarUrl": "/images/full/c8acaae3fdc67dd034d87bfab4aa1f823660cd41.jpg"
@@ -194,6 +204,7 @@
     "dynastyId": 6,
     "sources": [
       70,
+      65,
       48
     ],
     "avatarUrl": "/images/full/0a310f1c5023cbe44ca773f0ec8af31f13f459f7.jpg"
@@ -215,6 +226,7 @@
     "dynastyId": 7,
     "sources": [
       70,
+      65,
       49
     ],
     "avatarUrl": "/images/full/e798719add13a7fa984932adca7bccd7d0f00937.jpg"
@@ -234,6 +246,7 @@
     "dynastyId": 7,
     "sources": [
       70,
+      65,
       50
     ],
     "avatarUrl": "/images/full/23a71cd5ec341dfc60ce3feeed33c28188cf6322.jpg"
@@ -255,6 +268,7 @@
     "birthplace": "长安",
     "sources": [
       70,
+      65,
       98
     ],
     "avatarUrl": "/images/full/11f5f0f236f6e6a22efc2366d21ca7a04d4c15b1.jpg"
@@ -271,6 +285,7 @@
     "dynastyId": 7,
     "sources": [
       70,
+      65,
       51
     ],
     "avatarUrl": "/images/full/87ed1a8baf76fb13020820e81f6a128dfa76bdf8.jpg"
@@ -287,6 +302,7 @@
     "dynastyId": 7,
     "sources": [
       70,
+      65,
       52
     ],
     "avatarUrl": "/images/full/ff7de97757c8e2a1b448f334821b85352ec09b4f.jpg"
@@ -303,6 +319,7 @@
     "dynastyId": 7,
     "sources": [
       70,
+      65,
       53
     ],
     "avatarUrl": "/images/full/08ece45f985a8839cdced7b6089d2f65dec202ee.jpg"
@@ -325,6 +342,7 @@
     "dynastyId": 8,
     "sources": [
       70,
+      65,
       54
     ],
     "avatarUrl": "/images/full/a7d46c0148fe9c4e4dee3edaf7e186ade0bc7efb.jpg"
@@ -346,6 +364,7 @@
     "dynastyId": 8,
     "sources": [
       70,
+      65,
       55
     ],
     "avatarUrl": "/images/full/7fe549d51cff0d801f10ee47c6f7fd531b0e19b9.jpg"
@@ -367,6 +386,7 @@
     "dynastyId": 8,
     "sources": [
       70,
+      65,
       57
     ],
     "avatarUrl": "/images/full/ba3bb031ed40822f10ecc08ecb8f9fd87d9d0cd9.jpg"
@@ -389,6 +409,7 @@
     "dynastyId": 8,
     "sources": [
       70,
+      65,
       58
     ],
     "avatarUrl": "/images/full/12e7fb1db99879af9de8499a2ef9a912b3a6b808.jpg"
@@ -408,6 +429,7 @@
     "dynastyId": 11,
     "sources": [
       70,
+      66,
       102
     ],
     "avatarUrl": "/images/full/e6cd499ce19109c01e05dfc3693a4bf73986cea1.jpg"
@@ -427,6 +449,7 @@
     "dynastyId": 12,
     "sources": [
       70,
+      66,
       106
     ],
     "avatarUrl": "/images/full/13b6058c8330c07f5c23f53ba717d4deba9f9446.jpg"
@@ -443,6 +466,7 @@
     "dynastyId": 12,
     "sources": [
       70,
+      66,
       59
     ],
     "avatarUrl": "/images/full/ab8ba5018ed04f600cc6677033015bd9713e889e.jpg"
@@ -459,6 +483,7 @@
     "dynastyId": 12,
     "sources": [
       70,
+      66,
       60
     ],
     "avatarUrl": "/images/full/c7d36760a9a0a0cce6eeebc0dff56a6f11650da2.jpg"
@@ -479,6 +504,7 @@
     "dynastyId": 13,
     "sources": [
       70,
+      66,
       56
     ],
     "avatarUrl": "/images/full/954f4f916f43e54c0359eb3dc545215aaac14f7e.jpg"
@@ -500,6 +526,7 @@
     "dynastyId": 13,
     "sources": [
       70,
+      66,
       61
     ],
     "avatarUrl": "/images/full/ad673de212be50bbe5a6515c6d3210045b138c69.jpg"
@@ -519,6 +546,7 @@
     "dynastyId": 14,
     "sources": [
       70,
+      66,
       110
     ],
     "avatarUrl": "/images/full/23067c144c04d94ce8922b8de214c424f5d19272.jpg"
@@ -538,6 +566,7 @@
     "dynastyId": 15,
     "sources": [
       70,
+      67,
       62
     ],
     "avatarUrl": "/images/full/d74f01f67e4b6cf1e42bb8aa27314f682371cc32.jpg"
@@ -559,17 +588,10 @@
       68,
       70,
       71,
+      67,
       63
     ],
-    "avatarUrl": "/images/full/7cb31b84bd0ac2fab153c500b2a7e22737b9d0bf.jpg",
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "清"
-      }
-    ]
+    "avatarUrl": "/images/full/7cb31b84bd0ac2fab153c500b2a7e22737b9d0bf.jpg"
   },
   {
     "id": 30,
@@ -727,14 +749,6 @@
       68,
       71,
       82
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "清"
-      }
     ]
   },
   {
@@ -755,14 +769,6 @@
       68,
       71,
       83
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "民国"
-      }
     ]
   },
   {
@@ -780,14 +786,6 @@
       68,
       71,
       84
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "民国"
-      }
     ]
   },
   {
@@ -808,14 +806,6 @@
       68,
       71,
       85
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "民国"
-      }
     ]
   },
   {
@@ -834,20 +824,6 @@
       71,
       68,
       86
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      },
-      {
-        "sourceId": 69,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      }
     ]
   },
   {
@@ -866,20 +842,6 @@
       71,
       68,
       87
-    ],
-    "citations": [
-      {
-        "sourceId": 68,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      },
-      {
-        "sourceId": 69,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      }
     ]
   },
   {
@@ -897,14 +859,6 @@
       69,
       71,
       88
-    ],
-    "citations": [
-      {
-        "sourceId": 69,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      }
     ]
   },
   {
@@ -922,14 +876,6 @@
       69,
       71,
       89
-    ],
-    "citations": [
-      {
-        "sourceId": 69,
-        "note": "待补页码",
-        "verified": false,
-        "chapter": "中华人民共和国"
-      }
     ]
   }
 ]

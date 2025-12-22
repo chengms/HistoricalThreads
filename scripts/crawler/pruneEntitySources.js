@@ -7,6 +7,7 @@
  * 用法（在仓库根目录）：
  *   node scripts/crawler/pruneEntitySources.js
  *   node scripts/crawler/pruneEntitySources.js --keep-official-history
+ *   node scripts/crawler/pruneEntitySources.js --strip-citations
  */
 
 import fs from 'fs'
@@ -27,6 +28,7 @@ function parseArgs() {
   const args = new Set(process.argv.slice(2))
   return {
     keepOfficialHistory: args.has('--keep-official-history'),
+    stripCitations: args.has('--strip-citations'),
   }
 }
 
@@ -72,6 +74,9 @@ function uniqInts(arr) {
 function pruneEntitySources(entities, byId, opts) {
   let changed = 0
   for (const e of entities) {
+    if (opts.stripCitations && e && typeof e === 'object' && 'citations' in e) {
+      delete e.citations
+    }
     const ids = Array.isArray(e.sources) ? e.sources.filter(x => typeof x === 'number') : []
     const objs = ids.map(id => byId.get(id)).filter(Boolean)
 
@@ -126,6 +131,7 @@ function main() {
 
   console.log('[pruneEntitySources] done', {
     keepOfficialHistory: !!opts.keepOfficialHistory,
+    stripCitations: !!opts.stripCitations,
     changedPersons,
     changedEvents,
     persons: persons.length,
