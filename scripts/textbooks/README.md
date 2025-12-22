@@ -78,6 +78,13 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json
 ```
 
+### 校验 mappings 质量（推荐每次填完先跑）
+在写入数据前先校验能避免很多低级错误（sourceTitle 写错/条目没匹配/重复行等）：
+
+```bash
+python scripts/textbooks/validate_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json
+```
+
 默认情况下，如果某条映射的 `chapter/page/line/note` 都为空，脚本**不会写入 citations**（避免骨架文件产生大量空引用），但会维护 `sources` 的关联。
 如果你确实希望“即使没页码也先生成 citations”，可以加：
 
