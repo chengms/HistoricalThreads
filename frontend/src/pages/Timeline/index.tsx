@@ -94,6 +94,36 @@ export default function TimelinePage() {
     if (c.note && c.note !== '待补页码') parts.push(c.note)
     return parts.length ? `（${parts.join('；')}）` : ''
   }
+
+  const getWebsiteLabel = (url?: string) => {
+    const u = (url || '').toLowerCase()
+    if (u.includes('baike.baidu.com')) return '百度百科'
+    if (u.includes('baike.sogou.com')) return '搜狗百科'
+    if (u.includes('wikipedia.org')) return '维基百科'
+    if (u.includes('britannica.com')) return '大英百科'
+    return '百科/网站'
+  }
+
+  const getSourceBadge = (source: Source): { text: string; color: string } => {
+    switch (source.sourceType) {
+      case 'textbook':
+        return { text: '教材', color: 'green' }
+      case 'authoritative_website':
+        return { text: getWebsiteLabel(source.url), color: 'geekblue' }
+      case 'official_history':
+        return { text: '史书', color: 'gold' }
+      case 'archive':
+        return { text: '档案', color: 'default' }
+      case 'museum':
+        return { text: '博物馆', color: 'cyan' }
+      case 'research_paper':
+        return { text: '论文', color: 'purple' }
+      case 'academic_book':
+        return { text: '书籍', color: 'volcano' }
+      default:
+        return { text: '来源', color: 'default' }
+    }
+  }
   
   // 初始化响应式状态（仅在客户端）
   useEffect(() => {
@@ -297,7 +327,11 @@ export default function TimelinePage() {
       }
 
       if (citationStatus === 'has') {
-        filtered = filtered.filter(e => ((e.citations || []) as Citation[]).length > 0)
+        filtered = filtered.filter(e => {
+          const c = ((e.citations || []) as Citation[]).length
+          const s = (e.sources || []).length
+          return c + s > 0
+        })
       }
       
       // 按年份排序
@@ -587,8 +621,8 @@ export default function TimelinePage() {
             value={citationStatus}
             onChange={setCitationStatus}
             options={[
-              { label: '全部引用', value: 'all' },
-              { label: '已有引用', value: 'has' },
+              { label: '全部来源', value: 'all' },
+              { label: '已有来源', value: 'has' },
             ]}
           />
         </Space>
@@ -761,42 +795,69 @@ export default function TimelinePage() {
                           const citations = (event.citations || []) as Citation[]
                           const sources = (event.sources || []) as Source[]
 
-                          const items: CitationLike[] = citations.length
-                            ? citations.map(c => ({ ...c, sourceId: c.sourceId, source: c.source }))
-                            : sources.map(s => ({ sourceId: s.id, source: s }))
+                          const bySourceId = new Map<number, CitationLike>()
+                          // citations 优先提供 meta，但 sources 也要展示（百科/网站等）
+                          for (const c of citations) {
+                            if (c?.sourceId && c.source) bySourceId.set(c.sourceId, { ...c, sourceId: c.sourceId, source: c.source })
+                          }
+                          for (const s of sources) {
+                            if (!s?.id) continue
+                            if (!bySourceId.has(s.id)) bySourceId.set(s.id, { sourceId: s.id, source: s })
+                          }
 
-                          if (!items.length) return null
+                          const allItems = [...bySourceId.values()].filter(it => !!it.source)
+                          if (!allItems.length) return null
 
-                          const visible = items.slice(0, 2)
-                          const hidden = Math.max(0, items.length - visible.length)
+                          const textbookItems = allItems.filter(it => it.source?.sourceType === 'textbook')
+                          const websiteItems = allItems.filter(it => it.source?.sourceType === 'authoritative_website')
+                          const otherItems = allItems.filter(it => it.source?.sourceType !== 'textbook' && it.source?.sourceType !== 'authoritative_website')
+
+                          const groups: Array<{ key: string; label: string; items: CitationLike[] }> = [
+                            { key: 'textbook', label: '教材', items: textbookItems },
+                            { key: 'website', label: '百科/网站', items: websiteItems },
+                            { key: 'other', label: '其他', items: otherItems },
+                          ].filter(g => g.items.length > 0)
 
                           return (
                             <div className="event-citations">
-                              <div className="event-citations-label">引用：</div>
+                              <div className="event-citations-label">来源：</div>
                               <div className="event-citations-list">
-                                {visible.map((c) => {
-                                  const source = c.source
-                                  if (!source) return null
+                                {groups.map(g => {
+                                  const visible = g.items.slice(0, 2)
+                                  const hidden = Math.max(0, g.items.length - visible.length)
                                   return (
-                                    <div key={`${event.id}-${c.sourceId}`} className="citation-item">
-                                      <Button
-                                        type="link"
-                                        size="small"
-                                        className="citation-link"
-                                        onClick={(e) => {
-                                          e.stopPropagation()
-                                          if (source.url) window.open(source.url, '_blank', 'noopener,noreferrer')
-                                        }}
-                                      >
-                                        {source.title}
-                                      </Button>
-                                      <span className="citation-meta">{formatCitationMeta(c)}</span>
+                                    <div key={`${event.id}-${g.key}`} className="event-citations-group">
+                                      <span className="event-citations-group-label">{g.label}：</span>
+                                      <div className="event-citations-group-items">
+                                        {visible.map((c) => {
+                                          const source = c.source
+                                          if (!source) return null
+                                          const badge = getSourceBadge(source)
+                                          return (
+                                            <div key={`${event.id}-${g.key}-${c.sourceId}`} className="citation-item">
+                                              <Tag color={badge.color} className="citation-tag">{badge.text}</Tag>
+                                              <Button
+                                                type="link"
+                                                size="small"
+                                                className="citation-link"
+                                                onClick={(e) => {
+                                                  e.stopPropagation()
+                                                  if (source.url) window.open(source.url, '_blank', 'noopener,noreferrer')
+                                                }}
+                                              >
+                                                {source.title}
+                                              </Button>
+                                              <span className="citation-meta">{formatCitationMeta(c)}</span>
+                                            </div>
+                                          )
+                                        })}
+                                        {hidden > 0 && (
+                                          <span className="citation-more">+{hidden}</span>
+                                        )}
+                                      </div>
                                     </div>
                                   )
                                 })}
-                                {hidden > 0 && (
-                                  <span className="citation-more">+{hidden}</span>
-                                )}
                               </div>
                             </div>
                           )

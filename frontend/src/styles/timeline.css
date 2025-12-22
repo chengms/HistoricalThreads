@@ -873,6 +873,27 @@ button.dynasty-nav-item {
 .event-citations-list {
   display: flex;
   flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.event-citations-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.event-citations-group-label {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  flex: 0 0 auto;
+  padding-top: 2px;
+}
+
+.event-citations-group-items {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
   min-width: 0;
 }

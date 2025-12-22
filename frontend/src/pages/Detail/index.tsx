@@ -3,7 +3,7 @@ import { Card, Typography, Tag, Button, List, Space, Spin } from 'antd'
 import { ArrowLeftOutlined, LinkOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
-import type { Citation, Event, Person, PersonWithDetails } from '@/types'
+import type { Citation, Event, Person, PersonWithDetails, Source } from '@/types'
 import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
 
@@ -15,6 +15,66 @@ function renderCitationMeta(c: Citation) {
   // 页码/行号会随教材版本变动：默认不展示
   if (c.note && c.note !== '待补页码') parts.push(c.note)
   return parts.length ? `（${parts.join('；')}）` : ''
+}
+
+type SourceItem = {
+  sourceId: number
+  source: Source
+  meta?: string
+}
+
+function getWebsiteLabel(url?: string) {
+  const u = (url || '').toLowerCase()
+  if (u.includes('baike.baidu.com')) return '百度百科'
+  if (u.includes('baike.sogou.com')) return '搜狗百科'
+  if (u.includes('wikipedia.org')) return '维基百科'
+  if (u.includes('britannica.com')) return '大英百科'
+  return '百科/网站'
+}
+
+function getSourceBadge(source: Source): { text: string; color: string } {
+  switch (source.sourceType) {
+    case 'textbook':
+      return { text: '教材', color: 'green' }
+    case 'authoritative_website':
+      return { text: getWebsiteLabel(source.url), color: 'geekblue' }
+    case 'official_history':
+      return { text: '史书', color: 'gold' }
+    case 'archive':
+      return { text: '档案', color: 'default' }
+    case 'museum':
+      return { text: '博物馆', color: 'cyan' }
+    case 'research_paper':
+      return { text: '论文', color: 'purple' }
+    case 'academic_book':
+      return { text: '书籍', color: 'volcano' }
+    default:
+      return { text: '来源', color: 'default' }
+  }
+}
+
+function buildSourceItems(citations: Citation[] = [], sources: Source[] = []): SourceItem[] {
+  const byId = new Map<number, SourceItem>()
+  for (const c of citations) {
+    if (!c?.sourceId || !c.source) continue
+    byId.set(c.sourceId, { sourceId: c.sourceId, source: c.source, meta: renderCitationMeta(c) })
+  }
+  for (const s of sources) {
+    if (!s?.id) continue
+    if (!byId.has(s.id)) byId.set(s.id, { sourceId: s.id, source: s })
+  }
+  return [...byId.values()]
+}
+
+function groupSourceItems(items: SourceItem[]) {
+  const textbook = items.filter(it => it.source.sourceType === 'textbook')
+  const website = items.filter(it => it.source.sourceType === 'authoritative_website')
+  const other = items.filter(it => it.source.sourceType !== 'textbook' && it.source.sourceType !== 'authoritative_website')
+  return [
+    { key: 'textbook', label: '教材', items: textbook },
+    { key: 'website', label: '百科/网站', items: website },
+    { key: 'other', label: '其他', items: other },
+  ].filter(g => g.items.length > 0)
 }
 
 export default function DetailPage() {
@@ -239,32 +299,46 @@ export default function DetailPage() {
             {(((data as Event).citations && (data as Event).citations!.length > 0) || ((data as Event).sources && (data as Event).sources!.length > 0)) && (
               <>
                 <Title level={4}>信息来源</Title>
-                <List
-                  dataSource={((data as Event).citations && (data as Event).citations!.length > 0)
-                    ? (data as Event).citations!
-                    : ((data as Event).sources || []).map(s => ({ sourceId: s.id, source: s } as Citation))}
-                  renderItem={(item: any) => {
-                    const c = item as Citation
-                    const source = c.source
-                    if (!source) return null
-                    return (
-                    <List.Item>
-                      <LinkOutlined className="mr-2" />
-                      {source.url ? (
-                        <a href={source.url} target="_blank" rel="noopener noreferrer">
-                          {source.title}
-                        </a>
-                      ) : (
-                        <span>{source.title}</span>
+                <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                  {groupSourceItems(buildSourceItems((data as Event).citations || [], (data as Event).sources || [])).map(g => (
+                    <div key={`event-sources-${g.key}`}>
+                      <div style={{ marginBottom: 6 }}>
+                        <Tag color="default" style={{ margin: 0 }}>{g.label}</Tag>
+                        <span className="text-gray-500 ml-2">（{g.items.length}）</span>
+                      </div>
+                      <List
+                        size="small"
+                        dataSource={g.items.slice(0, 6)}
+                        renderItem={(it) => {
+                          const source = it.source
+                          const badge = getSourceBadge(source)
+                          return (
+                            <List.Item>
+                              <Tag color={badge.color} style={{ margin: 0, marginRight: 8 }}>{badge.text}</Tag>
+                              <LinkOutlined className="mr-2" />
+                              {source.url ? (
+                                <a href={source.url} target="_blank" rel="noopener noreferrer">
+                                  {source.title}
+                                </a>
+                              ) : (
+                                <span>{source.title}</span>
+                              )}
+                              {source.author && (
+                                <span className="text-gray-500 ml-2">（{source.author}）</span>
+                              )}
+                              {it.meta && (
+                                <span className="text-gray-500 ml-2">{it.meta}</span>
+                              )}
+                            </List.Item>
+                          )
+                        }}
+                      />
+                      {g.items.length > 6 && (
+                        <div className="text-gray-500" style={{ fontSize: 12, marginTop: 4 }}>+{g.items.length - 6}</div>
                       )}
-                      {source.author && (
-                        <span className="text-gray-500 ml-2">（{source.author}）</span>
-                      )}
-                      <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
-                    </List.Item>
-                    )
-                  }}
-                />
+                    </div>
+                  ))}
+                </Space>
               </>
             )}
           </Space>
@@ -485,32 +559,46 @@ export default function DetailPage() {
           {(((data as Person).citations && (data as Person).citations!.length > 0) || ((data as Person).sources && (data as Person).sources!.length > 0)) && (
             <>
               <Title level={4}>信息来源</Title>
-              <List
-                dataSource={((data as Person).citations && (data as Person).citations!.length > 0)
-                  ? (data as Person).citations!
-                  : ((data as Person).sources || []).map(s => ({ sourceId: s.id, source: s } as Citation))}
-                renderItem={(item: any) => {
-                  const c = item as Citation
-                  const source = c.source
-                  if (!source) return null
-                  return (
-                  <List.Item>
-                    <LinkOutlined className="mr-2" />
-                    {source.url ? (
-                      <a href={source.url} target="_blank" rel="noopener noreferrer">
-                        {source.title}
-                      </a>
-                    ) : (
-                      <span>{source.title}</span>
+              <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                {groupSourceItems(buildSourceItems((data as Person).citations || [], (data as Person).sources || [])).map(g => (
+                  <div key={`person-sources-${g.key}`}>
+                    <div style={{ marginBottom: 6 }}>
+                      <Tag color="default" style={{ margin: 0 }}>{g.label}</Tag>
+                      <span className="text-gray-500 ml-2">（{g.items.length}）</span>
+                    </div>
+                    <List
+                      size="small"
+                      dataSource={g.items.slice(0, 6)}
+                      renderItem={(it) => {
+                        const source = it.source
+                        const badge = getSourceBadge(source)
+                        return (
+                          <List.Item>
+                            <Tag color={badge.color} style={{ margin: 0, marginRight: 8 }}>{badge.text}</Tag>
+                            <LinkOutlined className="mr-2" />
+                            {source.url ? (
+                              <a href={source.url} target="_blank" rel="noopener noreferrer">
+                                {source.title}
+                              </a>
+                            ) : (
+                              <span>{source.title}</span>
+                            )}
+                            {source.author && (
+                              <span className="text-gray-500 ml-2">（{source.author}）</span>
+                            )}
+                            {it.meta && (
+                              <span className="text-gray-500 ml-2">{it.meta}</span>
+                            )}
+                          </List.Item>
+                        )
+                      }}
+                    />
+                    {g.items.length > 6 && (
+                      <div className="text-gray-500" style={{ fontSize: 12, marginTop: 4 }}>+{g.items.length - 6}</div>
                     )}
-                    {source.author && (
-                      <span className="text-gray-500 ml-2">（{source.author}）</span>
-                    )}
-                    <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
-                  </List.Item>
-                  )
-                }}
-              />
+                  </div>
+                ))}
+              </Space>
             </>
           )}
         </Card>
