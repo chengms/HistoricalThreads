@@ -5,7 +5,8 @@ import type {
   Relationship, 
   Dynasty, 
   Source,
-  Citation
+  Citation,
+  KnowledgePoint
 } from '@/types'
 
 // 数据缓存（每次修改后重置为null以清除缓存）
@@ -14,6 +15,7 @@ let eventsCache: Event[] | null = null
 let personsCache: Person[] | null = null
 let relationshipsCache: Relationship[] | null = null
 let sourcesCache: Source[] | null = null
+let knowledgePointsCache: KnowledgePoint[] | null = null
 
 // 获取 base path（用于 GitHub Pages）
 const getBasePath = () => {
@@ -282,6 +284,12 @@ export async function loadSources(): Promise<Source[]> {
   return sourcesCache
 }
 
+export async function loadKnowledgePoints(): Promise<KnowledgePoint[]> {
+  if (knowledgePointsCache) return knowledgePointsCache
+  knowledgePointsCache = await loadJson<KnowledgePoint[]>('/data/knowledge_points.json')
+  return knowledgePointsCache
+}
+
 // 清除缓存（用于开发时重新加载数据）
 export function clearCache() {
   dynastiesCache = null
@@ -289,6 +297,7 @@ export function clearCache() {
   personsCache = null
   relationshipsCache = null
   sourcesCache = null
+  knowledgePointsCache = null
 }
 
 // 搜索功能

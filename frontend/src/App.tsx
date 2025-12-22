@@ -7,6 +7,7 @@ import DetailPage from './pages/Detail'
 import SuggestionPage from './pages/Suggestion'
 import SuggestionsListPage from './pages/SuggestionsList'
 import HomePage from './pages/Home'
+import KnowledgePointsPage from './pages/KnowledgePoints'
 
 function App() {
   // basename 统一从 Vite 的 BASE_URL 推断（当前配置为根路径 '/'，因此 basename 为空字符串）
@@ -45,6 +46,8 @@ function App() {
             <Route path="/detail/:type/:id" element={<DetailPage />} />
             <Route path="/suggestion" element={<SuggestionPage />} />
             <Route path="/suggestions" element={<SuggestionsListPage />} />
+            <Route path="/knowledge-points" element={<KnowledgePointsPage />} />
+            <Route path="/知识点" element={<KnowledgePointsPage />} />
 
             {/* Fallback: redirect unknown paths to timeline */}
             <Route path="*" element={<Navigate to="/" replace />} />

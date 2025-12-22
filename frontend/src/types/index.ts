@@ -98,6 +98,24 @@ export interface Citation {
   note?: string
 }
 
+export interface KnowledgePointReference {
+  title: string
+  url: string
+}
+
+export interface KnowledgePoint {
+  id: number
+  title: string
+  stage: '小学' | '初中' | '高中'
+  category?: string
+  period?: string
+  summary: string
+  keyPoints?: string[]
+  relatedEventIds?: number[]
+  relatedPersonIds?: number[]
+  references?: KnowledgePointReference[]
+}
+
 // 建议类型
 export interface Suggestion {
   id: number

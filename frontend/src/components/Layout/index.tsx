@@ -8,7 +8,8 @@ import {
   EyeOutlined,
   SearchOutlined,
   MenuOutlined,
-  CloseOutlined
+  CloseOutlined,
+  BookOutlined
 } from '@ant-design/icons'
 import type { InputRef } from 'antd'
 import { ReactNode, useEffect, useRef, useState } from 'react'
@@ -178,6 +179,11 @@ export default function Layout({ children }: LayoutProps) {
       key: '/home',
       icon: <HomeOutlined />,
       label: '首页',
+    },
+    {
+      key: '/knowledge-points',
+      icon: <BookOutlined />,
+      label: '知识点',
     },
     {
       key: '/network',
