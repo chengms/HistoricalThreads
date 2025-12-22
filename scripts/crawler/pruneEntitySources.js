@@ -8,6 +8,8 @@
  *   node scripts/crawler/pruneEntitySources.js
  *   node scripts/crawler/pruneEntitySources.js --keep-official-history
  *   node scripts/crawler/pruneEntitySources.js --strip-citations
+ *   node scripts/crawler/pruneEntitySources.js --dry-run
+ *   node scripts/crawler/pruneEntitySources.js --prune-sources-json
  */
 
 import fs from 'fs'
@@ -29,6 +31,8 @@ function parseArgs() {
   return {
     keepOfficialHistory: args.has('--keep-official-history'),
     stripCitations: args.has('--strip-citations'),
+    dryRun: args.has('--dry-run'),
+    pruneSourcesJson: args.has('--prune-sources-json'),
   }
 }
 
@@ -107,6 +111,36 @@ function pruneEntitySources(entities, byId, opts) {
   return changed
 }
 
+function collectUsedSourceIds(entities, opts) {
+  const used = new Set()
+  for (const e of entities) {
+    if (!e || typeof e !== 'object') continue
+    const ids = Array.isArray(e.sources) ? e.sources : []
+    for (const v of ids) {
+      if (typeof v === 'number') used.add(v)
+    }
+    if (!opts.stripCitations) {
+      const cs = Array.isArray(e.citations) ? e.citations : []
+      for (const c of cs) {
+        if (c && typeof c === 'object' && typeof c.sourceId === 'number') used.add(c.sourceId)
+      }
+    }
+  }
+  return used
+}
+
+function summarizeSources(sources, usedIds) {
+  const byType = new Map()
+  let usedCount = 0
+  for (const s of sources) {
+    if (!s || typeof s.id !== 'number') continue
+    const t = String(s.sourceType || 'unknown')
+    byType.set(t, (byType.get(t) || 0) + 1)
+    if (usedIds.has(s.id)) usedCount += 1
+  }
+  return { total: sources.length, usedCount, byType: Object.fromEntries([...byType.entries()].sort((a, b) => b[1] - a[1])) }
+}
+
 function main() {
   const opts = parseArgs()
 
@@ -126,17 +160,44 @@ function main() {
   const changedPersons = pruneEntitySources(persons, byId, opts)
   const changedEvents = pruneEntitySources(events, byId, opts)
 
-  saveJSON(personsPath, persons)
-  saveJSON(eventsPath, events)
+  const usedPersonIds = collectUsedSourceIds(persons, opts)
+  const usedEventIds = collectUsedSourceIds(events, opts)
+  const usedIds = new Set([...usedPersonIds, ...usedEventIds])
+
+  const beforeSummary = summarizeSources(sources, usedIds)
+  let prunedSources = sources
+  let removedSources = 0
+  if (opts.pruneSourcesJson) {
+    prunedSources = sources.filter(s => s && typeof s.id === 'number' && usedIds.has(s.id))
+    removedSources = sources.length - prunedSources.length
+  }
+
+  if (!opts.dryRun) {
+    saveJSON(personsPath, persons)
+    saveJSON(eventsPath, events)
+    if (opts.pruneSourcesJson) saveJSON(sourcesPath, prunedSources)
+  }
 
   console.log('[pruneEntitySources] done', {
     keepOfficialHistory: !!opts.keepOfficialHistory,
     stripCitations: !!opts.stripCitations,
+    dryRun: !!opts.dryRun,
+    pruneSourcesJson: !!opts.pruneSourcesJson,
     changedPersons,
     changedEvents,
     persons: persons.length,
     events: events.length,
+    sources: {
+      total: beforeSummary.total,
+      usedCount: beforeSummary.usedCount,
+      removed: removedSources,
+      byType: beforeSummary.byType,
+    },
   })
+
+  if (opts.dryRun) {
+    console.log('[pruneEntitySources] dry-run: no files were written')
+  }
 }
 
 main()
