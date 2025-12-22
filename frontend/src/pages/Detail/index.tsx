@@ -14,7 +14,8 @@ function renderCitationMeta(c: Citation) {
   if (c.chapter) parts.push(`章节：${c.chapter}`)
   if (c.page) parts.push(`页码：${c.page}`)
   if (c.line) parts.push(`行：${c.line}`)
-  if (c.note) parts.push(c.note)
+  // “待补页码” 用更醒目的 Tag 展示，这里不再塞进 meta 文案里
+  if (c.note && c.note !== '待补页码') parts.push(c.note)
   return parts.length ? `（${parts.join('；')}）` : ''
 }
 
@@ -261,6 +262,9 @@ export default function DetailPage() {
                       {source.author && (
                         <span className="text-gray-500 ml-2">（{source.author}）</span>
                       )}
+                      {c.note === '待补页码' && (
+                        <Tag color="gold" style={{ marginLeft: 8, marginRight: 0 }}>待补页码</Tag>
+                      )}
                       <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                     </List.Item>
                     )
@@ -468,6 +472,9 @@ export default function DetailPage() {
                     )}
                     {source.author && (
                       <span className="text-gray-500 ml-2">（{source.author}）</span>
+                    )}
+                    {c.note === '待补页码' && (
+                      <Tag color="gold" style={{ marginLeft: 8, marginRight: 0 }}>待补页码</Tag>
                     )}
                     <span className="text-gray-500 ml-2">{renderCitationMeta(c)}</span>
                   </List.Item>

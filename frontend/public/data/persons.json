@@ -584,8 +584,9 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：清（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "清"
       }
     ]
   },
@@ -749,8 +750,9 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：清（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "清"
       }
     ]
   },
@@ -776,8 +778,9 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：民国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "民国"
       }
     ]
   },
@@ -800,8 +803,9 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：民国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "民国"
       }
     ]
   },
@@ -827,8 +831,9 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：民国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "民国"
       }
     ]
   },
@@ -852,13 +857,15 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       },
       {
         "sourceId": 69,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       }
     ]
   },
@@ -882,13 +889,15 @@
     "citations": [
       {
         "sourceId": 68,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       },
       {
         "sourceId": 69,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       }
     ]
   },
@@ -911,8 +920,9 @@
     "citations": [
       {
         "sourceId": 69,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       }
     ]
   },
@@ -935,8 +945,9 @@
     "citations": [
       {
         "sourceId": 69,
-        "note": "时代分段：中华人民共和国（待补页码）",
-        "verified": false
+        "note": "待补页码",
+        "verified": false,
+        "chapter": "中华人民共和国"
       }
     ]
   }
