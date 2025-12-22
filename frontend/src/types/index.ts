@@ -69,9 +69,19 @@ export interface Source {
   title: string
   author?: string
   url?: string
-  sourceType: 'academic_book' | 'official_history' | 'museum' | 'authoritative_website' | 'research_paper' | 'archive'
+  sourceType: 'academic_book' | 'textbook' | 'official_history' | 'museum' | 'authoritative_website' | 'research_paper' | 'archive'
   publisher?: string
   publishDate?: string
+  // 教材/书籍增强字段（可选，便于把“国内教材体系”做成可追溯信息源）
+  isbn?: string
+  edition?: string
+  // 学段/年级/册别（建议：小学/初中/高中）
+  stage?: '小学' | '初中' | '高中'
+  grade?: string
+  term?: '上册' | '下册' | '全一册' | '必修' | '选择性必修' | '选修' | '其他'
+  subject?: string
+  volume?: string
+  notes?: string
   credibilityLevel: number
   verified: boolean
 }

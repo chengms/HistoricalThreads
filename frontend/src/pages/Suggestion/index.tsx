@@ -331,7 +331,13 @@ export default function SuggestionPage() {
       commentContent += `## 信息来源\n\n`
       suggestion.sources.forEach((source: any, index: number) => {
         commentContent += `### 来源 ${index + 1}\n\n`
-        commentContent += `- **类型：** ${source.sourceType === 'authoritative_website' ? '网站' : '书籍'}\n`
+        commentContent += `- **类型：** ${
+          source.sourceType === 'authoritative_website'
+            ? '网站'
+            : source.sourceType === 'textbook'
+              ? '教材'
+              : '书籍'
+        }\n`
         commentContent += `- **标题：** ${source.title}\n`
         if (source.url) {
           commentContent += `- **链接：** ${source.url}\n`
@@ -344,6 +350,27 @@ export default function SuggestionPage() {
         }
         if (source.publishDate) {
           commentContent += `- **出版日期：** ${source.publishDate}\n`
+        }
+        if (source.isbn) {
+          commentContent += `- **ISBN：** ${source.isbn}\n`
+        }
+        if (source.edition) {
+          commentContent += `- **版次：** ${source.edition}\n`
+        }
+        if (source.stage) {
+          commentContent += `- **学段：** ${source.stage}\n`
+        }
+        if (source.grade) {
+          commentContent += `- **年级：** ${source.grade}\n`
+        }
+        if (source.term) {
+          commentContent += `- **册别：** ${source.term}\n`
+        }
+        if (source.subject) {
+          commentContent += `- **学科：** ${source.subject}\n`
+        }
+        if (source.volume) {
+          commentContent += `- **卷册：** ${source.volume}\n`
         }
         if (source.page) {
           commentContent += `- **页码：** ${source.page}\n`
@@ -445,12 +472,26 @@ export default function SuggestionPage() {
                   <Space direction="vertical" size="small" style={{ width: '100%' }}>
                     {formatSuggestionForDisplay(submittedSuggestion).sources.map((source: any, index: number) => (
                       <Card key={index} size="small" style={{ backgroundColor: '#fafafa' }}>
-                        <div><strong>类型：</strong>{source.sourceType === 'authoritative_website' ? '网站' : '书籍'}</div>
+                        <div>
+                          <strong>类型：</strong>
+                          {source.sourceType === 'authoritative_website'
+                            ? '网站'
+                            : source.sourceType === 'textbook'
+                              ? '教材'
+                              : '书籍'}
+                        </div>
                         <div><strong>标题：</strong>{source.title}</div>
                         {source.url && <div><strong>链接：</strong><a href={source.url} target="_blank" rel="noopener noreferrer">{source.url}</a></div>}
                         {source.author && <div><strong>作者：</strong>{source.author}</div>}
                         {source.publisher && <div><strong>出版社：</strong>{source.publisher}</div>}
                         {source.publishDate && <div><strong>出版日期：</strong>{source.publishDate}</div>}
+                        {source.isbn && <div><strong>ISBN：</strong>{source.isbn}</div>}
+                        {source.edition && <div><strong>版次：</strong>{source.edition}</div>}
+                        {source.stage && <div><strong>学段：</strong>{source.stage}</div>}
+                        {source.grade && <div><strong>年级：</strong>{source.grade}</div>}
+                        {source.term && <div><strong>册别：</strong>{source.term}</div>}
+                        {source.subject && <div><strong>学科：</strong>{source.subject}</div>}
+                        {source.volume && <div><strong>卷册：</strong>{source.volume}</div>}
                         {source.page && <div><strong>页码：</strong>{source.page}</div>}
                         {source.line && <div><strong>行数：</strong>{source.line}</div>}
                       </Card>
@@ -611,6 +652,7 @@ export default function SuggestionPage() {
                             <Select placeholder="选择类型" style={{ width: 120 }}>
                               <Select.Option value="authoritative_website">网站</Select.Option>
                               <Select.Option value="academic_book">书籍</Select.Option>
+                              <Select.Option value="textbook">教材</Select.Option>
                             </Select>
                           </Form.Item>
                           <Form.Item
@@ -712,6 +754,139 @@ export default function SuggestionPage() {
                                   >
                                     <Input placeholder="如有在线版本或购买链接，可填写" />
                                   </Form.Item>
+                                </>
+                              )
+                            } else if (sourceType === 'textbook') {
+                              // 教材类型：出版社等信息 + ISBN/学段/册别（允许渐进完善）
+                              return (
+                                <>
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'publisher']}
+                                      label="出版社"
+                                      rules={[{ required: true, message: '请输入出版社' }]}
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：人民教育出版社" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'publishDate']}
+                                      label="出版日期（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：2023年" />
+                                    </Form.Item>
+                                  </Space>
+
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'isbn']}
+                                      label="ISBN（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：978-7-xxxx-xxxx-x" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'edition']}
+                                      label="版次（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：统编版/2023年版" />
+                                    </Form.Item>
+                                  </Space>
+
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'stage']}
+                                      label="学段（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Select placeholder="小学/初中/高中" allowClear>
+                                        <Select.Option value="小学">小学</Select.Option>
+                                        <Select.Option value="初中">初中</Select.Option>
+                                        <Select.Option value="高中">高中</Select.Option>
+                                      </Select>
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'grade']}
+                                      label="年级（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：七年级/高一" />
+                                    </Form.Item>
+                                  </Space>
+
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'term']}
+                                      label="册别（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Select placeholder="上册/下册/必修..." allowClear>
+                                        <Select.Option value="上册">上册</Select.Option>
+                                        <Select.Option value="下册">下册</Select.Option>
+                                        <Select.Option value="全一册">全一册</Select.Option>
+                                        <Select.Option value="必修">必修</Select.Option>
+                                        <Select.Option value="选择性必修">选择性必修</Select.Option>
+                                        <Select.Option value="选修">选修</Select.Option>
+                                        <Select.Option value="其他">其他</Select.Option>
+                                      </Select>
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'subject']}
+                                      label="学科（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：历史/语文" />
+                                    </Form.Item>
+                                  </Space>
+
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'volume']}
+                                      label="卷册（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：必修·中外历史纲要（上）" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'page']}
+                                      label="页码（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：第23-25页" />
+                                    </Form.Item>
+                                  </Space>
+
+                                  <Space style={{ width: '100%' }}>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'line']}
+                                      label="行数（可选）"
+                                      style={{ flex: 1 }}
+                                    >
+                                      <Input placeholder="例如：第5-10行" />
+                                    </Form.Item>
+                                    <Form.Item
+                                      {...restField}
+                                      name={[name, 'url']}
+                                      label="相关链接（可选）"
+                                      style={{ flex: 1 }}
+                                      rules={[{ type: 'url', message: '请输入有效的URL' }]}
+                                    >
+                                      <Input placeholder="如有电子版/出版社页面，可填写" />
+                                    </Form.Item>
+                                  </Space>
                                 </>
                               )
                             }
