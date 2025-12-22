@@ -118,6 +118,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="将教材条目映射写入 events/persons 的 citations，并保持 sources 兼容。")
     parser.add_argument("--mappings", default=DEFAULT_MAPPINGS_PATH, help="映射文件路径（默认：mappings_template.json）")
     parser.add_argument("--dry-run", action="store_true", help="仅打印将要应用的条目数，不写入 JSON")
+    parser.add_argument(
+        "--write-empty-citations",
+        action="store_true",
+        help="即使 chapter/page/line/note 全为空，也写入 citations（默认：跳过空 citations，只维护 sources）",
+    )
     args = parser.parse_args()
 
     mappings_path = os.path.abspath(args.mappings)
@@ -132,6 +137,8 @@ def main() -> None:
 
     warnings: List[str] = []
     applied = 0
+    citations_added = 0
+    citations_skipped_empty = 0
 
     for m in mappings:
         entity_type = _norm(m.get("entityType"))
@@ -160,25 +167,39 @@ def main() -> None:
         src_ids = _ensure_list(target, "sources")
         _append_unique_int(src_ids, source_id)
 
-        citations = _ensure_list(target, "citations")
-        cit = {
-            "sourceId": source_id,
-            "page": _norm(m.get("page")) or None,
-            "line": _norm(m.get("line")) or None,
-            "chapter": _norm(m.get("chapter")) or None,
-            "note": _norm(m.get("note")) or None,
-            "verified": bool(m.get("verified", False)),
-        }
-        # remove None fields to keep JSON tidy
-        cit = {k: v for k, v in cit.items() if v is not None}
-        _append_unique_citation(citations, cit)
+        page = _norm(m.get("page"))
+        line = _norm(m.get("line"))
+        chapter = _norm(m.get("chapter"))
+        note = _norm(m.get("note"))
+
+        # 默认：如果 citation 元信息全为空，就不写 citations（避免骨架文件把数据污染成一堆空引用）
+        if (not page and not line and not chapter and not note) and not args.write_empty_citations:
+            citations_skipped_empty += 1
+        else:
+            citations = _ensure_list(target, "citations")
+            cit = {
+                "sourceId": source_id,
+                "page": page or None,
+                "line": line or None,
+                "chapter": chapter or None,
+                "note": note or None,
+                "verified": bool(m.get("verified", False)),
+            }
+            # remove None fields to keep JSON tidy
+            cit = {k: v for k, v in cit.items() if v is not None}
+            _append_unique_citation(citations, cit)
+            citations_added += 1
         applied += 1
 
     if applied and not args.dry_run:
         _save_json(EVENTS_PATH, events)
         _save_json(PERSONS_PATH, persons)
 
-    print(f"[apply_mappings] applied={applied} warnings={len(warnings)} dry_run={bool(args.dry_run)} mappings={mappings_path}")
+    print(
+        f"[apply_mappings] applied={applied} citations_added={citations_added} "
+        f"citations_skipped_empty={citations_skipped_empty} warnings={len(warnings)} "
+        f"dry_run={bool(args.dry_run)} mappings={mappings_path}"
+    )
     if warnings:
         print("Warnings:")
         for w in warnings[:200]:

@@ -50,6 +50,13 @@ python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings
 python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --dry-run
 ```
 
+默认情况下，如果某条映射的 `chapter/page/line/note` 都为空，脚本**不会写入 citations**（避免骨架文件产生大量空引用），但会维护 `sources` 的关联。
+如果你确实希望“即使没页码也先生成 citations”，可以加：
+
+```bash
+python scripts/textbooks/apply_mappings.py --mappings scripts/textbooks/mappings_grade7_up.json --write-empty-citations
+```
+
 ### 生成“七上/先秦~秦统一”映射骨架（推荐起点）
 如果你想先快速得到一个可编辑的骨架文件（事件 + 相关人物，页码/章节留空），可以用下面脚本从当前数据集中生成：
 
