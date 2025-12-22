@@ -253,9 +253,9 @@ export default function NetworkPage() {
       if (q) {
         filtered = filtered.filter(p =>
           p.name.toLowerCase().includes(q) ||
-          p.biography?.toLowerCase().includes(q) ||
+          p.biography?.toLowerCase()?.includes(q) ||
           p.nameVariants?.some(v => v.toLowerCase().includes(q)) ||
-          p.dynasty?.name.toLowerCase().includes(q)
+          p.dynasty?.name?.toLowerCase()?.includes(q)
         )
       }
 
