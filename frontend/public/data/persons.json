@@ -577,9 +577,17 @@
     "sources": [
       1,
       10,
-      63
+      63,
+      68
     ],
-    "avatarUrl": "/images/full/7cb31b84bd0ac2fab153c500b2a7e22737b9d0bf.jpg"
+    "avatarUrl": "/images/full/7cb31b84bd0ac2fab153c500b2a7e22737b9d0bf.jpg",
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：清（待补页码）",
+        "verified": false
+      }
+    ]
   },
   {
     "id": 30,
@@ -737,6 +745,13 @@
       68,
       71,
       82
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：清（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -757,6 +772,13 @@
       68,
       71,
       83
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：民国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -774,6 +796,13 @@
       68,
       71,
       84
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：民国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -794,6 +823,13 @@
       68,
       71,
       85
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：民国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -810,7 +846,20 @@
     "sources": [
       69,
       71,
-      86
+      86,
+      68
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      },
+      {
+        "sourceId": 69,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -827,7 +876,20 @@
     "sources": [
       69,
       71,
-      87
+      87,
+      68
+    ],
+    "citations": [
+      {
+        "sourceId": 68,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      },
+      {
+        "sourceId": 69,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -845,6 +907,13 @@
       69,
       71,
       88
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      }
     ]
   },
   {
@@ -862,6 +931,13 @@
       69,
       71,
       89
+    ],
+    "citations": [
+      {
+        "sourceId": 69,
+        "note": "时代分段：中华人民共和国（待补页码）",
+        "verified": false
+      }
     ]
   }
 ]
