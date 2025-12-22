@@ -358,21 +358,41 @@ export default function DetailPage() {
                   const source = it.source
                   const badge = getSourceBadge(source)
                   return (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                      <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
-                      <LinkOutlined />
-                      {source.url ? (
-                        <a href={source.url} target="_blank" rel="noopener noreferrer">
-                          {source.title}
-                        </a>
-                      ) : (
-                        <span>{source.title}</span>
-                      )}
-                      {source.author && (
-                        <span className="text-gray-500">（{source.author}）</span>
-                      )}
-                      {it.meta && (
-                        <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
+                        <LinkOutlined />
+                        {source.url ? (
+                          <a href={source.url} target="_blank" rel="noopener noreferrer">
+                            {source.title}
+                          </a>
+                        ) : (
+                          <span>{source.title}</span>
+                        )}
+                        {source.author && (
+                          <span className="text-gray-500">（{source.author}）</span>
+                        )}
+                        {it.meta && (
+                          <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
+                        )}
+                      </div>
+                      {/* 显示额外的验证链接（书籍类来源） */}
+                      {source.verificationUrls && source.verificationUrls.length > 0 && (
+                        <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                          <span className="text-gray-500" style={{ fontSize: '12px' }}>验证：</span>
+                          {source.verificationUrls.map((v, idx) => (
+                            <a
+                              key={idx}
+                              href={v.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-600"
+                              style={{ fontSize: '12px' }}
+                            >
+                              {v.label}
+                            </a>
+                          ))}
+                        </div>
                       )}
                     </div>
                   )
@@ -504,21 +524,42 @@ export default function DetailPage() {
                         if (!it) return null
                         const source = it.source
                         return (
-                          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                            <span className="text-gray-500" style={{ fontSize: 12 }}>确认：</span>
-                            {source.url ? (
-                              <a
-                                href={source.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-700"
-                                style={{ fontSize: 12 }}
-                                onClick={(e) => e.stopPropagation()}
-                              >
-                                {source.title}
-                              </a>
-                            ) : (
-                              <span className="text-gray-700" style={{ fontSize: 12 }}>{source.title}</span>
+                          <div>
+                            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                              <span className="text-gray-500" style={{ fontSize: 12 }}>确认：</span>
+                              {source.url ? (
+                                <a
+                                  href={source.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-gray-700"
+                                  style={{ fontSize: 12 }}
+                                  onClick={(e) => e.stopPropagation()}
+                                >
+                                  {source.title}
+                                </a>
+                              ) : (
+                                <span className="text-gray-700" style={{ fontSize: 12 }}>{source.title}</span>
+                              )}
+                            </div>
+                            {/* 显示额外的验证链接（书籍类来源） */}
+                            {source.verificationUrls && source.verificationUrls.length > 0 && (
+                              <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                                <span className="text-gray-500" style={{ fontSize: 12 }}>验证：</span>
+                                {source.verificationUrls.map((v, idx) => (
+                                  <a
+                                    key={idx}
+                                    href={v.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-600"
+                                    style={{ fontSize: 12 }}
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {v.label}
+                                  </a>
+                                ))}
+                              </div>
                             )}
                           </div>
                         )
@@ -615,21 +656,41 @@ export default function DetailPage() {
                 const source = it.source
                 const badge = getSourceBadge(source)
                 return (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-                    <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
-                    <LinkOutlined />
-                    {source.url ? (
-                      <a href={source.url} target="_blank" rel="noopener noreferrer">
-                        {source.title}
-                      </a>
-                    ) : (
-                      <span>{source.title}</span>
-                    )}
-                    {source.author && (
-                      <span className="text-gray-500">（{source.author}）</span>
-                    )}
-                    {it.meta && (
-                      <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                      <Tag color={badge.color} style={{ margin: 0 }}>{badge.text}</Tag>
+                      <LinkOutlined />
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noopener noreferrer">
+                          {source.title}
+                        </a>
+                      ) : (
+                        <span>{source.title}</span>
+                      )}
+                      {source.author && (
+                        <span className="text-gray-500">（{source.author}）</span>
+                      )}
+                      {it.meta && (
+                        <span className="text-gray-500" style={{ fontSize: '12px' }}>{it.meta}</span>
+                      )}
+                    </div>
+                    {/* 显示额外的验证链接（书籍类来源） */}
+                    {source.verificationUrls && source.verificationUrls.length > 0 && (
+                      <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        <span className="text-gray-500" style={{ fontSize: '12px' }}>验证：</span>
+                        {source.verificationUrls.map((v, idx) => (
+                          <a
+                            key={idx}
+                            href={v.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-600"
+                            style={{ fontSize: '12px' }}
+                          >
+                            {v.label}
+                          </a>
+                        ))}
+                      </div>
                     )}
                   </div>
                 )

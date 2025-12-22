@@ -8,17 +8,7 @@
     "publishDate": "公元前91年",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/shiji/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆古籍",
-        "url": "https://www.nlc.cn/dsb_zyyfw/gj/gjzy/"
-      },
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/shiji/"
   },
   {
     "id": 2,
@@ -28,17 +18,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/zuozhuan/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/zuozhuan/"
   },
   {
     "id": 3,
@@ -48,17 +28,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/hanshu/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆古籍",
-        "url": "https://www.nlc.cn/dsb_zyyfw/gj/gjzy/"
-      },
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/hanshu/"
   },
   {
     "id": 4,
@@ -68,17 +38,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/sanguozhi/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆古籍",
-        "url": "https://www.nlc.cn/dsb_zyyfw/gj/gjzy/"
-      },
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/sanguozhi/"
   },
   {
     "id": 5,
@@ -88,17 +48,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/suishu/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/suishu/"
   },
   {
     "id": 6,
@@ -108,17 +58,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/jiutangshu/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/jiutangshu/"
   },
   {
     "id": 7,
@@ -128,17 +68,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/songshi/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/songshi/"
   },
   {
     "id": 8,
@@ -148,17 +78,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/yuanshi/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/yuanshi/"
   },
   {
     "id": 9,
@@ -168,17 +88,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/mingshi/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/mingshi/"
   },
   {
     "id": 10,
@@ -188,17 +98,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/qingshigao/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/qingshigao/"
   },
   {
     "id": 13,
@@ -491,18 +391,7 @@
     "term": "上册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 64,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/qs/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 64
   },
   {
     "title": "义务教育教科书·历史 七年级 下册（统编版）",
@@ -515,18 +404,7 @@
     "term": "下册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 65,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/qx/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 65
   },
   {
     "title": "义务教育教科书·历史 八年级 上册（统编版）",
@@ -539,18 +417,7 @@
     "term": "上册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 66,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/bs/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 66
   },
   {
     "title": "义务教育教科书·历史 八年级 下册（统编版）",
@@ -563,18 +430,7 @@
     "term": "下册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 67,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/bx/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 67
   },
   {
     "title": "义务教育教科书·历史 九年级 上册（统编版）",
@@ -587,18 +443,7 @@
     "term": "上册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 68,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/js/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 68
   },
   {
     "title": "义务教育教科书·历史 九年级 下册（统编版）",
@@ -611,18 +456,7 @@
     "term": "下册",
     "subject": "历史",
     "edition": "统编版",
-    "id": 69,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/dzkb/jx/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 69
   },
   {
     "title": "普通高中教科书·历史 必修·中外历史纲要（上）（统编版）",
@@ -635,18 +469,7 @@
     "subject": "历史",
     "volume": "中外历史纲要（上）",
     "edition": "统编版",
-    "id": 70,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/gzkb/bx/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 70
   },
   {
     "title": "普通高中教科书·历史 必修·中外历史纲要（下）（统编版）",
@@ -659,18 +482,7 @@
     "subject": "历史",
     "volume": "中外历史纲要（下）",
     "edition": "统编版",
-    "id": 71,
-    "url": "https://www.pep.com.cn/lsysh/jszx/tbjxzy/gzkb/bx/",
-    "verificationUrls": [
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      },
-      {
-        "label": "人教社官网",
-        "url": "https://www.pep.com.cn/"
-      }
-    ]
+    "id": 71
   },
   {
     "id": 72,
@@ -1119,17 +931,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/jinshu/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/jinshu/"
   },
   {
     "id": 184,
@@ -1139,17 +941,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/nanshi/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/nanshi/"
   },
   {
     "id": 185,
@@ -1159,17 +951,7 @@
     "publisher": "中华书局",
     "credibilityLevel": 5,
     "verified": true,
-    "url": "https://www.guoxue.com/shibu/beishi/",
-    "verificationUrls": [
-      {
-        "label": "中华书局官网",
-        "url": "https://www.zhbc.com.cn/"
-      },
-      {
-        "label": "国家图书馆",
-        "url": "https://www.nlc.cn/"
-      }
-    ]
+    "url": "https://www.guoxue.com/shibu/beishi/"
   },
   {
     "id": 186,

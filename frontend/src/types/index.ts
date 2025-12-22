@@ -74,7 +74,7 @@ export interface Source {
   sourceType: 'academic_book' | 'textbook' | 'official_history' | 'museum' | 'authoritative_website' | 'research_paper' | 'archive'
   publisher?: string
   publishDate?: string
-  // 教材/书籍增强字段（可选，便于把“国内教材体系”做成可追溯信息源）
+  // 教材/书籍增强字段（可选，便于把"国内教材体系"做成可追溯信息源）
   isbn?: string
   edition?: string
   // 学段/年级/册别（建议：小学/初中/高中）
@@ -84,6 +84,8 @@ export interface Source {
   subject?: string
   volume?: string
   notes?: string
+  // 额外的验证链接（用于书籍类来源，方便验证）
+  verificationUrls?: Array<{ label: string; url: string }>
   credibilityLevel: number
   verified: boolean
 }

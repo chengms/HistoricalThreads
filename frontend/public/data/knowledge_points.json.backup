@@ -1,0 +1,1355 @@
+[
+  {
+    "id": 537435375,
+    "title": "中华文明的早期印象：传说人物与文明起源（启蒙版）",
+    "stage": "小学",
+    "category": "中国古代史/启蒙",
+    "period": "上古-夏商周",
+    "summary": "认识黄河流域、治水传说与早期王朝更替的基本脉络，建立“时间很长、文明很早”的直观印象。",
+    "keyPoints": [
+      "传说与历史：知道它们不同，但都影响文化记忆",
+      "黄河与农业：地理环境对文明形成的重要性"
+    ],
+    "relatedEventIds": [
+      1
+    ],
+    "relatedPersonIds": [
+      1
+    ],
+    "references": [
+      {
+        "title": "维基百科：黄河文明",
+        "url": "https://zh.wikipedia.org/wiki/%E9%BB%84%E6%B2%B3%E6%96%87%E6%98%8E"
+      },
+      {
+        "title": "维基百科：大禹",
+        "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E7%A6%B9"
+      }
+    ]
+  },
+  {
+    "id": 425058119,
+    "title": "伟大的工程：长城与大运河（地理与国家）",
+    "stage": "小学",
+    "category": "中国古代史/工程与地理",
+    "period": "秦-隋唐",
+    "summary": "认识长城与大运河作为大型工程在交通、防御、粮运与国家治理中的意义。",
+    "keyPoints": [
+      "大型工程与组织能力：谁来修、怎么修、为什么修",
+      "工程影响社会：交通、贸易与区域联系"
+    ],
+    "relatedEventIds": [
+      13
+    ],
+    "references": [
+      {
+        "title": "维基百科：长城",
+        "url": "https://zh.wikipedia.org/wiki/%E9%95%BF%E5%9F%8E"
+      },
+      {
+        "title": "维基百科：京杭大运河",
+        "url": "https://zh.wikipedia.org/wiki/%E4%BA%AC%E6%9D%AD%E5%A4%A7%E8%BF%90%E6%B2%B3"
+      }
+    ]
+  },
+  {
+    "id": 816904555,
+    "title": "中国古代科技与文化符号：四大发明",
+    "stage": "小学",
+    "category": "中国古代史/科技文化",
+    "period": "隋唐-宋元明",
+    "summary": "通过造纸术、印刷术、火药、指南针认识科技改变生活与交流的方式。",
+    "keyPoints": [
+      "技术如何传播：贸易、战争、交流网络",
+      "发明与生活：读写传播、航海、军事与社会变化"
+    ],
+    "references": [
+      {
+        "title": "维基百科：四大发明",
+        "url": "https://zh.wikipedia.org/wiki/%E5%9B%9B%E5%A4%A7%E5%8F%91%E6%98%8E"
+      },
+      {
+        "title": "维基百科：造纸术",
+        "url": "https://zh.wikipedia.org/wiki/%E9%80%A0%E7%BA%B8%E6%9C%AF"
+      }
+    ]
+  },
+  {
+    "id": 28869303,
+    "title": "上古传说与早期国家：治水与王朝起源",
+    "stage": "初中",
+    "category": "中国古代史",
+    "period": "夏商周之前-夏",
+    "summary": "通过“大禹治水”等传说理解早期国家形成与公共工程治理的历史想象与文化记忆。",
+    "keyPoints": [
+      "传说叙事与考古/历史研究的区别：理解“史料”与“传说”的边界",
+      "治水、农业与聚落组织：早期国家形成的关键背景"
+    ],
+    "relatedEventIds": [
+      1
+    ],
+    "relatedPersonIds": [
+      1
+    ],
+    "references": [
+      {
+        "title": "维基百科：大禹",
+        "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E7%A6%B9"
+      },
+      {
+        "title": "维基百科：治水",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B2%BB%E6%B0%B4"
+      }
+    ]
+  },
+  {
+    "id": 141938776,
+    "title": "王朝更替与商周政治：从“革命”到礼制秩序",
+    "stage": "初中",
+    "category": "中国古代史/政治制度",
+    "period": "商-西周",
+    "summary": "理解商周更替、周初政治整合与礼制秩序的形成，为后续的分封与宗法理解打基础。",
+    "keyPoints": [
+      "王朝更替的正当性叙事：天命观与“革命”概念",
+      "政治整合的路径：宗族、礼制、封建分封与地域治理"
+    ],
+    "relatedEventIds": [
+      2,
+      3
+    ],
+    "relatedPersonIds": [
+      2
+    ],
+    "references": [
+      {
+        "title": "维基百科：商汤",
+        "url": "https://zh.wikipedia.org/wiki/%E5%95%86%E6%B1%A4"
+      },
+      {
+        "title": "维基百科：周武王",
+        "url": "https://zh.wikipedia.org/wiki/%E5%91%A8%E6%AD%A6%E7%8E%8B"
+      }
+    ]
+  },
+  {
+    "id": 68562536,
+    "title": "西周政治基础：分封制与宗法制",
+    "stage": "初中",
+    "category": "中国古代史/政治制度",
+    "period": "西周-春秋",
+    "summary": "理解分封与宗法如何组织权力与社会秩序，并认识其在后期面临的结构性压力。",
+    "keyPoints": [
+      "分封制：地方治理与宗族政治的结合",
+      "宗法制：血缘与政治权力的绑定方式"
+    ],
+    "references": [
+      {
+        "title": "维基百科：分封制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%88%86%E5%B0%81%E5%88%B6"
+      },
+      {
+        "title": "维基百科：宗法",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%97%E6%B3%95"
+      }
+    ]
+  },
+  {
+    "id": 495656174,
+    "title": "春秋争霸与诸侯政治：从礼崩乐坏到新秩序探索",
+    "stage": "初中",
+    "category": "中国古代史/政治",
+    "period": "春秋",
+    "summary": "以“春秋五霸”为线索把握诸侯争霸、盟会与礼制瓦解，理解“分封体系的转型压力”。",
+    "keyPoints": [
+      "诸侯争霸与霸主政治：盟会、尊王攘夷等政治话语",
+      "从宗法礼制到兼并战争：社会结构与权力重组"
+    ],
+    "relatedEventIds": [
+      4
+    ],
+    "references": [
+      {
+        "title": "维基百科：春秋五霸",
+        "url": "https://zh.wikipedia.org/wiki/%E6%98%A5%E7%A7%8B%E4%BA%94%E9%9C%B8"
+      },
+      {
+        "title": "维基百科：春秋时代",
+        "url": "https://zh.wikipedia.org/wiki/%E6%98%A5%E7%A7%8B%E6%97%B6%E4%BB%A3"
+      }
+    ]
+  },
+  {
+    "id": 296594762,
+    "title": "思想的时代：百家争鸣与思想传统",
+    "stage": "初中",
+    "category": "中国古代史/思想文化",
+    "period": "春秋战国",
+    "summary": "了解诸子百家在社会变动背景下的思想回应，并理解其对后世政治与文化的影响。",
+    "keyPoints": [
+      "儒、道、法等思想关注点差异",
+      "思想与现实：为什么在乱世产生多种方案"
+    ],
+    "references": [
+      {
+        "title": "维基百科：诸子百家",
+        "url": "https://zh.wikipedia.org/wiki/%E8%AF%B8%E5%AD%90%E7%99%BE%E5%AE%B6"
+      },
+      {
+        "title": "维基百科：百家争鸣",
+        "url": "https://zh.wikipedia.org/wiki/%E7%99%BE%E5%AE%B6%E4%BA%89%E9%B8%A3"
+      }
+    ]
+  },
+  {
+    "id": 963633085,
+    "title": "战国变法与国家能力：以商鞅变法为例",
+    "stage": "初中",
+    "category": "中国古代史/改革",
+    "period": "战国",
+    "summary": "理解战国变法如何提升国家动员能力，进而推动兼并与统一的历史进程。",
+    "keyPoints": [
+      "法家思想与制度化治理：法、术、势与奖惩机制",
+      "户籍、军功与土地制度：国家动员能力增强的路径"
+    ],
+    "relatedEventIds": [
+      5
+    ],
+    "relatedPersonIds": [
+      7
+    ],
+    "references": [
+      {
+        "title": "维基百科：商鞅变法",
+        "url": "https://zh.wikipedia.org/wiki/%E5%95%86%E9%9E%85%E5%8F%98%E6%B3%95"
+      },
+      {
+        "title": "维基百科：法家",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B3%95%E5%AE%B6"
+      }
+    ]
+  },
+  {
+    "id": 780162056,
+    "title": "战国兼并与统一趋势：从合纵连横到最终一统",
+    "stage": "初中",
+    "category": "中国古代史/政治与战争",
+    "period": "战国末期",
+    "summary": "理解战国后期的外交与战争格局，以及统一趋势背后的制度与资源因素。",
+    "keyPoints": [
+      "合纵连横：外交策略与利益同盟",
+      "兼并战争：资源动员、制度与地缘"
+    ],
+    "references": [
+      {
+        "title": "维基百科：合纵连横",
+        "url": "https://zh.wikipedia.org/wiki/%E5%90%88%E7%BA%B5%E8%BF%9E%E6%A8%AA"
+      },
+      {
+        "title": "维基百科：战国时代",
+        "url": "https://zh.wikipedia.org/wiki/%E6%88%98%E5%9B%BD%E6%97%B6%E4%BB%A3"
+      }
+    ]
+  },
+  {
+    "id": 326022186,
+    "title": "秦的统一与中央集权：制度建设与思想控制",
+    "stage": "初中",
+    "category": "中国古代史/政治制度",
+    "period": "秦",
+    "summary": "把握秦统一后在政治、经济、文化层面的整合措施，以及统一与控制之间的张力。",
+    "keyPoints": [
+      "统一度量衡、书同文等整合举措：国家一体化的技术路径",
+      "焚书坑儒等事件：思想控制与文化代价的讨论"
+    ],
+    "relatedEventIds": [
+      6,
+      7
+    ],
+    "relatedPersonIds": [
+      8
+    ],
+    "references": [
+      {
+        "title": "维基百科：秦始皇",
+        "url": "https://zh.wikipedia.org/wiki/%E7%A7%A6%E5%A7%8B%E7%9A%87"
+      },
+      {
+        "title": "维基百科：焚书坑儒",
+        "url": "https://zh.wikipedia.org/wiki/%E7%84%9A%E4%B9%A6%E5%9D%91%E5%84%92"
+      }
+    ]
+  },
+  {
+    "id": 846717947,
+    "title": "中央集权的关键机制：郡县制与官僚体系（入门）",
+    "stage": "初中",
+    "category": "中国古代史/政治制度",
+    "period": "秦-汉",
+    "summary": "理解郡县制与官僚体系如何将地方纳入统一治理，以及其与分封制的差别。",
+    "keyPoints": [
+      "郡县制：任命官员治理地方，强调中央控制",
+      "官僚治理：制度、文书与行政层级"
+    ],
+    "references": [
+      {
+        "title": "维基百科：郡县制",
+        "url": "https://zh.wikipedia.org/wiki/%E9%83%A1%E5%8E%BF%E5%88%B6"
+      },
+      {
+        "title": "维基百科：中央集权",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%A4%AE%E9%9B%86%E6%9D%83"
+      }
+    ]
+  },
+  {
+    "id": 524711370,
+    "title": "秦末民变与帝国崩溃：陈胜吴广与楚汉之争",
+    "stage": "初中",
+    "category": "中国古代史/社会与政治",
+    "period": "秦末-西汉前",
+    "summary": "理解秦朝崩溃的社会原因与政治后果，并以楚汉之争认识政权更替的复杂性。",
+    "keyPoints": [
+      "民变的爆发机制：徭役、刑法与基层治理压力",
+      "楚汉对抗与政权合法性：军事、联盟与政治整合"
+    ],
+    "relatedEventIds": [
+      8,
+      9
+    ],
+    "references": [
+      {
+        "title": "维基百科：陈胜吴广起义",
+        "url": "https://zh.wikipedia.org/wiki/%E9%99%88%E8%83%9C%E5%90%B4%E5%B9%BF%E8%B5%B7%E4%B9%89"
+      },
+      {
+        "title": "维基百科：楚汉战争",
+        "url": "https://zh.wikipedia.org/wiki/%E6%A5%9A%E6%B1%89%E6%88%98%E4%BA%89"
+      }
+    ]
+  },
+  {
+    "id": 790190366,
+    "title": "汉代“大一统”的巩固：文景之治与休养生息（概念）",
+    "stage": "初中",
+    "category": "中国古代史/政治与经济",
+    "period": "西汉",
+    "summary": "理解西汉初期的恢复政策如何为后续对外扩张与制度建设奠定基础。",
+    "keyPoints": [
+      "休养生息：减轻负担、恢复生产",
+      "稳定与发展：财政、人口与国家能力"
+    ],
+    "references": [
+      {
+        "title": "维基百科：文景之治",
+        "url": "https://zh.wikipedia.org/wiki/%E6%96%87%E6%99%AF%E4%B9%8B%E6%B2%BB"
+      },
+      {
+        "title": "维基百科：西汉",
+        "url": "https://zh.wikipedia.org/wiki/%E8%A5%BF%E6%B1%89"
+      }
+    ]
+  },
+  {
+    "id": 556436115,
+    "title": "汉武帝与“大一统”：开疆拓土与对外交流（丝绸之路）",
+    "stage": "初中",
+    "category": "中国古代史/对外关系",
+    "period": "西汉",
+    "summary": "把握汉武帝时期的国家扩张、边疆治理与对外交流，并理解“丝绸之路”的历史意义。",
+    "keyPoints": [
+      "边疆治理与多民族互动：帝国扩张与治理成本",
+      "张骞出使西域与丝绸之路：交流网络与文化传播"
+    ],
+    "relatedEventIds": [
+      10,
+      11
+    ],
+    "relatedPersonIds": [
+      13,
+      16
+    ],
+    "references": [
+      {
+        "title": "维基百科：汉武帝",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B1%89%E6%AD%A6%E5%B8%9D"
+      },
+      {
+        "title": "维基百科：张骞",
+        "url": "https://zh.wikipedia.org/wiki/%E5%BC%A0%E9%AA%9E"
+      },
+      {
+        "title": "维基百科：丝绸之路",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%9D%E7%BB%B8%E4%B9%8B%E8%B7%AF"
+      }
+    ]
+  },
+  {
+    "id": 399787454,
+    "title": "选官制度的演变：察举制到科举制（概念线索）",
+    "stage": "高中",
+    "category": "中国古代史/政治制度",
+    "period": "汉-隋唐-宋",
+    "summary": "把握选官制度从门第到考试的变化方向，以及其对社会流动与官僚结构的影响。",
+    "keyPoints": [
+      "察举制：地方举荐与社会评价机制",
+      "科举制：考试选官与文化教育的扩张"
+    ],
+    "references": [
+      {
+        "title": "维基百科：察举制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AF%9F%E4%B8%BE%E5%88%B6"
+      },
+      {
+        "title": "维基百科：科举",
+        "url": "https://zh.wikipedia.org/wiki/%E7%A7%91%E4%B8%BE"
+      }
+    ]
+  },
+  {
+    "id": 618755726,
+    "title": "典型战役与战略：从长平到赤壁（战争与政治）",
+    "stage": "初中",
+    "category": "中国古代史/军事",
+    "period": "战国-东晋",
+    "summary": "通过若干典型战役理解“战争—政治—资源动员”的关系，训练从多因素解释历史结果。",
+    "keyPoints": [
+      "资源、地理与组织：决定胜负的不仅是“将才”",
+      "战争结果如何重塑权力结构与统一进程"
+    ],
+    "relatedEventIds": [
+      21,
+      22,
+      23,
+      12,
+      24
+    ],
+    "references": [
+      {
+        "title": "维基百科：长平之战",
+        "url": "https://zh.wikipedia.org/wiki/%E9%95%BF%E5%B9%B3%E4%B9%8B%E6%88%98"
+      },
+      {
+        "title": "维基百科：赤壁之战",
+        "url": "https://zh.wikipedia.org/wiki/%E8%B5%A4%E5%A3%81%E4%B9%8B%E6%88%98"
+      },
+      {
+        "title": "维基百科：淝水之战",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B7%9D%E6%B0%B4%E4%B9%8B%E6%88%98"
+      }
+    ]
+  },
+  {
+    "id": 749558442,
+    "title": "魏晋南北朝：分裂对峙与民族交往交融（概念）",
+    "stage": "初中",
+    "category": "中国古代史/社会",
+    "period": "魏晋南北朝",
+    "summary": "理解长期分裂背景下的政权更替、人口迁徙与民族融合趋势。",
+    "keyPoints": [
+      "分裂格局：政权并立与区域差异",
+      "交往交融：迁徙、通婚、文化互鉴"
+    ],
+    "references": [
+      {
+        "title": "维基百科：魏晋南北朝",
+        "url": "https://zh.wikipedia.org/wiki/%E9%AD%8F%E6%99%8B%E5%8D%97%E5%8C%97%E6%9C%9D"
+      },
+      {
+        "title": "维基百科：民族融合",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B0%91%E6%97%8F%E8%9E%8D%E5%90%88"
+      }
+    ]
+  },
+  {
+    "id": 937340514,
+    "title": "隋唐统一与繁荣：大运河、贞观之治与安史之乱",
+    "stage": "初中",
+    "category": "中国古代史/政治与经济",
+    "period": "隋唐",
+    "summary": "理解隋唐统一、经济重心与交通工程的关系，以及盛世与动荡并存的历史结构。",
+    "keyPoints": [
+      "大运河与国家整合：交通、粮运与财政",
+      "安史之乱的影响：藩镇、财政与社会结构变化"
+    ],
+    "relatedEventIds": [
+      13,
+      14,
+      15
+    ],
+    "references": [
+      {
+        "title": "维基百科：京杭大运河",
+        "url": "https://zh.wikipedia.org/wiki/%E4%BA%AC%E6%9D%AD%E5%A4%A7%E8%BF%90%E6%B2%B3"
+      },
+      {
+        "title": "维基百科：贞观之治",
+        "url": "https://zh.wikipedia.org/wiki/%E8%B4%9E%E8%A7%82%E4%B9%8B%E6%B2%BB"
+      },
+      {
+        "title": "维基百科：安史之乱",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%89%E5%8F%B2%E4%B9%8B%E4%B9%B1"
+      }
+    ]
+  },
+  {
+    "id": 298118157,
+    "title": "隋唐制度框架：三省六部与科举制（概念）",
+    "stage": "高中",
+    "category": "中国古代史/政治制度",
+    "period": "隋唐",
+    "summary": "理解隋唐时期的中央官制与选官制度如何提高行政效率并塑造士大夫群体。",
+    "keyPoints": [
+      "三省六部：决策、审议与执行的分工",
+      "科举扩张：教育、文化与政治参与路径"
+    ],
+    "references": [
+      {
+        "title": "维基百科：三省六部",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%89%E7%9C%81%E5%85%AD%E9%83%A8"
+      },
+      {
+        "title": "维基百科：科举",
+        "url": "https://zh.wikipedia.org/wiki/%E7%A7%91%E4%B8%BE"
+      }
+    ]
+  },
+  {
+    "id": 341833752,
+    "title": "宋代国家与改革：赵宋建立与王安石变法",
+    "stage": "初中",
+    "category": "中国古代史/改革与治理",
+    "period": "北宋",
+    "summary": "理解宋代“重文轻武”的政治结构与财政军政压力，以及变法在治理上的尝试与争议。",
+    "keyPoints": [
+      "财政与军事压力：改革动因",
+      "制度改革的收益与副作用：政策设计与执行环境"
+    ],
+    "relatedEventIds": [
+      16,
+      17
+    ],
+    "references": [
+      {
+        "title": "维基百科：宋太祖",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%8B%E5%A4%AA%E7%A5%96"
+      },
+      {
+        "title": "维基百科：王安石变法",
+        "url": "https://zh.wikipedia.org/wiki/%E7%8E%8B%E5%AE%89%E7%9F%B3%E5%8F%98%E6%B3%95"
+      }
+    ]
+  },
+  {
+    "id": 986103644,
+    "title": "宋代经济与城市：商业、手工业与社会生活（概念）",
+    "stage": "高中",
+    "category": "中国古代史/经济与社会",
+    "period": "宋",
+    "summary": "理解宋代商品经济、城市生活与文化繁荣的特征，以及其与制度、技术、交通的关系。",
+    "keyPoints": [
+      "商业与城市：市场、货币、人口流动",
+      "技术与文化：印刷、教育与士人文化"
+    ],
+    "references": [
+      {
+        "title": "维基百科：宋朝",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%8B%E6%9C%9D"
+      },
+      {
+        "title": "维基百科：交子",
+        "url": "https://zh.wikipedia.org/wiki/%E4%BA%A4%E5%AD%90"
+      }
+    ]
+  },
+  {
+    "id": 183371460,
+    "title": "元明对外交流与海洋活动：从蒙古统一到郑和下西洋",
+    "stage": "初中",
+    "category": "中国古代史/对外关系",
+    "period": "元-明",
+    "summary": "理解统一帝国与海洋交流的历史背景，认识中国与世界互动的多样路径。",
+    "keyPoints": [
+      "蒙古统一与欧亚交通：交流网络与制度治理",
+      "郑和下西洋的性质与影响：朝贡、贸易与外交"
+    ],
+    "relatedEventIds": [
+      18,
+      19
+    ],
+    "relatedPersonIds": [
+      27,
+      28
+    ],
+    "references": [
+      {
+        "title": "维基百科：成吉思汗",
+        "url": "https://zh.wikipedia.org/wiki/%E6%88%90%E5%90%89%E6%80%9D%E6%B1%97"
+      },
+      {
+        "title": "维基百科：郑和下西洋",
+        "url": "https://zh.wikipedia.org/wiki/%E9%83%91%E5%92%8C%E4%B8%8B%E8%A5%BF%E6%B4%8B"
+      }
+    ]
+  },
+  {
+    "id": 671768261,
+    "title": "元代治理创新：行省制度与多民族帝国（概念）",
+    "stage": "高中",
+    "category": "中国古代史/政治制度",
+    "period": "元",
+    "summary": "理解元代的行省制度及其对后世地方行政区划与治理框架的影响。",
+    "keyPoints": [
+      "行省制度：中央—地方关系的新形态",
+      "多民族帝国治理：法律、文化与区域差异"
+    ],
+    "references": [
+      {
+        "title": "维基百科：行省",
+        "url": "https://zh.wikipedia.org/wiki/%E8%A1%8C%E7%9C%81"
+      },
+      {
+        "title": "维基百科：元朝",
+        "url": "https://zh.wikipedia.org/wiki/%E5%85%83%E6%9C%9D"
+      }
+    ]
+  },
+  {
+    "id": 859964809,
+    "title": "明清君主专制的强化：内阁、军机处与厂卫（概念）",
+    "stage": "高中",
+    "category": "中国古代史/政治制度",
+    "period": "明清",
+    "summary": "理解明清时期中央权力集中化的制度机制及其对政治生态的影响。",
+    "keyPoints": [
+      "内阁与军机处：决策机制的演化",
+      "监察与情报：厂卫等机构在政治控制中的作用"
+    ],
+    "references": [
+      {
+        "title": "维基百科：内阁 (中国)",
+        "url": "https://zh.wikipedia.org/wiki/%E5%86%85%E9%98%81_(%E4%B8%AD%E5%9B%BD)"
+      },
+      {
+        "title": "维基百科：军机处",
+        "url": "https://zh.wikipedia.org/wiki/%E5%86%9B%E6%9C%BA%E5%A4%84"
+      }
+    ]
+  },
+  {
+    "id": 372905607,
+    "title": "清代盛世与对外政策：康乾盛世与闭关（概念）",
+    "stage": "初中",
+    "category": "中国古代史/政治与对外关系",
+    "period": "清前期",
+    "summary": "理解清前期社会经济发展与人口增长的特征，并认识对外贸易政策与世界变局的张力。",
+    "keyPoints": [
+      "人口与农业扩张：社会结构变化",
+      "对外贸易与政策：广州口岸与贸易管理"
+    ],
+    "references": [
+      {
+        "title": "维基百科：康乾盛世",
+        "url": "https://zh.wikipedia.org/wiki/%E5%BA%B7%E4%B9%BE%E7%9B%9B%E4%B8%96"
+      },
+      {
+        "title": "维基百科：闭关锁国",
+        "url": "https://zh.wikipedia.org/wiki/%E9%97%AD%E5%85%B3%E9%94%81%E5%9B%BD"
+      }
+    ]
+  },
+  {
+    "id": 14456232,
+    "title": "近代中国的开端：鸦片战争与近代国际秩序冲击",
+    "stage": "初中",
+    "category": "中国近代史",
+    "period": "1840年代",
+    "summary": "理解鸦片战争在中国近代史叙事中的位置：主权、贸易、制度冲击与社会转型起点。",
+    "keyPoints": [
+      "战争背景：工业化、贸易结构与鸦片问题",
+      "不平等条约与主权冲击：近代化压力的来源之一"
+    ],
+    "relatedEventIds": [
+      20
+    ],
+    "references": [
+      {
+        "title": "维基百科：鸦片战争",
+        "url": "https://zh.wikipedia.org/wiki/%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89"
+      },
+      {
+        "title": "维基百科：南京条约",
+        "url": "https://zh.wikipedia.org/wiki/%E5%8D%97%E4%BA%AC%E6%9D%A1%E7%BA%A6"
+      }
+    ]
+  },
+  {
+    "id": 143814750,
+    "title": "近代化自强探索：洋务运动（概念）",
+    "stage": "初中",
+    "category": "中国近代史/改革与工业化",
+    "period": "1860s-1890s",
+    "summary": "理解洋务运动“自强”“求富”的主张、主要实践与局限，并认识近代工业化的起步困难。",
+    "keyPoints": [
+      "近代企业与军工：技术引进与制度环境",
+      "局限性：政治结构与社会动员能力"
+    ],
+    "references": [
+      {
+        "title": "维基百科：洋务运动",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B4%8B%E5%8A%A1%E8%BF%90%E5%8A%A8"
+      },
+      {
+        "title": "维基百科：自强运动",
+        "url": "https://zh.wikipedia.org/wiki/%E8%87%AA%E5%BC%BA%E8%BF%90%E5%8A%A8"
+      }
+    ]
+  },
+  {
+    "id": 873264373,
+    "title": "近代化探索：甲午、戊戌到辛亥（变革与革命）",
+    "stage": "初中",
+    "category": "中国近代史/改革与革命",
+    "period": "1890s-1910s",
+    "summary": "把握“救亡图存”背景下的改革与革命路径差异，理解制度变革的多种方案与历史结果。",
+    "keyPoints": [
+      "甲午战争后的震动：国家危机与改革呼声",
+      "维新与革命：路径、组织与社会基础差异"
+    ],
+    "relatedEventIds": [
+      25,
+      26,
+      27,
+      28
+    ],
+    "references": [
+      {
+        "title": "维基百科：甲午战争",
+        "url": "https://zh.wikipedia.org/wiki/%E7%94%B2%E5%8D%88%E6%88%98%E4%BA%89"
+      },
+      {
+        "title": "维基百科：戊戌变法",
+        "url": "https://zh.wikipedia.org/wiki/%E6%88%8A%E6%88%8C%E5%8F%98%E6%B3%95"
+      },
+      {
+        "title": "维基百科：辛亥革命",
+        "url": "https://zh.wikipedia.org/wiki/%E8%BE%9B%E4%BA%A5%E9%9D%A9%E5%91%BD"
+      }
+    ]
+  },
+  {
+    "id": 48634140,
+    "title": "思想解放与民族觉醒：五四运动与新文化",
+    "stage": "高中",
+    "category": "中国近现代史/思想文化",
+    "period": "1910s-1920s",
+    "summary": "理解五四运动的爱国、启蒙与社会动员特征，并认识其对思想文化与政治运动的影响。",
+    "keyPoints": [
+      "思想变革与社会运动的互动：舆论、学生与城市公共空间",
+      "“现代”观念的形成：科学、民主、个体与国家"
+    ],
+    "relatedEventIds": [
+      29
+    ],
+    "references": [
+      {
+        "title": "维基百科：五四运动",
+        "url": "https://zh.wikipedia.org/wiki/%E4%BA%94%E5%9B%9B%E8%BF%90%E5%8A%A8"
+      },
+      {
+        "title": "维基百科：新文化运动",
+        "url": "https://zh.wikipedia.org/wiki/%E6%96%B0%E6%96%87%E5%8C%96%E8%BF%90%E5%8A%A8"
+      }
+    ]
+  },
+  {
+    "id": 253491289,
+    "title": "共和与国家重建：民国初期的政治探索（概念）",
+    "stage": "高中",
+    "category": "中国近现代史/政治",
+    "period": "1912-1920s",
+    "summary": "理解共和制度建立后的政治整合难题与社会转型压力，为理解后续革命与战争提供背景。",
+    "keyPoints": [
+      "制度更替后的权力整合：地方、军队与财政",
+      "社会转型：城市化、教育与舆论空间"
+    ],
+    "references": [
+      {
+        "title": "维基百科：中华民国（大陆时期）",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E6%B0%91%E5%9B%BD_(%E5%A4%A7%E9%99%86%E6%97%B6%E6%9C%9F)"
+      },
+      {
+        "title": "维基百科：北洋政府",
+        "url": "https://zh.wikipedia.org/wiki/%E5%8C%97%E6%B4%8B%E6%94%BF%E5%BA%9C"
+      }
+    ]
+  },
+  {
+    "id": 101472649,
+    "title": "全民族抗战：全面抗战爆发与抗战胜利",
+    "stage": "初中",
+    "category": "中国近现代史/战争与国家",
+    "period": "1937-1945",
+    "summary": "把握全面抗战的时间线与社会动员，理解战争对国家与社会结构的深远影响。",
+    "keyPoints": [
+      "全面抗战与持久战：战略与资源动员",
+      "战后国际秩序与中国地位变化的背景"
+    ],
+    "relatedEventIds": [
+      30,
+      31
+    ],
+    "references": [
+      {
+        "title": "维基百科：抗日战争",
+        "url": "https://zh.wikipedia.org/wiki/%E6%8A%97%E6%97%A5%E6%88%98%E4%BA%89"
+      },
+      {
+        "title": "维基百科：七七事变",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%83%E4%B8%83%E4%BA%8B%E5%8F%98"
+      }
+    ]
+  },
+  {
+    "id": 83544017,
+    "title": "新中国成立与早期国家建设：建国与抗美援朝",
+    "stage": "初中",
+    "category": "中国现代史/国家建设",
+    "period": "1949-1950s",
+    "summary": "理解建国初期的政治与社会重建、国际环境与安全压力，并认识抗美援朝的背景与影响。",
+    "keyPoints": [
+      "国家重建：政权巩固与社会动员",
+      "冷战格局中的安全选择：地区冲突与国际关系"
+    ],
+    "relatedEventIds": [
+      32,
+      33
+    ],
+    "references": [
+      {
+        "title": "维基百科：中华人民共和国成立",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E4%BA%BA%E6%B0%91%E5%85%B1%E5%92%8C%E5%9B%BD%E6%88%90%E7%AB%8B"
+      },
+      {
+        "title": "维基百科：抗美援朝",
+        "url": "https://zh.wikipedia.org/wiki/%E6%8A%97%E7%BE%8E%E6%8F%B4%E6%9C%9D"
+      }
+    ]
+  },
+  {
+    "id": 969289309,
+    "title": "新中国的社会经济变革：土地改革与“三大改造”（概念）",
+    "stage": "高中",
+    "category": "中国现代史/经济与社会",
+    "period": "1950s",
+    "summary": "理解建国初期的土地制度变革与所有制改造在社会结构与经济组织上的影响。",
+    "keyPoints": [
+      "土地改革：农村社会结构变化与生产关系调整",
+      "三大改造：公私关系与经济体制变迁"
+    ],
+    "references": [
+      {
+        "title": "维基百科：土地改革",
+        "url": "https://zh.wikipedia.org/wiki/%E5%9C%9F%E5%9C%B0%E6%94%B9%E9%9D%A9"
+      },
+      {
+        "title": "维基百科：三大改造",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%89%E5%A4%A7%E6%94%B9%E9%80%A0"
+      }
+    ]
+  },
+  {
+    "id": 894733790,
+    "title": "当代中国的转型：改革开放的关键政策与路径（概念）",
+    "stage": "高中",
+    "category": "中国当代史/经济与制度",
+    "period": "1978-",
+    "summary": "在不陷入细碎事件的前提下，理解改革开放的核心方向：放活要素、扩大开放、形成市场机制。",
+    "keyPoints": [
+      "农村改革与家庭联产承包责任制（概念）",
+      "经济特区与对外开放：制度试验与扩散"
+    ],
+    "relatedEventIds": [
+      34
+    ],
+    "references": [
+      {
+        "title": "维基百科：家庭联产承包责任制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%B6%E5%BA%AD%E8%81%94%E4%BA%A7%E6%89%BF%E5%8C%85%E8%B4%A3%E4%BB%BB%E5%88%B6"
+      },
+      {
+        "title": "维基百科：经济特区",
+        "url": "https://zh.wikipedia.org/wiki/%E7%BB%8F%E6%B5%8E%E7%89%B9%E5%8C%BA"
+      }
+    ]
+  },
+  {
+    "id": 338284554,
+    "title": "改革开放与全球化：从制度改革到加入WTO",
+    "stage": "高中",
+    "category": "中国当代史/经济与开放",
+    "period": "1978-2001",
+    "summary": "理解改革开放的政策动因、制度调整与社会影响，并认识加入WTO在全球化中的含义。",
+    "keyPoints": [
+      "改革开放：经济体制转型与社会结构变化",
+      "加入WTO：融入全球规则体系与产业竞争"
+    ],
+    "relatedEventIds": [
+      34,
+      35
+    ],
+    "references": [
+      {
+        "title": "维基百科：改革开放",
+        "url": "https://zh.wikipedia.org/wiki/%E6%94%B9%E9%9D%A9%E5%BC%80%E6%94%BE"
+      },
+      {
+        "title": "维基百科：中国加入世界贸易组织",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E5%8A%A0%E5%85%A5%E4%B8%96%E7%95%8C%E8%B4%B8%E6%98%93%E7%BB%84%E7%BB%87"
+      },
+      {
+        "title": "WTO：China and the WTO",
+        "url": "https://www.wto.org/english/thewto_e/countries_e/china_e.htm"
+      }
+    ]
+  },
+  {
+    "id": 155504310,
+    "title": "儒家与国家治理：从思想传统到政治文化（概念）",
+    "stage": "初中",
+    "category": "中国古代史/思想文化",
+    "period": "先秦-两汉",
+    "summary": "理解儒家思想如何影响政治理念、社会伦理与教育传统，并认识其在不同历史阶段的变化。",
+    "keyPoints": [
+      "儒家核心议题：仁、礼、修身与社会秩序",
+      "思想传统如何进入制度：教育、选官与政治文化"
+    ],
+    "references": [
+      {
+        "title": "维基百科：儒家",
+        "url": "https://zh.wikipedia.org/wiki/%E5%84%92%E5%AE%B6"
+      },
+      {
+        "title": "维基百科：儒学",
+        "url": "https://zh.wikipedia.org/wiki/%E5%84%92%E5%AD%A6"
+      }
+    ]
+  },
+  {
+    "id": 151927230,
+    "title": "丝绸之路与中外交流：陆上与海上两条网络（概念）",
+    "stage": "初中",
+    "category": "中国古代史/对外关系",
+    "period": "汉-唐-宋元",
+    "summary": "用“网络”的视角理解贸易、宗教、技术与文化如何跨区域流动，并认识交流对社会的影响。",
+    "keyPoints": [
+      "陆上与海上交流：路线、商品与人群",
+      "交流的多重影响：经济、宗教与文化传播"
+    ],
+    "references": [
+      {
+        "title": "维基百科：丝绸之路",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%9D%E7%BB%B8%E4%B9%8B%E8%B7%AF"
+      },
+      {
+        "title": "维基百科：海上丝绸之路",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B5%B7%E4%B8%8A%E4%B8%9D%E7%BB%B8%E4%B9%8B%E8%B7%AF"
+      }
+    ]
+  },
+  {
+    "id": 732425045,
+    "title": "三国鼎立与政治格局：从赤壁到统一的历史逻辑（概念）",
+    "stage": "初中",
+    "category": "中国古代史/政治",
+    "period": "东汉末-三国",
+    "summary": "理解东汉末的社会动荡、军阀割据与三国鼎立格局，认识“统一—分裂”循环中的结构性因素。",
+    "keyPoints": [
+      "分裂的成因：财政、军事与地方势力",
+      "格局塑造：联盟、战争与政治整合"
+    ],
+    "relatedEventIds": [
+      12,
+      23
+    ],
+    "references": [
+      {
+        "title": "维基百科：三国",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%89%E5%9B%BD"
+      },
+      {
+        "title": "维基百科：东汉末年",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%9C%E6%B1%89%E6%9C%AB%E5%B9%B4"
+      }
+    ]
+  },
+  {
+    "id": 95413386,
+    "title": "佛教东传与文化融合：宗教、艺术与思想互动（概念）",
+    "stage": "初中",
+    "category": "中国古代史/思想文化",
+    "period": "两汉-魏晋南北朝-隋唐",
+    "summary": "理解佛教传入中国后的传播与本土化过程，并认识宗教与艺术、哲学的相互影响。",
+    "keyPoints": [
+      "传播路径：交流网络与译经活动",
+      "本土化与融合：思想互动与文化表达"
+    ],
+    "references": [
+      {
+        "title": "维基百科：佛教传入中国",
+        "url": "https://zh.wikipedia.org/wiki/%E4%BD%9B%E6%95%99%E4%BC%A0%E5%85%A5%E4%B8%AD%E5%9B%BD"
+      },
+      {
+        "title": "维基百科：石窟艺术",
+        "url": "https://zh.wikipedia.org/wiki/%E7%9F%B3%E7%AA%9F%E8%89%BA%E6%9C%AF"
+      }
+    ]
+  },
+  {
+    "id": 63870846,
+    "title": "隋的统一与制度恢复：从分裂到再整合（概念）",
+    "stage": "初中",
+    "category": "中国古代史/政治",
+    "period": "隋",
+    "summary": "理解隋朝在长期分裂后实现统一、恢复制度与交通建设的意义，并认识其短暂性背后的压力。",
+    "keyPoints": [
+      "统一与整合：制度、交通与财政",
+      "动员成本：大型工程与社会负担"
+    ],
+    "references": [
+      {
+        "title": "维基百科：隋朝",
+        "url": "https://zh.wikipedia.org/wiki/%E9%9A%8B%E6%9C%9D"
+      },
+      {
+        "title": "维基百科：隋炀帝",
+        "url": "https://zh.wikipedia.org/wiki/%E9%9A%8B%E7%82%80%E5%B8%9D"
+      }
+    ]
+  },
+  {
+    "id": 355528272,
+    "title": "唐代对外交流与开放气象：长安与海陆通道（概念）",
+    "stage": "初中",
+    "category": "中国古代史/对外关系",
+    "period": "唐",
+    "summary": "理解唐代在贸易、外交与文化交流方面的活跃特征，认识开放城市与交流网络的作用。",
+    "keyPoints": [
+      "国际化都市：人口流动与文化多样性",
+      "交流网络：商贸、外交与宗教传播"
+    ],
+    "references": [
+      {
+        "title": "维基百科：唐朝",
+        "url": "https://zh.wikipedia.org/wiki/%E5%94%90%E6%9C%9D"
+      },
+      {
+        "title": "维基百科：长安",
+        "url": "https://zh.wikipedia.org/wiki/%E9%95%BF%E5%AE%89"
+      }
+    ]
+  },
+  {
+    "id": 235662641,
+    "title": "赋税制度的演变：均田制到两税法（概念）",
+    "stage": "高中",
+    "category": "中国古代史/经济与制度",
+    "period": "北魏-隋唐",
+    "summary": "理解土地与赋税制度如何与人口、财政、军政体系相互作用，并认识制度调整的背景。",
+    "keyPoints": [
+      "均田制：土地分配与户籍控制的尝试",
+      "两税法：财政结构变化与税制调整"
+    ],
+    "references": [
+      {
+        "title": "维基百科：均田制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%9D%87%E7%94%B0%E5%88%B6"
+      },
+      {
+        "title": "维基百科：两税法",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%A4%E7%A8%8E%E6%B3%95"
+      }
+    ]
+  },
+  {
+    "id": 553196076,
+    "title": "军事制度与国家动员：府兵制到募兵制（概念）",
+    "stage": "高中",
+    "category": "中国古代史/军事与制度",
+    "period": "隋唐-宋",
+    "summary": "理解军制变化背后的财政、社会结构与战争形态变化，并认识国家动员方式的转型。",
+    "keyPoints": [
+      "府兵制：兵农合一与地方社会",
+      "募兵制：职业军队与财政压力"
+    ],
+    "references": [
+      {
+        "title": "维基百科：府兵制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%BA%9C%E5%85%B5%E5%88%B6"
+      },
+      {
+        "title": "维基百科：募兵制",
+        "url": "https://zh.wikipedia.org/wiki/%E5%8B%9F%E5%85%B5%E5%88%B6"
+      }
+    ]
+  },
+  {
+    "id": 235602745,
+    "title": "经济重心南移：人口迁徙、农业与城市发展（概念）",
+    "stage": "初中",
+    "category": "中国古代史/经济",
+    "period": "唐宋之际-宋",
+    "summary": "理解南方开发、人口流动与经济结构变化，认识“区域发展”对历史格局的影响。",
+    "keyPoints": [
+      "人口与资源：迁徙与土地开发",
+      "商业与城市：市场扩张与生活方式变化"
+    ],
+    "references": [
+      {
+        "title": "维基百科：经济重心南移",
+        "url": "https://zh.wikipedia.org/wiki/%E7%BB%8F%E6%B5%8E%E9%87%8D%E5%BF%83%E5%8D%97%E7%A7%BB"
+      },
+      {
+        "title": "维基百科：两宋",
+        "url": "https://zh.wikipedia.org/wiki/%E5%AE%8B%E6%9C%9D"
+      }
+    ]
+  },
+  {
+    "id": 681881444,
+    "title": "理学与士大夫文化：宋明思想传统（概念）",
+    "stage": "高中",
+    "category": "中国古代史/思想文化",
+    "period": "宋-明",
+    "summary": "理解理学作为思想体系如何影响教育、政治伦理与社会文化，并认识其历史语境。",
+    "keyPoints": [
+      "理学的核心关切：道德修养与秩序",
+      "士大夫文化：教育、科举与公共话语"
+    ],
+    "references": [
+      {
+        "title": "维基百科：理学",
+        "url": "https://zh.wikipedia.org/wiki/%E7%90%86%E5%AD%A6"
+      },
+      {
+        "title": "维基百科：朱熹",
+        "url": "https://zh.wikipedia.org/wiki/%E6%9C%B1%E7%86%B9"
+      }
+    ]
+  },
+  {
+    "id": 48225011,
+    "title": "明代海禁与朝贡贸易：对外政策的多面性（概念）",
+    "stage": "高中",
+    "category": "中国古代史/对外关系",
+    "period": "明",
+    "summary": "理解明代对外贸易管理与海禁政策的背景与影响，并区分官方秩序与民间交流的差别。",
+    "keyPoints": [
+      "海禁政策：秩序、治安与财政考量",
+      "朝贡与贸易：官方体系与实际经济活动"
+    ],
+    "references": [
+      {
+        "title": "维基百科：海禁",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B5%B7%E7%A6%81"
+      },
+      {
+        "title": "维基百科：朝贡体系",
+        "url": "https://zh.wikipedia.org/wiki/%E6%9C%9D%E8%B4%A1%E4%BD%93%E7%B3%BB"
+      }
+    ]
+  },
+  {
+    "id": 806026112,
+    "title": "清代多民族国家：疆域、治理与民族关系（概念）",
+    "stage": "初中",
+    "category": "中国古代史/民族与疆域",
+    "period": "清",
+    "summary": "理解清代作为多民族国家在疆域治理、制度安排与民族关系方面的特征。",
+    "keyPoints": [
+      "疆域治理：制度与地方治理形式",
+      "民族关系：交往、管理与融合的多样方式"
+    ],
+    "references": [
+      {
+        "title": "维基百科：清朝",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B8%85%E6%9C%9D"
+      },
+      {
+        "title": "维基百科：多民族国家",
+        "url": "https://zh.wikipedia.org/wiki/%E5%A4%9A%E6%B0%91%E6%97%8F%E5%9B%BD%E5%AE%B6"
+      }
+    ]
+  },
+  {
+    "id": 736643783,
+    "title": "近代列强侵略与民族危机：条约体系与主权问题（概念）",
+    "stage": "初中",
+    "category": "中国近代史/国际关系",
+    "period": "1840-1900",
+    "summary": "理解近代条约体系与主权问题在中国近代史叙事中的位置，认识外部冲击与内部转型的叠加。",
+    "keyPoints": [
+      "条约体系：通商口岸、领事裁判权等概念入门",
+      "危机与转型：制度与社会结构的压力"
+    ],
+    "references": [
+      {
+        "title": "维基百科：不平等条约",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%8D%E5%B9%B3%E7%AD%89%E6%9D%A1%E7%BA%A6"
+      },
+      {
+        "title": "维基百科：晚清",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B8%85%E6%9C%AB"
+      }
+    ]
+  },
+  {
+    "id": 888782534,
+    "title": "甲午之后的改革与民族意识：从维新到立宪思潮（概念）",
+    "stage": "高中",
+    "category": "中国近代史/思想与政治",
+    "period": "1895-1911",
+    "summary": "理解甲午战争后的改革思潮与政治方案，并认识民族意识与现代国家观念的变化。",
+    "keyPoints": [
+      "改革方案的差异：制度设计与社会基础",
+      "民族意识与国家观念：公共舆论与政治动员"
+    ],
+    "relatedEventIds": [
+      25,
+      26
+    ],
+    "references": [
+      {
+        "title": "维基百科：晚清改革",
+        "url": "https://zh.wikipedia.org/wiki/%E6%B8%85%E6%9C%AB%E6%96%B0%E6%94%BF"
+      },
+      {
+        "title": "维基百科：立宪运动",
+        "url": "https://zh.wikipedia.org/wiki/%E7%AB%8B%E5%AE%AA%E8%BF%90%E5%8A%A8"
+      }
+    ]
+  },
+  {
+    "id": 769272006,
+    "title": "辛亥革命后的政治与社会：共和制度的挑战（概念）",
+    "stage": "高中",
+    "category": "中国近现代史/政治",
+    "period": "1911-1920s",
+    "summary": "理解从帝制到共和的制度转换带来的政治整合挑战与社会转型压力。",
+    "keyPoints": [
+      "制度转换：法律、军队与财政体系重建",
+      "政治整合：中央—地方关系与权力结构"
+    ],
+    "relatedEventIds": [
+      27,
+      28
+    ],
+    "references": [
+      {
+        "title": "维基百科：辛亥革命",
+        "url": "https://zh.wikipedia.org/wiki/%E8%BE%9B%E4%BA%A5%E9%9D%A9%E5%91%BD"
+      },
+      {
+        "title": "维基百科：中华民国",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%8D%8E%E6%B0%91%E5%9B%BD"
+      }
+    ]
+  },
+  {
+    "id": 743565581,
+    "title": "从局部冲突到全面抗战：时间线与关键节点（概念）",
+    "stage": "初中",
+    "category": "中国近现代史/战争与国家",
+    "period": "1931-1937",
+    "summary": "用时间线方式理解局部冲突到全面抗战的演变，训练“因果链”与“阶段特征”的把握。",
+    "keyPoints": [
+      "阶段演变：冲突升级与战略选择",
+      "社会动员：舆论、经济与组织形态变化"
+    ],
+    "relatedEventIds": [
+      30
+    ],
+    "references": [
+      {
+        "title": "维基百科：九一八事变",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B9%9D%E4%B8%80%E5%85%AB%E4%BA%8B%E5%8F%98"
+      },
+      {
+        "title": "维基百科：七七事变",
+        "url": "https://zh.wikipedia.org/wiki/%E4%B8%83%E4%B8%83%E4%BA%8B%E5%8F%98"
+      }
+    ]
+  },
+  {
+    "id": 167003298,
+    "title": "抗战时期的社会与经济：动员、生产与生活（概念）",
+    "stage": "高中",
+    "category": "中国近现代史/社会与经济",
+    "period": "1937-1945",
+    "summary": "理解战争条件下的社会动员、经济调整与民众生活变化，认识战争对社会结构的深层影响。",
+    "keyPoints": [
+      "动员与生产：资源配置与社会组织",
+      "战时社会：人口流动与生活方式变化"
+    ],
+    "relatedEventIds": [
+      30,
+      31
+    ],
+    "references": [
+      {
+        "title": "维基百科：抗日战争",
+        "url": "https://zh.wikipedia.org/wiki/%E6%8A%97%E6%97%A5%E6%88%98%E4%BA%89"
+      },
+      {
+        "title": "维基百科：大后方",
+        "url": "https://zh.wikipedia.org/wiki/%E5%A4%A7%E5%90%8E%E6%96%B9"
+      }
+    ]
+  },
+  {
+    "id": 542643389,
+    "title": "冷战与地区冲突：朝鲜战争的国际背景（概念）",
+    "stage": "高中",
+    "category": "中国现代史/国际关系",
+    "period": "1950s",
+    "summary": "理解冷战格局下的安全困境与地区冲突，认识国际关系对国家决策的影响。",
+    "keyPoints": [
+      "冷战格局：阵营对抗与安全困境",
+      "地区冲突：局部战争与国际政治联动"
+    ],
+    "relatedEventIds": [
+      33
+    ],
+    "references": [
+      {
+        "title": "维基百科：冷战",
+        "url": "https://zh.wikipedia.org/wiki/%E5%86%B7%E6%88%98"
+      },
+      {
+        "title": "维基百科：朝鲜战争",
+        "url": "https://zh.wikipedia.org/wiki/%E6%9C%9D%E9%B2%9C%E6%88%98%E4%BA%89"
+      }
+    ]
+  },
+  {
+    "id": 893074255,
+    "title": "现代化与工业化：从近代起步到当代转型（概念）",
+    "stage": "高中",
+    "category": "中国近现代史/经济与社会",
+    "period": "19世纪-21世纪",
+    "summary": "用长时段视角理解中国现代化与工业化的阶段特征，识别不同阶段的动力与约束。",
+    "keyPoints": [
+      "工业化要素：资本、技术、市场与制度",
+      "阶段性特征：政策选择与外部环境变化"
+    ],
+    "references": [
+      {
+        "title": "维基百科：现代化",
+        "url": "https://zh.wikipedia.org/wiki/%E7%8E%B0%E4%BB%A3%E5%8C%96"
+      },
+      {
+        "title": "维基百科：工业化",
+        "url": "https://zh.wikipedia.org/wiki/%E5%B7%A5%E4%B8%9A%E5%8C%96"
+      }
+    ]
+  }
+]
