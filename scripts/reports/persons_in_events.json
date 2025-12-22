@@ -1,0 +1,456 @@
+{
+  "generatedAt": "2025-12-22T02:54:31.095Z",
+  "totalEvents": 35,
+  "totalPersons": 45,
+  "personsInEvents": 37,
+  "changedEvents": 0,
+  "removedDanglingPersonIds": 0,
+  "items": [
+    {
+      "personId": 8,
+      "name": "秦始皇",
+      "dynastyId": 6,
+      "eventCount": 2,
+      "firstEventYear": -221,
+      "lastEventYear": -213,
+      "sampleEvents": "-221 秦始皇统一六国 | -213 焚书坑儒",
+      "allEventIds": [
+        6,
+        7
+      ]
+    },
+    {
+      "personId": 39,
+      "name": "孙中山",
+      "dynastyId": 17,
+      "eventCount": 2,
+      "firstEventYear": 1911,
+      "lastEventYear": 1912,
+      "sampleEvents": "1911 辛亥革命 | 1912 中华民国成立",
+      "allEventIds": [
+        27,
+        28
+      ]
+    },
+    {
+      "personId": 23,
+      "name": "安禄山",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 755,
+      "lastEventYear": 755,
+      "sampleEvents": "755 安史之乱",
+      "allEventIds": [
+        15
+      ]
+    },
+    {
+      "personId": 17,
+      "name": "曹操",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "allEventIds": [
+        12
+      ]
+    },
+    {
+      "personId": 40,
+      "name": "陈独秀",
+      "dynastyId": 17,
+      "eventCount": 1,
+      "firstEventYear": 1919,
+      "lastEventYear": 1919,
+      "sampleEvents": "1919 五四运动",
+      "allEventIds": [
+        29
+      ]
+    },
+    {
+      "personId": 9,
+      "name": "陈胜",
+      "dynastyId": 6,
+      "eventCount": 1,
+      "firstEventYear": -209,
+      "lastEventYear": -209,
+      "sampleEvents": "-209 陈胜吴广起义",
+      "allEventIds": [
+        8
+      ]
+    },
+    {
+      "personId": 27,
+      "name": "成吉思汗",
+      "dynastyId": 14,
+      "eventCount": 1,
+      "firstEventYear": 1206,
+      "lastEventYear": 1206,
+      "sampleEvents": "1206 成吉思汗统一蒙古",
+      "allEventIds": [
+        18
+      ]
+    },
+    {
+      "personId": 6,
+      "name": "楚庄王",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "allEventIds": [
+        4
+      ]
+    },
+    {
+      "personId": 1,
+      "name": "大禹",
+      "dynastyId": 1,
+      "eventCount": 1,
+      "firstEventYear": -2070,
+      "lastEventYear": -2070,
+      "sampleEvents": "-2070 大禹治水",
+      "allEventIds": [
+        1
+      ]
+    },
+    {
+      "personId": 44,
+      "name": "邓小平",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1978,
+      "lastEventYear": 1978,
+      "sampleEvents": "1978 改革开放",
+      "allEventIds": [
+        34
+      ]
+    },
+    {
+      "personId": 13,
+      "name": "汉武帝",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "allEventIds": [
+        10
+      ]
+    },
+    {
+      "personId": 15,
+      "name": "霍去病",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "allEventIds": [
+        10
+      ]
+    },
+    {
+      "personId": 41,
+      "name": "蒋介石",
+      "dynastyId": 17,
+      "eventCount": 1,
+      "firstEventYear": 1937,
+      "lastEventYear": 1937,
+      "sampleEvents": "1937 全面抗战爆发",
+      "allEventIds": [
+        30
+      ]
+    },
+    {
+      "personId": 5,
+      "name": "晋文公",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "allEventIds": [
+        4
+      ]
+    },
+    {
+      "personId": 38,
+      "name": "李鸿章",
+      "dynastyId": 16,
+      "eventCount": 1,
+      "firstEventYear": 1894,
+      "lastEventYear": 1894,
+      "sampleEvents": "1894 甲午中日战争",
+      "allEventIds": [
+        25
+      ]
+    },
+    {
+      "personId": 29,
+      "name": "林则徐",
+      "dynastyId": 16,
+      "eventCount": 1,
+      "firstEventYear": 1840,
+      "lastEventYear": 1840,
+      "sampleEvents": "1840 鸦片战争",
+      "allEventIds": [
+        20
+      ]
+    },
+    {
+      "personId": 11,
+      "name": "刘邦",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -206,
+      "lastEventYear": -206,
+      "sampleEvents": "-206 楚汉之争",
+      "allEventIds": [
+        9
+      ]
+    },
+    {
+      "personId": 18,
+      "name": "刘备",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "allEventIds": [
+        12
+      ]
+    },
+    {
+      "personId": 42,
+      "name": "毛泽东",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1949,
+      "lastEventYear": 1949,
+      "sampleEvents": "1949 中华人民共和国成立",
+      "allEventIds": [
+        32
+      ]
+    },
+    {
+      "personId": 45,
+      "name": "彭德怀",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1950,
+      "lastEventYear": 1950,
+      "sampleEvents": "1950 抗美援朝",
+      "allEventIds": [
+        33
+      ]
+    },
+    {
+      "personId": 4,
+      "name": "齐桓公",
+      "dynastyId": 4,
+      "eventCount": 1,
+      "firstEventYear": -770,
+      "lastEventYear": -770,
+      "sampleEvents": "-770 春秋五霸",
+      "allEventIds": [
+        4
+      ]
+    },
+    {
+      "personId": 2,
+      "name": "商汤",
+      "dynastyId": 2,
+      "eventCount": 1,
+      "firstEventYear": -1600,
+      "lastEventYear": -1600,
+      "sampleEvents": "-1600 商汤灭夏",
+      "allEventIds": [
+        2
+      ]
+    },
+    {
+      "personId": 7,
+      "name": "商鞅",
+      "dynastyId": 5,
+      "eventCount": 1,
+      "firstEventYear": -356,
+      "lastEventYear": -356,
+      "sampleEvents": "-356 商鞅变法",
+      "allEventIds": [
+        5
+      ]
+    },
+    {
+      "personId": 24,
+      "name": "史思明",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 755,
+      "lastEventYear": 755,
+      "sampleEvents": "755 安史之乱",
+      "allEventIds": [
+        15
+      ]
+    },
+    {
+      "personId": 25,
+      "name": "宋太祖",
+      "dynastyId": 13,
+      "eventCount": 1,
+      "firstEventYear": 960,
+      "lastEventYear": 960,
+      "sampleEvents": "960 宋太祖建立宋朝",
+      "allEventIds": [
+        16
+      ]
+    },
+    {
+      "personId": 21,
+      "name": "隋炀帝",
+      "dynastyId": 11,
+      "eventCount": 1,
+      "firstEventYear": 605,
+      "lastEventYear": 605,
+      "sampleEvents": "605 隋炀帝开凿大运河",
+      "allEventIds": [
+        13
+      ]
+    },
+    {
+      "personId": 19,
+      "name": "孙权",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "allEventIds": [
+        12
+      ]
+    },
+    {
+      "personId": 22,
+      "name": "唐太宗",
+      "dynastyId": 12,
+      "eventCount": 1,
+      "firstEventYear": 627,
+      "lastEventYear": 627,
+      "sampleEvents": "627 唐太宗贞观之治",
+      "allEventIds": [
+        14
+      ]
+    },
+    {
+      "personId": 26,
+      "name": "王安石",
+      "dynastyId": 13,
+      "eventCount": 1,
+      "firstEventYear": 1069,
+      "lastEventYear": 1069,
+      "sampleEvents": "1069 王安石变法",
+      "allEventIds": [
+        17
+      ]
+    },
+    {
+      "personId": 14,
+      "name": "卫青",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -140,
+      "lastEventYear": -140,
+      "sampleEvents": "-140 汉武帝开疆拓土",
+      "allEventIds": [
+        10
+      ]
+    },
+    {
+      "personId": 10,
+      "name": "吴广",
+      "dynastyId": 6,
+      "eventCount": 1,
+      "firstEventYear": -209,
+      "lastEventYear": -209,
+      "sampleEvents": "-209 陈胜吴广起义",
+      "allEventIds": [
+        8
+      ]
+    },
+    {
+      "personId": 12,
+      "name": "项羽",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -206,
+      "lastEventYear": -206,
+      "sampleEvents": "-206 楚汉之争",
+      "allEventIds": [
+        9
+      ]
+    },
+    {
+      "personId": 16,
+      "name": "张骞",
+      "dynastyId": 7,
+      "eventCount": 1,
+      "firstEventYear": -138,
+      "lastEventYear": -138,
+      "sampleEvents": "-138 张骞出使西域",
+      "allEventIds": [
+        11
+      ]
+    },
+    {
+      "personId": 28,
+      "name": "郑和",
+      "dynastyId": 15,
+      "eventCount": 1,
+      "firstEventYear": 1405,
+      "lastEventYear": 1405,
+      "sampleEvents": "1405 郑和下西洋",
+      "allEventIds": [
+        19
+      ]
+    },
+    {
+      "personId": 43,
+      "name": "周恩来",
+      "dynastyId": 18,
+      "eventCount": 1,
+      "firstEventYear": 1949,
+      "lastEventYear": 1949,
+      "sampleEvents": "1949 中华人民共和国成立",
+      "allEventIds": [
+        32
+      ]
+    },
+    {
+      "personId": 3,
+      "name": "周武王",
+      "dynastyId": 3,
+      "eventCount": 1,
+      "firstEventYear": -1046,
+      "lastEventYear": -1046,
+      "sampleEvents": "-1046 武王伐纣",
+      "allEventIds": [
+        3
+      ]
+    },
+    {
+      "personId": 20,
+      "name": "诸葛亮",
+      "dynastyId": 8,
+      "eventCount": 1,
+      "firstEventYear": 208,
+      "lastEventYear": 208,
+      "sampleEvents": "208 赤壁之战",
+      "allEventIds": [
+        12
+      ]
+    }
+  ]
+}
