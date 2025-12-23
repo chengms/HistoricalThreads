@@ -454,21 +454,6 @@ export default function DetailPage() {
         <Card>
           <Space direction="vertical" size="large" className="w-full">
             <Space size="large" align="start" style={{ marginTop: '-20px' }}>
-              {(data as Person).avatarUrl?.trim() !== '' ? (
-                <div
-                  className="person-detail-avatar"
-                  style={{ marginBottom: '0', marginTop: '-10px' }}
-                >
-                  <img
-                    src={(data as Person).avatarUrl}
-                    alt={(data as Person).name}
-                    className="person-detail-avatar-image"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                    }}
-                  />
-                </div>
-              ) : null}
               <Space direction="vertical" size="small" style={{ flex: 1 }}>
                 <Title level={2} style={{ marginBottom: 16 }}>{(data as Person).name}</Title>
                 
