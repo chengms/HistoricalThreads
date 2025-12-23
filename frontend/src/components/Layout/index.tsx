@@ -1,4 +1,4 @@
-import { Layout as AntLayout, Menu, theme, Input, AutoComplete, message } from 'antd'
+import { Layout as AntLayout, Menu, Input, AutoComplete, message } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { 
   HomeOutlined, 
@@ -34,9 +34,6 @@ export default function Layout({ children }: LayoutProps) {
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
   const searchOverlayRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<InputRef>(null)
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken()
 
   // <= 1024: 用搜索图标 + 点击弹出搜索框，避免占用导航栏空间
   const isSearchIconMode = viewportWidth <= 1024
@@ -366,18 +363,16 @@ export default function Layout({ children }: LayoutProps) {
         <div 
           className="min-h-[calc(100vh-64px-70px)]"
           style={{ 
-            background: location.pathname === '/timeline' || location.pathname === '/' || location.pathname.startsWith('/timeline') 
-              ? 'transparent' 
-              : colorBgContainer 
+            background: 'transparent'
           }}
         >
           {children}
         </div>
       </Content>
-      <Footer className="text-center bg-gray-100">
+      <Footer className="text-center" style={{ background: 'rgba(26, 26, 26, 0.9)', color: 'var(--cinematic-text-secondary)', borderTop: '1px solid var(--cinematic-border)' }}>
         中国历史时间线 ©2025 | 
-        <a href="#" className="ml-2">数据来源</a> | 
-        <a href="#" className="ml-2">关于我们</a>
+        <a href="#" className="ml-2" style={{ color: 'var(--cinematic-accent-gold)' }}>数据来源</a> | 
+        <a href="#" className="ml-2" style={{ color: 'var(--cinematic-accent-gold)' }}>关于我们</a>
       </Footer>
     </AntLayout>
   )
