@@ -51,10 +51,15 @@ const clampToCircle = (x: number, y: number, cx: number, cy: number, r: number) 
 
 function getDynastyColor(dynastyKey: number): { background: string; border: string } {
   // dynastyKey=0 for unknown. Use stable HSL mapping for deterministic colors.
-  if (dynastyKey === 0) return { background: '#F3F4F6', border: '#9CA3AF' }
+  // 优化配色：使用更深的背景色，提高文字对比度
+  if (dynastyKey === 0) return { background: '#4A5568', border: '#718096' }
   const hue = (dynastyKey * 47) % 360
-  const background = `hsl(${hue} 70% 88%)`
-  const border = `hsl(${hue} 70% 42%)`
+  // 降低亮度到 50-60%，提高饱和度到 75-85%，使颜色更深更鲜明
+  const lightness = 50 + (dynastyKey % 3) * 5 // 50-60% 之间变化
+  const saturation = 75 + (dynastyKey % 2) * 10 // 75-85% 之间变化
+  const background = `hsl(${hue}, ${saturation}%, ${lightness}%)`
+  // 边框颜色更亮，形成对比
+  const border = `hsl(${hue}, ${saturation}%, ${Math.min(75, lightness + 20)}%)`
   return { background, border }
 }
 
@@ -425,9 +430,12 @@ export default function NetworkPage() {
         color: {
           background: color.background,
           border: color.border,
-          highlight: { background: color.background, border: color.border },
+          highlight: { 
+            background: color.border, // 高亮时使用边框颜色作为背景
+            border: '#ffffff', // 高亮时使用白色边框
+          },
         },
-        borderWidth: 2,
+        borderWidth: 3, // 增加边框宽度，从 2 到 3
         title: `${person.name}\n朝代：${dynastyName}\n${(person.biography || '').substring(0, 120)}...`,
       }
     })
@@ -477,13 +485,15 @@ export default function NetworkPage() {
           nodes: {
             // 'dot' 的 label 默认在节点外；用 'circle' 让人名显示在小圆内
             shape: 'circle',
-            size: 34,
+            size: 48, // 增大节点大小，从 34 到 48
             font: {
-              size: 14,
+              size: 16, // 增大字体，从 14 到 16
               color: '#ffffff',
               align: 'center',
               vadjust: 0,
+              face: 'Microsoft YaHei, Arial, sans-serif', // 使用中文字体
             },
+            borderWidth: 3, // 增加边框宽度，从 2 到 3
           },
           edges: {
             width: 2,
@@ -516,17 +526,31 @@ export default function NetworkPage() {
           ctx.save()
           ctx.beginPath()
           ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(255,255,255,0.15)'
+          // 优化朝代圆圈背景，使用更深的半透明背景
+          ctx.fillStyle = 'rgba(26, 26, 26, 0.4)' // 更深的背景，提高对比度
           ctx.fill()
-          ctx.lineWidth = 2
+          ctx.lineWidth = 3 // 增加边框宽度
           ctx.strokeStyle = c.color.border
           ctx.stroke()
 
-          // label near top of circle
-          ctx.font = 'bold 16px Microsoft YaHei'
-          ctx.fillStyle = '#ffffff'
+          // label near top of circle - 增大字体并添加背景以提高可读性
+          ctx.font = 'bold 18px Microsoft YaHei'
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
+          
+          // 添加文字背景以提高可读性
+          const textMetrics = ctx.measureText(c.label)
+          const textWidth = textMetrics.width
+          const textHeight = 20
+          const padding = 8
+          const bgX = c.x - textWidth / 2 - padding
+          const bgY = c.y - c.radius + 12 - textHeight / 2
+          
+          ctx.fillStyle = 'rgba(26, 26, 26, 0.85)' // 深色半透明背景
+          ctx.fillRect(bgX, bgY, textWidth + padding * 2, textHeight + padding)
+          
+          // 绘制文字
+          ctx.fillStyle = c.color.border // 使用朝代边框颜色作为文字颜色，更醒目
           ctx.fillText(c.label, c.x, c.y - c.radius + 22)
           ctx.restore()
         }
