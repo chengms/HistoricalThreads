@@ -325,6 +325,14 @@ body.cinematic-theme .ant-empty-description {
   color: var(--cinematic-text-secondary) !important;
 }
 
+body.cinematic-theme .ant-progress-text {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-progress-bg {
+  background-color: var(--cinematic-accent-gold) !important;
+}
+
 body.cinematic-theme .ant-modal-content {
   background: rgba(40, 40, 40, 0.95) !important;
   border-color: var(--cinematic-border) !important;

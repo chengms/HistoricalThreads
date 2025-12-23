@@ -389,9 +389,9 @@ export default function TwikooComment({ path, lang = 'zh-CN' }: TwikooCommentPro
             maxCount={5}
           >
             {imageList.length < 5 && (
-              <div>
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>上传图片</div>
+              <div style={{ color: 'var(--cinematic-text-primary, #ffffff)' }}>
+                <PlusOutlined style={{ color: 'var(--cinematic-text-primary, #ffffff)' }} />
+                <div style={{ marginTop: 8, color: 'var(--cinematic-text-primary, #ffffff)' }}>上传图片</div>
               </div>
             )}
           </Upload>
@@ -403,7 +403,7 @@ export default function TwikooComment({ path, lang = 'zh-CN' }: TwikooCommentPro
                 const file = imageList.find(item => item.uid === uid)
                 return (
                   <div key={uid} style={{ marginBottom: 8 }}>
-                    <div style={{ marginBottom: 4, fontSize: '12px', color: '#666' }}>
+                    <div style={{ marginBottom: 4, fontSize: '12px', color: 'var(--cinematic-text-secondary, #f0f0f0)' }}>
                       {file?.name || '上传中...'}
                     </div>
                     <Progress 
