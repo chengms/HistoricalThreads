@@ -212,24 +212,33 @@ export default function Layout({ children }: LayoutProps) {
       className="min-h-screen"
       style={isTimelinePage ? { background: 'transparent' } : {}}
     >
-      <Header className="text-white px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #2563eb 100%)' }}>
-        <div className="flex items-center h-full gap-4">
+      <Header className="text-white px-3 sm:px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #2563eb 100%)' }}>
+        <div className="flex items-center h-full gap-2 sm:gap-4" style={{ minWidth: 0 }}>
+          {/* 标题 - 在小屏幕上缩短 */}
           <div 
-            className="text-xl font-bold cursor-pointer"
-            style={{ flexShrink: 0, whiteSpace: 'nowrap', marginRight: '20px' }}
+            className="text-base sm:text-xl font-bold cursor-pointer"
+            style={{ 
+              flexShrink: viewportWidth <= 640 ? 1 : 0, 
+              whiteSpace: 'nowrap',
+              marginRight: viewportWidth <= 640 ? '8px' : '20px',
+              overflow: viewportWidth <= 640 ? 'hidden' : 'visible',
+              textOverflow: viewportWidth <= 640 ? 'ellipsis' : 'clip',
+              maxWidth: viewportWidth <= 640 ? '120px' : 'none'
+            }}
             onClick={() => navigate('/')}
+            title="中国历史时间线"
           >
-            中国历史时间线
+            {viewportWidth <= 640 ? '历史时间线' : '中国历史时间线'}
           </div>
           
           {/* 折叠按钮 - 在小屏幕和中等屏幕上显示 */}
           {isCompactHeader && (
             <div 
-              className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all"
+              className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all flex-shrink-0"
               onClick={() => setMenuCollapsed(!menuCollapsed)}
-              style={{ marginRight: '10px' }}
+              style={{ marginRight: '8px' }}
             >
-              {/* menuCollapsed=true 表示菜单已折叠，应显示“展开菜单”图标 */}
+              {/* menuCollapsed=true 表示菜单已折叠，应显示"展开菜单"图标 */}
               {menuCollapsed ? <MenuOutlined /> : <CloseOutlined />}
             </div>
           )}
@@ -239,7 +248,8 @@ export default function Layout({ children }: LayoutProps) {
             className="flex-1"
             style={{ 
               overflow: 'hidden',
-              transition: 'width 0.3s ease'
+              transition: 'width 0.3s ease',
+              minWidth: 0
             }}
           >
             <Menu
@@ -257,7 +267,8 @@ export default function Layout({ children }: LayoutProps) {
               className="border-0"
               style={{
                 display: (isCompactHeader && menuCollapsed) ? 'none' : 'flex',
-                flexWrap: 'wrap'
+                flexWrap: viewportWidth <= 768 ? 'wrap' : 'nowrap',
+                minWidth: 0
               }}
             />
           </div>
@@ -265,12 +276,12 @@ export default function Layout({ children }: LayoutProps) {
           {/* 搜索框 */}
           {!isSearchIconMode ? (
             <div 
-              className="flex items-center"
+              className="flex items-center flex-shrink-0"
               style={{ 
-                flexShrink: 0,
-                width: (isCompactHeader && !menuCollapsed) ? '0' : '160px',
+                width: (isCompactHeader && !menuCollapsed) ? '0' : (viewportWidth <= 768 ? '120px' : '160px'),
                 overflow: 'hidden',
-                transition: 'width 0.3s ease'
+                transition: 'width 0.3s ease',
+                marginLeft: '8px'
               }}
             >
               <AutoComplete
@@ -284,7 +295,7 @@ export default function Layout({ children }: LayoutProps) {
               >
                 <Input
                   prefix={<SearchOutlined style={{ color: 'white' }} />}
-                  placeholder="搜索..."
+                  placeholder={viewportWidth <= 768 ? '' : '搜索...'}
                   size="small"
                   allowClear
                   onChange={(e) => {
@@ -302,7 +313,7 @@ export default function Layout({ children }: LayoutProps) {
             <div
               ref={searchOverlayRef}
               className="header-search-icon-wrap"
-              style={{ flexShrink: 0 }}
+              style={{ flexShrink: 0, marginLeft: '8px' }}
             >
               <div
                 className="header-search-icon"

@@ -38,12 +38,23 @@
 .ant-layout-header .ant-menu {
   background: transparent !important;
   border-bottom: none !important;
+  min-width: 0;
 }
 
 .ant-layout-header .ant-menu-item {
   border-radius: 6px;
-  margin: 0 4px;
+  margin: 0 2px;
   transition: all 0.3s ease;
+  padding: 0 8px !important;
+  font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  .ant-layout-header .ant-menu-item {
+    margin: 0 4px;
+    padding: 0 12px !important;
+    font-size: 14px;
+  }
 }
 
 .ant-layout-header .ant-menu-item:hover {
