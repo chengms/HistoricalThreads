@@ -93,6 +93,40 @@ function mergePerson(target, source) {
     target.avatarUrl = source.avatarUrl
   }
 
+  // birthDate/deathDate：target 缺失才补
+  if (!String(target.birthDate || '').trim() && String(source.birthDate || '').trim()) {
+    target.birthDate = source.birthDate
+  }
+  if (!String(target.deathDate || '').trim() && String(source.deathDate || '').trim()) {
+    target.deathDate = source.deathDate
+  }
+
+  // birthplace/deathplace：target 缺失才补
+  if (!String(target.birthplace || '').trim() && String(source.birthplace || '').trim()) {
+    target.birthplace = source.birthplace
+  }
+  if (!String(target.deathplace || '').trim() && String(source.deathplace || '').trim()) {
+    target.deathplace = source.deathplace
+  }
+
+  // citations：合并（去重，基于 sourceId）
+  const targetCitations = Array.isArray(target.citations) ? target.citations : []
+  const sourceCitations = Array.isArray(source.citations) ? source.citations : []
+  const citationMap = new Map()
+  targetCitations.forEach(c => {
+    if (c && typeof c.sourceId === 'number') {
+      citationMap.set(c.sourceId, c)
+    }
+  })
+  sourceCitations.forEach(c => {
+    if (c && typeof c.sourceId === 'number' && !citationMap.has(c.sourceId)) {
+      citationMap.set(c.sourceId, c)
+    }
+  })
+  if (citationMap.size > 0) {
+    target.citations = Array.from(citationMap.values())
+  }
+
   // 可选的来源字段（内部字段）保留更完整的
   if (!target._bioSource && source._bioSource) target._bioSource = source._bioSource
 }
@@ -143,12 +177,16 @@ function main() {
 
   // sourceId -> targetId（把 source 合并进 target）
   const mergeMap = new Map([
-    // 汉武帝/刘彻：保留“汉武帝”(13)，合并“刘彻”(35)
+    // 汉武帝/刘彻：保留"汉武帝"(13)，合并"刘彻"(35)
     [35, 13],
-    // 成吉思汗/孛儿只斤·铁木真：保留“成吉思汗”(27)，合并“孛儿只斤·铁木真”(37)
+    // 成吉思汗/孛儿只斤·铁木真：保留"成吉思汗"(27)，合并"孛儿只斤·铁木真"(37)
     [37, 27],
-    // 唐太宗/李世民：保留“唐太宗”(22)，合并“李世民”(36)
+    // 唐太宗/李世民：保留"唐太宗"(22)，合并"李世民"(36)
     [36, 22],
+    // 周恩来：保留 ID 43（更详细的 biography），合并 ID 71
+    [71, 43],
+    // 邓小平：保留 ID 44（更详细的 biography），合并 ID 72
+    [72, 44],
   ])
 
   let changedEvents = 0
