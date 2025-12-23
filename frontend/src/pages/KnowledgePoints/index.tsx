@@ -3,6 +3,7 @@ import { Card, Input, Select, Space, Tag, Typography, Spin, Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadPersons, loadKnowledgePoints } from '@/services/dataLoader'
 import type { Event, KnowledgePoint, Person } from '@/types'
+import '@/styles/cinematic.css'
 
 const { Title, Paragraph } = Typography
 
@@ -67,17 +68,33 @@ export default function KnowledgePointsPage() {
   const eventById = useMemo(() => new Map(events.map(e => [e.id, e])), [events])
   const personById = useMemo(() => new Map(persons.map(p => [p.id, p])), [persons])
 
+  // 应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      document.body.classList.remove('cinematic-theme')
+      document.documentElement.classList.remove('cinematic-theme')
+    }
+  }, [])
+
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+    <div className="max-w-5xl mx-auto p-6" style={{ minHeight: '100vh', position: 'relative' }}>
+      {/* 背景叠加层 */}
+      <div className="cinematic-background-overlay" />
+      
+      <Space direction="vertical" size="middle" style={{ width: '100%', position: 'relative', zIndex: 1 }}>
         <div>
-          <Title level={2} style={{ marginBottom: 8 }}>中小学历史知识点</Title>
-          <Paragraph type="secondary" style={{ marginBottom: 0 }}>
+          <div className="cinematic-subtitle" style={{ marginBottom: '8px' }}>知识点</div>
+          <Title level={2} className="cinematic-title cinematic-title-medium" style={{ marginBottom: 8, color: 'var(--cinematic-text-primary)' }}>
+            中小学历史知识点
+          </Title>
+          <Paragraph style={{ marginBottom: 0, color: 'var(--cinematic-text-secondary)' }}>
             这些知识点不依赖教材页码/章节，按学段与主题整理；每条都提供公开网页链接，便于继续深挖与核验。
           </Paragraph>
         </div>
 
-        <Card>
+        <Card className="cinematic-card">
           <Space wrap>
             <Input
               value={q}
@@ -85,11 +102,13 @@ export default function KnowledgePointsPage() {
               placeholder="搜索：关键词/时期/要点..."
               style={{ width: 280 }}
               allowClear
+              className="cinematic-input"
             />
             <Select
               value={stage}
               onChange={(v) => setStage(v)}
               style={{ width: 120 }}
+              className="cinematic-input"
               options={[
                 { value: 'all', label: '全部学段' },
                 { value: '小学', label: '小学' },
@@ -101,6 +120,7 @@ export default function KnowledgePointsPage() {
               value={category}
               onChange={(v) => setCategory(v)}
               style={{ width: 260 }}
+              className="cinematic-input"
               options={categoryOptions}
               showSearch
               optionFilterProp="label"
@@ -123,19 +143,19 @@ export default function KnowledgePointsPage() {
                 .filter((x): x is Person => !!x)
 
               return (
-                <Card key={kp.id} hoverable>
+                <Card key={kp.id} hoverable className="cinematic-card">
                   <Space direction="vertical" size={8} style={{ width: '100%' }}>
                     <div className="flex flex-wrap items-center gap-2">
-                      <div className="text-lg font-semibold">{kp.title}</div>
+                      <div className="text-lg font-semibold" style={{ color: 'var(--cinematic-text-primary)' }}>{kp.title}</div>
                       <Tag color={kp.stage === '小学' ? 'green' : kp.stage === '初中' ? 'blue' : 'purple'}>{kp.stage}</Tag>
                       {kp.period && <Tag>{kp.period}</Tag>}
                       {kp.category && <Tag color="default">{kp.category}</Tag>}
                     </div>
 
-                    <div className="text-gray-700">{kp.summary}</div>
+                    <div style={{ color: 'var(--cinematic-text-secondary)' }}>{kp.summary}</div>
 
                     {kp.keyPoints?.length ? (
-                      <ul className="list-disc pl-5 text-gray-700 mb-0">
+                      <ul className="list-disc pl-5 mb-0" style={{ color: 'var(--cinematic-text-secondary)' }}>
                         {kp.keyPoints.map((x, i) => <li key={i}>{x}</li>)}
                       </ul>
                     ) : null}
@@ -164,12 +184,12 @@ export default function KnowledgePointsPage() {
                     ) : null}
 
                     {kp.references?.length ? (
-                      <div className="text-sm text-gray-600">
-                        <div className="font-semibold mb-1">公开网页参考</div>
+                      <div className="text-sm" style={{ color: 'var(--cinematic-text-muted)' }}>
+                        <div className="font-semibold mb-1" style={{ color: 'var(--cinematic-accent-gold)' }}>公开网页参考</div>
                         <ul className="list-disc pl-5 mb-0">
                           {kp.references.map((r, i) => (
                             <li key={i}>
-                              <a href={r.url} target="_blank" rel="noreferrer">{r.title}</a>
+                              <a href={r.url} target="_blank" rel="noreferrer" style={{ color: 'var(--cinematic-accent-gold)' }}>{r.title}</a>
                             </li>
                           ))}
                         </ul>

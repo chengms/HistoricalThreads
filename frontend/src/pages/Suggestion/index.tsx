@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Card, Form, Input, Select, Button, Typography, message, Space, Descriptions, Tag, Upload } from 'antd'
 import { PlusOutlined, MinusCircleOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import type { UploadFile } from 'antd'
+import '@/styles/cinematic.css'
 
 const { Title, Paragraph } = Typography
 const { TextArea } = Input
@@ -411,12 +412,29 @@ export default function SuggestionPage() {
   }
 
 
+  // 应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      document.body.classList.remove('cinematic-theme')
+      document.documentElement.classList.remove('cinematic-theme')
+    }
+  }, [])
+
   return (
-    <div className="container mx-auto px-6 py-6 max-w-4xl">
-      <Title level={2} className="mb-6">提交建议</Title>
+    <div className="container mx-auto px-6 py-6 max-w-4xl" style={{ minHeight: '100vh', position: 'relative' }}>
+      {/* 背景叠加层 */}
+      <div className="cinematic-background-overlay" />
       
-      <Card className="mb-4" style={{ backgroundColor: '#f0f9ff', borderColor: '#bae6fd' }}>
-        <div style={{ color: '#0369a1' }}>
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div className="cinematic-subtitle" style={{ marginBottom: '8px' }}>提交反馈</div>
+        <Title level={2} className="cinematic-title cinematic-title-medium mb-6" style={{ color: 'var(--cinematic-text-primary)' }}>
+          提交建议
+        </Title>
+        
+        <Card className="cinematic-card mb-4" style={{ background: 'rgba(212, 175, 55, 0.1)', borderColor: 'var(--cinematic-accent-gold)' }}>
+        <div style={{ color: 'var(--cinematic-accent-gold)' }}>
           <strong>填写提示：</strong>
           <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20 }}>
             <li><strong>建议类型</strong>：请根据您的建议内容选择相应的类型，如新增事件、新增人物、修正信息等</li>
@@ -524,7 +542,7 @@ export default function SuggestionPage() {
         </Card>
       )}
 
-      <Card>
+      <Card className="cinematic-card">
         <Form
           form={form}
           layout="vertical"
@@ -933,6 +951,7 @@ export default function SuggestionPage() {
           </Form.Item>
         </Form>
       </Card>
+      </div>
     </div>
   )
 }

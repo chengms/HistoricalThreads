@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Card, List, Typography, Tag, Space, Spin, Select, Input, Button, Empty, Pagination, Descriptions } from 'antd'
 import { ReloadOutlined, EyeOutlined } from '@ant-design/icons'
 import '@/styles/suggestions-list.css'
+import '@/styles/cinematic.css'
 
 const { Title, Paragraph, Text } = Typography
 const { Search } = Input
@@ -458,17 +459,36 @@ export default function SuggestionsListPage() {
     )
   }
 
-  return (
-    <div className="container mx-auto px-6 py-6 max-w-6xl">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <Title level={2}>查看建议</Title>
-        <Button icon={<ReloadOutlined />} onClick={fetchComments} loading={loading}>
-          刷新
-        </Button>
-      </div>
+  // 应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      document.body.classList.remove('cinematic-theme')
+      document.documentElement.classList.remove('cinematic-theme')
+    }
+  }, [])
 
-      {/* 搜索和视图切换 */}
-      <Card style={{ marginBottom: 24 }}>
+  return (
+    <div className="container mx-auto px-6 py-6 max-w-6xl" style={{ minHeight: '100vh', position: 'relative' }}>
+      {/* 背景叠加层 */}
+      <div className="cinematic-background-overlay" />
+      
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+          <div>
+            <div className="cinematic-subtitle" style={{ marginBottom: '8px' }}>查看反馈</div>
+            <Title level={2} className="cinematic-title cinematic-title-medium" style={{ color: 'var(--cinematic-text-primary)', margin: 0 }}>
+              查看建议
+            </Title>
+          </div>
+          <Button icon={<ReloadOutlined />} onClick={fetchComments} loading={loading} className="cinematic-button">
+            刷新
+          </Button>
+        </div>
+
+        {/* 搜索和视图切换 */}
+        <Card className="cinematic-card" style={{ marginBottom: 24 }}>
         <Space style={{ width: '100%', justifyContent: 'space-between' }}>
           <Search
             placeholder="搜索昵称、邮箱、内容..."
@@ -531,6 +551,7 @@ export default function SuggestionsListPage() {
           />
         </div>
       )}
+      </div>
     </div>
   )
 }

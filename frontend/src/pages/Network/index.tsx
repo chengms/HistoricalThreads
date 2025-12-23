@@ -6,6 +6,7 @@ import { Network } from 'vis-network/standalone'
 import { DataSet } from 'vis-data/standalone'
 import 'vis-network/styles/vis-network.min.css'
 import '@/styles/network.css'
+import '@/styles/cinematic.css'
 import { loadPersons, loadRelationships, loadDynasties } from '@/services/dataLoader'
 import type { Person, Relationship } from '@/types'
 
@@ -479,7 +480,7 @@ export default function NetworkPage() {
             size: 34,
             font: {
               size: 14,
-              color: '#111827',
+              color: '#ffffff',
               align: 'center',
               vadjust: 0,
             },
@@ -515,7 +516,7 @@ export default function NetworkPage() {
           ctx.save()
           ctx.beginPath()
           ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2)
-          ctx.fillStyle = 'rgba(255,255,255,0.28)'
+          ctx.fillStyle = 'rgba(255,255,255,0.15)'
           ctx.fill()
           ctx.lineWidth = 2
           ctx.strokeStyle = c.color.border
@@ -523,7 +524,7 @@ export default function NetworkPage() {
 
           // label near top of circle
           ctx.font = 'bold 16px Microsoft YaHei'
-          ctx.fillStyle = '#111827'
+          ctx.fillStyle = '#ffffff'
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
           ctx.fillText(c.label, c.x, c.y - c.radius + 22)
@@ -603,42 +604,63 @@ export default function NetworkPage() {
     }
   }, [persons, relationships, dynasties, loading])
 
+  // 应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      document.body.classList.remove('cinematic-theme')
+      document.documentElement.classList.remove('cinematic-theme')
+    }
+  }, [])
+
   if (loading) {
     return (
-      <div className="container mx-auto px-6 py-6">
-        <Spin size="large" className="w-full flex justify-center items-center" style={{ minHeight: '700px' }} />
+      <div className="container mx-auto px-6 py-6" style={{ minHeight: '100vh', position: 'relative' }}>
+        <div className="cinematic-background-overlay" />
+        <Spin size="large" className="w-full flex justify-center items-center" style={{ minHeight: '700px', position: 'relative', zIndex: 1 }} />
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto px-6 py-6">
-      <Title level={2} className="mb-6">关系图谱</Title>
+    <div className="container mx-auto px-6 py-6" style={{ minHeight: '100vh', position: 'relative' }}>
+      {/* 背景叠加层 */}
+      <div className="cinematic-background-overlay" />
+      
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <div className="cinematic-subtitle" style={{ marginBottom: '8px' }}>关系网络</div>
+        <Title level={2} className="cinematic-title cinematic-title-medium mb-6" style={{ color: 'var(--cinematic-text-primary)' }}>
+          关系图谱
+        </Title>
 
-      <Card className="mb-6">
-        <Space size="large" wrap>
-          <Select
-            style={{ width: 150 }}
-            value={dynasty}
-            onChange={setDynasty}
-            options={[
-              { label: '全部朝代', value: 'all' },
-              ...dynasties.map(d => ({ label: d.name, value: d.id.toString() })),
-            ]}
-          />
-          <Input
-            placeholder="搜索人物..."
-            prefix={<SearchOutlined />}
-            style={{ width: 300 }}
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        </Space>
-      </Card>
+        <Card className="cinematic-card mb-6">
+          <Space size="large" wrap>
+            <Select
+              style={{ width: 150 }}
+              value={dynasty}
+              onChange={setDynasty}
+              className="cinematic-input"
+              options={[
+                { label: '全部朝代', value: 'all' },
+                ...dynasties.map(d => ({ label: d.name, value: d.id.toString() })),
+              ]}
+            />
+            <Input
+              placeholder="搜索人物..."
+              prefix={<SearchOutlined style={{ color: 'var(--cinematic-accent-gold)' }} />}
+              style={{ width: 300 }}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              className="cinematic-input"
+            />
+          </Space>
+        </Card>
 
-      <Card>
-        <div ref={networkRef} style={{ height: '700px' }} />
-      </Card>
+        <Card className="cinematic-card">
+          <div ref={networkRef} style={{ height: '700px', background: 'rgba(20, 20, 20, 0.3)', borderRadius: '8px' }} />
+        </Card>
+      </div>
     </div>
   )
 }

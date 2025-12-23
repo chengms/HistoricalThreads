@@ -6,6 +6,7 @@ import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoade
 import type { Citation, Event, Person, PersonWithDetails, Source, Work } from '@/types'
 import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
+import '@/styles/cinematic.css'
 
 const { Title, Paragraph } = Typography
 
@@ -199,23 +200,35 @@ export default function DetailPage() {
     fetchData()
   }, [type, id])
 
+  // 应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      document.body.classList.remove('cinematic-theme')
+      document.documentElement.classList.remove('cinematic-theme')
+    }
+  }, [])
+
   if (loading) {
     return (
-      <div className="container mx-auto px-6 py-6">
-        <Spin size="large" className="w-full flex justify-center items-center" style={{ minHeight: '400px' }} />
+      <div className="container mx-auto px-6 py-6" style={{ minHeight: '100vh', position: 'relative' }}>
+        <div className="cinematic-background-overlay" />
+        <Spin size="large" className="w-full flex justify-center items-center" style={{ minHeight: '400px', position: 'relative', zIndex: 1 }} />
       </div>
     )
   }
 
   if (!data) {
     return (
-      <div className="container mx-auto px-6 py-6">
-        <Card>
+      <div className="container mx-auto px-6 py-6" style={{ minHeight: '100vh', position: 'relative' }}>
+        <div className="cinematic-background-overlay" />
+        <Card className="cinematic-card" style={{ position: 'relative', zIndex: 1 }}>
           {error ? (
             <div>
-              <Typography.Text type="danger">{error}</Typography.Text>
+              <Typography.Text type="danger" style={{ color: 'var(--cinematic-text-primary)' }}>{error}</Typography.Text>
               <Button 
-                type="primary" 
+                className="cinematic-button-primary"
                 onClick={() => window.location.reload()} 
                 style={{ marginLeft: 16 }}
               >
@@ -223,7 +236,7 @@ export default function DetailPage() {
               </Button>
             </div>
           ) : (
-            <Typography.Text>未找到数据</Typography.Text>
+            <Typography.Text style={{ color: 'var(--cinematic-text-primary)' }}>未找到数据</Typography.Text>
           )}
         </Card>
       </div>
@@ -231,17 +244,21 @@ export default function DetailPage() {
   }
 
   return (
-    <div className="container mx-auto px-6 py-6">
+    <div className="container mx-auto px-6 py-6" style={{ minHeight: '100vh', position: 'relative' }}>
+      {/* 背景叠加层 */}
+      <div className="cinematic-background-overlay" />
+      
+      <div style={{ position: 'relative', zIndex: 1 }}>
       <Button
         icon={<ArrowLeftOutlined />}
         onClick={() => navigate(-1)}
-        className="mb-4"
+        className="cinematic-button mb-4"
       >
         返回
       </Button>
 
       {type === 'event' ? (
-        <Card>
+        <Card className="cinematic-card">
           <Space direction="vertical" size="large" className="w-full">
             {/* 事件标题和基本信息 */}
             <div>
@@ -453,7 +470,7 @@ export default function DetailPage() {
           </Space>
         </Card>
       ) : (
-        <Card>
+        <Card className="cinematic-card">
           <Space direction="vertical" size="large" className="w-full">
             <Space size="large" align="start" style={{ marginTop: '-20px' }}>
               <Space direction="vertical" size="small" style={{ flex: 1 }}>
@@ -878,6 +895,7 @@ export default function DetailPage() {
           </div>
         )}
       </Modal>
+      </div>
     </div>
   )
 }
