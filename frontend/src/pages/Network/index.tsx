@@ -49,18 +49,31 @@ const clampToCircle = (x: number, y: number, cx: number, cy: number, r: number) 
   return { x: cx + dx * s, y: cy + dy * s }
 }
 
-function getDynastyColor(dynastyKey: number): { background: string; border: string } {
-  // dynastyKey=0 for unknown. Use stable HSL mapping for deterministic colors.
-  // 优化配色：使用更深的背景色，提高文字对比度
-  if (dynastyKey === 0) return { background: '#4A5568', border: '#718096' }
+function getDynastyColor(dynastyKey: number): { background: string; border: string; glow: string } {
+  // 使用更优雅的配色方案，参考电影工作室风格
+  if (dynastyKey === 0) {
+    return { 
+      background: '#4A5568', 
+      border: '#718096',
+      glow: 'rgba(113, 128, 150, 0.4)'
+    }
+  }
+  
+  // 使用金色系和互补色系，创造更和谐的配色
   const hue = (dynastyKey * 47) % 360
-  // 降低亮度到 50-60%，提高饱和度到 75-85%，使颜色更深更鲜明
-  const lightness = 50 + (dynastyKey % 3) * 5 // 50-60% 之间变化
-  const saturation = 75 + (dynastyKey % 2) * 10 // 75-85% 之间变化
+  // 优化亮度和饱和度，使用更柔和的颜色
+  const lightness = 45 + (dynastyKey % 4) * 4 // 45-57% 之间变化
+  const saturation = 70 + (dynastyKey % 3) * 8 // 70-86% 之间变化
+  
+  // 背景色：深色但保持一定亮度
   const background = `hsl(${hue}, ${saturation}%, ${lightness}%)`
-  // 边框颜色更亮，形成对比
-  const border = `hsl(${hue}, ${saturation}%, ${Math.min(75, lightness + 20)}%)`
-  return { background, border }
+  // 边框色：更亮，带金色调
+  const borderLightness = Math.min(70, lightness + 25)
+  const border = `hsl(${hue}, ${Math.min(90, saturation + 10)}%, ${borderLightness}%)`
+  // 光晕效果：用于高亮
+  const glow = `hsla(${hue}, ${saturation}%, ${borderLightness}%, 0.5)`
+  
+  return { background, border, glow }
 }
 
 type DynastyCircleInfo = {
@@ -69,7 +82,7 @@ type DynastyCircleInfo = {
   x: number
   y: number
   radius: number
-  color: { background: string; border: string }
+  color: { background: string; border: string; glow: string }
 }
 
 function goldenAngleSpiralPoints(n: number, radius: number): Array<{ x: number; y: number }> {
@@ -434,8 +447,19 @@ export default function NetworkPage() {
             background: color.border, // 高亮时使用边框颜色作为背景
             border: '#ffffff', // 高亮时使用白色边框
           },
+          hover: {
+            background: color.border,
+            border: '#ffffff',
+          },
         },
         borderWidth: 3, // 增加边框宽度，从 2 到 3
+        shadow: {
+          enabled: true,
+          color: 'rgba(0, 0, 0, 0.3)',
+          size: 8,
+          x: 0,
+          y: 2,
+        },
         title: `${person.name}\n朝代：${dynastyName}\n${(person.biography || '').substring(0, 120)}...`,
       }
     })
@@ -496,16 +520,35 @@ export default function NetworkPage() {
             borderWidth: 3, // 增加边框宽度，从 2 到 3
           },
           edges: {
-            width: 2,
+            width: 2.5, // 稍微增加边的宽度
+            smooth: {
+              enabled: true,
+              type: 'continuous', // 使用平滑曲线
+              roundness: 0.5,
+            },
             arrows: {
               to: {
                 enabled: true,
-                scaleFactor: 0.5,
+                scaleFactor: 0.6, // 稍微增大箭头
+                type: 'arrow',
               },
             },
             font: {
-              size: 12,
+              size: 13, // 稍微增大字体
               align: 'middle',
+              color: '#ffffff',
+              strokeWidth: 2,
+              strokeColor: 'rgba(0, 0, 0, 0.6)',
+            },
+            color: {
+              color: '#6B7280', // 默认灰色
+              highlight: '#d4af37', // 高亮时使用金色
+              hover: '#9CA3AF',
+            },
+            shadow: {
+              enabled: true,
+              color: 'rgba(0, 0, 0, 0.2)',
+              size: 3,
             },
           },
           // 节点已固定布局（physics: false），关闭全局物理引擎可显著降低 CPU 占用
@@ -524,34 +567,100 @@ export default function NetworkPage() {
 
         for (const c of circles) {
           ctx.save()
+          
+          // 绘制外发光效果
+          ctx.shadowBlur = 20
+          ctx.shadowColor = c.color.glow
+          ctx.shadowOffsetX = 0
+          ctx.shadowOffsetY = 0
+          
+          // 绘制渐变背景
+          const gradient = ctx.createRadialGradient(
+            c.x, c.y, 0,
+            c.x, c.y, c.radius
+          )
+          gradient.addColorStop(0, 'rgba(26, 26, 26, 0.5)')
+          gradient.addColorStop(0.7, 'rgba(26, 26, 26, 0.3)')
+          gradient.addColorStop(1, 'rgba(26, 26, 26, 0.1)')
+          
           ctx.beginPath()
           ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2)
-          // 优化朝代圆圈背景，使用更深的半透明背景
-          ctx.fillStyle = 'rgba(26, 26, 26, 0.4)' // 更深的背景，提高对比度
+          ctx.fillStyle = gradient
           ctx.fill()
-          ctx.lineWidth = 3 // 增加边框宽度
-          ctx.strokeStyle = c.color.border
+          
+          // 绘制边框（带渐变效果）
+          ctx.shadowBlur = 0
+          const borderGradient = ctx.createLinearGradient(
+            c.x - c.radius, c.y - c.radius,
+            c.x + c.radius, c.y + c.radius
+          )
+          borderGradient.addColorStop(0, c.color.border)
+          borderGradient.addColorStop(0.5, c.color.glow)
+          borderGradient.addColorStop(1, c.color.border)
+          
+          ctx.lineWidth = 3
+          ctx.strokeStyle = borderGradient
+          ctx.stroke()
+          
+          // 绘制内阴影效果
+          ctx.beginPath()
+          ctx.arc(c.x, c.y, c.radius - 2, 0, Math.PI * 2)
+          ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)'
+          ctx.lineWidth = 1
           ctx.stroke()
 
-          // label near top of circle - 增大字体并添加背景以提高可读性
-          ctx.font = 'bold 18px Microsoft YaHei'
+          // 优化标签样式 - 使用更优雅的设计
+          ctx.font = 'bold 19px Microsoft YaHei'
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
           
-          // 添加文字背景以提高可读性
           const textMetrics = ctx.measureText(c.label)
           const textWidth = textMetrics.width
-          const textHeight = 20
-          const padding = 8
+          const textHeight = 24
+          const padding = 12
+          const borderRadius = 6
           const bgX = c.x - textWidth / 2 - padding
-          const bgY = c.y - c.radius + 12 - textHeight / 2
+          const bgY = c.y - c.radius + 14 - textHeight / 2
           
-          ctx.fillStyle = 'rgba(26, 26, 26, 0.85)' // 深色半透明背景
-          ctx.fillRect(bgX, bgY, textWidth + padding * 2, textHeight + padding)
+          // 绘制标签背景（带圆角和阴影）
+          ctx.shadowBlur = 8
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.5)'
+          ctx.shadowOffsetX = 0
+          ctx.shadowOffsetY = 2
           
-          // 绘制文字
-          ctx.fillStyle = c.color.border // 使用朝代边框颜色作为文字颜色，更醒目
+          ctx.fillStyle = 'rgba(26, 26, 26, 0.9)' // 更不透明的背景
+          // 手动绘制圆角矩形
+          const rectX = bgX
+          const rectY = bgY
+          const rectW = textWidth + padding * 2
+          const rectH = textHeight + padding
+          ctx.beginPath()
+          ctx.moveTo(rectX + borderRadius, rectY)
+          ctx.lineTo(rectX + rectW - borderRadius, rectY)
+          ctx.quadraticCurveTo(rectX + rectW, rectY, rectX + rectW, rectY + borderRadius)
+          ctx.lineTo(rectX + rectW, rectY + rectH - borderRadius)
+          ctx.quadraticCurveTo(rectX + rectW, rectY + rectH, rectX + rectW - borderRadius, rectY + rectH)
+          ctx.lineTo(rectX + borderRadius, rectY + rectH)
+          ctx.quadraticCurveTo(rectX, rectY + rectH, rectX, rectY + rectH - borderRadius)
+          ctx.lineTo(rectX, rectY + borderRadius)
+          ctx.quadraticCurveTo(rectX, rectY, rectX + borderRadius, rectY)
+          ctx.closePath()
+          ctx.fill()
+          
+          // 绘制标签边框
+          ctx.shadowBlur = 0
+          ctx.strokeStyle = c.color.border
+          ctx.lineWidth = 2
+          ctx.stroke()
+          
+          // 绘制文字（带阴影以提高可读性）
+          ctx.shadowBlur = 4
+          ctx.shadowColor = 'rgba(0, 0, 0, 0.8)'
+          ctx.shadowOffsetX = 0
+          ctx.shadowOffsetY = 1
+          ctx.fillStyle = c.color.border
           ctx.fillText(c.label, c.x, c.y - c.radius + 22)
+          
           ctx.restore()
         }
       })
@@ -681,8 +790,17 @@ export default function NetworkPage() {
           </Space>
         </Card>
 
-        <Card className="cinematic-card">
-          <div ref={networkRef} style={{ height: '700px', background: 'rgba(20, 20, 20, 0.3)', borderRadius: '8px' }} />
+        <Card className="cinematic-card" style={{ overflow: 'hidden' }}>
+          <div 
+            ref={networkRef} 
+            style={{ 
+              height: '700px', 
+              background: 'linear-gradient(135deg, rgba(20, 20, 20, 0.4) 0%, rgba(26, 26, 26, 0.2) 100%)', 
+              borderRadius: '8px',
+              position: 'relative',
+              boxShadow: 'inset 0 0 60px rgba(0, 0, 0, 0.3)',
+            }} 
+          />
         </Card>
       </div>
     </div>
