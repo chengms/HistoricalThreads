@@ -190,6 +190,137 @@ html.cinematic-theme {
   opacity: 0.6;
 }
 
+/* 全局 Ant Design 组件深色主题覆盖 */
+body.cinematic-theme .ant-card,
+body.cinematic-theme .ant-card-body {
+  background: rgba(40, 40, 40, 0.9) !important;
+  color: var(--cinematic-text-primary) !important;
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-input,
+body.cinematic-theme .ant-input-affix-wrapper,
+body.cinematic-theme .ant-input-affix-wrapper .ant-input {
+  background: rgba(35, 35, 35, 0.85) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-input::placeholder,
+body.cinematic-theme .ant-input-affix-wrapper .ant-input::placeholder {
+  color: var(--cinematic-text-muted) !important;
+}
+
+body.cinematic-theme .ant-select-selector,
+body.cinematic-theme .ant-select-selector .ant-select-selection-item,
+body.cinematic-theme .ant-select-selector .ant-select-selection-placeholder {
+  background: rgba(35, 35, 35, 0.85) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-select-dropdown {
+  background: rgba(40, 40, 40, 0.95) !important;
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-select-item {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-select-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.cinematic-theme .ant-select-item-option-selected {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-form-item-label > label {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-typography,
+body.cinematic-theme .ant-typography p,
+body.cinematic-theme .ant-typography h1,
+body.cinematic-theme .ant-typography h2,
+body.cinematic-theme .ant-typography h3,
+body.cinematic-theme .ant-typography h4,
+body.cinematic-theme .ant-typography h5,
+body.cinematic-theme .ant-typography h6 {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-typography-secondary {
+  color: var(--cinematic-text-secondary) !important;
+}
+
+body.cinematic-theme .ant-textarea {
+  background: rgba(35, 35, 35, 0.85) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-textarea::placeholder {
+  color: var(--cinematic-text-muted) !important;
+}
+
+body.cinematic-theme .ant-upload {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-upload.ant-upload-select {
+  background: rgba(35, 35, 35, 0.85) !important;
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-descriptions-item-label,
+body.cinematic-theme .ant-descriptions-item-content {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-descriptions-bordered .ant-descriptions-item-label,
+body.cinematic-theme .ant-descriptions-bordered .ant-descriptions-item-content {
+  border-color: var(--cinematic-border) !important;
+  background: rgba(40, 40, 40, 0.9) !important;
+}
+
+body.cinematic-theme .ant-list-item {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-list-item-meta-title,
+body.cinematic-theme .ant-list-item-meta-description {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-empty-description {
+  color: var(--cinematic-text-secondary) !important;
+}
+
+body.cinematic-theme .ant-modal-content {
+  background: rgba(40, 40, 40, 0.95) !important;
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-modal-header {
+  background: transparent !important;
+  border-bottom-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-modal-title {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-modal-body {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-modal-footer {
+  border-top-color: var(--cinematic-border) !important;
+}
+
 /* 响应式调整 */
 @media (max-width: 768px) {
   .cinematic-title-large {

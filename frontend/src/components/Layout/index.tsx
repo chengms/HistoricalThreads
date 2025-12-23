@@ -196,10 +196,19 @@ export default function Layout({ children }: LayoutProps) {
     location.pathname === '/' ||
     location.pathname.startsWith('/timeline')
   
+  // 确保所有页面都应用深色主题
+  useEffect(() => {
+    document.body.classList.add('cinematic-theme')
+    document.documentElement.classList.add('cinematic-theme')
+    return () => {
+      // 不在这里移除，让各个页面自己管理
+    }
+  }, [])
+  
   return (
     <AntLayout 
       className="min-h-screen"
-      style={isTimelinePage ? { background: 'transparent' } : {}}
+      style={{ background: 'transparent' }}
     >
       <Header className="cinematic-header text-white px-3 sm:px-6">
         <div className="flex items-center h-full gap-2 sm:gap-4" style={{ minWidth: 0 }}>
