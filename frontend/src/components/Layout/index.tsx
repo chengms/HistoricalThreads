@@ -37,7 +37,6 @@ export default function Layout({ children }: LayoutProps) {
     token: { colorBgContainer },
   } = theme.useToken()
 
-  const isCompactHeader = viewportWidth <= 1024
   // <= 1024: 用搜索图标 + 点击弹出搜索框，避免占用导航栏空间
   const isSearchIconMode = viewportWidth <= 1024
 
@@ -223,8 +222,8 @@ export default function Layout({ children }: LayoutProps) {
             {viewportWidth <= 640 ? '历史时间线' : '中国历史时间线'}
           </div>
           
-          {/* 折叠按钮 - 在小屏幕和中等屏幕上显示，用于手动控制 */}
-          {isCompactHeader && (
+          {/* 折叠按钮 - 仅在非常小的屏幕上显示，用于完全隐藏菜单 */}
+          {viewportWidth <= 640 && (
             <div 
               className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all flex-shrink-0"
               onClick={() => setMenuCollapsed(!menuCollapsed)}
@@ -236,13 +235,13 @@ export default function Layout({ children }: LayoutProps) {
             </div>
           )}
           
-          {/* 导航菜单 - 默认显示，根据空间自动适应 */}
+          {/* 导航菜单 - 默认显示，根据空间自动适应，无法显示的项进入下拉菜单 */}
           <div 
             className="flex-1"
             style={{ 
               overflow: 'hidden',
               minWidth: 0,
-              display: (isCompactHeader && menuCollapsed) ? 'none' : 'flex'
+              display: (viewportWidth <= 640 && menuCollapsed) ? 'none' : 'flex'
             }}
           >
             <Menu
@@ -252,18 +251,23 @@ export default function Layout({ children }: LayoutProps) {
               items={menuItems}
               onClick={({ key }) => {
                 navigate(key)
-                // 点击菜单项后不自动折叠，保持菜单可见
               }}
               className="border-0"
               style={{
                 flex: 1,
-                flexWrap: 'nowrap',
                 minWidth: 0,
-                overflow: 'hidden'
+                border: 'none',
+                background: 'transparent'
               }}
               overflowedIndicator={
-                <span style={{ color: 'white', padding: '0 8px' }}>
-                  <MenuOutlined />
+                <span style={{ 
+                  color: 'white', 
+                  padding: '0 8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <MenuOutlined style={{ fontSize: '16px' }} />
                 </span>
               }
             />
