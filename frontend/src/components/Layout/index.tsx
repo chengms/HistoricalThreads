@@ -191,11 +191,6 @@ export default function Layout({ children }: LayoutProps) {
     },
   ]
 
-  const isTimelinePage =
-    location.pathname === '/timeline' ||
-    location.pathname === '/' ||
-    location.pathname.startsWith('/timeline')
-  
   // 确保所有页面都应用深色主题
   useEffect(() => {
     document.body.classList.add('cinematic-theme')
