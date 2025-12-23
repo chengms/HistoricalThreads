@@ -2,15 +2,15 @@
 
 /* 全局深色主题变量 */
 :root {
-  --cinematic-bg-dark: #0a0a0a;
-  --cinematic-bg-darker: #050505;
+  --cinematic-bg-dark: #1a1a1a;
+  --cinematic-bg-darker: #151515;
   --cinematic-text-primary: #ffffff;
-  --cinematic-text-secondary: #e5e5e5;
-  --cinematic-text-muted: #a0a0a0;
+  --cinematic-text-secondary: #f0f0f0;
+  --cinematic-text-muted: #b0b0b0;
   --cinematic-accent-gold: #d4af37;
   --cinematic-accent-gold-light: #f4d03f;
-  --cinematic-border: rgba(255, 255, 255, 0.1);
-  --cinematic-overlay: rgba(0, 0, 0, 0.4);
+  --cinematic-border: rgba(255, 255, 255, 0.15);
+  --cinematic-overlay: rgba(0, 0, 0, 0.3);
 }
 
 /* 深色背景 */
@@ -23,7 +23,7 @@ html.cinematic-theme {
 
 /* 导航栏 - 深色透明 */
 .cinematic-header {
-  background: rgba(10, 10, 10, 0.8) !important;
+  background: rgba(26, 26, 26, 0.9) !important;
   backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--cinematic-border);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
@@ -88,7 +88,7 @@ html.cinematic-theme {
 
 /* 卡片样式 - 深色半透明 */
 .cinematic-card {
-  background: rgba(20, 20, 20, 0.6) !important;
+  background: rgba(35, 35, 35, 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid var(--cinematic-border);
   border-radius: 12px;
@@ -140,7 +140,7 @@ html.cinematic-theme {
 
 /* 输入框样式 */
 .cinematic-input {
-  background: rgba(20, 20, 20, 0.6) !important;
+  background: rgba(35, 35, 35, 0.85) !important;
   border: 1px solid var(--cinematic-border) !important;
   color: var(--cinematic-text-primary) !important;
   border-radius: 8px;
