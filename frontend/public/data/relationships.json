@@ -224,5 +224,86 @@
     "description": "中国加入WTO前后，江泽民与朱镕基等领导层在对外开放与经济治理上协同推进相关工作。",
     "startYear": 2001,
     "strength": 4
+  },
+  {
+    "id": 27,
+    "fromPersonId": 73,
+    "toPersonId": 75,
+    "relationshipType": "friend",
+    "description": "李白和杜甫是唐代最伟大的两位诗人，被称为\"李杜\"。两人曾有过交往，杜甫对李白非常敬仰，写过多首诗赞美李白。",
+    "startYear": 744,
+    "strength": 5
+  },
+  {
+    "id": 29,
+    "fromPersonId": 75,
+    "toPersonId": 73,
+    "relationshipType": "influence",
+    "description": "杜甫深受李白诗歌的影响，对李白的才华和风格非常推崇。",
+    "startYear": 744,
+    "strength": 4
+  },
+  {
+    "id": 32,
+    "fromPersonId": 163,
+    "toPersonId": 177,
+    "relationshipType": "colleague",
+    "description": "韩愈和柳宗元共同倡导古文运动，反对骈文，提倡古文，世称\"韩柳\"。",
+    "startYear": 800,
+    "strength": 5
+  },
+  {
+    "id": 36,
+    "fromPersonId": 93,
+    "toPersonId": 100,
+    "relationshipType": "influence",
+    "description": "苏轼和辛弃疾都是豪放派词人，合称\"苏辛\"。辛弃疾继承了苏轼的豪放词风并有所发展。",
+    "startYear": 1140,
+    "strength": 4
+  },
+  {
+    "id": 41,
+    "fromPersonId": 82,
+    "toPersonId": 87,
+    "relationshipType": "friend",
+    "description": "王维和孟浩然都是盛唐山水田园诗派的代表，合称\"王孟\"，两人是好友。",
+    "startYear": 720,
+    "strength": 4
+  },
+  {
+    "id": 47,
+    "fromPersonId": 192,
+    "toPersonId": 93,
+    "relationshipType": "mentor",
+    "description": "欧阳修是苏轼的老师，对苏轼的文学创作产生了重要影响。",
+    "startYear": 1057,
+    "strength": 5
+  },
+  {
+    "id": 54,
+    "fromPersonId": 117,
+    "toPersonId": 82,
+    "relationshipType": "influence",
+    "description": "王维的山水田园诗深受陶渊明的影响，继承了陶渊明的田园诗传统。",
+    "startYear": 701,
+    "strength": 4
+  },
+  {
+    "id": 62,
+    "fromPersonId": 127,
+    "toPersonId": 73,
+    "relationshipType": "influence",
+    "description": "李白的诗歌创作深受屈原的影响，继承了屈原的浪漫主义传统。",
+    "startYear": 701,
+    "strength": 4
+  },
+  {
+    "id": 71,
+    "fromPersonId": 138,
+    "toPersonId": 73,
+    "relationshipType": "influence",
+    "description": "李白的诗歌创作也受到曹植的影响，继承了建安文学的传统。",
+    "startYear": 701,
+    "strength": 3
   }
 ]

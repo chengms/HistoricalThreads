@@ -1700,5 +1700,136 @@
     "eventDate": "1999-12-20",
     "eventMonth": 12,
     "eventDay": 20
+  },
+  {
+    "id": 58,
+    "title": "李白创作《将进酒》",
+    "description": "李白创作了著名的《将进酒》，这首诗以豪放的风格表达了诗人对人生的感慨和对自由的追求，是李白诗歌的代表作之一，体现了盛唐诗歌的浪漫主义特色。",
+    "eventYear": 752,
+    "eventType": "cultural",
+    "dynastyId": 24,
+    "location": "嵩山",
+    "persons": [
+      73
+    ],
+    "sources": [
+      6,
+      70
+    ],
+    "citations": [
+      {
+        "sourceId": 6,
+        "note": "待补页码"
+      },
+      {
+        "sourceId": 70,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "title": "杜甫创作《春望》",
+    "description": "杜甫在安史之乱期间创作了《春望》，这首诗深刻反映了战乱给人民带来的苦难，体现了杜甫诗歌的现实主义特色，是杜甫\"诗史\"风格的代表作。",
+    "eventYear": 757,
+    "eventType": "cultural",
+    "dynastyId": 25,
+    "location": "长安",
+    "persons": [
+      75
+    ],
+    "sources": [
+      6,
+      70
+    ],
+    "citations": [
+      {
+        "sourceId": 6,
+        "note": "待补页码"
+      },
+      {
+        "sourceId": 70,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "title": "新乐府运动",
+    "description": "白居易和元稹共同倡导新乐府运动，主张诗歌要反映现实，关注民生，语言要通俗易懂。这一运动对唐代诗歌发展产生了重要影响，推动了现实主义诗歌的繁荣。",
+    "eventYear": 815,
+    "eventType": "cultural",
+    "dynastyId": 25,
+    "location": "长安",
+    "persons": [
+      78
+    ],
+    "sources": [
+      6,
+      70
+    ],
+    "citations": [
+      {
+        "sourceId": 6,
+        "note": "待补页码"
+      },
+      {
+        "sourceId": 70,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "title": "古文运动",
+    "description": "韩愈和柳宗元倡导古文运动，反对骈文，提倡古文，主张\"文以载道\"，强调文章要有思想内容。这一运动对后世文学发展产生了深远影响，使古文成为文学创作的主流。",
+    "eventYear": 800,
+    "eventType": "cultural",
+    "dynastyId": 25,
+    "location": "长安",
+    "persons": [
+      163,
+      177
+    ],
+    "sources": [
+      6,
+      70
+    ],
+    "citations": [
+      {
+        "sourceId": 6,
+        "note": "待补页码"
+      },
+      {
+        "sourceId": 70,
+        "note": "待补页码"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "title": "苏轼创作《水调歌头·明月几时有》",
+    "description": "苏轼创作了著名的《水调歌头·明月几时有》，这首词以中秋为背景，表达了对亲人的思念和对人生的感慨，是苏轼词作的代表作之一，体现了豪放派词风的特色。",
+    "eventYear": 1076,
+    "eventType": "cultural",
+    "dynastyId": 27,
+    "location": "密州",
+    "persons": [
+      93
+    ],
+    "sources": [
+      7,
+      70
+    ],
+    "citations": [
+      {
+        "sourceId": 7,
+        "note": "待补页码"
+      },
+      {
+        "sourceId": 70,
+        "note": "待补页码"
+      }
+    ]
   }
 ]
