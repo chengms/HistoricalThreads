@@ -77,6 +77,28 @@ function getWebsiteLabel(url?: string) {
   return '百科/网站'
 }
 
+// 生成实体（事件/人物）的百科链接
+function generateEncyclopediaLinks(entityName: string): Array<{ label: string; url: string }> {
+  if (!entityName || !entityName.trim()) return []
+  
+  const encodedName = encodeURIComponent(entityName)
+  const links: Array<{ label: string; url: string }> = []
+  
+  // 百度百科
+  links.push({
+    label: '百度百科',
+    url: `https://baike.baidu.com/item/${encodedName}`
+  })
+  
+  // 维基百科（中文）
+  links.push({
+    label: '维基百科',
+    url: `https://zh.wikipedia.org/wiki/${encodedName}`
+  })
+  
+  return links
+}
+
 function getSourceBadge(source: Source): { text: string; color: string } {
   switch (source.sourceType) {
     case 'textbook':
@@ -394,6 +416,33 @@ export default function DetailPage() {
                           ))}
                         </div>
                       )}
+                      {/* 如果是教材，显示该事件/人物的百科链接 */}
+                      {source.sourceType === 'textbook' && (
+                        (() => {
+                          const entityName = (data as Event).title || ''
+                          const encyclopediaLinks = generateEncyclopediaLinks(entityName)
+                          if (encyclopediaLinks.length > 0) {
+                            return (
+                              <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                                <span className="text-gray-500" style={{ fontSize: '12px' }}>百科：</span>
+                                {encyclopediaLinks.map((link, idx) => (
+                                  <a
+                                    key={idx}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600"
+                                    style={{ fontSize: '12px' }}
+                                  >
+                                    {link.label}
+                                  </a>
+                                ))}
+                              </div>
+                            )
+                          }
+                          return null
+                        })()
+                      )}
                     </div>
                   )
                 })()}
@@ -691,6 +740,33 @@ export default function DetailPage() {
                           </a>
                         ))}
                       </div>
+                    )}
+                    {/* 如果是教材，显示该事件/人物的百科链接 */}
+                    {source.sourceType === 'textbook' && (
+                      (() => {
+                        const entityName = (data as Person).name || ''
+                        const encyclopediaLinks = generateEncyclopediaLinks(entityName)
+                        if (encyclopediaLinks.length > 0) {
+                          return (
+                            <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                              <span className="text-gray-500" style={{ fontSize: '12px' }}>百科：</span>
+                              {encyclopediaLinks.map((link, idx) => (
+                                <a
+                                  key={idx}
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600"
+                                  style={{ fontSize: '12px' }}
+                                >
+                                  {link.label}
+                                </a>
+                              ))}
+                            </div>
+                          )
+                        }
+                        return null
+                      })()
                     )}
                   </div>
                 )
