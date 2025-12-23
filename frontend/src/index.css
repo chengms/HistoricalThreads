@@ -12,7 +12,12 @@ body {
   font-family: 'Microsoft YaHei', 'SimSun', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f5f5f5;
+  background-color: #1a1a1a; /* 默认使用深色背景，与 cinematic-theme 一致 */
+}
+
+/* 当应用 cinematic-theme 时，确保背景是深色 */
+body.cinematic-theme {
+  background-color: #1a1a1a !important;
 }
 
 #root {
@@ -26,15 +31,28 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #444;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #666;
+}
+
+/* 深色主题下的滚动条 */
+body.cinematic-theme ::-webkit-scrollbar-track {
+  background: #1a1a1a !important;
+}
+
+body.cinematic-theme ::-webkit-scrollbar-thumb {
+  background: #444 !important;
+}
+
+body.cinematic-theme ::-webkit-scrollbar-thumb:hover {
+  background: #666 !important;
 }
 
