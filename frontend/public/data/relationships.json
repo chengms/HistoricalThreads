@@ -22,7 +22,7 @@
     "id": 3,
     "fromPersonId": 13,
     "toPersonId": 14,
-    "relationshipType": "colleague",
+    "relationshipType": "mentor",
     "description": "汉武帝与卫青为君臣关系，汉武帝重用卫青，派其率军北击匈奴。",
     "startYear": -130,
     "strength": 5
@@ -40,7 +40,7 @@
     "id": 5,
     "fromPersonId": 13,
     "toPersonId": 15,
-    "relationshipType": "colleague",
+    "relationshipType": "mentor",
     "description": "汉武帝与霍去病为君臣关系，霍去病深受汉武帝器重。",
     "startYear": -123,
     "strength": 5
@@ -85,7 +85,7 @@
     "id": 10,
     "fromPersonId": 18,
     "toPersonId": 20,
-    "relationshipType": "colleague",
+    "relationshipType": "mentor",
     "description": "刘备和诸葛亮为君臣关系，三顾茅庐请诸葛亮出山。",
     "startYear": 207,
     "strength": 5
@@ -107,15 +107,6 @@
     "description": "安禄山和史思明都是安史之乱的主要参与者。",
     "startYear": 755,
     "strength": 4
-  },
-  {
-    "id": 13,
-    "fromPersonId": 25,
-    "toPersonId": 26,
-    "relationshipType": "other",
-    "description": "宋太祖建立宋朝，王安石是宋朝中期的政治家，推行变法。",
-    "startYear": 1069,
-    "strength": 2
   },
   {
     "id": 14,
