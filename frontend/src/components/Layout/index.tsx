@@ -377,6 +377,16 @@ export default function Layout({ children }: LayoutProps) {
         中国历史时间线 ©2025 | 
         <a href="#" className="ml-2" style={{ color: 'var(--cinematic-accent-gold)' }}>数据来源</a> | 
         <a href="#" className="ml-2" style={{ color: 'var(--cinematic-accent-gold)' }}>关于我们</a>
+        <div className="mt-2" style={{ fontSize: '12px', color: 'var(--cinematic-text-secondary)' }}>
+          <a 
+            href="https://beian.miit.gov.cn/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ color: 'var(--cinematic-text-secondary)', textDecoration: 'none' }}
+          >
+            粤ICP备2021082879号
+          </a>
+        </div>
       </Footer>
     </AntLayout>
   )
