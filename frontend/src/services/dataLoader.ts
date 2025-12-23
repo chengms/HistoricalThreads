@@ -6,7 +6,8 @@ import type {
   Dynasty, 
   Source,
   Citation,
-  KnowledgePoint
+  KnowledgePoint,
+  Work
 } from '@/types'
 
 // 数据缓存（每次修改后重置为null以清除缓存）
@@ -16,6 +17,7 @@ let personsCache: Person[] | null = null
 let relationshipsCache: Relationship[] | null = null
 let sourcesCache: Source[] | null = null
 let knowledgePointsCache: KnowledgePoint[] | null = null
+let worksCache: Work[] | null = null
 
 // 获取 base path（用于 GitHub Pages）
 const getBasePath = () => {
@@ -221,11 +223,37 @@ function normalizeDynastyIdForPerson(raw: RawPersonJson, dynasties: Dynasty[]): 
   return undefined
 }
 
+export async function loadWorks(): Promise<Work[]> {
+  if (worksCache) return worksCache
+  try {
+    const works = await loadJson<any[]>('/data/works.json')
+    const dynasties = await loadDynasties()
+    const sources = await loadSources()
+    
+    // 关联数据
+    worksCache = works.map(work => {
+      const sourceIds = Array.isArray(work.sources) ? work.sources.filter((x: any) => typeof x === 'number') : []
+      return {
+        ...work,
+        dynasty: work.dynastyId ? dynasties.find(d => d.id === work.dynastyId) : undefined,
+        sources: sourceIds.map((id: number) => sources.find(s => s.id === id)).filter((s: Source | undefined): s is Source => s !== undefined),
+      }
+    })
+    
+    return worksCache
+  } catch (error) {
+    console.warn('加载作品数据失败，返回空数组:', error)
+    worksCache = []
+    return worksCache
+  }
+}
+
 export async function loadPersons(): Promise<Person[]> {
   if (personsCache) return personsCache
   const persons = await loadJson<RawPersonJson[]>('/data/persons.json')
   const dynasties = await loadDynasties()
   const sources = await loadSources()
+  const works = await loadWorks()
   
   // 关联数据
   const normalized: Person[] = []
@@ -237,6 +265,9 @@ export async function loadPersons(): Promise<Person[]> {
     const biography = typeof raw.biography === 'string'
       ? raw.biography
       : (typeof raw.description === 'string' ? raw.description : undefined)
+    
+    // 关联该人物的作品
+    const personWorks = works.filter(w => w.authorId === raw.id)
 
     normalized.push({
       id: raw.id,
@@ -253,6 +284,7 @@ export async function loadPersons(): Promise<Person[]> {
       avatarUrl: typeof raw.avatarUrl === 'string' ? raw.avatarUrl : undefined,
       birthplace: typeof raw.birthplace === 'string' ? raw.birthplace : undefined,
       deathplace: typeof raw.deathplace === 'string' ? raw.deathplace : undefined,
+      works: personWorks.length > 0 ? personWorks : undefined,
       sources: srcIds.map(id => sources.find(s => s.id === id)).filter((s): s is Source => s !== undefined),
       citations,
     })
@@ -298,6 +330,7 @@ export function clearCache() {
   relationshipsCache = null
   sourcesCache = null
   knowledgePointsCache = null
+  worksCache = null
 }
 
 // 搜索功能

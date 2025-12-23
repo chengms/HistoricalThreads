@@ -1,9 +1,9 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { Card, Typography, Tag, Button, List, Space, Spin } from 'antd'
+import { Card, Typography, Tag, Button, List, Space, Spin, Modal } from 'antd'
 import { ArrowLeftOutlined, LinkOutlined, CalendarOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 import { loadEvents, loadPersons, loadRelationships } from '@/services/dataLoader'
-import type { Citation, Event, Person, PersonWithDetails, Source } from '@/types'
+import type { Citation, Event, Person, PersonWithDetails, Source, Work } from '@/types'
 import TwikooComment from '@/components/TwikooComment'
 import '@/styles/detail.css'
 
@@ -139,6 +139,8 @@ export default function DetailPage() {
   const [data, setData] = useState<Event | Person | PersonWithDetails | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedWork, setSelectedWork] = useState<Work | null>(null)
+  const [workModalVisible, setWorkModalVisible] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -527,6 +529,67 @@ export default function DetailPage() {
             )}
           </Space>
 
+          {/* 作品列表 */}
+          {type === 'person' && (data as Person).works && (data as Person).works!.length > 0 && (
+            <>
+              <Title level={4}>代表作品</Title>
+              <List
+                dataSource={(data as Person).works}
+                renderItem={(work: Work) => {
+                  const getWorkTypeLabel = (type: string): string => {
+                    const labels: Record<string, string> = {
+                      poem: '诗',
+                      ci: '词',
+                      prose: '散文',
+                      essay: '文章',
+                      novel: '小说',
+                      play: '戏剧',
+                      other: '其他',
+                    }
+                    return labels[type] || type
+                  }
+                  
+                  return (
+                    <List.Item>
+                      <div style={{ width: '100%' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                          <Button 
+                            type="link" 
+                            onClick={() => {
+                              setSelectedWork(work)
+                              setWorkModalVisible(true)
+                            }}
+                            style={{ padding: 0, height: 'auto', fontSize: '16px', fontWeight: 500 }}
+                          >
+                            {work.title}
+                          </Button>
+                          <Space>
+                            <Tag color="purple">{getWorkTypeLabel(work.workType)}</Tag>
+                            {work.year && <Tag color="blue">{work.year}年</Tag>}
+                          </Space>
+                        </div>
+                        {work.excerpt && (
+                          <div 
+                            className="text-gray-600" 
+                            style={{ 
+                              fontSize: '14px', 
+                              lineHeight: '1.8',
+                              whiteSpace: 'pre-line',
+                              fontFamily: 'serif'
+                            }}
+                          >
+                            {work.excerpt}
+                          </div>
+                        )}
+                      </div>
+                    </List.Item>
+                  )
+                }}
+                className="mb-6"
+              />
+            </>
+          )}
+
           {/* 相关事件 */}
           {type === 'person' && (data as PersonWithDetails).events && (data as PersonWithDetails).events.length > 0 && (
             <>
@@ -765,6 +828,56 @@ export default function DetailPage() {
       {!loading && data && (
         <TwikooComment path={`/detail/${type}/${id}`} />
       )}
+
+      {/* 作品详情弹窗 */}
+      <Modal
+        title={selectedWork ? selectedWork.title : ''}
+        open={workModalVisible}
+        onCancel={() => {
+          setWorkModalVisible(false)
+          setSelectedWork(null)
+        }}
+        footer={[
+          <Button key="close" onClick={() => {
+            setWorkModalVisible(false)
+            setSelectedWork(null)
+          }}>
+            关闭
+          </Button>
+        ]}
+        width={700}
+      >
+        {selectedWork && (
+          <div>
+            <div style={{ marginBottom: 16 }}>
+              <Space>
+                <Tag color="purple">
+                  {selectedWork.workType === 'poem' ? '诗' : 
+                   selectedWork.workType === 'ci' ? '词' : 
+                   selectedWork.workType === 'prose' ? '散文' :
+                   selectedWork.workType === 'essay' ? '文章' :
+                   selectedWork.workType === 'novel' ? '小说' :
+                   selectedWork.workType === 'play' ? '戏剧' : '其他'}
+                </Tag>
+                {selectedWork.year && <Tag color="blue">{selectedWork.year}年</Tag>}
+                {selectedWork.dynasty && <Tag color="green">{selectedWork.dynasty.name}</Tag>}
+              </Space>
+            </div>
+            <div 
+              style={{ 
+                fontSize: '16px', 
+                lineHeight: '2.2',
+                whiteSpace: 'pre-line',
+                fontFamily: 'serif',
+                textAlign: 'left',
+                padding: '20px 0'
+              }}
+            >
+              {selectedWork.content}
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   )
 }

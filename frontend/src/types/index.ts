@@ -23,6 +23,22 @@ export interface Event {
   citations?: Citation[]
 }
 
+// 作品类型
+export interface Work {
+  id: number
+  title: string
+  authorId: number
+  author?: Person
+  workType: 'poem' | 'ci' | 'prose' | 'essay' | 'novel' | 'play' | 'other'
+  content: string // 完整文本内容
+  excerpt?: string // 摘要/片段（用于列表显示）
+  year?: number // 创作年份（可选）
+  dynastyId?: number
+  dynasty?: Dynasty
+  sources?: Source[]
+  citations?: Citation[]
+}
+
 // 人物类型
 export interface Person {
   id: number
@@ -41,6 +57,7 @@ export interface Person {
   deathplace?: string
   relationships?: Relationship[]
   events?: Event[]
+  works?: Work[] // 作品列表
   sources?: Source[]
   citations?: Citation[]
 }
