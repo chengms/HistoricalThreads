@@ -29,7 +29,7 @@ export default function Layout({ children }: LayoutProps) {
   const [searchOptions, setSearchOptions] = useState<Array<{ value: string; label: JSX.Element }>>([])
   const [searchLoading, setSearchLoading] = useState(false)
   const [searchOverlayOpen, setSearchOverlayOpen] = useState(false)
-  const [menuCollapsed, setMenuCollapsed] = useState(false)
+  const [menuCollapsed, setMenuCollapsed] = useState(false) // 用于手动折叠/展开（仅在非常小的屏幕上使用）
   const [viewportWidth, setViewportWidth] = useState<number>(typeof window !== 'undefined' ? window.innerWidth : 1200)
   const searchOverlayRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<InputRef>(null)
@@ -47,16 +47,8 @@ export default function Layout({ children }: LayoutProps) {
       const w = window.innerWidth
       setViewportWidth(w)
       
-      // 在大屏幕上自动展开菜单
-      if (w > 1024) {
-        setMenuCollapsed(false)
-      } else if (w <= 1024 && w > 768) {
-        // 中等屏幕：默认折叠（但用户可通过按钮展开）
-        setMenuCollapsed(true)
-      } else if (w <= 768) {
-        // 小屏幕：折叠
-        setMenuCollapsed(true)
-      }
+      // 默认展开菜单，让菜单项根据空间自动显示/隐藏
+      // 不再根据屏幕尺寸自动折叠菜单
     }
 
     // 初始化一次
@@ -231,25 +223,26 @@ export default function Layout({ children }: LayoutProps) {
             {viewportWidth <= 640 ? '历史时间线' : '中国历史时间线'}
           </div>
           
-          {/* 折叠按钮 - 在小屏幕和中等屏幕上显示 */}
+          {/* 折叠按钮 - 在小屏幕和中等屏幕上显示，用于手动控制 */}
           {isCompactHeader && (
             <div 
               className="cursor-pointer text-white p-2 rounded hover:bg-white/10 transition-all flex-shrink-0"
               onClick={() => setMenuCollapsed(!menuCollapsed)}
               style={{ marginRight: '8px' }}
+              title={menuCollapsed ? '展开菜单' : '折叠菜单'}
             >
               {/* menuCollapsed=true 表示菜单已折叠，应显示"展开菜单"图标 */}
               {menuCollapsed ? <MenuOutlined /> : <CloseOutlined />}
             </div>
           )}
           
-          {/* 导航菜单 */}
+          {/* 导航菜单 - 默认显示，根据空间自动适应 */}
           <div 
             className="flex-1"
             style={{ 
               overflow: 'hidden',
-              transition: 'width 0.3s ease',
-              minWidth: 0
+              minWidth: 0,
+              display: (isCompactHeader && menuCollapsed) ? 'none' : 'flex'
             }}
           >
             <Menu
@@ -259,17 +252,20 @@ export default function Layout({ children }: LayoutProps) {
               items={menuItems}
               onClick={({ key }) => {
                 navigate(key)
-                // 在小屏幕和中等屏幕上点击菜单项后自动折叠菜单
-                if (isCompactHeader) {
-                  setMenuCollapsed(true)
-                }
+                // 点击菜单项后不自动折叠，保持菜单可见
               }}
               className="border-0"
               style={{
-                display: (isCompactHeader && menuCollapsed) ? 'none' : 'flex',
-                flexWrap: viewportWidth <= 768 ? 'wrap' : 'nowrap',
-                minWidth: 0
+                flex: 1,
+                flexWrap: 'nowrap',
+                minWidth: 0,
+                overflow: 'hidden'
               }}
+              overflowedIndicator={
+                <span style={{ color: 'white', padding: '0 8px' }}>
+                  <MenuOutlined />
+                </span>
+              }
             />
           </div>
           
@@ -278,9 +274,8 @@ export default function Layout({ children }: LayoutProps) {
             <div 
               className="flex items-center flex-shrink-0"
               style={{ 
-                width: (isCompactHeader && !menuCollapsed) ? '0' : (viewportWidth <= 768 ? '120px' : '160px'),
+                width: viewportWidth <= 768 ? '120px' : '160px',
                 overflow: 'hidden',
-                transition: 'width 0.3s ease',
                 marginLeft: '8px'
               }}
             >
