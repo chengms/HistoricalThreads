@@ -234,7 +234,7 @@
     "description": "刘邦和项羽为争夺天下而进行的战争，最终刘邦获胜，建立汉朝。楚汉之争是秦末农民起义后，刘邦和项羽为争夺统治权而进行的长期战争，经过四年多的激烈战斗，最终刘邦在垓下之战中击败项羽，建立了延续四百多年的汉朝。",
     "eventYear": -206,
     "eventType": "military",
-    "dynastyId": 6,
+    "dynastyId": 7,
     "location": "中原",
     "persons": [
       11,
@@ -321,7 +321,7 @@
     "description": "三国时期，孙权和刘备联军在赤壁大败曹操，奠定了三国鼎立的基础。赤壁之战是中国历史上著名的以少胜多的战役，孙刘联军在周瑜、诸葛亮的指挥下，利用火攻战术大败曹操的数十万大军，阻止了曹操统一中国的步伐，为三国鼎立局面的形成奠定了基础。",
     "eventYear": 208,
     "eventType": "military",
-    "dynastyId": 23,
+    "dynastyId": 8,
     "location": "赤壁",
     "persons": [
       17,
@@ -492,7 +492,7 @@
     "description": "成吉思汗统一蒙古各部，建立大蒙古国，为元朝的建立奠定了基础。成吉思汗统一蒙古各部，建立了强大的大蒙古国，通过不断的对外扩张，建立了横跨欧亚的庞大帝国，为后来忽必烈建立元朝、统一中国奠定了基础。",
     "eventYear": 1206,
     "eventType": "military",
-    "dynastyId": 31,
+    "dynastyId": 14,
     "location": "蒙古",
     "persons": [
       27
@@ -1294,7 +1294,7 @@
     "description": "1926-1928年，国民革命军进行北伐，基本消灭了北洋军阀，统一了全国，但随后国共合作破裂。北伐战争是国民革命军为统一全国而进行的战争，经过两年多的战斗，基本消灭了北洋军阀，统一了全国，但随后国共合作破裂，中国进入了新的历史时期。",
     "eventYear": 1926,
     "eventType": "military",
-    "dynastyId": 35,
+    "dynastyId": 36,
     "location": "全国",
     "persons": [
       39,
@@ -1707,7 +1707,7 @@
     "description": "李白创作了著名的《将进酒》，这首诗以豪放的风格表达了诗人对人生的感慨和对自由的追求，是李白诗歌的代表作之一，体现了盛唐诗歌的浪漫主义特色。",
     "eventYear": 752,
     "eventType": "cultural",
-    "dynastyId": 27,
+    "dynastyId": 24,
     "location": "嵩山",
     "persons": [
       73
@@ -1733,7 +1733,7 @@
     "description": "杜甫在安史之乱期间创作了《春望》，这首诗深刻反映了战乱给人民带来的苦难，体现了杜甫诗歌的现实主义特色，是杜甫\"诗史\"风格的代表作。",
     "eventYear": 757,
     "eventType": "cultural",
-    "dynastyId": 28,
+    "dynastyId": 25,
     "location": "长安",
     "persons": [
       75
@@ -1759,7 +1759,7 @@
     "description": "白居易和元稹共同倡导新乐府运动，主张诗歌要反映现实，关注民生，语言要通俗易懂。这一运动对唐代诗歌发展产生了重要影响，推动了现实主义诗歌的繁荣。",
     "eventYear": 815,
     "eventType": "cultural",
-    "dynastyId": 28,
+    "dynastyId": 25,
     "location": "长安",
     "persons": [
       78
@@ -1785,7 +1785,7 @@
     "description": "韩愈和柳宗元倡导古文运动，反对骈文，提倡古文，主张\"文以载道\"，强调文章要有思想内容。这一运动对后世文学发展产生了深远影响，使古文成为文学创作的主流。",
     "eventYear": 800,
     "eventType": "cultural",
-    "dynastyId": 28,
+    "dynastyId": 25,
     "location": "长安",
     "persons": [
       163,
@@ -1812,7 +1812,7 @@
     "description": "苏轼创作了著名的《水调歌头·明月几时有》，这首词以中秋为背景，表达了对亲人的思念和对人生的感慨，是苏轼词作的代表作之一，体现了豪放派词风的特色。",
     "eventYear": 1076,
     "eventType": "cultural",
-    "dynastyId": 30,
+    "dynastyId": 27,
     "location": "密州",
     "persons": [
       93

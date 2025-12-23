@@ -815,7 +815,7 @@
       "military",
       "politician"
     ],
-    "dynastyId": 31,
+    "dynastyId": 14,
     "sources": [
       70,
       66,
@@ -1096,7 +1096,7 @@
       "politician",
       "military"
     ],
-    "dynastyId": 18,
+    "dynastyId": 17,
     "sources": [
       68,
       71,
@@ -1672,7 +1672,7 @@
       "writer",
       "philosopher"
     ],
-    "dynastyId": 18,
+    "dynastyId": 35,
     "sources": [
       68,
       71,
@@ -1704,7 +1704,7 @@
       "military",
       "politician"
     ],
-    "dynastyId": 18,
+    "dynastyId": 36,
     "sources": [
       68,
       71,
@@ -1734,7 +1734,7 @@
       "military",
       "politician"
     ],
-    "dynastyId": 34,
+    "dynastyId": 36,
     "sources": [
       68,
       71,
@@ -1858,7 +1858,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 26,
+    "dynastyId": 24,
     "birthplace": "绵州昌隆县（今四川省江油市）",
     "sources": [
       1,
@@ -1895,7 +1895,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 26,
+    "dynastyId": 25,
     "birthplace": "河南巩县（今河南省巩义市）",
     "sources": [
       1,
@@ -1931,7 +1931,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 29,
+    "dynastyId": 25,
     "birthplace": "河南新郑",
     "sources": [
       6,
@@ -1962,7 +1962,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 26,
+    "dynastyId": 24,
     "birthplace": "河东蒲州（今山西运城）",
     "sources": [
       6,
@@ -1992,7 +1992,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 26,
+    "dynastyId": 24,
     "birthplace": "襄州襄阳（今湖北襄阳）",
     "sources": [
       6,
@@ -2025,7 +2025,7 @@
       "artist",
       "philosopher"
     ],
-    "dynastyId": 30,
+    "dynastyId": 27,
     "birthplace": "眉州眉山（今四川省眉山市）",
     "sources": [
       7,
@@ -2057,7 +2057,7 @@
       "artist",
       "military"
     ],
-    "dynastyId": 31,
+    "dynastyId": 28,
     "birthplace": "山东东路济南府历城县（今山东省济南市历城区）",
     "sources": [
       7,
@@ -2087,7 +2087,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 30,
+    "dynastyId": 27,
     "birthplace": "齐州章丘（今山东章丘）",
     "sources": [
       7,
@@ -2120,7 +2120,7 @@
       "artist",
       "philosopher"
     ],
-    "dynastyId": 10,
+    "dynastyId": 22,
     "birthplace": "浔阳柴桑（今江西省九江市）",
     "sources": [
       3,
@@ -2214,7 +2214,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 30,
+    "dynastyId": 28,
     "birthplace": "越州山阴（今浙江绍兴）",
     "sources": [
       7,
@@ -2245,7 +2245,7 @@
       "writer",
       "philosopher"
     ],
-    "dynastyId": 29,
+    "dynastyId": 25,
     "birthplace": "河南河阳（今河南省孟州市）",
     "sources": [
       6,
@@ -2276,7 +2276,7 @@
       "writer",
       "philosopher"
     ],
-    "dynastyId": 28,
+    "dynastyId": 25,
     "birthplace": "河东（现山西运城永济一带）",
     "sources": [
       6,
@@ -2308,7 +2308,7 @@
       "writer",
       "politician"
     ],
-    "dynastyId": 30,
+    "dynastyId": 27,
     "birthplace": "绵州（今四川省绵阳市）",
     "sources": [
       7,
@@ -2462,7 +2462,7 @@
       "writer",
       "artist"
     ],
-    "dynastyId": 26,
+    "dynastyId": 27,
     "birthplace": "京兆长安（今陕西西安）",
     "sources": [
       6,
@@ -2494,7 +2494,7 @@
       "artist",
       "military"
     ],
-    "dynastyId": 26,
+    "dynastyId": 27,
     "birthplace": "渤海蓨（今河北景县）",
     "sources": [
       6,
@@ -2682,7 +2682,7 @@
       "artist",
       "politician"
     ],
-    "dynastyId": 30,
+    "dynastyId": 10,
     "birthplace": "金陵（今江苏南京）",
     "sources": [
       7,

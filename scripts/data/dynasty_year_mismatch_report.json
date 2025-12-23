@@ -1,0 +1,2245 @@
+{
+  "summary": {
+    "totalDynasties": 38,
+    "totalEvents": 62,
+    "totalPersons": 117,
+    "eventMismatches": 9,
+    "personMismatches": 124,
+    "dynastyOverlaps": 58
+  },
+  "eventMismatches": [
+    {
+      "type": "event",
+      "id": 9,
+      "title": "楚汉之争",
+      "year": -206,
+      "dynastyId": 7,
+      "dynastyName": "汉朝",
+      "dynastyRange": "-202 - 220",
+      "issue": "事件年份 -206 不在朝代 汉朝 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 12,
+      "title": "赤壁之战",
+      "year": 208,
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "事件年份 208 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 18,
+      "title": "成吉思汗统一蒙古",
+      "year": 1206,
+      "dynastyId": 14,
+      "dynastyName": "元朝",
+      "dynastyRange": "1271 - 1368",
+      "issue": "事件年份 1206 不在朝代 元朝 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 44,
+      "title": "北伐战争",
+      "year": 1926,
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "issue": "事件年份 1926 不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 58,
+      "title": "李白创作《将进酒》",
+      "year": 752,
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "事件年份 752 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 60,
+      "title": "杜甫创作《春望》",
+      "year": 757,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "事件年份 757 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 63,
+      "title": "新乐府运动",
+      "year": 815,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "事件年份 815 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 67,
+      "title": "古文运动",
+      "year": 800,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "事件年份 800 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "event",
+      "id": 72,
+      "title": "苏轼创作《水调歌头·明月几时有》",
+      "year": 1076,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "事件年份 1076 不在朝代 盛唐 的时间范围内"
+    }
+  ],
+  "personMismatches": [
+    {
+      "type": "person",
+      "id": 1,
+      "name": "大禹",
+      "year": -2123,
+      "yearType": "birthYear",
+      "dynastyId": 1,
+      "dynastyName": "夏朝",
+      "dynastyRange": "-2070 - -1600",
+      "issue": "出生年份 -2123 不在朝代 夏朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 2,
+      "name": "商汤",
+      "year": -1670,
+      "yearType": "birthYear",
+      "dynastyId": 2,
+      "dynastyName": "商朝",
+      "dynastyRange": "-1600 - -1046",
+      "issue": "出生年份 -1670 不在朝代 商朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 3,
+      "name": "周武王",
+      "year": -1087,
+      "yearType": "birthYear",
+      "dynastyId": 3,
+      "dynastyName": "周朝",
+      "dynastyRange": "-1046 - -256",
+      "issue": "出生年份 -1087 不在朝代 周朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 8,
+      "name": "秦始皇",
+      "year": -259,
+      "yearType": "birthYear",
+      "dynastyId": 6,
+      "dynastyName": "秦朝",
+      "dynastyRange": "-221 - -207",
+      "issue": "出生年份 -259 不在朝代 秦朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 9,
+      "name": "陈胜",
+      "year": -240,
+      "yearType": "birthYear",
+      "dynastyId": 6,
+      "dynastyName": "秦朝",
+      "dynastyRange": "-221 - -207",
+      "issue": "出生年份 -240 不在朝代 秦朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 10,
+      "name": "吴广",
+      "year": -240,
+      "yearType": "birthYear",
+      "dynastyId": 6,
+      "dynastyName": "秦朝",
+      "dynastyRange": "-221 - -207",
+      "issue": "出生年份 -240 不在朝代 秦朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 11,
+      "name": "刘邦",
+      "year": -256,
+      "yearType": "birthYear",
+      "dynastyId": 7,
+      "dynastyName": "汉朝",
+      "dynastyRange": "-202 - 220",
+      "issue": "出生年份 -256 不在朝代 汉朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 12,
+      "name": "项羽",
+      "year": -232,
+      "yearType": "birthYear",
+      "dynastyId": 7,
+      "dynastyName": "汉朝",
+      "dynastyRange": "-202 - 220",
+      "issue": "出生年份 -232 不在朝代 汉朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 17,
+      "name": "曹操",
+      "year": 155,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 155 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 18,
+      "name": "刘备",
+      "year": 161,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 161 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 19,
+      "name": "孙权",
+      "year": 182,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 182 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 20,
+      "name": "诸葛亮",
+      "year": 181,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 181 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 21,
+      "name": "隋炀帝",
+      "year": 569,
+      "yearType": "birthYear",
+      "dynastyId": 11,
+      "dynastyName": "隋朝",
+      "dynastyRange": "581 - 618",
+      "issue": "出生年份 569 不在朝代 隋朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 22,
+      "name": "唐太宗",
+      "year": 598,
+      "yearType": "birthYear",
+      "dynastyId": 12,
+      "dynastyName": "唐朝",
+      "dynastyRange": "618 - 907",
+      "issue": "出生年份 598 不在朝代 唐朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 25,
+      "name": "宋太祖",
+      "year": 927,
+      "yearType": "birthYear",
+      "dynastyId": 13,
+      "dynastyName": "宋朝",
+      "dynastyRange": "960 - 1279",
+      "issue": "出生年份 927 不在朝代 宋朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 27,
+      "name": "成吉思汗",
+      "year": 1162,
+      "yearType": "birthYear",
+      "dynastyId": 14,
+      "dynastyName": "元朝",
+      "dynastyRange": "1271 - 1368",
+      "issue": "出生年份 1162 不在朝代 元朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 27,
+      "name": "成吉思汗",
+      "year": 1227,
+      "yearType": "deathYear",
+      "dynastyId": 14,
+      "dynastyName": "元朝",
+      "dynastyRange": "1271 - 1368",
+      "issue": "死亡年份 1227 不在朝代 元朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 27,
+      "name": "成吉思汗",
+      "birthYear": 1162,
+      "deathYear": 1227,
+      "dynastyId": 14,
+      "dynastyName": "元朝",
+      "dynastyRange": "1271 - 1368",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 元朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 31,
+      "name": "老子",
+      "year": -470,
+      "yearType": "deathYear",
+      "dynastyId": 4,
+      "dynastyName": "春秋",
+      "dynastyRange": "-770 - -476",
+      "issue": "死亡年份 -470 不在朝代 春秋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 34,
+      "name": "孙武",
+      "year": -470,
+      "yearType": "deathYear",
+      "dynastyId": 4,
+      "dynastyName": "春秋",
+      "dynastyRange": "-770 - -476",
+      "issue": "死亡年份 -470 不在朝代 春秋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 39,
+      "name": "孙中山",
+      "year": 1866,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1866 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 40,
+      "name": "陈独秀",
+      "year": 1879,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1879 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 41,
+      "name": "蒋介石",
+      "year": 1887,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1887 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 41,
+      "name": "蒋介石",
+      "year": 1975,
+      "yearType": "deathYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "死亡年份 1975 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 41,
+      "name": "蒋介石",
+      "birthYear": 1887,
+      "deathYear": 1975,
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "suggestedDynasty": "清朝 (1644-1912)",
+      "issue": "出生和死亡年份都不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 42,
+      "name": "毛泽东",
+      "year": 1893,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1893 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 43,
+      "name": "周恩来",
+      "year": 1898,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1898 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 44,
+      "name": "邓小平",
+      "year": 1904,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1904 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 45,
+      "name": "彭德怀",
+      "year": 1898,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1898 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 46,
+      "name": "章邯",
+      "year": -205,
+      "yearType": "deathYear",
+      "dynastyId": 6,
+      "dynastyName": "秦朝",
+      "dynastyRange": "-221 - -207",
+      "issue": "死亡年份 -205 不在朝代 秦朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 47,
+      "name": "王离",
+      "year": -206,
+      "yearType": "deathYear",
+      "dynastyId": 6,
+      "dynastyName": "秦朝",
+      "dynastyRange": "-221 - -207",
+      "issue": "死亡年份 -206 不在朝代 秦朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 55,
+      "name": "康有为",
+      "year": 1927,
+      "yearType": "deathYear",
+      "dynastyId": 16,
+      "dynastyName": "清朝",
+      "dynastyRange": "1644 - 1912",
+      "issue": "死亡年份 1927 不在朝代 清朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 56,
+      "name": "梁启超",
+      "year": 1929,
+      "yearType": "deathYear",
+      "dynastyId": 16,
+      "dynastyName": "清朝",
+      "dynastyRange": "1644 - 1912",
+      "issue": "死亡年份 1929 不在朝代 清朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 60,
+      "name": "江泽民",
+      "year": 1926,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1926 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 61,
+      "name": "朱镕基",
+      "year": 1928,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1928 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 62,
+      "name": "曾国藩",
+      "year": 1811,
+      "yearType": "birthYear",
+      "dynastyId": 34,
+      "dynastyName": "清后期",
+      "dynastyRange": "1840 - 1912",
+      "issue": "出生年份 1811 不在朝代 清后期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 63,
+      "name": "左宗棠",
+      "year": 1812,
+      "yearType": "birthYear",
+      "dynastyId": 34,
+      "dynastyName": "清后期",
+      "dynastyRange": "1840 - 1912",
+      "issue": "出生年份 1812 不在朝代 清后期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 64,
+      "name": "张之洞",
+      "year": 1837,
+      "yearType": "birthYear",
+      "dynastyId": 34,
+      "dynastyName": "清后期",
+      "dynastyRange": "1840 - 1912",
+      "issue": "出生年份 1837 不在朝代 清后期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 65,
+      "name": "袁世凯",
+      "year": 1859,
+      "yearType": "birthYear",
+      "dynastyId": 35,
+      "dynastyName": "民国初期",
+      "dynastyRange": "1912 - 1927",
+      "issue": "出生年份 1859 不在朝代 民国初期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 66,
+      "name": "蔡锷",
+      "year": 1882,
+      "yearType": "birthYear",
+      "dynastyId": 35,
+      "dynastyName": "民国初期",
+      "dynastyRange": "1912 - 1927",
+      "issue": "出生年份 1882 不在朝代 民国初期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 67,
+      "name": "胡适",
+      "year": 1891,
+      "yearType": "birthYear",
+      "dynastyId": 35,
+      "dynastyName": "民国初期",
+      "dynastyRange": "1912 - 1927",
+      "issue": "出生年份 1891 不在朝代 民国初期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 67,
+      "name": "胡适",
+      "year": 1962,
+      "yearType": "deathYear",
+      "dynastyId": 35,
+      "dynastyName": "民国初期",
+      "dynastyRange": "1912 - 1927",
+      "issue": "死亡年份 1962 不在朝代 民国初期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 67,
+      "name": "胡适",
+      "birthYear": 1891,
+      "deathYear": 1962,
+      "dynastyId": 35,
+      "dynastyName": "民国初期",
+      "dynastyRange": "1912 - 1927",
+      "suggestedDynasty": "清朝 (1644-1912)",
+      "issue": "出生和死亡年份都不在朝代 民国初期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 68,
+      "name": "张学良",
+      "year": 1901,
+      "yearType": "birthYear",
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "issue": "出生年份 1901 不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 68,
+      "name": "张学良",
+      "year": 2001,
+      "yearType": "deathYear",
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "issue": "死亡年份 2001 不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 68,
+      "name": "张学良",
+      "birthYear": 1901,
+      "deathYear": 2001,
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "suggestedDynasty": "清朝 (1644-1912)",
+      "issue": "出生和死亡年份都不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 69,
+      "name": "杨虎城",
+      "year": 1893,
+      "yearType": "birthYear",
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "issue": "出生年份 1893 不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 69,
+      "name": "杨虎城",
+      "year": 1949,
+      "yearType": "deathYear",
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "issue": "死亡年份 1949 不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 69,
+      "name": "杨虎城",
+      "birthYear": 1893,
+      "deathYear": 1949,
+      "dynastyId": 36,
+      "dynastyName": "民国中期",
+      "dynastyRange": "1927 - 1937",
+      "suggestedDynasty": "清朝 (1644-1912)",
+      "issue": "出生和死亡年份都不在朝代 民国中期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 70,
+      "name": "洪秀全",
+      "year": 1814,
+      "yearType": "birthYear",
+      "dynastyId": 34,
+      "dynastyName": "清后期",
+      "dynastyRange": "1840 - 1912",
+      "issue": "出生年份 1814 不在朝代 清后期 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 71,
+      "name": "周恩来",
+      "year": 1898,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1898 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 72,
+      "name": "邓小平",
+      "year": 1904,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1904 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 73,
+      "name": "李白",
+      "year": 701,
+      "yearType": "birthYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "出生年份 701 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 73,
+      "name": "李白",
+      "year": 762,
+      "yearType": "deathYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "死亡年份 762 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 73,
+      "name": "李白",
+      "birthYear": 701,
+      "deathYear": 762,
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 75,
+      "name": "杜甫",
+      "year": 712,
+      "yearType": "birthYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "出生年份 712 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 75,
+      "name": "杜甫",
+      "year": 770,
+      "yearType": "deathYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "死亡年份 770 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 75,
+      "name": "杜甫",
+      "birthYear": 712,
+      "deathYear": 770,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 78,
+      "name": "白居易",
+      "year": 772,
+      "yearType": "birthYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "出生年份 772 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 78,
+      "name": "白居易",
+      "year": 846,
+      "yearType": "deathYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "死亡年份 846 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 78,
+      "name": "白居易",
+      "birthYear": 772,
+      "deathYear": 846,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 82,
+      "name": "王维",
+      "year": 701,
+      "yearType": "birthYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "出生年份 701 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 82,
+      "name": "王维",
+      "year": 761,
+      "yearType": "deathYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "死亡年份 761 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 82,
+      "name": "王维",
+      "birthYear": 701,
+      "deathYear": 761,
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 87,
+      "name": "孟浩然",
+      "year": 689,
+      "yearType": "birthYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "出生年份 689 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 87,
+      "name": "孟浩然",
+      "year": 740,
+      "yearType": "deathYear",
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "issue": "死亡年份 740 不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 87,
+      "name": "孟浩然",
+      "birthYear": 689,
+      "deathYear": 740,
+      "dynastyId": 24,
+      "dynastyName": "西晋",
+      "dynastyRange": "265 - 316",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 西晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 93,
+      "name": "苏轼",
+      "year": 1037,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 1037 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 93,
+      "name": "苏轼",
+      "year": 1101,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 1101 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 93,
+      "name": "苏轼",
+      "birthYear": 1037,
+      "deathYear": 1101,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 100,
+      "name": "辛弃疾",
+      "year": 1140,
+      "yearType": "birthYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "出生年份 1140 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 100,
+      "name": "辛弃疾",
+      "year": 1207,
+      "yearType": "deathYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "死亡年份 1207 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 100,
+      "name": "辛弃疾",
+      "birthYear": 1140,
+      "deathYear": 1207,
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 108,
+      "name": "李清照",
+      "year": 1084,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 1084 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 108,
+      "name": "李清照",
+      "year": 1155,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 1155 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 108,
+      "name": "李清照",
+      "birthYear": 1084,
+      "deathYear": 1155,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 117,
+      "name": "陶渊明",
+      "year": 365,
+      "yearType": "birthYear",
+      "dynastyId": 22,
+      "dynastyName": "新朝",
+      "dynastyRange": "9 - 23",
+      "issue": "出生年份 365 不在朝代 新朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 117,
+      "name": "陶渊明",
+      "year": 427,
+      "yearType": "deathYear",
+      "dynastyId": 22,
+      "dynastyName": "新朝",
+      "dynastyRange": "9 - 23",
+      "issue": "死亡年份 427 不在朝代 新朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 117,
+      "name": "陶渊明",
+      "birthYear": 365,
+      "deathYear": 427,
+      "dynastyId": 22,
+      "dynastyName": "新朝",
+      "dynastyRange": "9 - 23",
+      "suggestedDynasty": "晋朝 (265-420)",
+      "issue": "出生和死亡年份都不在朝代 新朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 138,
+      "name": "曹植",
+      "year": 192,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 192 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 150,
+      "name": "陆游",
+      "year": 1125,
+      "yearType": "birthYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "出生年份 1125 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 150,
+      "name": "陆游",
+      "year": 1210,
+      "yearType": "deathYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "死亡年份 1210 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 150,
+      "name": "陆游",
+      "birthYear": 1125,
+      "deathYear": 1210,
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 163,
+      "name": "韩愈",
+      "year": 768,
+      "yearType": "birthYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "出生年份 768 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 163,
+      "name": "韩愈",
+      "year": 824,
+      "yearType": "deathYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "死亡年份 824 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 163,
+      "name": "韩愈",
+      "birthYear": 768,
+      "deathYear": 824,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 177,
+      "name": "柳宗元",
+      "year": 773,
+      "yearType": "birthYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "出生年份 773 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 177,
+      "name": "柳宗元",
+      "year": 819,
+      "yearType": "deathYear",
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "issue": "死亡年份 819 不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 177,
+      "name": "柳宗元",
+      "birthYear": 773,
+      "deathYear": 819,
+      "dynastyId": 25,
+      "dynastyName": "东晋",
+      "dynastyRange": "317 - 420",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 东晋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 192,
+      "name": "欧阳修",
+      "year": 1007,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 1007 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 192,
+      "name": "欧阳修",
+      "year": 1072,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 1072 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 192,
+      "name": "欧阳修",
+      "birthYear": 1007,
+      "deathYear": 1072,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 193,
+      "name": "王之涣",
+      "year": 688,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 688 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 195,
+      "name": "刘禹锡",
+      "year": 842,
+      "yearType": "deathYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "死亡年份 842 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 198,
+      "name": "李商隐",
+      "year": 813,
+      "yearType": "birthYear",
+      "dynastyId": 29,
+      "dynastyName": "晚唐",
+      "dynastyRange": "820 - 907",
+      "issue": "出生年份 813 不在朝代 晚唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 202,
+      "name": "杜牧",
+      "year": 803,
+      "yearType": "birthYear",
+      "dynastyId": 29,
+      "dynastyName": "晚唐",
+      "dynastyRange": "820 - 907",
+      "issue": "出生年份 803 不在朝代 晚唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 207,
+      "name": "王昌龄",
+      "year": 698,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 698 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 207,
+      "name": "王昌龄",
+      "year": 757,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 757 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 207,
+      "name": "王昌龄",
+      "birthYear": 698,
+      "deathYear": 757,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 213,
+      "name": "高适",
+      "year": 704,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 704 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 213,
+      "name": "高适",
+      "year": 765,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 765 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 213,
+      "name": "高适",
+      "birthYear": 704,
+      "deathYear": 765,
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "suggestedDynasty": "唐朝 (618-907)",
+      "issue": "出生和死亡年份都不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 220,
+      "name": "岑参",
+      "year": 770,
+      "yearType": "deathYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "死亡年份 770 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 228,
+      "name": "贺知章",
+      "year": 659,
+      "yearType": "birthYear",
+      "dynastyId": 27,
+      "dynastyName": "盛唐",
+      "dynastyRange": "712 - 755",
+      "issue": "出生年份 659 不在朝代 盛唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 270,
+      "name": "李煜",
+      "year": 937,
+      "yearType": "birthYear",
+      "dynastyId": 10,
+      "dynastyName": "南北朝",
+      "dynastyRange": "420 - 589",
+      "issue": "出生年份 937 不在朝代 南北朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 270,
+      "name": "李煜",
+      "year": 978,
+      "yearType": "deathYear",
+      "dynastyId": 10,
+      "dynastyName": "南北朝",
+      "dynastyRange": "420 - 589",
+      "issue": "死亡年份 978 不在朝代 南北朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 270,
+      "name": "李煜",
+      "birthYear": 937,
+      "deathYear": 978,
+      "dynastyId": 10,
+      "dynastyName": "南北朝",
+      "dynastyRange": "420 - 589",
+      "suggestedDynasty": "宋朝 (960-1279)",
+      "issue": "出生和死亡年份都不在朝代 南北朝 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 283,
+      "name": "文天祥",
+      "year": 1283,
+      "yearType": "deathYear",
+      "dynastyId": 31,
+      "dynastyName": "南宋",
+      "dynastyRange": "1127 - 1279",
+      "issue": "死亡年份 1283 不在朝代 南宋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 363,
+      "name": "贾岛",
+      "year": 843,
+      "yearType": "deathYear",
+      "dynastyId": 28,
+      "dynastyName": "中唐",
+      "dynastyRange": "755 - 820",
+      "issue": "死亡年份 843 不在朝代 中唐 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 364,
+      "name": "曹丕",
+      "year": 187,
+      "yearType": "birthYear",
+      "dynastyId": 8,
+      "dynastyName": "三国",
+      "dynastyRange": "220 - 280",
+      "issue": "出生年份 187 不在朝代 三国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 366,
+      "name": "岳飞",
+      "year": 1103,
+      "yearType": "birthYear",
+      "dynastyId": 31,
+      "dynastyName": "南宋",
+      "dynastyRange": "1127 - 1279",
+      "issue": "出生年份 1103 不在朝代 南宋 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 369,
+      "name": "朱德",
+      "year": 1886,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1886 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 373,
+      "name": "陈毅",
+      "year": 1901,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1901 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 378,
+      "name": "鲁迅",
+      "year": 1881,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1881 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 384,
+      "name": "郭沫若",
+      "year": 1892,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1892 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 391,
+      "name": "茅盾",
+      "year": 1896,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1896 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 399,
+      "name": "巴金",
+      "year": 1904,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1904 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 408,
+      "name": "老舍",
+      "year": 1899,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1899 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 418,
+      "name": "冰心",
+      "year": 1900,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1900 不在朝代 中华人民共和国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 429,
+      "name": "徐志摩",
+      "year": 1897,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1897 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 441,
+      "name": "闻一多",
+      "year": 1899,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1899 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 454,
+      "name": "朱自清",
+      "year": 1898,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1898 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 468,
+      "name": "郁达夫",
+      "year": 1896,
+      "yearType": "birthYear",
+      "dynastyId": 17,
+      "dynastyName": "民国",
+      "dynastyRange": "1912 - 1949",
+      "issue": "出生年份 1896 不在朝代 民国 的时间范围内"
+    },
+    {
+      "type": "person",
+      "id": 483,
+      "name": "沈从文",
+      "year": 1902,
+      "yearType": "birthYear",
+      "dynastyId": 18,
+      "dynastyName": "中华人民共和国",
+      "dynastyRange": "1949 - 2100",
+      "issue": "出生年份 1902 不在朝代 中华人民共和国 的时间范围内"
+    }
+  ],
+  "dynastyOverlaps": [
+    {
+      "dynasty1": {
+        "id": 1,
+        "name": "夏朝",
+        "range": "-2070--1600"
+      },
+      "dynasty2": {
+        "id": 2,
+        "name": "商朝",
+        "range": "-1600--1046"
+      },
+      "overlapRange": "-1600--1600"
+    },
+    {
+      "dynasty1": {
+        "id": 2,
+        "name": "商朝",
+        "range": "-1600--1046"
+      },
+      "dynasty2": {
+        "id": 3,
+        "name": "周朝",
+        "range": "-1046--256"
+      },
+      "overlapRange": "-1046--1046"
+    },
+    {
+      "dynasty1": {
+        "id": 2,
+        "name": "商朝",
+        "range": "-1600--1046"
+      },
+      "dynasty2": {
+        "id": 19,
+        "name": "西周",
+        "range": "-1046--771"
+      },
+      "overlapRange": "-1046--1046"
+    },
+    {
+      "dynasty1": {
+        "id": 3,
+        "name": "周朝",
+        "range": "-1046--256"
+      },
+      "dynasty2": {
+        "id": 19,
+        "name": "西周",
+        "range": "-1046--771"
+      },
+      "overlapRange": "-1046--771"
+    },
+    {
+      "dynasty1": {
+        "id": 3,
+        "name": "周朝",
+        "range": "-1046--256"
+      },
+      "dynasty2": {
+        "id": 20,
+        "name": "东周",
+        "range": "-770--256"
+      },
+      "overlapRange": "-770--256"
+    },
+    {
+      "dynasty1": {
+        "id": 3,
+        "name": "周朝",
+        "range": "-1046--256"
+      },
+      "dynasty2": {
+        "id": 4,
+        "name": "春秋",
+        "range": "-770--476"
+      },
+      "overlapRange": "-770--476"
+    },
+    {
+      "dynasty1": {
+        "id": 3,
+        "name": "周朝",
+        "range": "-1046--256"
+      },
+      "dynasty2": {
+        "id": 5,
+        "name": "战国",
+        "range": "-475--221"
+      },
+      "overlapRange": "-475--256"
+    },
+    {
+      "dynasty1": {
+        "id": 20,
+        "name": "东周",
+        "range": "-770--256"
+      },
+      "dynasty2": {
+        "id": 4,
+        "name": "春秋",
+        "range": "-770--476"
+      },
+      "overlapRange": "-770--476"
+    },
+    {
+      "dynasty1": {
+        "id": 20,
+        "name": "东周",
+        "range": "-770--256"
+      },
+      "dynasty2": {
+        "id": 5,
+        "name": "战国",
+        "range": "-475--221"
+      },
+      "overlapRange": "-475--256"
+    },
+    {
+      "dynasty1": {
+        "id": 5,
+        "name": "战国",
+        "range": "-475--221"
+      },
+      "dynasty2": {
+        "id": 6,
+        "name": "秦朝",
+        "range": "-221--207"
+      },
+      "overlapRange": "-221--221"
+    },
+    {
+      "dynasty1": {
+        "id": 7,
+        "name": "汉朝",
+        "range": "-202-220"
+      },
+      "dynasty2": {
+        "id": 21,
+        "name": "西汉",
+        "range": "-202-9"
+      },
+      "overlapRange": "-202-9"
+    },
+    {
+      "dynasty1": {
+        "id": 7,
+        "name": "汉朝",
+        "range": "-202-220"
+      },
+      "dynasty2": {
+        "id": 22,
+        "name": "新朝",
+        "range": "9-23"
+      },
+      "overlapRange": "9-23"
+    },
+    {
+      "dynasty1": {
+        "id": 7,
+        "name": "汉朝",
+        "range": "-202-220"
+      },
+      "dynasty2": {
+        "id": 23,
+        "name": "东汉",
+        "range": "25-220"
+      },
+      "overlapRange": "25-220"
+    },
+    {
+      "dynasty1": {
+        "id": 7,
+        "name": "汉朝",
+        "range": "-202-220"
+      },
+      "dynasty2": {
+        "id": 8,
+        "name": "三国",
+        "range": "220-280"
+      },
+      "overlapRange": "220-220"
+    },
+    {
+      "dynasty1": {
+        "id": 21,
+        "name": "西汉",
+        "range": "-202-9"
+      },
+      "dynasty2": {
+        "id": 22,
+        "name": "新朝",
+        "range": "9-23"
+      },
+      "overlapRange": "9-9"
+    },
+    {
+      "dynasty1": {
+        "id": 23,
+        "name": "东汉",
+        "range": "25-220"
+      },
+      "dynasty2": {
+        "id": 8,
+        "name": "三国",
+        "range": "220-280"
+      },
+      "overlapRange": "220-220"
+    },
+    {
+      "dynasty1": {
+        "id": 8,
+        "name": "三国",
+        "range": "220-280"
+      },
+      "dynasty2": {
+        "id": 9,
+        "name": "晋朝",
+        "range": "265-420"
+      },
+      "overlapRange": "265-280"
+    },
+    {
+      "dynasty1": {
+        "id": 8,
+        "name": "三国",
+        "range": "220-280"
+      },
+      "dynasty2": {
+        "id": 24,
+        "name": "西晋",
+        "range": "265-316"
+      },
+      "overlapRange": "265-280"
+    },
+    {
+      "dynasty1": {
+        "id": 9,
+        "name": "晋朝",
+        "range": "265-420"
+      },
+      "dynasty2": {
+        "id": 24,
+        "name": "西晋",
+        "range": "265-316"
+      },
+      "overlapRange": "265-316"
+    },
+    {
+      "dynasty1": {
+        "id": 9,
+        "name": "晋朝",
+        "range": "265-420"
+      },
+      "dynasty2": {
+        "id": 25,
+        "name": "东晋",
+        "range": "317-420"
+      },
+      "overlapRange": "317-420"
+    },
+    {
+      "dynasty1": {
+        "id": 9,
+        "name": "晋朝",
+        "range": "265-420"
+      },
+      "dynasty2": {
+        "id": 10,
+        "name": "南北朝",
+        "range": "420-589"
+      },
+      "overlapRange": "420-420"
+    },
+    {
+      "dynasty1": {
+        "id": 25,
+        "name": "东晋",
+        "range": "317-420"
+      },
+      "dynasty2": {
+        "id": 10,
+        "name": "南北朝",
+        "range": "420-589"
+      },
+      "overlapRange": "420-420"
+    },
+    {
+      "dynasty1": {
+        "id": 10,
+        "name": "南北朝",
+        "range": "420-589"
+      },
+      "dynasty2": {
+        "id": 11,
+        "name": "隋朝",
+        "range": "581-618"
+      },
+      "overlapRange": "581-589"
+    },
+    {
+      "dynasty1": {
+        "id": 11,
+        "name": "隋朝",
+        "range": "581-618"
+      },
+      "dynasty2": {
+        "id": 12,
+        "name": "唐朝",
+        "range": "618-907"
+      },
+      "overlapRange": "618-618"
+    },
+    {
+      "dynasty1": {
+        "id": 11,
+        "name": "隋朝",
+        "range": "581-618"
+      },
+      "dynasty2": {
+        "id": 26,
+        "name": "初唐",
+        "range": "618-712"
+      },
+      "overlapRange": "618-618"
+    },
+    {
+      "dynasty1": {
+        "id": 12,
+        "name": "唐朝",
+        "range": "618-907"
+      },
+      "dynasty2": {
+        "id": 26,
+        "name": "初唐",
+        "range": "618-712"
+      },
+      "overlapRange": "618-712"
+    },
+    {
+      "dynasty1": {
+        "id": 12,
+        "name": "唐朝",
+        "range": "618-907"
+      },
+      "dynasty2": {
+        "id": 27,
+        "name": "盛唐",
+        "range": "712-755"
+      },
+      "overlapRange": "712-755"
+    },
+    {
+      "dynasty1": {
+        "id": 12,
+        "name": "唐朝",
+        "range": "618-907"
+      },
+      "dynasty2": {
+        "id": 28,
+        "name": "中唐",
+        "range": "755-820"
+      },
+      "overlapRange": "755-820"
+    },
+    {
+      "dynasty1": {
+        "id": 12,
+        "name": "唐朝",
+        "range": "618-907"
+      },
+      "dynasty2": {
+        "id": 29,
+        "name": "晚唐",
+        "range": "820-907"
+      },
+      "overlapRange": "820-907"
+    },
+    {
+      "dynasty1": {
+        "id": 26,
+        "name": "初唐",
+        "range": "618-712"
+      },
+      "dynasty2": {
+        "id": 27,
+        "name": "盛唐",
+        "range": "712-755"
+      },
+      "overlapRange": "712-712"
+    },
+    {
+      "dynasty1": {
+        "id": 27,
+        "name": "盛唐",
+        "range": "712-755"
+      },
+      "dynasty2": {
+        "id": 28,
+        "name": "中唐",
+        "range": "755-820"
+      },
+      "overlapRange": "755-755"
+    },
+    {
+      "dynasty1": {
+        "id": 28,
+        "name": "中唐",
+        "range": "755-820"
+      },
+      "dynasty2": {
+        "id": 29,
+        "name": "晚唐",
+        "range": "820-907"
+      },
+      "overlapRange": "820-820"
+    },
+    {
+      "dynasty1": {
+        "id": 13,
+        "name": "宋朝",
+        "range": "960-1279"
+      },
+      "dynasty2": {
+        "id": 30,
+        "name": "北宋",
+        "range": "960-1127"
+      },
+      "overlapRange": "960-1127"
+    },
+    {
+      "dynasty1": {
+        "id": 13,
+        "name": "宋朝",
+        "range": "960-1279"
+      },
+      "dynasty2": {
+        "id": 31,
+        "name": "南宋",
+        "range": "1127-1279"
+      },
+      "overlapRange": "1127-1279"
+    },
+    {
+      "dynasty1": {
+        "id": 13,
+        "name": "宋朝",
+        "range": "960-1279"
+      },
+      "dynasty2": {
+        "id": 14,
+        "name": "元朝",
+        "range": "1271-1368"
+      },
+      "overlapRange": "1271-1279"
+    },
+    {
+      "dynasty1": {
+        "id": 30,
+        "name": "北宋",
+        "range": "960-1127"
+      },
+      "dynasty2": {
+        "id": 31,
+        "name": "南宋",
+        "range": "1127-1279"
+      },
+      "overlapRange": "1127-1127"
+    },
+    {
+      "dynasty1": {
+        "id": 31,
+        "name": "南宋",
+        "range": "1127-1279"
+      },
+      "dynasty2": {
+        "id": 14,
+        "name": "元朝",
+        "range": "1271-1368"
+      },
+      "overlapRange": "1271-1279"
+    },
+    {
+      "dynasty1": {
+        "id": 14,
+        "name": "元朝",
+        "range": "1271-1368"
+      },
+      "dynasty2": {
+        "id": 15,
+        "name": "明朝",
+        "range": "1368-1644"
+      },
+      "overlapRange": "1368-1368"
+    },
+    {
+      "dynasty1": {
+        "id": 15,
+        "name": "明朝",
+        "range": "1368-1644"
+      },
+      "dynasty2": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "overlapRange": "1644-1644"
+    },
+    {
+      "dynasty1": {
+        "id": 15,
+        "name": "明朝",
+        "range": "1368-1644"
+      },
+      "dynasty2": {
+        "id": 32,
+        "name": "清前期",
+        "range": "1644-1735"
+      },
+      "overlapRange": "1644-1644"
+    },
+    {
+      "dynasty1": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "dynasty2": {
+        "id": 32,
+        "name": "清前期",
+        "range": "1644-1735"
+      },
+      "overlapRange": "1644-1735"
+    },
+    {
+      "dynasty1": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "dynasty2": {
+        "id": 33,
+        "name": "清中期",
+        "range": "1735-1840"
+      },
+      "overlapRange": "1735-1840"
+    },
+    {
+      "dynasty1": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "dynasty2": {
+        "id": 34,
+        "name": "清后期",
+        "range": "1840-1912"
+      },
+      "overlapRange": "1840-1912"
+    },
+    {
+      "dynasty1": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "dynasty2": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "overlapRange": "1912-1912"
+    },
+    {
+      "dynasty1": {
+        "id": 16,
+        "name": "清朝",
+        "range": "1644-1912"
+      },
+      "dynasty2": {
+        "id": 35,
+        "name": "民国初期",
+        "range": "1912-1927"
+      },
+      "overlapRange": "1912-1912"
+    },
+    {
+      "dynasty1": {
+        "id": 32,
+        "name": "清前期",
+        "range": "1644-1735"
+      },
+      "dynasty2": {
+        "id": 33,
+        "name": "清中期",
+        "range": "1735-1840"
+      },
+      "overlapRange": "1735-1735"
+    },
+    {
+      "dynasty1": {
+        "id": 33,
+        "name": "清中期",
+        "range": "1735-1840"
+      },
+      "dynasty2": {
+        "id": 34,
+        "name": "清后期",
+        "range": "1840-1912"
+      },
+      "overlapRange": "1840-1840"
+    },
+    {
+      "dynasty1": {
+        "id": 34,
+        "name": "清后期",
+        "range": "1840-1912"
+      },
+      "dynasty2": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "overlapRange": "1912-1912"
+    },
+    {
+      "dynasty1": {
+        "id": 34,
+        "name": "清后期",
+        "range": "1840-1912"
+      },
+      "dynasty2": {
+        "id": 35,
+        "name": "民国初期",
+        "range": "1912-1927"
+      },
+      "overlapRange": "1912-1912"
+    },
+    {
+      "dynasty1": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "dynasty2": {
+        "id": 35,
+        "name": "民国初期",
+        "range": "1912-1927"
+      },
+      "overlapRange": "1912-1927"
+    },
+    {
+      "dynasty1": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "dynasty2": {
+        "id": 36,
+        "name": "民国中期",
+        "range": "1927-1937"
+      },
+      "overlapRange": "1927-1937"
+    },
+    {
+      "dynasty1": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "dynasty2": {
+        "id": 37,
+        "name": "抗战时期",
+        "range": "1937-1945"
+      },
+      "overlapRange": "1937-1945"
+    },
+    {
+      "dynasty1": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "dynasty2": {
+        "id": 38,
+        "name": "解放战争",
+        "range": "1945-1949"
+      },
+      "overlapRange": "1945-1949"
+    },
+    {
+      "dynasty1": {
+        "id": 17,
+        "name": "民国",
+        "range": "1912-1949"
+      },
+      "dynasty2": {
+        "id": 18,
+        "name": "中华人民共和国",
+        "range": "1949-2100"
+      },
+      "overlapRange": "1949-1949"
+    },
+    {
+      "dynasty1": {
+        "id": 35,
+        "name": "民国初期",
+        "range": "1912-1927"
+      },
+      "dynasty2": {
+        "id": 36,
+        "name": "民国中期",
+        "range": "1927-1937"
+      },
+      "overlapRange": "1927-1927"
+    },
+    {
+      "dynasty1": {
+        "id": 36,
+        "name": "民国中期",
+        "range": "1927-1937"
+      },
+      "dynasty2": {
+        "id": 37,
+        "name": "抗战时期",
+        "range": "1937-1945"
+      },
+      "overlapRange": "1937-1937"
+    },
+    {
+      "dynasty1": {
+        "id": 37,
+        "name": "抗战时期",
+        "range": "1937-1945"
+      },
+      "dynasty2": {
+        "id": 38,
+        "name": "解放战争",
+        "range": "1945-1949"
+      },
+      "overlapRange": "1945-1945"
+    },
+    {
+      "dynasty1": {
+        "id": 38,
+        "name": "解放战争",
+        "range": "1945-1949"
+      },
+      "dynasty2": {
+        "id": 18,
+        "name": "中华人民共和国",
+        "range": "1949-2100"
+      },
+      "overlapRange": "1949-1949"
+    }
+  ]
+}
