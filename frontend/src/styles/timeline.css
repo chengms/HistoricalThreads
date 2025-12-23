@@ -1,13 +1,35 @@
-/* 时间线页面容器 */
+/* 时间线页面容器 - 深色主题 */
 .timeline-page-container {
   min-height: 100vh;
   background-attachment: fixed;
   padding: 24px;
   position: relative;
   overflow-x: hidden;
+  background: var(--cinematic-bg-dark);
+  color: var(--cinematic-text-primary);
 }
 
-/* 筛选卡片 */
+/* 深色主题背景叠加层 */
+.timeline-page-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--cinematic-bg-dark);
+  background-image: 
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.85), rgba(5, 5, 5, 0.95)),
+    radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+  background-size: cover, cover, cover;
+  background-position: center, center, center;
+  background-attachment: fixed;
+  opacity: 1;
+}
+
+/* 筛选卡片 - 深色主题 */
 .timeline-filter-card {
   margin-bottom: 32px;
   margin-left: 320px; /* 为左侧侧边栏留出空间（300px + 20px） */
@@ -15,16 +37,29 @@
   width: calc(100% - 344px); /* 减去左边距和右边距 */
   max-width: none;
   box-shadow: 
-    0 12px 32px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    0 12px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(250, 251, 255, 0.95));
+  background: rgba(20, 20, 20, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
-  border: none;
+  border: 1px solid var(--cinematic-border);
   transition: all 0.3s ease;
   /* 确保筛选卡片与固定宽度的侧边栏配合良好 */
   box-sizing: border-box;
+}
+
+.timeline-filter-card .ant-card-body {
+  color: var(--cinematic-text-primary);
+}
+
+.timeline-filter-card .ant-select-selector {
+  background: rgba(30, 30, 30, 0.8) !important;
+  border: 1px solid var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+.timeline-filter-card .ant-select-selection-item {
+  color: var(--cinematic-text-primary) !important;
 }
 
 /* 折叠状态下调整筛选卡片（由 JS 给容器加 nav-collapsed 类，避免 :has 兼容问题） */
@@ -733,9 +768,12 @@ button.dynasty-nav-item {
 .timeline-event-card {
   border-radius: 16px;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
+  border: 1px solid var(--cinematic-border);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  background: rgba(20, 20, 20, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  color: var(--cinematic-text-primary);
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   overflow: hidden;
@@ -829,7 +867,7 @@ button.dynasty-nav-item {
   margin: 0 !important;
   font-size: 18px;
   font-weight: 700;
-  color: #262626;
+  color: var(--cinematic-text-primary);
   flex: 1;
   line-height: 1.4;
   letter-spacing: 0.2px;

@@ -5,8 +5,17 @@ import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadDynasties } from '@/services/dataLoader'
 import type { Dynasty, Event, Person } from '@/types'
 import '@/styles/timeline.css'
+import '@/styles/cinematic.css'
 
 const { Title } = Typography
+
+// 辅助函数：将十六进制颜色转换为RGB
+function hexToRgb(hex: string): string {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  return result
+    ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}`
+    : '0, 0, 0'
+}
 
 // 事件类型标签颜色
 const eventTypeColors: Record<string, string> = {
@@ -171,7 +180,7 @@ export default function TimelinePage() {
     }
   }, [])
 
-  // 设置背景的函数 - 使用CSS变量实现平滑渐变过渡
+  // 设置背景的函数 - 使用深色主题叠加渐变
   const setBackgroundGradient = (gradient: typeof defaultGradient) => {
     const body = document.body
     const html = document.documentElement
@@ -180,29 +189,33 @@ export default function TimelinePage() {
     const contentWrapper = document.querySelector('.ant-layout-content > div')
     const root = document.getElementById('root')
     
+    // 应用深色主题类
     if (body && html) {
-      // 使用CSS变量来存储渐变的起始和结束颜色，实现平滑过渡
-      body.style.setProperty('--gradient-start', gradient.start)
-      body.style.setProperty('--gradient-end', gradient.end)
-      body.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
-      body.style.setProperty('background-attachment', 'fixed', 'important')
-      body.style.setProperty('transition', '--gradient-start 2s ease-in-out, --gradient-end 2s ease-in-out', 'important')
-      body.style.setProperty('min-height', '100vh', 'important')
-      body.classList.add('timeline-page-active')
+      body.classList.add('cinematic-theme', 'timeline-page-active')
+      html.classList.add('cinematic-theme', 'timeline-page-active')
       
-      html.style.setProperty('--gradient-start', gradient.start)
-      html.style.setProperty('--gradient-end', gradient.end)
-      html.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
+      // 使用深色背景，叠加半透明渐变
+      const overlayGradient = `linear-gradient(135deg, 
+        rgba(${hexToRgb(gradient.start)}, 0.15) 0%, 
+        rgba(${hexToRgb(gradient.end)}, 0.15) 100%)`
+      
+      body.style.setProperty('background', 'var(--cinematic-bg-dark)', 'important')
+      body.style.setProperty('background-attachment', 'fixed', 'important')
+      body.style.setProperty('min-height', '100vh', 'important')
+      
+      html.style.setProperty('background', 'var(--cinematic-bg-dark)', 'important')
       html.style.setProperty('background-attachment', 'fixed', 'important')
-      html.style.setProperty('transition', '--gradient-start 2s ease-in-out, --gradient-end 2s ease-in-out', 'important')
       html.style.setProperty('min-height', '100vh', 'important')
-      html.classList.add('timeline-page-active')
+      
+      // 在时间线容器上应用渐变叠加
+      const timelineContainer = document.querySelector('.timeline-page-container')
+      if (timelineContainer) {
+        (timelineContainer as HTMLElement).style.setProperty('background-image', overlayGradient, 'important')
+      }
       
       // 确保根元素也设置背景
       if (root) {
-        root.style.setProperty('--gradient-start', gradient.start)
-        root.style.setProperty('--gradient-end', gradient.end)
-        root.style.setProperty('background', 'linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%)', 'important')
+        root.style.setProperty('background', 'var(--cinematic-bg-dark)', 'important')
         root.style.setProperty('min-height', '100vh', 'important')
       }
       

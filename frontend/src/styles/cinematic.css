@@ -1,0 +1,203 @@
+/* 电影工作室风格样式 - 参考 https://cinematic-studio-3.aura.build/ */
+
+/* 全局深色主题变量 */
+:root {
+  --cinematic-bg-dark: #0a0a0a;
+  --cinematic-bg-darker: #050505;
+  --cinematic-text-primary: #ffffff;
+  --cinematic-text-secondary: #e5e5e5;
+  --cinematic-text-muted: #a0a0a0;
+  --cinematic-accent-gold: #d4af37;
+  --cinematic-accent-gold-light: #f4d03f;
+  --cinematic-border: rgba(255, 255, 255, 0.1);
+  --cinematic-overlay: rgba(0, 0, 0, 0.4);
+}
+
+/* 深色背景 */
+body.cinematic-theme,
+html.cinematic-theme {
+  background: var(--cinematic-bg-dark);
+  color: var(--cinematic-text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+}
+
+/* 导航栏 - 深色透明 */
+.cinematic-header {
+  background: rgba(10, 10, 10, 0.8) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--cinematic-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.cinematic-header .ant-menu {
+  background: transparent !important;
+}
+
+.cinematic-header .ant-menu-item {
+  color: var(--cinematic-text-primary) !important;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.cinematic-header .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
+
+.cinematic-header .ant-menu-item-selected {
+  background: rgba(212, 175, 55, 0.2) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
+
+/* 标题样式 - Serif字体 */
+.cinematic-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--cinematic-text-primary);
+}
+
+.cinematic-title-large {
+  font-size: 4rem;
+  line-height: 1.1;
+  font-weight: 300;
+}
+
+.cinematic-title-medium {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.cinematic-subtitle {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cinematic-accent-gold);
+  font-weight: 500;
+}
+
+/* 金色强调文字 */
+.cinematic-accent {
+  color: var(--cinematic-accent-gold);
+}
+
+.cinematic-accent-light {
+  color: var(--cinematic-accent-gold-light);
+}
+
+/* 卡片样式 - 深色半透明 */
+.cinematic-card {
+  background: rgba(20, 20, 20, 0.6) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--cinematic-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  color: var(--cinematic-text-primary);
+}
+
+.cinematic-card .ant-card-head {
+  background: transparent;
+  border-bottom: 1px solid var(--cinematic-border);
+  color: var(--cinematic-text-primary);
+}
+
+.cinematic-card .ant-card-body {
+  color: var(--cinematic-text-secondary);
+}
+
+/* 按钮样式 */
+.cinematic-button {
+  background: transparent;
+  border: 1px solid var(--cinematic-border);
+  color: var(--cinematic-text-primary);
+  border-radius: 24px;
+  padding: 8px 24px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.cinematic-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cinematic-accent-gold);
+  color: var(--cinematic-accent-gold);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.cinematic-button-primary {
+  background: var(--cinematic-accent-gold);
+  border-color: var(--cinematic-accent-gold);
+  color: var(--cinematic-bg-dark);
+}
+
+.cinematic-button-primary:hover {
+  background: var(--cinematic-accent-gold-light);
+  border-color: var(--cinematic-accent-gold-light);
+  color: var(--cinematic-bg-dark);
+}
+
+/* 输入框样式 */
+.cinematic-input {
+  background: rgba(20, 20, 20, 0.6) !important;
+  border: 1px solid var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+  border-radius: 8px;
+}
+
+.cinematic-input::placeholder {
+  color: var(--cinematic-text-muted) !important;
+}
+
+.cinematic-input:focus {
+  border-color: var(--cinematic-accent-gold) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+}
+
+/* 标签样式 */
+.cinematic-tag {
+  background: rgba(212, 175, 55, 0.15) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  color: var(--cinematic-accent-gold) !important;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* 分隔线 */
+.cinematic-divider {
+  border-color: var(--cinematic-border) !important;
+  margin: 24px 0;
+}
+
+/* 背景图片叠加层 */
+.cinematic-background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: var(--cinematic-bg-dark);
+  background-image: 
+    linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.95)),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:%23000;stop-opacity:1" /><stop offset="100%" style="stop-color:%23111;stop-opacity:1" /></linearGradient></defs><rect width="1200" height="800" fill="url(%23grad)"/></svg>');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.6;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .cinematic-title-large {
+    font-size: 2.5rem;
+  }
+  
+  .cinematic-title-medium {
+    font-size: 1.75rem;
+  }
+}
+

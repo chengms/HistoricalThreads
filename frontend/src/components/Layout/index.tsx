@@ -15,6 +15,7 @@ import type { InputRef } from 'antd'
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { searchEvents, searchPersons } from '@/services/dataLoader'
 import './index.css'
+import '@/styles/cinematic.css'
 
 const { Header, Content, Footer } = AntLayout
 
@@ -203,7 +204,7 @@ export default function Layout({ children }: LayoutProps) {
       className="min-h-screen"
       style={isTimelinePage ? { background: 'transparent' } : {}}
     >
-      <Header className="text-white px-3 sm:px-6" style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #2563eb 100%)' }}>
+      <Header className="cinematic-header text-white px-3 sm:px-6">
         <div className="flex items-center h-full gap-2 sm:gap-4" style={{ minWidth: 0 }}>
           {/* 标题 - 在小屏幕上缩短 */}
           <div 
