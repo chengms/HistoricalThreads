@@ -122,6 +122,40 @@ function getDynastyFamilyGroup(dynastyName: string): string {
   return baseName
 }
 
+// 获取同一朝代的所有时期ID（包括主朝代和所有子时期）
+function getDynastyFamilyIds(
+  dynastyId: number,
+  dynasties: any[],
+  dynastyNameById: Map<number, string>
+): Set<number> {
+  const selectedDynasty = dynasties.find(d => d.id === dynastyId)
+  if (!selectedDynasty) return new Set([dynastyId])
+  
+  const selectedName = dynastyNameById.get(dynastyId) || selectedDynasty.name || ''
+  const selectedFamily = getDynastyFamilyGroup(selectedName)
+  
+  const familyIds = new Set<number>([dynastyId])
+  
+  // 找到所有属于同一家族的朝代
+  for (const d of dynasties) {
+    const dName = dynastyNameById.get(d.id) || d.name || ''
+    const dFamily = getDynastyFamilyGroup(dName)
+    
+    // 检查是否是同一家族
+    if (dFamily && selectedFamily && (
+      dFamily === selectedFamily ||
+      (dFamily.length > 0 && selectedFamily.length > 0 && (
+        dFamily.includes(selectedFamily) ||
+        selectedFamily.includes(dFamily)
+      ))
+    )) {
+      familyIds.add(d.id)
+    }
+  }
+  
+  return familyIds
+}
+
 function packCircles(
   keys: number[], 
   radiiByKey: Map<number, number>, 
@@ -484,7 +518,15 @@ export default function NetworkPage() {
 
       let filtered = allPersons
       if (dynastyId !== null && Number.isFinite(dynastyId)) {
-        filtered = filtered.filter(p => p.dynastyId === dynastyId)
+        // 获取同一朝代的所有时期ID（包括主朝代和所有子时期）
+        const dynastyNameById = new Map<number, string>(
+          (dynasties || []).map((d: any) => [Number(d.id), String(d.name)])
+        )
+        const familyIds = getDynastyFamilyIds(dynastyId, dynasties || [], dynastyNameById)
+        filtered = filtered.filter(p => {
+          const pDynastyId = p.dynastyId
+          return pDynastyId !== null && pDynastyId !== undefined && familyIds.has(pDynastyId)
+        })
       }
 
       if (q) {
@@ -517,7 +559,7 @@ export default function NetworkPage() {
         searchDebounceTimerRef.current = null
       }
     }
-  }, [dynasty, searchText, allPersons, allRelationships])
+  }, [dynasty, searchText, allPersons, allRelationships, dynasties])
 
   // 更新网络图
   useEffect(() => {
