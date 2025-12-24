@@ -48,3 +48,4 @@ prisma/migrations/
 # Cursor rules (keep local, do not commit)
 .cursorrules
 
+.claude/settings.local.json
