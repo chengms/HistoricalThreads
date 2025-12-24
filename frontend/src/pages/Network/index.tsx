@@ -109,11 +109,16 @@ function circlesOverlap(a: PackedCircle, b: PackedCircle, gap: number): boolean 
 
 // 识别同一朝代的不同阶段（父子关系）
 function getDynastyFamilyGroup(dynastyName: string): string {
+  if (!dynastyName) return ''
   // 提取朝代的基础名称（去掉"前期"、"中期"、"后期"、"初期"等后缀）
-  const baseName = dynastyName
+  let baseName = dynastyName
     .replace(/(前期|中期|后期|初期)$/, '')
     .replace(/(初|盛|中|晚)(唐|宋|汉|晋|清|明)$/, '$2')
     .replace(/^(西|东|北|南)(汉|晋|宋|周)$/, '$2')
+  
+  // 统一处理：去掉"朝"字，确保"唐朝"和"初唐"都能识别为"唐"
+  baseName = baseName.replace(/朝$/, '')
+  
   return baseName
 }
 
@@ -186,7 +191,14 @@ function packCircles(
         let yearDiff = Infinity
         
         // Check if same family (same dynasty different stages)
-        const isSameFamily = itemFamily && pFamily && itemFamily === pFamily && itemName !== pName
+        // Also check if names share the same base character (e.g., "唐朝" and "初唐" both contain "唐")
+        const isSameFamily = itemFamily && pFamily && (
+          itemFamily === pFamily || 
+          (itemFamily.length > 0 && pFamily.length > 0 && (
+            itemFamily.includes(pFamily) || 
+            pFamily.includes(itemFamily)
+          ))
+        ) && itemName !== pName
         
         // Check if one contains the other (parent-child relationship)
         const isParentChild = itemEndYear && pEndYear && (
@@ -285,7 +297,14 @@ function packCircles(
           }
           
           // Check if same family (same dynasty different stages)
-          const isSameFamily = itemFamily && pFamily && itemFamily === pFamily && itemName !== pName
+          // Also check if names share the same base character (e.g., "唐朝" and "初唐" both contain "唐")
+          const isSameFamily = itemFamily && pFamily && (
+            itemFamily === pFamily || 
+            (itemFamily.length > 0 && pFamily.length > 0 && (
+              itemFamily.includes(pFamily) || 
+              pFamily.includes(itemFamily)
+            ))
+          ) && itemName !== pName
           
           // Check if one contains the other (parent-child relationship)
           const isParentChild = itemEndYear && pEndYear && (
@@ -352,9 +371,10 @@ function packCircles(
         }
       }
       
-      // Time bonus should dominate the score for time-adjacent dynasties
-      // Reduce the weight of area and centerDist when we have strong time bonuses
-      const timeWeightFactor = timeBonus > 1000 ? 0.1 : 1.0 // reduce other factors when time is very important
+      // Time bonus should dominate the score for time-adjacent dynasties and same-family dynasties
+      // For same-family dynasties, almost completely ignore area and centerDist
+      const isSameFamilyDynasty = timeBonus > 3000 // same-family dynasties get very high bonuses
+      const timeWeightFactor = isSameFamilyDynasty ? 0.01 : (timeBonus > 1000 ? 0.1 : 1.0)
       const score = area * 1e-6 * timeWeightFactor + centerDist * 0.1 * timeWeightFactor - timeBonus - chronologicalBonus
       if (score < bestScore) {
         bestScore = score
