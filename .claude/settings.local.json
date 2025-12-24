@@ -1,9 +1,11 @@
 {
-  "outputStyle": "default",
-  "spinnerTipsEnabled": true,
   "permissions": {
     "allow": [
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(node:*)",
+      "Bash(npm run dev)"
     ]
-  }
+  },
+  "outputStyle": "default",
+  "spinnerTipsEnabled": true
 }
