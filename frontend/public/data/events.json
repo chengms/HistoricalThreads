@@ -35,7 +35,8 @@
     "dynastyId": 2,
     "location": "鸣条",
     "persons": [
-      2
+      2,
+      484
     ],
     "sources": [
       1,
@@ -62,7 +63,8 @@
     "dynastyId": 3,
     "location": "牧野",
     "persons": [
-      3
+      3,
+      485
     ],
     "sources": [
       1,
@@ -91,7 +93,9 @@
     "persons": [
       4,
       5,
-      6
+      6,
+      486,
+      487
     ],
     "sources": [
       2,
@@ -327,7 +331,8 @@
       17,
       18,
       19,
-      20
+      20,
+      491
     ],
     "sources": [
       4,
