@@ -51,7 +51,13 @@ export default function KnowledgePointsPage() {
     const qq = q.trim().toLowerCase()
     return kps.filter(kp => {
       if (stage !== 'all' && kp.stage !== stage) return false
-      if (category !== 'all' && (kp.category || '') !== category) return false
+      if (category !== 'all') {
+        const kpCategory = kp.category || ''
+        // 精确匹配或子类目匹配（如"中国古代史"包含"中国古代史/政治"）
+        if (kpCategory !== category && !kpCategory.startsWith(category + '/')) {
+          return false
+        }
+      }
       if (!qq) return true
       const hay = [
         kp.title,
