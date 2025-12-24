@@ -107,12 +107,27 @@ function circlesOverlap(a: PackedCircle, b: PackedCircle, gap: number): boolean 
   return dx * dx + dy * dy < minDist * minDist
 }
 
-function packCircles(keys: number[], radiiByKey: Map<number, number>, gap: number): Map<number, { x: number; y: number }> {
+function packCircles(
+  keys: number[], 
+  radiiByKey: Map<number, number>, 
+  gap: number,
+  startYearByKey?: Map<number, number>
+): Map<number, { x: number; y: number }> {
   // Simple greedy packing: place circles one by one near existing circles, choosing a non-overlapping candidate
   // that minimizes bounding-box area (keeps the cluster compact). N is small so brute-force candidates is fine.
+  // If startYearByKey is provided, prioritize placing time-adjacent dynasties close together.
   const items = [...keys].map(k => ({ id: k, r: radiiByKey.get(k) || 260 }))
-  // place larger circles first for better packing
-  items.sort((a, b) => b.r - a.r)
+  // place larger circles first for better packing, but if we have time info, also consider chronological order
+  if (startYearByKey) {
+    items.sort((a, b) => {
+      const yearA = startYearByKey.get(a.id) ?? 0
+      const yearB = startYearByKey.get(b.id) ?? 0
+      if (yearA !== yearB) return yearA - yearB // chronological order first
+      return b.r - a.r // then by size
+    })
+  } else {
+    items.sort((a, b) => b.r - a.r)
+  }
 
   const placed: PackedCircle[] = []
   const posById = new Map<number, { x: number; y: number }>()
@@ -139,9 +154,31 @@ function packCircles(keys: number[], radiiByKey: Map<number, number>, gap: numbe
     const candidates: Array<{ x: number; y: number }> = []
 
     // candidate positions around each placed circle
-    for (const p of placed) {
+    // Prioritize positions near time-adjacent dynasties if we have time info
+    const placedWithPriority: Array<{ circle: PackedCircle; priority: number }> = []
+    if (startYearByKey) {
+      const itemYear = startYearByKey.get(item.id) ?? 0
+      for (const p of placed) {
+        const pYear = startYearByKey.get(p.id) ?? 0
+        let priority = 1.0
+        if (itemYear !== 0 && pYear !== 0) {
+          const yearDiff = Math.abs(itemYear - pYear)
+          // Higher priority for dynasties within 300 years
+          if (yearDiff < 300) {
+            priority = 1.0 + (300 - yearDiff) / 300 // 1.0 to 2.0
+          }
+        }
+        placedWithPriority.push({ circle: p, priority })
+      }
+      // Sort by priority (highest first)
+      placedWithPriority.sort((a, b) => b.priority - a.priority)
+    } else {
+      placed.forEach(p => placedWithPriority.push({ circle: p, priority: 1.0 }))
+    }
+
+    for (const { circle: p, priority } of placedWithPriority) {
       const dist = p.r + item.r + gap
-      const steps = 24
+      const steps = priority > 1.0 ? 32 : 24 // More candidates for high-priority circles
       for (let i = 0; i < steps; i++) {
         const t = (2 * Math.PI * i) / steps
         candidates.push({ x: p.x + dist * Math.cos(t), y: p.y + dist * Math.sin(t) })
@@ -171,7 +208,27 @@ function packCircles(keys: number[], radiiByKey: Map<number, number>, gap: numbe
 
       const area = evalBBoxArea([...placed, c])
       const centerDist = c.x * c.x + c.y * c.y
-      const score = area * 1e-6 + centerDist // keep compact then near origin
+      
+      // If we have time info, add a bonus for being close to time-adjacent dynasties
+      let timeBonus = 0
+      if (startYearByKey) {
+        const itemYear = startYearByKey.get(item.id) ?? 0
+        for (const p of placed) {
+          const pYear = startYearByKey.get(p.id) ?? 0
+          if (pYear === 0 || itemYear === 0) continue // skip unknown years
+          const yearDiff = Math.abs(itemYear - pYear)
+          if (yearDiff < 400) { // consider dynasties within 400 years
+            const dist = Math.sqrt((c.x - p.x) ** 2 + (c.y - p.y) ** 2)
+            // Bonus increases as year difference decreases and spatial distance decreases
+            // This encourages time-close dynasties to be spatially close
+            const timeWeight = (400 - yearDiff) / 400 // 0 to 1, higher for closer years
+            const spaceWeight = Math.max(0, 1 - dist / 500) // 0 to 1, higher for closer space
+            timeBonus += timeWeight * spaceWeight * 500 // bonus up to 500
+          }
+        }
+      }
+      
+      const score = area * 1e-6 + centerDist * 0.1 - timeBonus // subtract bonus to prefer better positions
       if (score < bestScore) {
         bestScore = score
         best = c
@@ -388,8 +445,9 @@ export default function NetworkPage() {
     }
 
     // Pack dynasty circles tightly (no big empty hole). Circles can be almost touching.
+    // Pass time information so time-adjacent dynasties are placed close together.
     const CIRCLE_GAP = 6
-    const packed = packCircles(dynastyKeys, circleRadiusByDynasty, CIRCLE_GAP)
+    const packed = packCircles(dynastyKeys, circleRadiusByDynasty, CIRCLE_GAP, dynastyStartById)
     for (const dk of dynastyKeys) {
       anchorPosByDynasty.set(dk, packed.get(dk) || { x: 0, y: 0 })
     }
