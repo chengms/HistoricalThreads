@@ -376,24 +376,28 @@ export default function SuggestionsListPage() {
     const suggestion = parseSuggestionContent(selectedComment.comment)
 
     return (
-      <Card>
+      <Card className="cinematic-card">
         <Space direction="vertical" style={{ width: '100%' }} size="large">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Title level={3}>建议详情</Title>
-            <Button onClick={() => setViewMode('list')}>返回列表</Button>
+            <Title level={3} style={{ color: 'var(--cinematic-text-primary)', margin: 0 }}>建议详情</Title>
+            <Button onClick={() => setViewMode('list')} className="cinematic-button">返回列表</Button>
           </div>
 
           <Descriptions bordered column={1}>
             <Descriptions.Item label="提交人">
-              {selectedComment.nick}
-              {selectedComment.mail && (
-                <span style={{ marginLeft: 8, color: '#666' }}>
-                  ({selectedComment.mail})
-                </span>
-              )}
+              <span style={{ color: 'var(--cinematic-text-primary)' }}>
+                {selectedComment.nick}
+                {selectedComment.mail && (
+                  <span style={{ marginLeft: 8, color: 'var(--cinematic-text-muted)' }}>
+                    ({selectedComment.mail})
+                  </span>
+                )}
+              </span>
             </Descriptions.Item>
             <Descriptions.Item label="提交时间">
-              {formatDate(selectedComment.created)}
+              <span style={{ color: 'var(--cinematic-text-primary)' }}>
+                {formatDate(selectedComment.created)}
+              </span>
             </Descriptions.Item>
             {suggestion.type && (
               <Descriptions.Item label="建议类型">
@@ -401,10 +405,12 @@ export default function SuggestionsListPage() {
               </Descriptions.Item>
             )}
             {suggestion.time && (
-              <Descriptions.Item label="时间">{suggestion.time}</Descriptions.Item>
+              <Descriptions.Item label="时间">
+                <span style={{ color: 'var(--cinematic-text-primary)' }}>{suggestion.time}</span>
+              </Descriptions.Item>
             )}
             <Descriptions.Item label="详细描述">
-              <Paragraph style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
+              <Paragraph style={{ whiteSpace: 'pre-wrap', margin: 0, color: 'var(--cinematic-text-secondary)' }}>
                 {suggestion.description || selectedComment.comment}
               </Paragraph>
             </Descriptions.Item>
@@ -432,22 +438,53 @@ export default function SuggestionsListPage() {
               <Descriptions.Item label="信息来源">
                 <Space direction="vertical" size="small" style={{ width: '100%' }}>
                   {suggestion.sources.map((source: any, index: number) => (
-                    <Card key={index} size="small" style={{ backgroundColor: '#fafafa' }}>
-                      <div><strong>类型：</strong>{source.sourceType || '未知'}</div>
-                      <div><strong>标题：</strong>{source.title || '未填写'}</div>
+                    <Card key={index} size="small" className="cinematic-card" style={{ backgroundColor: 'rgba(30, 30, 30, 0.6)' }}>
+                      <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                        <strong style={{ color: 'var(--cinematic-accent-gold)' }}>类型：</strong>
+                        <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.sourceType || '未知'}</span>
+                      </div>
+                      <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                        <strong style={{ color: 'var(--cinematic-accent-gold)' }}>标题：</strong>
+                        <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.title || '未填写'}</span>
+                      </div>
                       {source.url && (
-                        <div>
-                          <strong>链接：</strong>
-                          <a href={source.url} target="_blank" rel="noopener noreferrer">
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>链接：</strong>
+                          <a href={source.url} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--cinematic-accent-gold)' }}>
                             {source.url}
                           </a>
                         </div>
                       )}
-                      {source.author && <div><strong>作者：</strong>{source.author}</div>}
-                      {source.publisher && <div><strong>出版社：</strong>{source.publisher}</div>}
-                      {source.publishDate && <div><strong>出版日期：</strong>{source.publishDate}</div>}
-                      {source.page && <div><strong>页码：</strong>{source.page}</div>}
-                      {source.line && <div><strong>行数：</strong>{source.line}</div>}
+                      {source.author && (
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>作者：</strong>
+                          <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.author}</span>
+                        </div>
+                      )}
+                      {source.publisher && (
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>出版社：</strong>
+                          <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.publisher}</span>
+                        </div>
+                      )}
+                      {source.publishDate && (
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>出版日期：</strong>
+                          <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.publishDate}</span>
+                        </div>
+                      )}
+                      {source.page && (
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>页码：</strong>
+                          <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.page}</span>
+                        </div>
+                      )}
+                      {source.line && (
+                        <div style={{ color: 'var(--cinematic-text-primary)' }}>
+                          <strong style={{ color: 'var(--cinematic-accent-gold)' }}>行数：</strong>
+                          <span style={{ color: 'var(--cinematic-text-secondary)' }}>{source.line}</span>
+                        </div>
+                      )}
                     </Card>
                   ))}
                 </Space>
