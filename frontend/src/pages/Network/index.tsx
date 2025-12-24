@@ -213,9 +213,11 @@ export default function NetworkPage() {
   const [relationships, setRelationships] = useState<Relationship[]>([])
   const [dynasties, setDynasties] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const errorShownRef = useRef(false)
 
   // 加载数据
   useEffect(() => {
+    let cancelled = false
     async function fetchData() {
       try {
         setLoading(true)
@@ -224,19 +226,31 @@ export default function NetworkPage() {
           loadRelationships(),
           loadDynasties(),
         ])
+        if (cancelled) return
         setAllPersons(personsData)
         setAllRelationships(relationshipsData)
         setPersons(personsData)
         setRelationships(relationshipsData)
         setDynasties(dynastiesData)
+        errorShownRef.current = false
       } catch (error) {
+        if (cancelled) return
         console.error('加载数据失败:', error)
-        message.error('加载数据失败，请刷新页面重试')
+        if (!errorShownRef.current) {
+          errorShownRef.current = true
+          const errorMsg = error instanceof Error ? error.message : '未知错误'
+          message.error(`加载数据失败: ${errorMsg}，请刷新页面重试`)
+        }
       } finally {
-        setLoading(false)
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
     fetchData()
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   // 页面卸载时清理 vis-network 实例，避免内存泄漏/残留监听

@@ -89,6 +89,7 @@ export default function TimelinePage() {
   const [events, setEvents] = useState<Event[]>([])
   const [dynasties, setDynasties] = useState<Dynasty[]>([])
   const [loading, setLoading] = useState(true)
+  const errorShownRef = useRef(false)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   // 悬浮导航按钮可见性（桌面端可自动隐藏；移动端始终可见）
   const [floatingNavVisible, setFloatingNavVisible] = useState<boolean>(false)
@@ -238,6 +239,7 @@ export default function TimelinePage() {
 
   // 加载数据
   useEffect(() => {
+    let cancelled = false
     async function fetchData() {
       try {
         setLoading(true)
@@ -245,6 +247,7 @@ export default function TimelinePage() {
           loadEvents(),
           loadDynasties(),
         ])
+        if (cancelled) return
         setEvents(eventsData)
         setDynasties(dynastiesData)
         
@@ -258,17 +261,30 @@ export default function TimelinePage() {
           
           // 使用 setTimeout 确保 DOM 已渲染
           setTimeout(() => {
-            setBackgroundGradient(gradient)
+            if (!cancelled) {
+              setBackgroundGradient(gradient)
+            }
           }, 300)
         }
+        errorShownRef.current = false
       } catch (error) {
+        if (cancelled) return
         console.error('加载数据失败:', error)
-        message.error('加载数据失败，请刷新页面重试')
+        if (!errorShownRef.current) {
+          errorShownRef.current = true
+          const errorMsg = error instanceof Error ? error.message : '未知错误'
+          message.error(`加载数据失败: ${errorMsg}，请刷新页面重试`)
+        }
       } finally {
-        setLoading(false)
+        if (!cancelled) {
+          setLoading(false)
+        }
       }
     }
     fetchData()
+    return () => {
+      cancelled = true
+    }
     
     // 组件卸载时清理背景
     return () => {
