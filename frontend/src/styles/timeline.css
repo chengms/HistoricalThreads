@@ -928,9 +928,14 @@ button.dynasty-nav-item {
 
 .event-citations-label {
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.55);
+  color: var(--cinematic-text-secondary, rgba(255, 255, 255, 0.7));
   flex: 0 0 auto;
   padding-top: 2px;
+}
+
+/* 深色主题下的引用标签 */
+body.cinematic-theme .event-citations-label {
+  color: var(--cinematic-text-secondary) !important;
 }
 
 .event-citations-list {
@@ -949,9 +954,14 @@ button.dynasty-nav-item {
 
 .event-citations-group-label {
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--cinematic-text-secondary, rgba(255, 255, 255, 0.7));
   flex: 0 0 auto;
   padding-top: 2px;
+}
+
+/* 深色主题下的引用组标签 */
+body.cinematic-theme .event-citations-group-label {
+  color: var(--cinematic-text-secondary) !important;
 }
 
 .event-citations-group-items {
@@ -980,7 +990,7 @@ button.dynasty-nav-item {
 
 .citation-meta {
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--cinematic-text-muted, rgba(255, 255, 255, 0.6));
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -988,7 +998,13 @@ button.dynasty-nav-item {
 
 .citation-more {
   font-size: 12px;
-  color: rgba(0, 0, 0, 0.45);
+  color: var(--cinematic-text-muted, rgba(255, 255, 255, 0.6));
+}
+
+/* 深色主题下的引用元数据 */
+body.cinematic-theme .citation-meta,
+body.cinematic-theme .citation-more {
+  color: var(--cinematic-text-muted) !important;
 }
 
 /* 右侧人物区域 */

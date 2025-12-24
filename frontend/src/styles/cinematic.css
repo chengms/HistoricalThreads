@@ -873,3 +873,115 @@ body.cinematic-theme .text-gray-400 {
 body.cinematic-theme .text-gray-300 {
   color: var(--cinematic-text-primary) !important;
 }
+
+/* 确保所有文本元素在深色主题下都是浅色 */
+body.cinematic-theme * {
+  color: inherit;
+}
+
+/* 覆盖所有可能的黑色文字 */
+body.cinematic-theme span,
+body.cinematic-theme div,
+body.cinematic-theme p {
+  color: inherit;
+}
+
+/* 确保链接在深色主题下可见 */
+body.cinematic-theme a {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme a:hover {
+  color: var(--cinematic-accent-gold-light) !important;
+}
+
+/* 分页组件深色主题样式 */
+body.cinematic-theme .ant-pagination {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-item {
+  background: rgba(35, 35, 35, 0.9) !important;
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-pagination-item a {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-item:hover {
+  border-color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-item:hover a {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-item-active {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-item-active a {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-prev,
+body.cinematic-theme .ant-pagination-next {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-prev:hover,
+body.cinematic-theme .ant-pagination-next:hover {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-prev .ant-pagination-item-link,
+body.cinematic-theme .ant-pagination-next .ant-pagination-item-link {
+  background: rgba(35, 35, 35, 0.9) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-prev:hover .ant-pagination-item-link,
+body.cinematic-theme .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: var(--cinematic-accent-gold) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-options {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-options-size-changer .ant-select-selector {
+  background: rgba(35, 35, 35, 0.9) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-total-text {
+  color: var(--cinematic-text-secondary) !important;
+}
+
+body.cinematic-theme .ant-pagination-jump-prev,
+body.cinematic-theme .ant-pagination-jump-next {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-jump-prev:hover,
+body.cinematic-theme .ant-pagination-jump-next:hover {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-pagination-jump-prev .ant-pagination-item-link,
+body.cinematic-theme .ant-pagination-jump-next .ant-pagination-item-link {
+  background: rgba(35, 35, 35, 0.9) !important;
+  border-color: var(--cinematic-border) !important;
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-pagination-jump-prev:hover .ant-pagination-item-link,
+body.cinematic-theme .ant-pagination-jump-next:hover .ant-pagination-item-link {
+  border-color: var(--cinematic-accent-gold) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
