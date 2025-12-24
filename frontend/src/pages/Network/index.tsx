@@ -107,11 +107,23 @@ function circlesOverlap(a: PackedCircle, b: PackedCircle, gap: number): boolean 
   return dx * dx + dy * dy < minDist * minDist
 }
 
+// 识别同一朝代的不同阶段（父子关系）
+function getDynastyFamilyGroup(dynastyName: string): string {
+  // 提取朝代的基础名称（去掉"前期"、"中期"、"后期"、"初期"等后缀）
+  const baseName = dynastyName
+    .replace(/(前期|中期|后期|初期)$/, '')
+    .replace(/(初|盛|中|晚)(唐|宋|汉|晋|清|明)$/, '$2')
+    .replace(/^(西|东|北|南)(汉|晋|宋|周)$/, '$2')
+  return baseName
+}
+
 function packCircles(
   keys: number[], 
   radiiByKey: Map<number, number>, 
   gap: number,
-  startYearByKey?: Map<number, number>
+  startYearByKey?: Map<number, number>,
+  nameByKey?: Map<number, string>,
+  endYearByKey?: Map<number, number>
 ): Map<number, { x: number; y: number }> {
   // Simple greedy packing: place circles one by one near existing circles, choosing a non-overlapping candidate
   // that minimizes bounding-box area (keeps the cluster compact). N is small so brute-force candidates is fine.
@@ -155,23 +167,50 @@ function packCircles(
     const candidates: Array<{ x: number; y: number }> = []
 
     // candidate positions around each placed circle
-    // Prioritize positions near time-adjacent dynasties if we have time info
+    // Prioritize positions near time-adjacent dynasties and same-family dynasties
     const placedWithPriority: Array<{ circle: PackedCircle; priority: number; yearDiff: number }> = []
+    const itemName = nameByKey?.get(item.id) || ''
+    const itemFamily = getDynastyFamilyGroup(itemName)
+    
     if (startYearByKey) {
       const itemYear = startYearByKey.get(item.id) ?? 0
+      const itemEndYear = endYearByKey?.get(item.id)
+      
       for (const p of placed) {
         const pYear = startYearByKey.get(p.id) ?? 0
+        const pEndYear = endYearByKey?.get(p.id)
+        const pName = nameByKey?.get(p.id) || ''
+        const pFamily = getDynastyFamilyGroup(pName)
+        
         let priority = 0.5 // Lower default priority
         let yearDiff = Infinity
+        
+        // Check if same family (same dynasty different stages)
+        const isSameFamily = itemFamily && pFamily && itemFamily === pFamily && itemName !== pName
+        
+        // Check if one contains the other (parent-child relationship)
+        const isParentChild = itemEndYear && pEndYear && (
+          (itemYear >= pYear && itemEndYear <= pEndYear) || // item is child of p
+          (pYear >= itemYear && pEndYear <= itemEndYear)   // p is child of item
+        )
+        
         if (itemYear !== 0 && pYear !== 0) {
           yearDiff = Math.abs(itemYear - pYear)
-          // Much higher priority for dynasties within 200 years
-          if (yearDiff < 200) {
+          
+          // Highest priority for same family (same dynasty different stages)
+          if (isSameFamily || isParentChild) {
+            priority = 10.0 + (200 - Math.min(yearDiff, 200)) / 200 * 5.0 // 10.0 to 15.0
+          } else if (yearDiff < 200) {
+            // Much higher priority for dynasties within 200 years
             priority = 3.0 + (200 - yearDiff) / 200 * 2.0 // 3.0 to 5.0 for very close
           } else if (yearDiff < 400) {
             priority = 1.5 + (400 - yearDiff) / 200 * 1.5 // 1.5 to 3.0 for moderately close
           }
+        } else if (isSameFamily || isParentChild) {
+          // Even without year info, prioritize same family
+          priority = 8.0
         }
+        
         placedWithPriority.push({ circle: p, priority, yearDiff })
       }
       // Sort by priority (highest first), then by year difference
@@ -185,8 +224,8 @@ function packCircles(
 
     for (const { circle: p, priority } of placedWithPriority) {
       const dist = p.r + item.r + gap
-      // Generate more candidates for high-priority (time-adjacent) circles
-      const steps = priority >= 3.0 ? 48 : priority >= 1.5 ? 36 : 24
+      // Generate more candidates for high-priority (time-adjacent or same-family) circles
+      const steps = priority >= 10.0 ? 64 : priority >= 3.0 ? 48 : priority >= 1.5 ? 36 : 24
       for (let i = 0; i < steps; i++) {
         const t = (2 * Math.PI * i) / steps
         candidates.push({ x: p.x + dist * Math.cos(t), y: p.y + dist * Math.sin(t) })
@@ -217,36 +256,70 @@ function packCircles(
       const area = evalBBoxArea([...placed, c])
       const centerDist = c.x * c.x + c.y * c.y
       
-      // If we have time info, add a bonus for being close to time-adjacent dynasties
+      // If we have time info, add a bonus for being close to time-adjacent dynasties and same-family dynasties
       let timeBonus = 0
       let chronologicalBonus = 0
+      const itemName = nameByKey?.get(item.id) || ''
+      const itemFamily = getDynastyFamilyGroup(itemName)
+      const itemEndYear = endYearByKey?.get(item.id)
+      
       if (startYearByKey) {
         const itemYear = startYearByKey.get(item.id) ?? 0
         // Find the most recent dynasty (highest startYear) among placed ones
         let maxYear = -Infinity
         let mostRecentPos = { x: 0, y: 0 }
-        // Also track the closest time-adjacent dynasty
+        // Also track the closest time-adjacent or same-family dynasty
         let closestYearDiff = Infinity
         let closestPos = { x: 0, y: 0 }
+        let isClosestSameFamily = false
         
         for (const p of placed) {
           const pYear = startYearByKey.get(p.id) ?? 0
+          const pEndYear = endYearByKey?.get(p.id)
+          const pName = nameByKey?.get(p.id) || ''
+          const pFamily = getDynastyFamilyGroup(pName)
+          
           if (pYear > maxYear) {
             maxYear = pYear
             mostRecentPos = { x: p.x, y: p.y }
           }
-          if (pYear === 0 || itemYear === 0) continue // skip unknown years
+          
+          // Check if same family (same dynasty different stages)
+          const isSameFamily = itemFamily && pFamily && itemFamily === pFamily && itemName !== pName
+          
+          // Check if one contains the other (parent-child relationship)
+          const isParentChild = itemEndYear && pEndYear && (
+            (itemYear >= pYear && itemEndYear <= pEndYear) || // item is child of p
+            (pYear >= itemYear && pEndYear <= itemEndYear)   // p is child of item
+          )
+          
+          if (pYear === 0 || itemYear === 0) {
+            // Even without year info, check for same family
+            if (isSameFamily || isParentChild) {
+              const dist = Math.sqrt((c.x - p.x) ** 2 + (c.y - p.y) ** 2)
+              const spaceWeight = Math.max(0, 1 - dist / 300)
+              timeBonus += spaceWeight * 5000 // very strong bonus for same family
+            }
+            continue
+          }
+          
           const yearDiff = Math.abs(itemYear - pYear)
           const dist = Math.sqrt((c.x - p.x) ** 2 + (c.y - p.y) ** 2)
           
-          // Track the closest time-adjacent dynasty
-          if (yearDiff < closestYearDiff) {
+          // Track the closest time-adjacent or same-family dynasty
+          if (isSameFamily || isParentChild || yearDiff < closestYearDiff) {
             closestYearDiff = yearDiff
             closestPos = { x: p.x, y: p.y }
+            isClosestSameFamily = !!(isSameFamily || isParentChild)
           }
           
-          // Stronger bonus for closer dynasties (within 200 years)
-          if (yearDiff < 200) {
+          // Highest bonus for same family (same dynasty different stages)
+          if (isSameFamily || isParentChild) {
+            const timeWeight = yearDiff < 200 ? (200 - yearDiff) / 200 : 1.0
+            const spaceWeight = Math.max(0, 1 - dist / 250) // prefer very close
+            timeBonus += timeWeight * spaceWeight * 5000 // very strong bonus (up to 5000)
+          } else if (yearDiff < 200) {
+            // Stronger bonus for closer dynasties (within 200 years)
             const timeWeight = (200 - yearDiff) / 200 // 0 to 1, higher for closer years
             const spaceWeight = Math.max(0, 1 - dist / 400) // 0 to 1, higher for closer space
             timeBonus += timeWeight * spaceWeight * 2000 // much stronger bonus (up to 2000)
@@ -257,11 +330,11 @@ function packCircles(
           }
         }
         
-        // Extra bonus for being very close to the closest time-adjacent dynasty
-        if (closestYearDiff < 200) {
+        // Extra bonus for being very close to the closest time-adjacent or same-family dynasty
+        if (isClosestSameFamily || closestYearDiff < 200) {
           const distToClosest = Math.sqrt((c.x - closestPos.x) ** 2 + (c.y - closestPos.y) ** 2)
-          const closenessWeight = Math.max(0, 1 - distToClosest / 300)
-          timeBonus += closenessWeight * 1000 // additional bonus for being very close
+          const closenessWeight = Math.max(0, 1 - distToClosest / (isClosestSameFamily ? 200 : 300))
+          timeBonus += closenessWeight * (isClosestSameFamily ? 3000 : 1000) // much stronger for same family
         }
         
         // Chronological bonus: if this dynasty is later than the most recent one,
@@ -438,6 +511,9 @@ export default function NetworkPage() {
     const dynastyStartById = new Map<number, number>(
       (dynasties || []).map((d: any) => [Number(d.id), Number(d.startYear ?? 0)])
     )
+    const dynastyEndById = new Map<number, number>(
+      (dynasties || []).map((d: any) => [Number(d.id), Number(d.endYear ?? 0)])
+    )
     const personDynastyKeyById = new Map<number, number>()
     persons.forEach(p => {
       const dk = typeof p.dynastyId === 'number' ? p.dynastyId : 0
@@ -499,9 +575,9 @@ export default function NetworkPage() {
     }
 
     // Pack dynasty circles tightly (no big empty hole). Circles can be almost touching.
-    // Pass time information so time-adjacent dynasties are placed close together.
+    // Pass time and name information so time-adjacent and same-family dynasties are placed close together.
     const CIRCLE_GAP = 6
-    const packed = packCircles(dynastyKeys, circleRadiusByDynasty, CIRCLE_GAP, dynastyStartById)
+    const packed = packCircles(dynastyKeys, circleRadiusByDynasty, CIRCLE_GAP, dynastyStartById, dynastyNameById, dynastyEndById)
     for (const dk of dynastyKeys) {
       anchorPosByDynasty.set(dk, packed.get(dk) || { x: 0, y: 0 })
     }
