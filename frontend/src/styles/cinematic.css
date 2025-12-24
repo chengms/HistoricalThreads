@@ -857,3 +857,19 @@ a.cinematic-link:hover::after {
     0 0 40px var(--cinematic-accent-copper);
   animation: cinematicPulse 2s ease-in-out infinite;
 }
+
+/* 深色主题下覆盖 Tailwind 的灰色文本类 */
+body.cinematic-theme .text-gray-500,
+body.cinematic-theme .text-gray-600,
+body.cinematic-theme .text-gray-700,
+body.cinematic-theme .text-gray-800 {
+  color: var(--cinematic-text-secondary) !important;
+}
+
+body.cinematic-theme .text-gray-400 {
+  color: var(--cinematic-text-muted) !important;
+}
+
+body.cinematic-theme .text-gray-300 {
+  color: var(--cinematic-text-primary) !important;
+}

@@ -343,7 +343,7 @@ export default function TwikooComment({ path, lang = 'zh-CN' }: TwikooCommentPro
       {loading && !error && (
         <div style={{ textAlign: 'center', padding: '40px 0' }}>
           <Spin size="large" />
-          <div style={{ marginTop: 16, color: '#666' }}>正在加载评论...</div>
+          <div style={{ marginTop: 16, color: 'var(--cinematic-text-secondary)' }}>正在加载评论...</div>
         </div>
       )}
       

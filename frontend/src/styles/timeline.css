@@ -400,13 +400,22 @@
 .floating-nav-name {
   font-weight: 500;
   font-size: 14px;
-  color: #333;
+  color: var(--cinematic-text-primary, #ffffff);
   margin-bottom: 2px;
 }
 
 .floating-nav-years {
   font-size: 11px;
-  color: #666;
+  color: var(--cinematic-text-secondary, #e8e8e8);
+}
+
+/* 深色主题下的悬浮导航样式 */
+body.cinematic-theme .floating-nav-name {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .floating-nav-years {
+  color: var(--cinematic-text-secondary) !important;
 }
 
 /* 响应式设计 */

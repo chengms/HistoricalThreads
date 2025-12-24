@@ -520,7 +520,7 @@ export default function SuggestionPage() {
               <Descriptions.Item label="提交人">
                 {formatSuggestionForDisplay(submittedSuggestion).name}
                 {formatSuggestionForDisplay(submittedSuggestion).email && (
-                  <span style={{ marginLeft: 8, color: '#666' }}>
+                  <span style={{ marginLeft: 8, color: 'var(--cinematic-text-muted)' }}>
                     ({formatSuggestionForDisplay(submittedSuggestion).email})
                   </span>
                 )}

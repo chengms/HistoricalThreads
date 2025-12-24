@@ -548,7 +548,7 @@ export default function SuggestionsListPage() {
       </Card>
 
       {/* 统计信息 */}
-      <div style={{ marginBottom: 16, color: '#666' }}>
+      <div style={{ marginBottom: 16, color: 'var(--cinematic-text-secondary)' }}>
         共找到 {total} 条建议
       </div>
 
