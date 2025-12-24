@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Card, Input, Select, Space, Tag, Typography, Spin, Button } from 'antd'
+import { Card, Input, Select, Space, Tag, Typography, Spin, Button, FloatButton } from 'antd'
+import { VerticalAlignTopOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { loadEvents, loadPersons, loadKnowledgePoints } from '@/services/dataLoader'
 import type { Event, KnowledgePoint, Person } from '@/types'
@@ -208,6 +209,22 @@ export default function KnowledgePointsPage() {
           </Space>
         )}
       </Space>
+      
+      {/* 返回顶部按钮 */}
+      <FloatButton
+        icon={<VerticalAlignTopOutlined />}
+        type="primary"
+        style={{
+          right: 24,
+          bottom: 24,
+        }}
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          })
+        }}
+      />
     </div>
   )
 }
