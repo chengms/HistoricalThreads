@@ -1,4 +1,9 @@
 {
+  "outputStyle": "default",
   "spinnerTipsEnabled": true,
-  "outputStyle": "default"
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)"
+    ]
+  }
 }

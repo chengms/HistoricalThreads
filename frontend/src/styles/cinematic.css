@@ -1,16 +1,25 @@
 /* 电影工作室风格样式 - 参考 https://cinematic-studio-3.aura.build/ */
 
-/* 全局深色主题变量 */
+/* 全局深色主题变量 - 增强版 */
 :root {
   --cinematic-bg-dark: #1a1a1a;
-  --cinematic-bg-darker: #151515;
+  --cinematic-bg-darker: #0f0f0f;
+  --cinematic-bg-elevated: #242424;
   --cinematic-text-primary: #ffffff;
-  --cinematic-text-secondary: #f0f0f0;
-  --cinematic-text-muted: #b0b0b0;
+  --cinematic-text-secondary: #e8e8e8;
+  --cinematic-text-muted: #a0a0a0;
   --cinematic-accent-gold: #d4af37;
   --cinematic-accent-gold-light: #f4d03f;
-  --cinematic-border: rgba(255, 255, 255, 0.15);
-  --cinematic-overlay: rgba(0, 0, 0, 0.3);
+  --cinematic-accent-copper: #b87333;
+  --cinematic-accent-bronze: #cd7f32;
+  --cinematic-border: rgba(255, 255, 255, 0.12);
+  --cinematic-border-strong: rgba(255, 255, 255, 0.18);
+  --cinematic-overlay: rgba(0, 0, 0, 0.4);
+  --cinematic-glow-gold: rgba(212, 175, 55, 0.3);
+  --cinematic-gold-soft: rgba(212, 175, 55, 0.15);
+  --cinematic-shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --cinematic-shadow-medium: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --cinematic-shadow-strong: 0 16px 48px rgba(0, 0, 0, 0.5);
 }
 
 /* 统一的深色背景模板 - 应用到所有元素 */
@@ -59,12 +68,12 @@ body.cinematic-theme .ant-layout-content {
 }
 
 .cinematic-header .ant-menu-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   color: var(--cinematic-accent-gold) !important;
 }
 
 .cinematic-header .ant-menu-item-selected {
-  background: rgba(212, 175, 55, 0.2) !important;
+  background: rgba(212, 175, 55, 0.15) !important;
   color: var(--cinematic-accent-gold) !important;
 }
 
@@ -105,14 +114,45 @@ body.cinematic-theme .ant-layout-content {
   color: var(--cinematic-accent-gold-light);
 }
 
-/* 卡片样式 - 深色半透明 */
+/* 卡片样式 - 深色半透明增强版 */
 .cinematic-card {
-  background: rgba(35, 35, 35, 0.85) !important;
-  backdrop-filter: blur(20px) saturate(180%);
+  background: rgba(20, 20, 20, 0.8) !important;
+  backdrop-filter: blur(24px) saturate(180%);
   border: 1px solid var(--cinematic-border);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  box-shadow: var(--cinematic-shadow-medium);
   color: var(--cinematic-text-primary);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 卡片光晕效果 */
+.cinematic-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--cinematic-gold-soft) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cinematic-card:hover::before {
+  opacity: 1;
+}
+
+.cinematic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--cinematic-shadow-strong);
+  border-color: var(--cinematic-border-strong);
 }
 
 .cinematic-card .ant-card-head {
@@ -125,44 +165,75 @@ body.cinematic-theme .ant-layout-content {
   color: var(--cinematic-text-secondary);
 }
 
-/* 按钮样式 */
+/* 按钮样式 - 增强版 */
 .cinematic-button {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--cinematic-border);
   color: var(--cinematic-text-primary);
   border-radius: 24px;
-  padding: 8px 24px;
-  transition: all 0.3s ease;
+  padding: 10px 26px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-weight: 500;
   letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--cinematic-shadow-soft);
+}
+
+.cinematic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.cinematic-button:hover::before {
+  left: 100%;
 }
 
 .cinematic-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--cinematic-accent-gold);
   color: var(--cinematic-accent-gold);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+}
+
+.cinematic-button:active {
+  transform: translateY(-1px);
 }
 
 .cinematic-button-primary {
-  background: var(--cinematic-accent-gold);
+  background: linear-gradient(135deg, var(--cinematic-accent-gold) 0%, var(--cinematic-accent-copper) 100%);
   border-color: var(--cinematic-accent-gold);
   color: var(--cinematic-bg-dark);
+  box-shadow: 0 4px 16px var(--cinematic-glow-gold);
 }
 
 .cinematic-button-primary:hover {
-  background: var(--cinematic-accent-gold-light);
+  background: linear-gradient(135deg, var(--cinematic-accent-gold-light) 0%, var(--cinematic-accent-gold) 100%);
   border-color: var(--cinematic-accent-gold-light);
   color: var(--cinematic-bg-dark);
+  box-shadow: 0 6px 24px var(--cinematic-glow-gold);
 }
 
-/* 输入框样式 */
+/* 输入框样式 - 增强版 */
 .cinematic-input {
-  background: rgba(35, 35, 35, 0.85) !important;
+  background: rgba(35, 35, 35, 0.9) !important;
   border: 1px solid var(--cinematic-border) !important;
   color: var(--cinematic-text-primary) !important;
-  border-radius: 8px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cinematic-input::placeholder {
@@ -171,18 +242,29 @@ body.cinematic-theme .ant-layout-content {
 
 .cinematic-input:focus {
   border-color: var(--cinematic-accent-gold) !important;
-  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 0 0 3px var(--cinematic-gold-soft), inset 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  background: rgba(40, 40, 40, 0.95) !important;
 }
 
-/* 标签样式 */
+/* 标签样式 - 增强版 */
 .cinematic-tag {
-  background: rgba(212, 175, 55, 0.15) !important;
-  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  background: var(--cinematic-gold-soft) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
   color: var(--cinematic-accent-gold) !important;
-  border-radius: 4px;
-  padding: 4px 12px;
+  border-radius: 6px;
+  padding: 5px 14px;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cinematic-tag:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: var(--cinematic-accent-gold) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
 }
 
 /* 分隔线 */
@@ -255,11 +337,11 @@ body.cinematic-theme .ant-select-item {
 }
 
 body.cinematic-theme .ant-select-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
 }
 
 body.cinematic-theme .ant-select-item-option-selected {
-  background: rgba(212, 175, 55, 0.2) !important;
+  background: rgba(212, 175, 55, 0.15) !important;
   color: var(--cinematic-accent-gold) !important;
 }
 
@@ -355,6 +437,100 @@ body.cinematic-theme .ant-modal-footer {
   border-top-color: var(--cinematic-border) !important;
 }
 
+/* Tag 组件深色主题样式 */
+body.cinematic-theme .ant-tag {
+  background: var(--cinematic-gold-soft) !important;
+  border: 1px solid rgba(212, 175, 55, 0.3) !important;
+  color: var(--cinematic-accent-gold) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+body.cinematic-theme .ant-tag:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: var(--cinematic-accent-gold) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.15);
+}
+
+/* Tag 不同颜色的深色主题适配 */
+body.cinematic-theme .ant-tag-blue {
+  background: rgba(24, 144, 255, 0.15) !important;
+  border-color: rgba(24, 144, 255, 0.3) !important;
+  color: #40a9ff !important;
+}
+
+body.cinematic-theme .ant-tag-blue:hover {
+  background: rgba(24, 144, 255, 0.22) !important;
+  border-color: rgba(24, 144, 255, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-green {
+  background: rgba(82, 196, 26, 0.15) !important;
+  border-color: rgba(82, 196, 26, 0.3) !important;
+  color: #73d13d !important;
+}
+
+body.cinematic-theme .ant-tag-green:hover {
+  background: rgba(82, 196, 26, 0.22) !important;
+  border-color: rgba(82, 196, 26, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-orange {
+  background: rgba(250, 140, 22, 0.15) !important;
+  border-color: rgba(250, 140, 22, 0.3) !important;
+  color: #ffa940 !important;
+}
+
+body.cinematic-theme .ant-tag-orange:hover {
+  background: rgba(250, 140, 22, 0.22) !important;
+  border-color: rgba(250, 140, 22, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-red {
+  background: rgba(245, 34, 45, 0.15) !important;
+  border-color: rgba(245, 34, 45, 0.3) !important;
+  color: #ff4d4f !important;
+}
+
+body.cinematic-theme .ant-tag-red:hover {
+  background: rgba(245, 34, 45, 0.22) !important;
+  border-color: rgba(245, 34, 45, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-purple {
+  background: rgba(114, 46, 209, 0.15) !important;
+  border-color: rgba(114, 46, 209, 0.3) !important;
+  color: #b37feb !important;
+}
+
+body.cinematic-theme .ant-tag-purple:hover {
+  background: rgba(114, 46, 209, 0.22) !important;
+  border-color: rgba(114, 46, 209, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-cyan {
+  background: rgba(20, 178, 232, 0.15) !important;
+  border-color: rgba(20, 178, 232, 0.3) !important;
+  color: #13c2c2 !important;
+}
+
+body.cinematic-theme .ant-tag-cyan:hover {
+  background: rgba(20, 178, 232, 0.22) !important;
+  border-color: rgba(20, 178, 232, 0.5) !important;
+}
+
+body.cinematic-theme .ant-tag-gold {
+  background: var(--cinematic-gold-soft) !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-tag-gold:hover {
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: var(--cinematic-accent-gold) !important;
+}
+
 /* 确保所有可能的白色背景都被覆盖 */
 body.cinematic-theme .ant-empty {
   background: transparent !important;
@@ -375,9 +551,309 @@ body.cinematic-theme > div > div {
   .cinematic-title-large {
     font-size: 2.5rem;
   }
-  
+
   .cinematic-title-medium {
     font-size: 1.75rem;
   }
 }
 
+/* ========== 新增：动画和微交互效果 ========== */
+
+/* 淡入动画 */
+@keyframes cinematicFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 缩放淡入动画 */
+@keyframes cinematicScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 发光脉冲动画 */
+@keyframes cinematicPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px var(--cinematic-glow-gold);
+  }
+  50% {
+    box-shadow: 0 0 30px var(--cinematic-glow-gold), 0 0 40px rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* 流光动画 */
+@keyframes cinematicShine {
+  from {
+    background-position: -200% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* 悬浮效果类 */
+.cinematic-hover-lift {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--cinematic-shadow-strong);
+}
+
+/* 发光效果类 */
+.cinematic-glow {
+  box-shadow: 0 0 20px var(--cinematic-glow-gold);
+  transition: box-shadow 0.3s ease;
+}
+
+.cinematic-glow:hover {
+  box-shadow: 0 0 30px var(--cinematic-glow-gold), 0 0 50px rgba(212, 175, 55, 0.3);
+}
+
+/* 渐变文字效果 */
+.cinematic-gradient-text {
+  background: linear-gradient(135deg, var(--cinematic-accent-gold) 0%, var(--cinematic-accent-copper) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 玻璃态效果增强 */
+.cinematic-glass {
+  background: rgba(30, 30, 30, 0.7) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid var(--cinematic-border) !important;
+  box-shadow: var(--cinematic-shadow-medium);
+}
+
+/* 浮动动画 */
+@keyframes cinematicFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.cinematic-float {
+  animation: cinematicFloat 6s ease-in-out infinite;
+}
+
+/* 旋转发光动画 */
+@keyframes cinematicRotateGlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 背景网格效果 */
+.cinematic-grid-bg {
+  background-image:
+    linear-gradient(var(--cinematic-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cinematic-border) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center center;
+  opacity: 0.1;
+}
+
+/* 额外的卡片变体 */
+.cinematic-card-elevated {
+  background: rgba(40, 40, 40, 0.9) !important;
+  border: 1px solid var(--cinematic-border-strong) !important;
+  box-shadow: var(--cinematic-shadow-strong);
+}
+
+.cinematic-card-glass {
+  background: rgba(25, 25, 25, 0.6) !important;
+  backdrop-filter: blur(30px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 链接悬停效果 */
+a.cinematic-link {
+  color: var(--cinematic-accent-gold);
+  text-decoration: none;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+a.cinematic-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cinematic-accent-gold), var(--cinematic-accent-copper));
+  transition: width 0.3s ease;
+}
+
+a.cinematic-link:hover::after {
+  width: 100%;
+}
+
+/* 加载骨架动画 */
+@keyframes cinematicSkeleton {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.cinematic-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 100%;
+  animation: cinematicSkeleton 1.5s infinite;
+  border-radius: 8px;
+}
+
+/* 滚动显示动画 */
+.cinematic-scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cinematic-scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 鼠标跟随光晕效果 */
+.cinematic-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.cinematic-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(212, 175, 55, 0.15) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.cinematic-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* 3D 卡片翻转效果 */
+.cinematic-card-3d {
+  perspective: 1000px;
+}
+
+.cinematic-card-3d-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.cinematic-card-3d:hover .cinematic-card-3d-inner {
+  transform: rotateY(10deg) rotateX(5deg);
+}
+
+/* 波纹点击效果 */
+@keyframes cinematicRipple {
+  from {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.cinematic-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.cinematic-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cinematic-ripple:active::after {
+  animation: cinematicRipple 0.6s ease-out;
+}
+
+/* 文字描边效果 */
+.cinematic-text-stroke {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  color: transparent;
+  transition: all 0.3s ease;
+}
+
+.cinematic-text-stroke:hover {
+  -webkit-text-stroke: 1px var(--cinematic-accent-gold);
+  color: var(--cinematic-accent-gold);
+}
+
+/* 呼吸效果 */
+@keyframes cinematicBreathe {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.cinematic-breathe {
+  animation: cinematicBreathe 4s ease-in-out infinite;
+}
+
+/* 霓虹灯效果 */
+.cinematic-neon {
+  text-shadow:
+    0 0 5px var(--cinematic-accent-gold),
+    0 0 10px var(--cinematic-accent-gold),
+    0 0 20px var(--cinematic-accent-gold),
+    0 0 40px var(--cinematic-accent-copper);
+  animation: cinematicPulse 2s ease-in-out infinite;
+}

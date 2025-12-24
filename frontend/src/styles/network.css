@@ -1,43 +1,68 @@
-/* 关系图谱样式 - 电影工作室风格 */
+/* 关系图谱样式 - 电影工作室风格增强 */
 
 #network-container {
   width: 100%;
   height: 100%;
-  border: 1px solid var(--cinematic-border, rgba(255, 255, 255, 0.15));
-  border-radius: 8px;
-  background: linear-gradient(135deg, rgba(20, 20, 20, 0.4) 0%, rgba(26, 26, 26, 0.2) 100%);
+  border: 1px solid var(--cinematic-border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.5) 0%, rgba(26, 26, 26, 0.3) 100%);
+  box-shadow: var(--cinematic-shadow-strong);
+  overflow: hidden;
+  position: relative;
+}
+
+/* 网络容器背景光效 */
+#network-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .vis-network {
   outline: none;
   background: transparent !important;
+  position: relative;
+  z-index: 1;
 }
 
-/* 节点样式 - 优化视觉效果 */
+/* 节点样式 - 增强视觉效果 */
 .vis-network .vis-node {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .vis-network .vis-node:hover {
-  transform: scale(1.1);
-  filter: brightness(1.2);
+  transform: scale(1.15);
+  filter: brightness(1.25);
 }
 
 .vis-network .vis-node.vis-selected {
-  filter: brightness(1.3) drop-shadow(0 0 12px rgba(212, 175, 55, 0.6));
-  transform: scale(1.15);
+  filter: brightness(1.35) drop-shadow(0 0 16px var(--cinematic-glow-gold));
+  transform: scale(1.2);
 }
 
-/* 节点标签样式 */
+/* 节点标签样式增强 */
 .vis-network .vis-node .vis-label {
   font-family: 'Microsoft YaHei', 'Georgia', serif;
   font-weight: 500;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  letter-spacing: 0.02em;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
 }
 
-/* 边样式 - 优化视觉效果 */
+.vis-network .vis-node:hover .vis-label {
+  text-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+}
+
+/* 边样式 - 增强视觉效果 */
 .vis-network .vis-edge {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -45,34 +70,35 @@
 
 .vis-network .vis-edge:hover {
   stroke-width: 3px !important;
-  filter: brightness(1.3);
+  filter: brightness(1.4) drop-shadow(0 0 4px rgba(212, 175, 55, 0.3));
 }
 
 .vis-network .vis-edge.vis-selected {
   stroke-width: 3.5px !important;
-  filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.5));
+  filter: drop-shadow(0 0 6px var(--cinematic-glow-gold));
 }
 
-/* 边标签样式 */
+/* 边标签样式增强 */
 .vis-network .vis-edge .vis-label {
   font-family: 'Microsoft YaHei', sans-serif;
   font-weight: 500;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* 工具提示样式 */
+/* 工具提示样式增强 */
 .vis-tooltip {
-  background: rgba(26, 26, 26, 0.95) !important;
-  border: 1px solid var(--cinematic-accent-gold, #d4af37) !important;
-  border-radius: 6px !important;
-  color: var(--cinematic-text-primary, #ffffff) !important;
+  background: rgba(25, 25, 25, 0.98) !important;
+  border: 1px solid var(--cinematic-accent-gold) !important;
+  border-radius: 12px !important;
+  color: var(--cinematic-text-primary) !important;
   font-family: 'Microsoft YaHei', sans-serif !important;
-  padding: 8px 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  padding: 12px 16px !important;
+  box-shadow: var(--cinematic-shadow-strong) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  font-size: 14px;
 }
 
-/* 网络画布容器 */
+/* 网络画布容器增强 */
 .vis-network canvas {
-  border-radius: 8px;
+  border-radius: 16px;
 }
-
