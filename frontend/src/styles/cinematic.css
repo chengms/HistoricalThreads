@@ -306,6 +306,29 @@ body.cinematic-theme .ant-card-body {
   border-color: var(--cinematic-border) !important;
 }
 
+body.cinematic-theme .ant-card-actions {
+  background: rgba(25, 25, 25, 0.85) !important;
+  border-top: 1px solid var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li {
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span a,
+body.cinematic-theme .ant-card-actions > li > span button {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span a:hover,
+body.cinematic-theme .ant-card-actions > li > span button:hover {
+  color: var(--cinematic-accent-gold-light) !important;
+}
+
 body.cinematic-theme .ant-input,
 body.cinematic-theme .ant-input-affix-wrapper,
 body.cinematic-theme .ant-input-affix-wrapper .ant-input {

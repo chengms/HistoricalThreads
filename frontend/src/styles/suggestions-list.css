@@ -42,6 +42,28 @@ body.cinematic-theme .ant-descriptions-bordered .ant-descriptions-item-content {
   background: rgba(30, 30, 30, 0.6) !important;
 }
 
+/* Card actions 区域深色主题样式 */
+body.cinematic-theme .ant-card-actions {
+  background: rgba(25, 25, 25, 0.85) !important;
+  border-top: 1px solid var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li {
+  border-color: var(--cinematic-border) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span {
+  color: var(--cinematic-text-primary) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span a {
+  color: var(--cinematic-accent-gold) !important;
+}
+
+body.cinematic-theme .ant-card-actions > li > span a:hover {
+  color: var(--cinematic-accent-gold-light) !important;
+}
+
 /* 详情视图样式 */
 .suggestion-detail-card {
   max-width: 900px;
