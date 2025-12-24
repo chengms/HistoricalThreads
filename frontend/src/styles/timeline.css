@@ -787,7 +787,7 @@ button.dynasty-nav-item {
   border: 1px solid var(--cinematic-border);
   cursor: pointer;
   box-shadow: var(--cinematic-shadow-medium);
-  background: rgba(35, 35, 35, 0.9) !important;
+  background: rgba(25, 25, 25, 0.85) !important;
   backdrop-filter: blur(24px) saturate(180%);
   color: var(--cinematic-text-primary);
   overflow: hidden;

@@ -301,7 +301,7 @@ body.cinematic-theme .max-w-4xl {
 /* 全局 Ant Design 组件深色主题覆盖 */
 body.cinematic-theme .ant-card,
 body.cinematic-theme .ant-card-body {
-  background: rgba(40, 40, 40, 0.9) !important;
+  background: rgba(25, 25, 25, 0.85) !important;
   color: var(--cinematic-text-primary) !important;
   border-color: var(--cinematic-border) !important;
 }
@@ -675,13 +675,13 @@ body.cinematic-theme > div > div {
 
 /* 额外的卡片变体 */
 .cinematic-card-elevated {
-  background: rgba(40, 40, 40, 0.9) !important;
+  background: rgba(25, 25, 25, 0.85) !important;
   border: 1px solid var(--cinematic-border-strong) !important;
   box-shadow: var(--cinematic-shadow-strong);
 }
 
 .cinematic-card-glass {
-  background: rgba(25, 25, 25, 0.6) !important;
+  background: rgba(20, 20, 20, 0.6) !important;
   backdrop-filter: blur(30px) saturate(200%) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
