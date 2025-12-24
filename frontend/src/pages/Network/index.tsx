@@ -145,9 +145,10 @@ function packCircles(
 
   for (const item of items) {
     if (placed.length === 0) {
-      const c: PackedCircle = { id: item.id, r: item.r, x: 0, y: 0 }
+      // Place the first (earliest) dynasty at top-left area
+      const c: PackedCircle = { id: item.id, r: item.r, x: -200, y: -200 }
       placed.push(c)
-      posById.set(item.id, { x: 0, y: 0 })
+      posById.set(item.id, { x: -200, y: -200 })
       continue
     }
 
@@ -211,10 +212,18 @@ function packCircles(
       
       // If we have time info, add a bonus for being close to time-adjacent dynasties
       let timeBonus = 0
+      let chronologicalBonus = 0
       if (startYearByKey) {
         const itemYear = startYearByKey.get(item.id) ?? 0
+        // Find the most recent dynasty (highest startYear) among placed ones
+        let maxYear = -Infinity
+        let mostRecentPos = { x: 0, y: 0 }
         for (const p of placed) {
           const pYear = startYearByKey.get(p.id) ?? 0
+          if (pYear > maxYear) {
+            maxYear = pYear
+            mostRecentPos = { x: p.x, y: p.y }
+          }
           if (pYear === 0 || itemYear === 0) continue // skip unknown years
           const yearDiff = Math.abs(itemYear - pYear)
           if (yearDiff < 400) { // consider dynasties within 400 years
@@ -226,9 +235,23 @@ function packCircles(
             timeBonus += timeWeight * spaceWeight * 500 // bonus up to 500
           }
         }
+        
+        // Chronological bonus: if this dynasty is later than the most recent one,
+        // prefer placing it to the right and down (time flows left-to-right, top-to-bottom)
+        if (itemYear > maxYear && maxYear !== -Infinity) {
+          // Prefer positions to the right and down from the most recent dynasty
+          const rightBonus = Math.max(0, c.x - mostRecentPos.x) * 3 // prefer right (stronger)
+          const downBonus = Math.max(0, c.y - mostRecentPos.y) * 2 // prefer down (stronger)
+          chronologicalBonus = (rightBonus + downBonus) * 0.5 // stronger weight
+        } else if (itemYear < maxYear && maxYear !== -Infinity) {
+          // If this dynasty is earlier, prefer positions to the left and up
+          const leftBonus = Math.max(0, mostRecentPos.x - c.x) * 3
+          const upBonus = Math.max(0, mostRecentPos.y - c.y) * 2
+          chronologicalBonus = (leftBonus + upBonus) * 0.5
+        }
       }
       
-      const score = area * 1e-6 + centerDist * 0.1 - timeBonus // subtract bonus to prefer better positions
+      const score = area * 1e-6 + centerDist * 0.1 - timeBonus - chronologicalBonus // subtract bonuses to prefer better positions
       if (score < bestScore) {
         bestScore = score
         best = c
