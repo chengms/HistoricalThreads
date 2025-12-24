@@ -156,30 +156,37 @@ function packCircles(
 
     // candidate positions around each placed circle
     // Prioritize positions near time-adjacent dynasties if we have time info
-    const placedWithPriority: Array<{ circle: PackedCircle; priority: number }> = []
+    const placedWithPriority: Array<{ circle: PackedCircle; priority: number; yearDiff: number }> = []
     if (startYearByKey) {
       const itemYear = startYearByKey.get(item.id) ?? 0
       for (const p of placed) {
         const pYear = startYearByKey.get(p.id) ?? 0
-        let priority = 1.0
+        let priority = 0.5 // Lower default priority
+        let yearDiff = Infinity
         if (itemYear !== 0 && pYear !== 0) {
-          const yearDiff = Math.abs(itemYear - pYear)
-          // Higher priority for dynasties within 300 years
-          if (yearDiff < 300) {
-            priority = 1.0 + (300 - yearDiff) / 300 // 1.0 to 2.0
+          yearDiff = Math.abs(itemYear - pYear)
+          // Much higher priority for dynasties within 200 years
+          if (yearDiff < 200) {
+            priority = 3.0 + (200 - yearDiff) / 200 * 2.0 // 3.0 to 5.0 for very close
+          } else if (yearDiff < 400) {
+            priority = 1.5 + (400 - yearDiff) / 200 * 1.5 // 1.5 to 3.0 for moderately close
           }
         }
-        placedWithPriority.push({ circle: p, priority })
+        placedWithPriority.push({ circle: p, priority, yearDiff })
       }
-      // Sort by priority (highest first)
-      placedWithPriority.sort((a, b) => b.priority - a.priority)
+      // Sort by priority (highest first), then by year difference
+      placedWithPriority.sort((a, b) => {
+        if (Math.abs(a.priority - b.priority) > 0.1) return b.priority - a.priority
+        return a.yearDiff - b.yearDiff
+      })
     } else {
-      placed.forEach(p => placedWithPriority.push({ circle: p, priority: 1.0 }))
+      placed.forEach(p => placedWithPriority.push({ circle: p, priority: 1.0, yearDiff: Infinity }))
     }
 
     for (const { circle: p, priority } of placedWithPriority) {
       const dist = p.r + item.r + gap
-      const steps = priority > 1.0 ? 32 : 24 // More candidates for high-priority circles
+      // Generate more candidates for high-priority (time-adjacent) circles
+      const steps = priority >= 3.0 ? 48 : priority >= 1.5 ? 36 : 24
       for (let i = 0; i < steps; i++) {
         const t = (2 * Math.PI * i) / steps
         candidates.push({ x: p.x + dist * Math.cos(t), y: p.y + dist * Math.sin(t) })
@@ -218,6 +225,10 @@ function packCircles(
         // Find the most recent dynasty (highest startYear) among placed ones
         let maxYear = -Infinity
         let mostRecentPos = { x: 0, y: 0 }
+        // Also track the closest time-adjacent dynasty
+        let closestYearDiff = Infinity
+        let closestPos = { x: 0, y: 0 }
+        
         for (const p of placed) {
           const pYear = startYearByKey.get(p.id) ?? 0
           if (pYear > maxYear) {
@@ -226,14 +237,31 @@ function packCircles(
           }
           if (pYear === 0 || itemYear === 0) continue // skip unknown years
           const yearDiff = Math.abs(itemYear - pYear)
-          if (yearDiff < 400) { // consider dynasties within 400 years
-            const dist = Math.sqrt((c.x - p.x) ** 2 + (c.y - p.y) ** 2)
-            // Bonus increases as year difference decreases and spatial distance decreases
-            // This encourages time-close dynasties to be spatially close
-            const timeWeight = (400 - yearDiff) / 400 // 0 to 1, higher for closer years
-            const spaceWeight = Math.max(0, 1 - dist / 500) // 0 to 1, higher for closer space
-            timeBonus += timeWeight * spaceWeight * 500 // bonus up to 500
+          const dist = Math.sqrt((c.x - p.x) ** 2 + (c.y - p.y) ** 2)
+          
+          // Track the closest time-adjacent dynasty
+          if (yearDiff < closestYearDiff) {
+            closestYearDiff = yearDiff
+            closestPos = { x: p.x, y: p.y }
           }
+          
+          // Stronger bonus for closer dynasties (within 200 years)
+          if (yearDiff < 200) {
+            const timeWeight = (200 - yearDiff) / 200 // 0 to 1, higher for closer years
+            const spaceWeight = Math.max(0, 1 - dist / 400) // 0 to 1, higher for closer space
+            timeBonus += timeWeight * spaceWeight * 2000 // much stronger bonus (up to 2000)
+          } else if (yearDiff < 400) {
+            const timeWeight = (400 - yearDiff) / 400
+            const spaceWeight = Math.max(0, 1 - dist / 600)
+            timeBonus += timeWeight * spaceWeight * 800 // moderate bonus (up to 800)
+          }
+        }
+        
+        // Extra bonus for being very close to the closest time-adjacent dynasty
+        if (closestYearDiff < 200) {
+          const distToClosest = Math.sqrt((c.x - closestPos.x) ** 2 + (c.y - closestPos.y) ** 2)
+          const closenessWeight = Math.max(0, 1 - distToClosest / 300)
+          timeBonus += closenessWeight * 1000 // additional bonus for being very close
         }
         
         // Chronological bonus: if this dynasty is later than the most recent one,
@@ -251,7 +279,10 @@ function packCircles(
         }
       }
       
-      const score = area * 1e-6 + centerDist * 0.1 - timeBonus - chronologicalBonus // subtract bonuses to prefer better positions
+      // Time bonus should dominate the score for time-adjacent dynasties
+      // Reduce the weight of area and centerDist when we have strong time bonuses
+      const timeWeightFactor = timeBonus > 1000 ? 0.1 : 1.0 // reduce other factors when time is very important
+      const score = area * 1e-6 * timeWeightFactor + centerDist * 0.1 * timeWeightFactor - timeBonus - chronologicalBonus
       if (score < bestScore) {
         bestScore = score
         best = c
